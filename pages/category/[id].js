@@ -1,26 +1,28 @@
 import Header from '../layouts/Header';
-import { getCatalogItemByItemCode } from '../../lib/catalog';
+import { getCategoryById } from '../../lib/category';
+import { getCatelogItemsByMerchandiseCategoryId } from '../../lib/catalog';
 
-export default function Category({ data }) {
+export default function Category({ category, data, categories }) {
   const item = data.data;
 
   return (
     <div>
-      <Header />
+      <Header categories={categories} />
       <div className="container">
+        <h1>{category.data.title.values[0].value}</h1>
         <code>{JSON.stringify(data)}</code>
-        <p>{item.itemId.itemCode}</p>
-        <p>{item.shortDescription.value}</p>
       </div>
     </div>
   )
 }
 
 export async function getServerSideProps(context) {
-  const data = await getCatalogItemsByCategory(context.params.id)
+  const category = await getCategoryById(context.params.id);
+  const data = await getCatelogItemsByMerchandiseCategoryId(context.params.id)
   return {
     props: {
-      data
+      category,
+      data,
     }
   }
 }

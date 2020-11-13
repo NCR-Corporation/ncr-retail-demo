@@ -3,17 +3,16 @@ import { getById, getByReferenceId } from '../../lib/sites';
 import { Button } from 'reactstrap';
 import cookieCutter from 'cookie-cutter';
 
-export default function Site({ site }) {
+export default function Site({ site, categories }) {
 
   const setAsMyStore = () => {
     cookieCutter.set('defaultStoreReferenceId', site.referenceId);
     cookieCutter.set('defaultStoreId', site.id);
-    console.log('site id', site.id);
   }
 
   return (
     <div>
-      <Header />
+      <Header categories={categories} />
       <div className="container">
         {site.statusCode === 404 && <h1>404 Not Found</h1>}
         <code>{JSON.stringify(site)}</code>

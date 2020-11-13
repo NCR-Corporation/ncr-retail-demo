@@ -22,9 +22,6 @@ import {
 
 
 const Header = ({ site, categories }) => {
-  // console.log('the cookies', site);
-  console.log('the cat', categories);
-
   const preventDefault = f => e => {
     e.preventDefault();
     f(e);
@@ -44,7 +41,6 @@ const Header = ({ site, categories }) => {
       query: { query }
     })
   });
-  console.log(categories);
 
   return (
     <div>
@@ -97,19 +93,19 @@ const Header = ({ site, categories }) => {
               <Collapse isOpen={isOpen} navbar>
                 <Nav className="mr-auto" navbar>
                   <NavItem>
-                    <NavLink className="pl-0" href="/components/"><strong>All Categories</strong></NavLink>
+                    <NavLink className="pl-0" href="/catalog"><strong>All Items</strong></NavLink>
                   </NavItem>
                   {categories.length > 0 && categories.map(category => {
                     if (category.children.length > 0) {
                       return (
-                        <UncontrolledDropdown nav inNavbar>
+                        <UncontrolledDropdown nav inNavbar key={category.nodeCode}>
                           <DropdownToggle nav caret>
                             {category.title.value}
                           </DropdownToggle>
                           <DropdownMenu right>
                             {category.children.map(child => (
                               <DropdownItem key={child.nodeCode}>
-                                {child.title.value}
+                                <Link href={`/category/${child.nodeCode}`}>{child.title.value}</Link>
                               </DropdownItem>
                             ))}
                           </DropdownMenu>
@@ -118,7 +114,7 @@ const Header = ({ site, categories }) => {
                     }
                     return (
                       <NavItem key={category.nodeCode}>
-                        <NavLink href="">{category.title.value}</NavLink>
+                        <Link href={`/category/${category.nodeCode}`}><NavLink>{category.title.value}</NavLink></Link>
                       </NavItem>
                     )
                   }

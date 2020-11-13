@@ -1,5 +1,4 @@
 function Categories({ data }) {
-  console.log('the data', data);
   const categories = data.data.pageContent;
   // TODO: Fix if no content
   return (

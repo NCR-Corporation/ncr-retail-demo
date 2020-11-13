@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import { findAllSites } from '../lib/sites';
+import { getSites } from '../lib/sites';
 import Header from './layouts/Header';
 
-export default function Sites({ data }) {
-  console.log('the sites', data.pageContent);
-  const sites = data.pageContent;
+export default function Sites({ data, categories }) {
+  console.log('the sites', data);
+  const sites = data.data.pageContent;
   return (
     <div>
-      <Header />
+      <Header categories={categories} />
       <div className="container">
         <h1>Stores</h1>
         <ul>
@@ -21,7 +21,7 @@ export default function Sites({ data }) {
 }
 
 export async function getServerSideProps(context) {
-  const data = await findAllSites();
+  const data = await getSites();
   return {
     props: {
       data

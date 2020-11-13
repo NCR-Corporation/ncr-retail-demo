@@ -8,7 +8,7 @@ import { getCategoryNodes } from '../../lib/category';
 import { getCatalogItems } from '../../lib/catalog';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
-function Dashboard({ sites, categories, catalog }) {
+function Dashboard({ sites, categoryNodes, catalog }) {
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
@@ -49,7 +49,7 @@ function Dashboard({ sites, categories, catalog }) {
             <Sites data={sites} />
           </TabPane>
           <TabPane tabId="2">
-            <Categories data={categories} />
+            <Categories data={categoryNodes} />
           </TabPane>
           <TabPane tabId="3">
             <Catalog data={catalog} />
@@ -62,12 +62,12 @@ function Dashboard({ sites, categories, catalog }) {
 
 export async function getServerSideProps(context) {
   const sites = await getSites();
-  const categories = await getCategoryNodes();
+  const categoryNodes = await getCategoryNodes();
   const catalog = await getCatalogItems();
   return {
     props: {
       sites,
-      categories,
+      categoryNodes,
       catalog
     }
   }

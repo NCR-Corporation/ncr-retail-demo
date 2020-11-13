@@ -1,16 +1,14 @@
 import Link from 'next/link';
 import Header from './layouts/Header';
-import cookie from 'cookie';
-import { getCatelogItemsByMerchandiseCategoryId } from '../lib/catalog';
+import { getCatalogItems } from '../lib/catalog';
 import ItemCard from './layouts/ItemCard';
 
-export default function Catalog({ data }) {
-  // const catalog = items.pageContent;
+export default function Catalog({ data, categories }) {
   const items = data.data.pageContent;
   return (
     <div>
-      <Header />
-      <div className="container">
+      <Header categories={categories} />
+      <div className="container mt-2">
         <div className="row">
           {items.length > 0 && Object.keys(items).map(key => (
             <div className="col-md-3 mb-4" key={key}>
@@ -25,13 +23,7 @@ export default function Catalog({ data }) {
 }
 
 export async function getServerSideProps(context) {
-
-  // const cookies = cookie.parse(context.req.headers.cookie);
-  let defaultStore = '1-003';
-  let defaultStoreId = '5b0c5bec0a1b46ab86182cf3e612dd5b';
-  const data = await getCatelogItemsByMerchandiseCategoryId(defaultStore, defaultStoreId);
-  // console.log('the items', items);
-
+  let data = await getCatalogItems();
 
   return {
     props: {
