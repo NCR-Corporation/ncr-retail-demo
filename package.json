@@ -19,6 +19,7 @@
     "next": "10.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-geolocated": "^3.1.0",
     "reactstrap": "^8.7.0",
     "yup": "^0.29.3"
   }

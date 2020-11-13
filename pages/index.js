@@ -1,10 +1,10 @@
 import Link from 'next/link';
+import { useEffect } from 'react';
 import Header from './layouts/Header';
-import cookie from 'cookie';
 import { Button } from 'reactstrap';
 import { getById } from '../lib/sites';
 
-function Home({ context, data, categories }) {
+function Home({ data, categories }) {
   return (
     <div>
       <Header site={data} categories={categories} />
@@ -20,21 +20,10 @@ function Home({ context, data, categories }) {
 }
 
 export async function getServerSideProps(context) {
-  console.log(context.res.socket.remoteAddress);
-  let cookies;
-  let data = null;
-  let defaultStoreId = '5b0c5bec0a1b46ab86182cf3e612dd5b';
-  // if (context.req && context.req.headers && context.req.headers.cookie) {
-  //   console.log(context.req.headers.cookie);
-  //   // cookies = cookie.parse(context.req.headers.cookie);
-  //   // console.log('cookies', cookies);
-  data = await getById(defaultStoreId);
-  // }
-  // console.log(data);
+  // data = await getById(defaultStoreId);
   return {
     props: {
-      // cookies,
-      data,
+      // data,
     }
   }
 }

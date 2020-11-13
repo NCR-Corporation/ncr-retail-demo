@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
+import FindStoreModal from './FindStoreModal';
+import { UserStoreContext } from '../../context/AppContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser, faCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -9,7 +11,6 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
@@ -17,15 +18,11 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavbarText
 } from 'reactstrap';
 
 
 const Header = ({ site, categories }) => {
-  const preventDefault = f => e => {
-    e.preventDefault();
-    f(e);
-  }
+  const { userStore, setUserStore } = useContext(UserStoreContext);
 
   const router = useRouter();
   const [query, setQuery] = useState('');
@@ -34,6 +31,10 @@ const Header = ({ site, categories }) => {
   const toggle = () => setIsOpen(!isOpen);
 
   const handleParam = setValue => e => setValue(e.target.value);
+  const preventDefault = f => e => {
+    e.preventDefault();
+    f(e);
+  }
 
   const handleSubmit = preventDefault(() => {
     router.push({
@@ -47,6 +48,7 @@ const Header = ({ site, categories }) => {
       <Head>
         <title>A Simple Sample App</title>
       </Head>
+      {Object.keys(userStore).length === 0 && userStore.constructor === Object && <FindStoreModal modalProp={true} />}
       <header className="section-header">
         <section className="header-top-light border-bottom">
           <div className="container">
@@ -63,9 +65,11 @@ const Header = ({ site, categories }) => {
           <div className="container">
             <div className="row align-items-center">
               <div className="col-md-3 col-lg-3 col-sm-4 col-12">
-                <a href="/">
-                  <img className="logo" src="/images/banner-ncr-logo.png"></img>
-                </a>
+                <Link href="/">
+                  <a>
+                    <img className="logo" src="/images/banner-ncr-logo.png"></img>
+                  </a>
+                </Link>
               </div>
               <div className="col-md-4 col-lg-5 col-sm-8 col-12">
                 <form onSubmit={handleSubmit} className="search">
@@ -91,9 +95,11 @@ const Header = ({ site, categories }) => {
             <Navbar expand="md" className="p-0">
               <NavbarToggler onClick={toggle} />
               <Collapse isOpen={isOpen} navbar>
-                <Nav className="mr-auto" navbar>
+                <Nav className="" navbar>
                   <NavItem>
-                    <NavLink className="pl-0" href="/catalog"><strong>All Items</strong></NavLink>
+                    <Link href="/catalog">
+                      <a className="nav-link pl-0"><strong>All Items</strong></a>
+                    </Link>
                   </NavItem>
                   {categories.length > 0 && categories.map(category => {
                     if (category.children.length > 0) {
@@ -104,9 +110,11 @@ const Header = ({ site, categories }) => {
                           </DropdownToggle>
                           <DropdownMenu right>
                             {category.children.map(child => (
-                              <DropdownItem key={child.nodeCode}>
-                                <Link href={`/category/${child.nodeCode}`}>{child.title.value}</Link>
-                              </DropdownItem>
+                              <Link key={child.nodeCode} href={`/category/${child.nodeCode}`}>
+                                <DropdownItem>
+                                  {child.title.value}
+                                </DropdownItem>
+                              </Link>
                             ))}
                           </DropdownMenu>
                         </UncontrolledDropdown>
@@ -119,6 +127,23 @@ const Header = ({ site, categories }) => {
                     )
                   }
                   )}
+                </Nav>
+              </Collapse>
+            </Navbar>
+            <Navbar expand="md" className="p-0">
+              <NavbarToggler onClick={toggle} />
+              <Collapse isOpen={isOpen} navbar>
+                <Nav className="ml-auto" navbar>
+                  <UncontrolledDropdown nav inNavbar >
+                    <DropdownToggle nav caret suppressHydrationWarning>
+                      {userStore != undefined ? userStore.siteName : 'Change Store'}
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      <DropdownItem onClick={() => setUserStore(null)}>
+                        Change Store
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
                 </Nav>
               </Collapse>
             </Navbar>

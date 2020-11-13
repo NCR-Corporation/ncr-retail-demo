@@ -5,6 +5,8 @@
 }
 
 .bg {
+  height: 100%;
+  padding-bottom:20px;
   background-color: #f8f9fa;
 }
 
@@ -22,4 +24,8 @@
 
 .nav-tabs .nav-link {
   cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer
 }
