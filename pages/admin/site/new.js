@@ -47,6 +47,7 @@ const New = () => {
   const handleSumbit = async values => {
     let data = {};
     for (const key in values) {
+      // Remove empty fields.
       if (values[key] !== "") {
         data[key] = values[key];
       }
@@ -60,6 +61,7 @@ const New = () => {
     };
     delete data['latitude'];
     delete data['longitude'];
+
 
     fetch('/api/sites', { method: 'POST', body: JSON.stringify(data) })
       .then(response => response.json())

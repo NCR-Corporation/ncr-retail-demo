@@ -7,3 +7,19 @@
 .bg {
   background-color: #f8f9fa;
 }
+
+.header-top-light .nav-link {
+  color: #969696;
+}
+
+.logo {
+  max-height: 48px;
+}
+
+.navbar-main .nav-link {
+  color:#1c1c1c;
+}
+
+.nav-tabs .nav-link {
+  cursor: pointer;
+}

@@ -3,12 +3,12 @@ import Header from './layouts/Header';
 import cookie from 'cookie';
 import { Button } from 'reactstrap';
 import { getById } from '../lib/sites';
+import { getAllCategoryNodes } from '../lib/category';
 
-function Home({ data }) {
-  console.log('the data', data);
+function Home({ data, categories }) {
   return (
     <div>
-      <Header site={data} />
+      <Header site={data} categories={categories} />
       <main className="container">
         <h1>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
@@ -31,10 +31,12 @@ export async function getServerSideProps(context) {
   data = await getById(defaultStoreId);
   // }
   // console.log(data);
+  const categories = await getAllCategoryNodes();
   return {
     props: {
       // cookies,
-      data
+      data,
+      categories
     }
   }
 }

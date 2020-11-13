@@ -1,50 +1,76 @@
-import Link from 'next/link';
+import React, { useState } from 'react';
 import Header from './layouts/Header';
 import Sites from './layouts/Sites';
-import { findAllSites } from '../../lib/sites';
+import Categories from './layouts/Categories';
+import Catalog from './layouts/Catalog';
+import { getSites } from '../../lib/sites';
+import { getCategoryNodes } from '../../lib/category';
+import { getCatalogItems } from '../../lib/catalog';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
-function Dashboard({ sites }) {
+function Dashboard({ sites, categories, catalog }) {
+  const [activeTab, setActiveTab] = useState('1');
+
+  const toggle = tab => {
+    if (activeTab !== tab) setActiveTab(tab);
+  }
   return (
     <div>
       <Header />
-      <main className="container">
-        <div className="row mt-2">
-          <div className="col-md-4">
-            <div className="card">
-              <div className="card-body">
-                <Link href="/admin/site/new" className="btn btn-primary">Create New Store</Link>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="card">
-              <div className="card-body">
-                <Link href="/admin/category/new" className="btn btn-primary">Create New Category</Link>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="card">
-              <div className="card-body">
-                <Link href="/admin/item/new" className="btn btn-primary">Create New Item</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Sites data={sites} />
+      <main className="container mt-2">
+        <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={activeTab === '1' && 'active'}
+              onClick={() => { toggle('1'); }}
+            >
+              Sites
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={activeTab === '2' && 'active'}
+              onClick={() => { toggle('2'); }}
+            >
+              Categories
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={activeTab === '3' && 'active'}
+              onClick={() => { toggle('3'); }}
+            >
+              Catalog
+            </NavLink>
+          </NavItem>
+        </Nav>
+        <TabContent activeTab={activeTab}>
+          <TabPane tabId="1">
+            <Sites data={sites} />
+          </TabPane>
+          <TabPane tabId="2">
+            <Categories data={categories} />
+          </TabPane>
+          <TabPane tabId="3">
+            <Catalog data={catalog} />
+          </TabPane>
+        </TabContent>
       </main>
     </div>
   )
 }
 
 export async function getServerSideProps(context) {
-  const sites = await findAllSites();
-  console.log('sites', sites);
+  const sites = await getSites();
+  const categories = await getCategoryNodes();
+  const catalog = await getCatalogItems();
   return {
     props: {
-      sites
+      sites,
+      categories,
+      catalog
     }
   }
 }
 
-export default Dashboard 
+export default Dashboard

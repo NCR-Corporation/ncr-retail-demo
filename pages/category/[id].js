@@ -1,7 +1,7 @@
 import Header from '../layouts/Header';
 import { getCatalogItemByItemCode } from '../../lib/catalog';
 
-export default function Item({ data }) {
+export default function Category({ data }) {
   const item = data.data;
 
   return (
@@ -17,11 +17,10 @@ export default function Item({ data }) {
 }
 
 export async function getServerSideProps(context) {
-  const data = await getCatalogItemByItemCode(context.params.id)
+  const data = await getCatalogItemsByCategory(context.params.id)
   return {
     props: {
       data
     }
   }
-
 }

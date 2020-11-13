@@ -3,7 +3,6 @@ function Sites({ data }) {
   const sites = data.data.pageContent;
   return (
     <div className="mt-4">
-      <h2>Sites</h2>
       <ul className="list-group">
         {sites.map((site) => (
           <a key={site.id} href={`/sites/${site.id}`} className="list-group-item list-group-item-action">

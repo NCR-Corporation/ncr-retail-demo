@@ -5,16 +5,25 @@ import Head from 'next/head';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser, faCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import {
-  Button, UncontrolledDropdown,
+  Button,
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Nav
+  NavbarText
 } from 'reactstrap';
 
 
-const Header = ({ site }) => {
+const Header = ({ site, categories }) => {
   // console.log('the cookies', site);
+  console.log('the cat', categories);
 
   const preventDefault = f => e => {
     e.preventDefault();
@@ -23,6 +32,9 @@ const Header = ({ site }) => {
 
   const router = useRouter();
   const [query, setQuery] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
 
   const handleParam = setValue => e => setValue(e.target.value);
 
@@ -32,58 +44,91 @@ const Header = ({ site }) => {
       query: { query }
     })
   });
+  console.log(categories);
 
   return (
     <div>
       <Head>
         <title>A Simple Sample App</title>
       </Head>
-      <section className="border-bottom header">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-2 col-6">
-              <Link href="/">
-                Sample</Link>
-            </div>
-            <div className="col-lg-6 col-12 col-sm-12">
-              <form onSubmit={handleSubmit} className="search">
-                <div className="input-group w-100">
-                  <input type="text" className="form-control" placeholder="Search" name="query" value={query} onChange={handleParam(setQuery)} aria-label="Search" />
-                  <div className="input-group-append">
-                    <Button color="primary" type="submit"><FontAwesomeIcon icon={faSearch} /></Button>
+      <header className="section-header">
+        <section className="header-top-light border-bottom">
+          <div className="container">
+            <nav className="d-flex justify-content-end row">
+              <ul className="nav">
+                <li className="nav-item">
+                  <a href="/admin/dashboard" className="nav-link">Manage</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </section>
+        <section className="header-main border-bottom py-2">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-md-3 col-lg-3 col-sm-4 col-12">
+                <a href="/">
+                  <img className="logo" src="/images/banner-ncr-logo.png"></img>
+                </a>
+              </div>
+              <div className="col-md-4 col-lg-5 col-sm-8 col-12">
+                <form onSubmit={handleSubmit} className="search">
+                  <div className="input-group w-100">
+                    <input type="text" className="form-control" placeholder="Search" name="query" value={query} onChange={handleParam(setQuery)} aria-label="Search" />
+                    <div className="input-group-append">
+                      <Button color="primary" type="submit"><FontAwesomeIcon icon={faSearch} /></Button>
+                    </div>
                   </div>
+                </form>
+              </div>
+              <div className="col-md-5 col-lg-4 col-12 col-sm-12 text-md-right">
+                <div>
+                  <Link href="#"><a className="btn btn-outline-primary">Login</a></Link>
+                  <Link href="#"><a className="btn btn-outline-secondary ml-1">My Cart</a></Link>
                 </div>
-              </form>
-            </div>
-            <div className="col-lg-4 col-sm-6 col-12">
-              <Link href="/admin/dashboard">
-                Admin
-              </Link>
-              <div className="d-flex flex-row-reverse">
-                <Nav>
-                  <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
-                      Your Store
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>
-                        Option 1
-                </DropdownItem>
-                      <DropdownItem>
-                        Option 2
-                </DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem>
-                        Reset
-                </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </Nav>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <nav className="navbar navbar-main navbar-expand-lg border-bottom">
+          <div className="container">
+            <Navbar expand="md" className="p-0">
+              <NavbarToggler onClick={toggle} />
+              <Collapse isOpen={isOpen} navbar>
+                <Nav className="mr-auto" navbar>
+                  <NavItem>
+                    <NavLink className="pl-0" href="/components/"><strong>All Categories</strong></NavLink>
+                  </NavItem>
+                  {categories.length > 0 && categories.map(category => {
+                    if (category.children.length > 0) {
+                      return (
+                        <UncontrolledDropdown nav inNavbar>
+                          <DropdownToggle nav caret>
+                            {category.title.value}
+                          </DropdownToggle>
+                          <DropdownMenu right>
+                            {category.children.map(child => (
+                              <DropdownItem key={child.nodeCode}>
+                                {child.title.value}
+                              </DropdownItem>
+                            ))}
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+                      );
+                    }
+                    return (
+                      <NavItem key={category.nodeCode}>
+                        <NavLink href="">{category.title.value}</NavLink>
+                      </NavItem>
+                    )
+                  }
+                  )}
+                </Nav>
+              </Collapse>
+            </Navbar>
+          </div>
+        </nav>
+      </header>
     </div>
   )
 }

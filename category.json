@@ -1,7 +1,7 @@
 {
   "nodes": [
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "10000",
       "tag": "grocery",
       "departmentNode": true,
@@ -20,7 +20,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "20000",
       "tag": "kitchen",
       "departmentNode": true,
@@ -39,7 +39,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "11000",
       "tag": "product",
       "departmentNode": false,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "12000",
       "tag": "dairy",
       "departmentNode": false,
@@ -83,7 +83,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "13000",
       "tag": "meat-seafood",
       "departmentNode": false,
@@ -105,7 +105,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "14000",
       "tag": "coffee",
       "departmentNode": false,
@@ -127,7 +127,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "15000",
       "tag": "snacks",
       "departmentNode": false,
@@ -149,7 +149,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "11100",
       "tag": "fruit",
       "departmentNode": false,
@@ -171,7 +171,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "11200",
       "tag": "vegetables",
       "departmentNode": false,
@@ -193,7 +193,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "12100",
       "tag": "milk",
       "departmentNode": false,
@@ -215,7 +215,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "12200",
       "tag": "cheese",
       "departmentNode": false,
@@ -237,7 +237,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "12300",
       "tag": "yogurt",
       "departmentNode": false,
@@ -259,7 +259,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "12400",
       "tag": "eggs",
       "departmentNode": false,
@@ -281,7 +281,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "13100",
       "tag": "chicken",
       "departmentNode": false,
@@ -303,7 +303,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "13200",
       "tag": "turkey",
       "departmentNode": false,
@@ -325,7 +325,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "13300",
       "tag": "beef",
       "departmentNode": false,
@@ -347,7 +347,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "13400",
       "tag": "pork",
       "departmentNode": false,
@@ -369,7 +369,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "13500",
       "tag": "fish-seafood",
       "departmentNode": false,
@@ -391,7 +391,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "14100",
       "tag": "ground-coffee",
       "departmentNode": false,
@@ -413,7 +413,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "14200",
       "tag": "whole-bean-coffee",
       "departmentNode": false,
@@ -435,7 +435,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "15100",
       "tag": "chips",
       "departmentNode": false,
@@ -457,7 +457,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "15200",
       "tag": "cookies",
       "departmentNode": false,
@@ -479,7 +479,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "15300",
       "tag": "nuts",
       "departmentNode": false,
@@ -501,7 +501,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "21000",
       "tag": "tableware",
       "departmentNode": false,
@@ -523,7 +523,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "22000",
       "tag": "bar-wine",
       "departmentNode": false,
@@ -545,7 +545,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "21100",
       "tag": "plates",
       "departmentNode": false,
@@ -567,7 +567,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "21200",
       "tag": "bowls",
       "departmentNode": false,
@@ -589,7 +589,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "21300",
       "tag": "utensils",
       "departmentNode": false,
@@ -611,7 +611,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "22100",
       "tag": "beer-glasses",
       "departmentNode": false,
@@ -633,7 +633,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "22200",
       "tag": "wine-glasses",
       "departmentNode": false,
@@ -655,7 +655,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "22210",
       "tag": "white-wine-glasses",
       "departmentNode": false,
@@ -677,7 +677,7 @@
       }
     },
     {
-      "version": 1,
+      "version": 10,
       "nodeCode": "22220",
       "tag": "red-wine-glasses",
       "departmentNode": false,

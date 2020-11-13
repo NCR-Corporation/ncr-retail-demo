@@ -17,7 +17,7 @@ const New = ({ data }) => {
     tag: '',
     departmentNode: false,
     departmentSale: false,
-    status: 'ACTIVE',
+    status: '',
     parentCategory: ''
   }
 
