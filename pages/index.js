@@ -1,31 +1,38 @@
 import Link from 'next/link';
-import { useEffect } from 'react';
 import Header from './layouts/Header';
-import { Button } from 'reactstrap';
-import { getById } from '../lib/sites';
+import {
+  Jumbotron, Button, Row, Col,
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle
+} from 'reactstrap';
 
 function Home({ data, categories }) {
   return (
     <div>
       <Header site={data} categories={categories} />
-      <main className="container">
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <Link href="/sites"><Button color="primary">View All Stores</Button></Link>
-        <Link href="/catalog"><Button color="secondary">View Inventory/Search</Button></Link>
+      <main className="container mt-2">
+        <Jumbotron>
+          <h1 className="display-3">Latest Deals</h1>
+        </Jumbotron>
+        <Row>
+          {Array(3).fill(0).map((key, value) => (
+            <Col sm="4">
+              <Card>
+                <CardImg top width="100%" src="https://via.placeholder.com/250" alt="Card image cap" />
+                <CardBody>
+                  <Link href='#'>
+                    <a className="h5 card-title">Lorem Ipsum</a>
+                  </Link>
+                  <CardSubtitle tag="h6" className="mb-2 text-muted">$10.99</CardSubtitle>
+                </CardBody>
+              </Card>
+            </Col>
+
+          ))}
+        </Row>
       </main>
     </div>
   )
-}
-
-export async function getServerSideProps(context) {
-  // data = await getById(defaultStoreId);
-  return {
-    props: {
-      // data,
-    }
-  }
 }
 
 

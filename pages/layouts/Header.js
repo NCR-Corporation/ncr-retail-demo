@@ -97,9 +97,7 @@ const Header = ({ site, categories }) => {
               <Collapse isOpen={isOpen} navbar>
                 <Nav className="" navbar>
                   <NavItem>
-                    <Link href="/catalog">
-                      <a className="nav-link pl-0"><strong>All Items</strong></a>
-                    </Link>
+                    <a href="/catalog" className="nav-link pl-0"><strong>All Items</strong></a>
                   </NavItem>
                   {categories.length > 0 && categories.map(category => {
                     if (category.children.length > 0) {

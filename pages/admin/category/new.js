@@ -1,15 +1,12 @@
+import { useState } from 'react';
 import Header from '../layouts/Header';
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import CategorySelect from '../layouts/CategorySelect';
 import * as Yup from "yup";
-import { getCategoryNodes } from '../../../lib/category';
 
-const New = ({ data }) => {
-  let categoriesData = data.data.pageContent;
-  let categories = [];
-  categoriesData.forEach(category => {
-    categories.push({ id: category.nodeCode, title: category.title.value });
-  });
-  console.log(categories);
+const New = ({ categories }) => {
+
+  const [parentCategory, setParentCategory] = useState();
 
   const initialValues = {
     title: '',
@@ -17,7 +14,7 @@ const New = ({ data }) => {
     tag: '',
     departmentNode: false,
     departmentSale: false,
-    status: '',
+    status: 'ACTIVE',
     parentCategory: ''
   }
 
@@ -33,6 +30,7 @@ const New = ({ data }) => {
   })
 
   const handleSubmit = async values => {
+    values["parentCategory"] = parentCategory;
     console.log(values);
   }
 
@@ -126,14 +124,14 @@ const New = ({ data }) => {
                       <div className="card-body">
                         <div className="form-row">
                           <div className="form-group">
-                            <label htmlFor="status">Status</label>
-                            <Field as="select" name="status" className={`${errors.status && touched.status} ? "is-invalid" : null} form-control`}>
-                              <option value="ACTIVE" label="Active" />
-                              <option value="INACTIVE" label="Inactive" />
-                              <option value="DISCONTINUED" label="Discontinue" />
-                              <option value="SEASONAL" label="Seasonal" />
-                              <option value="TO_DISCONTINUE" label="To Discontinue" />
-                              <option value="UNAUTHORIZED" label="Unauthorized" />
+                            <label htmlFor="status" className="h5">Status</label>
+                            <Field as="select" name="status" className={`${errors.status && touched.status ? "is-invalid" : null} form-control`}>
+                              <option value="ACTIVE" label="ACTIVE" />
+                              <option value="INACTIVE" label="INACTIVE" />
+                              <option value="DISCONTINUED" label="DISCONTINUED" />
+                              <option value="SEASONAL" label="SEASONAL" />
+                              <option value="TO_DISCONTINUE" label="TO_DISCONTINUE" />
+                              <option value="UNAUTHORIZED" label="UNAUTHORIZED" />
                             </Field>
                             <ErrorMessage
                               name="status"
@@ -142,25 +140,7 @@ const New = ({ data }) => {
                             />
                           </div>
                         </div>
-                        <div className="form-row">
-                          <div className="form-group">
-                            <label htmlFor="parentCategory">Parent Category</label>
-                            <Field as="select" name="parentCategory" className={`${errors.parentCategory && touched.parentCategory} ? "is-invalid" : null} form-control`}>
-                              <option>--</option>
-                              {categories.map((category) => (
-                                <option key={category.id} value={category.id} label={category.title} />
-                              ))}
-                            </Field>
-                            <ErrorMessage
-                              name="parentCategory"
-                              component="div"
-                              className="invalid-feedback"
-                            />
-                            <small id="parentCategory" className="form-text text-muted">
-                              Select the deepest category as the parent.
-                    </small>
-                          </div>
-                        </div>
+                        <CategorySelect setParentCategory={setParentCategory} categories={categories} />
                         <div className="form-group">
                           <button type="submit" className={`${!(dirty && isValid) ? "disabled" : ""} btn btn-primary`}>Create</button>
                         </div>
@@ -176,15 +156,5 @@ const New = ({ data }) => {
     </Formik >
   )
 }
-
-export async function getServerSideProps(context) {
-  const data = await getCategoryNodes();
-  return {
-    props: {
-      data
-    }
-  }
-}
-
 
 export default New;

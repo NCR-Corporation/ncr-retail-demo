@@ -26,10 +26,10 @@ const Header = ({ }) => {
               </div>
               <div className="col text-md-right">
                 <div>
-                  <Link href="/admin/site/new"><a className="btn btn-primary ml-1">New Site</a></Link>
-                  <Link href="/admin/category/new"><a className="btn btn-primary ml-1">New Category</a></Link>
-                  <Link href="/admin/item/new"><a className="btn btn-primary ml-1">New Item</a></Link>
-                  <Link href="#"><a className="btn btn-outline-primary ml-1">Logout</a></Link>
+                  <a href="/admin/site/new" className="btn btn-primary ml-1">New Site</a>
+                  <a href="/admin/category/new" className="btn btn-primary ml-1">New Category</a>
+                  <a href="/admin/item/new" className="btn btn-primary ml-1">New Item</a>
+                  <a href="#" className="btn btn-outline-primary ml-1">Logout</a>
                 </div>
               </div>
             </div>

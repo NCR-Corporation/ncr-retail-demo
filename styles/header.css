@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Rubik";
+  src: url('./fonts/Rubik-VariableFont_wght.ttf') format('truetype');
+}
+
+body {
+  font-family: "Rubik", Arial, "Helvetica Neue", "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+}
+
 .header {
   background-color: #fff;
   padding-top: 1rem;
@@ -28,4 +37,8 @@
 
 .pointer {
   cursor: pointer
+}
+
+label {
+  margin-bottom: 0.3rem;
 }

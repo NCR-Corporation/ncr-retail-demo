@@ -1,19 +1,19 @@
-
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from '../layouts/Header';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import CategorySelect from './CategorySelect';
+import { Row, Col, Card, CardBody, CardTitle, Input, FormGroup, Label } from 'reactstrap';
+import DatePicker from './DatePicker';
+import "react-datepicker/dist/react-datepicker.css";
 
-const CatalogForm = ({ item, categoriesData }) => {
-  console.log('the item', item);
+const CatalogForm = ({ item, categories }) => {
   const router = useRouter();
 
-  let categories = [];
-  if (categoriesData.data) {
-    categoriesData.data.pageContent.forEach(category => {
-      categories.push({ id: category.nodeCode, title: category.title.value });
-    });
-  }
+  const [parentCategory, setParentCategory] = useState();
+
+
 
   const initialValues = {
     itemId: '',
@@ -31,7 +31,8 @@ const CatalogForm = ({ item, categoriesData }) => {
     itemId: Yup.string().required('Item id is required'),
     shortDescription: Yup.string().required('Short description is required'),
     longDescription: Yup.string(),
-    merchandiseCategory: Yup.string(),
+    // Need to update this required check to handle hidden field on change
+    merchandiseCategory: Yup.string().required(),
     status: Yup.mixed().required().oneOf(["INACTIVE", "ACTIVE", "DISCONTINUED", "SEASONAL", "TO_DISCONTINUE", "UNAUTHORIZED"]),
     departmentId: Yup.string(),
     nonMerchandise: Yup.boolean()
@@ -69,127 +70,222 @@ const CatalogForm = ({ item, categoriesData }) => {
     };
 
     data['version'] = 2;
+    data['merchandiseCategory'] = { "nodeId": parentCategory };
     console.log(data);
     let body = { "items": [data] };
 
-    fetch('/api/items', { method: 'POST', body: JSON.stringify(body) })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status == 204) {
-          router.push('/admin/dashboard')
-        }
-      });
+    // fetch('/api/items', { method: 'POST', body: JSON.stringify(body) })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     if (data.status == 204) {
+    //       router.push('/admin/dashboard')
+    //     }
+    //   });
 
   }
 
   return (
     <Formik initialValues={initialValues} validationSchema={createItemSchema} onSubmit={handleSubmit}>
       {(formik) => {
-        const { errors, touched, isValid, dirty } = formik;
+        const { errors, touched, isValid, dirty, setFieldTouched, setFieldValue } = formik;
+        useEffect(() => {
+          initialValues.merchandiseCategory = parentCategory;
+          setFieldValue('merchandiseCategory', parentCategory);
+          console.log(initialValues);
+          setFieldTouched('merchandiseCategory', true)
+        }, [parentCategory])
+        console.log(errors, touched);
         return (
           <div className="bg pb-4">
             <Header />
-            <main className="container">
+            <main className="container pt-4">
               <Form>
-                <div className="form-group">
-                  <label htmlFor="itemId">Item Id</label>
-                  <Field name="itemId" id="itemId" className={`${errors.itemId && touched.itemId ? "is-invalid" : null} form-control`} />
-                  <ErrorMessage
-                    name="itemId"
-                    component="div"
-                    className="invalid-feedback"
-                  />
-                  <small id="itemId" className="form-text text-muted">
-                    Will be used as the referenceId also.
-                  </small>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="shortDescription">Short Description (Name)</label>
-                  <Field name="shortDescription" id="shortDescription" className={`${errors.shortDescription && touched.shortDescription ? "is-invalid" : null} form-control`} />
-                  <ErrorMessage
-                    name="shortDescription"
-                    component="div"
-                    className="invalid-feedback"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="longDescription">Long Description</label>
-                  <Field as="textarea" rows="2" name="longDescription" id="longDescription" className={`${errors.longDescription && touched.longDescription ? "is-invalid" : null} form-control`} />
-                  <ErrorMessage
-                    name="longDescription"
-                    component="div"
-                    className="invalid-feedback"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="merchandiseCategory">Merchandise Category</label>
-                  <Field as="select" name="merchandiseCategory" className={`${errors.merchandiseCategory && touched.merchandiseCategory} ? "is-invalid" : null} form-control`}>
-                    <option>--</option>
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.id} label={category.title} />
-                    ))}
-                  </Field>
-                  <ErrorMessage
-                    name="parentCategory"
-                    component="div"
-                    className="invalid-feedback"
-                  />
-                  <small id="parentCategory" className="form-text text-muted">
-                    Select the deepest category as the parent.
-                  </small>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="status">Status</label>
-                  <Field as="select" name="status" className={`${errors.status && touched.status} ? "is-invalid" : null} form-control`}>
-                    <option>--</option>
-                    <option value="ACTIVE" label="Active" />
-                    <option value="INACTIVE" label="Inactive" />
-                    <option value="DISCONTINUED" label="Discontinue" />
-                    <option value="SEASONAL" label="Seasonal" />
-                    <option value="TO_DISCONTINUE" label="To Discontinue" />
-                    <option value="UNAUTHORIZED" label="Unauthorized" />
-                  </Field>
-                  <ErrorMessage
-                    name="status"
-                    component="div"
-                    className="invalid-feedback"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="packageIdentifier">Package Identifier</label>
-                  <input type="text" className="form-control" id="packageIdentifier" placeholder="TBD" disabled />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="alternateCategories">Alternate Categories</label>
-                  <input type="text" className="form-control" id="alternateCategories" placeholder="TBD" disabled />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="departmentId">Department Id</label>
-                  <input type="text" className="form-control" id="departmentId" placeholder="TBD" disabled required />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="nonMerchandise">nonMerchandise</label>
-                  <input type="text" className="form-control" id="nonMerchandise" placeholder="TBD" disabled required />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="familyCode">familyCode</label>
-                  <input type="text" className="form-control" id="familyCode" placeholder="TBD" disabled />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="externalIdentifiers">externalIdentifiers</label>
-                  <input type="text" className="form-control" id="externalIdentifiers" placeholder="TBD" disabled />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="dynamicAttributes">dynamicAttributes</label>
-                  <input type="text" className="form-control" id="dynamicAttributes" placeholder="TBD" disabled />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="posNumber">posNumber</label>
-                  <input type="text" className="form-control" id="posNumber" placeholder="TBD" disabled />
-                </div>
-                <div className="form-group">
-                  <button type="submit" className={`${!(dirty && isValid) ? "disabled" : ""} btn btn-primary`}>Create</button>
-                </div>
+                <Row>
+                  <Col>
+                    <h4 className="mb-4">Add Item</h4>
+                  </Col>
+                  <Col>
+                    <div className="form-group float-right">
+                      <button type="submit" className={`${!(dirty && isValid) ? "disabled" : ""} btn btn-primary`}>+ Create New Item</button>
+                    </div>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col md='8'>
+                    <Card className="mb-3">
+                      <CardBody>
+                        <div className="form-group">
+                          <label htmlFor="shortDescription">Title*</label>
+                          <Field name="shortDescription" id="shortDescription" placeholder='Item Name' className={`${errors.shortDescription && touched.shortDescription ? "is-invalid" : null} form-control`} />
+                          <ErrorMessage
+                            name="shortDescription"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="longDescription">Long Description</label>
+                          <Field as="textarea" rows="4" name="longDescription" id="longDescription" className={`${errors.longDescription && touched.longDescription ? "is-invalid" : null} form-control`} />
+                          <ErrorMessage
+                            name="longDescription"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                      </CardBody>
+                    </Card>
+                    <Card className="mb-3">
+                      <CardBody>
+                        <div className="form-group">
+                          <label htmlFor="imageUrl">Image Url</label>
+                          <Field name="imageUrl" id="imageUrl" placeholder='https://...' className={`${errors.imageUrl && touched.imageUrl ? "is-invalid" : null} form-control`} />
+                          <ErrorMessage
+                            name="imageUrl"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </div>
+
+                      </CardBody>
+                    </Card>
+                    <Card className="mb-3">
+                      <CardBody>
+                        <div className="form-row">
+                          <div className="form-group col-md-6">
+                            <label htmlFor="itemId">Item Id*</label>
+                            <Field name="itemId" id="itemId" className={`${errors.itemId && touched.itemId ? "is-invalid" : null} form-control`} />
+                            <ErrorMessage
+                              name="itemId"
+                              component="div"
+                              className="invalid-feedback"
+                            />
+                          </div>
+                          <div className="form-group col-md-6">
+                            <div className="form-group">
+                              <label htmlFor="referenceId">referenceId</label>
+                              <input type="text" className="form-control" id="referenceId" placeholder="TBD" disabled />
+                            </div>
+                          </div>
+
+                        </div>
+                        <div className="form-row">
+                          <div className="form-group col-md-6">
+                            <label htmlFor="manufacturerCode">manufacturerCode</label>
+                            <input type="text" className="form-control" id="manufacturerCode" placeholder="TBD" disabled />
+                          </div>
+                          <div className="form-group col-md-6">
+                            <div className="form-group">
+                              <label htmlFor="posNumber">posNumber</label>
+                              <input type="text" className="form-control" id="posNumber" placeholder="TBD" disabled />
+                            </div>
+                          </div>
+
+                        </div>
+
+
+                        <div className="form-group">
+                          <label htmlFor="packageIdentifier">Package Identifier</label>
+                          <input type="text" className="form-control" id="packageIdentifier" placeholder="TBD" disabled />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="externalIdentifiers">externalIdentifiers</label>
+                          <input type="text" className="form-control" id="externalIdentifiers" placeholder="TBD" disabled />
+                        </div>
+
+                      </CardBody>
+                    </Card>
+                    <Card className="mb-3">
+                      <CardBody>
+                        <div className="form-row">
+                          <div className="form-group col-md-4">
+                            <label htmlFor="priceId">Price ID</label>
+                            <Field name="priceId" id="priceId" className={`${errors.referenceId && touched.referenceId ? "is-invalid" : null} form-control`} />
+                          </div>
+                          <div className="form-group col-md-4">
+                            <label htmlFor="price">Price</label>
+                            <Field name="price" id="price" className={`${errors.referenceId && touched.referenceId ? "is-invalid" : null} form-control`} />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="currency">Currency</label>
+                            <Field as="select" name="currency" className={`${errors.currency && touched.currency ? "is-invalid" : null} form-control`}>
+                              <option value="USD">USD</option>
+                            </Field>
+                          </div>
+                        </div>
+                        <div className="form-row">
+                          <div className="form-group col-md-4">
+                            <label htmlFor="effectiveDate">Effective Date</label>
+                            <DatePicker name="effectiveDate" />
+                          </div>
+                        </div>
+                      </CardBody>
+                    </Card>
+                    <Card>
+                      <CardBody>
+                        <div className="form-group">
+                          <label htmlFor="dynamicAttributes">dynamicAttributes</label>
+                          <input type="text" className="form-control" id="dynamicAttributes" placeholder="TBD" disabled />
+                        </div>
+
+                      </CardBody>
+                    </Card>
+                  </Col>
+                  <Col md='4'>
+                    <Card className="mb-3">
+                      <CardBody>
+
+                        <div className="form-group">
+                          <label htmlFor="status">Status*</label>
+                          <Field as="select" name="status" className={`${errors.status && touched.status ? "is-invalid" : null} form-control`}>
+                            <option>--</option>
+                            <option value="ACTIVE" label="Active" />
+                            <option value="INACTIVE" label="Inactive" />
+                            <option value="DISCONTINUED" label="Discontinue" />
+                            <option value="SEASONAL" label="Seasonal" />
+                            <option value="TO_DISCONTINUE" label="To Discontinue" />
+                            <option value="UNAUTHORIZED" label="Unauthorized" />
+                          </Field>
+                          <ErrorMessage
+                            name="status"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="nonMerchandise">nonMerchandise</label>
+                          <input type="text" className="form-control" id="nonMerchandise" placeholder="TBD" disabled required />
+                        </div>
+                      </CardBody>
+                    </Card>
+                    <Card className="mb-3">
+                      <CardBody>
+                        <Field name="merchandiseCategory" id="merchandiseCategory" className="d-none" value={parentCategory || ''} />
+                        <CategorySelect setParentCategory={setParentCategory} categories={categories} />
+                        <div className="form-group">
+                          <label htmlFor="alternateCategories">Alternate Categories</label>
+                          <input type="text" className="form-control" id="alternateCategories" placeholder="TBD" disabled />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="departmentId">Department Id</label>
+                          <input type="text" className="form-control" id="departmentId" placeholder="TBD" disabled required />
+                        </div>
+
+                        <div className="form-group">
+                          <label htmlFor="familyCode">familyCode</label>
+                          <input type="text" className="form-control" id="familyCode" placeholder="TBD" disabled />
+                        </div>
+                        {/* <FormGroup check>
+                          <Label check>
+                            <Input type="checkbox" />{' '}
+                            Apply to All Stores
+                          </Label>
+                        </FormGroup> */}
+
+                      </CardBody>
+                    </Card>
+                  </Col>
+                </Row>
               </Form>
             </main>
           </div >
