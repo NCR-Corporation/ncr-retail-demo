@@ -1,0 +1,19 @@
+{
+  "name": "ncr-hmac",
+  "version": "0.0.3",
+  "description": "Implementation of Hash-based Message Authentication Code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "HMAC",
+    "Authentication"
+  ],
+  "author": "Kevin Guebert",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.0.0"
+  },
+  "devDependencies": {}
+}

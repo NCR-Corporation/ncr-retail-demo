@@ -15,7 +15,7 @@
     "cookie": "^0.4.1",
     "cookie-cutter": "^0.2.0",
     "formik": "^2.2.4",
-    "ncr-hmac": "file:../ncr-hmac",
+    "ncr-hmac": "file:./ncr-hmac",
     "next": "10.0.0",
     "react": "17.0.1",
     "react-bootstrap-table-next": "^4.0.3",
