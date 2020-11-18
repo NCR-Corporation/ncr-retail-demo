@@ -10,8 +10,14 @@ export default async function handler(req, res) {
     itemsObject[item.itemId.itemCode] = item;
   });
   const prices = await getCatalogItemPricesByItemCodes(req.query.id, itemCodes)
+  console.log('prices', prices);
   prices.data.itemPrices.forEach((itemPrice) => {
     itemsObject[itemPrice.priceId.itemCode]['price'] = itemPrice;
+  })
+
+  const attributes = await getCatalogItemAttributesByItemCodes(req.query.id, itemCodes)
+  attributes.data.itemPrices.forEach((itemPrice) => {
+    itemsObject[itemPrice.priceId.itemCode]['attributes'] = itemPrice;
   })
 
   res.json(itemsObject);

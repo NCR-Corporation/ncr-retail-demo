@@ -2,9 +2,13 @@ import React from "react";
 import { useField, useFormikContext } from "formik";
 import DatePicker from "react-datepicker";
 
+
+
 export const DatePickerField = ({ ...props }) => {
   const { setFieldValue } = useFormikContext();
   const [field] = useField(props);
+
+
   return (
     <DatePicker
       {...field}
@@ -13,6 +17,7 @@ export const DatePickerField = ({ ...props }) => {
       onChange={val => {
         setFieldValue(field.name, val.toISOString());
       }}
+      className="form-control"
     />
   );
 };

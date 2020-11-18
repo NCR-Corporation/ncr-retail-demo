@@ -23,7 +23,11 @@ const CatalogForm = ({ item, categories }) => {
     status: '',
     departmentId: 'NA',
     nonMerchandise: false,
-
+    price: '',
+    currency: "USD",
+    effectiveDate: '',
+    endDate: '',
+    imageUrl: ''
   }
 
   // TODO: Add all validation.
@@ -35,7 +39,12 @@ const CatalogForm = ({ item, categories }) => {
     merchandiseCategory: Yup.string().required(),
     status: Yup.mixed().required().oneOf(["INACTIVE", "ACTIVE", "DISCONTINUED", "SEASONAL", "TO_DISCONTINUE", "UNAUTHORIZED"]),
     departmentId: Yup.string(),
-    nonMerchandise: Yup.boolean()
+    nonMerchandise: Yup.boolean(),
+    price: Yup.number().test(
+      'is-decimal',
+      'Input Valid Price',
+      value => (value + "").match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/),
+    )
   })
 
   const handleSubmit = async values => {
@@ -72,15 +81,16 @@ const CatalogForm = ({ item, categories }) => {
     data['version'] = 2;
     data['merchandiseCategory'] = { "nodeId": parentCategory };
     console.log(data);
-    let body = { "items": [data] };
+    // let body = { "items": [data] };
 
-    // fetch('/api/items', { method: 'POST', body: JSON.stringify(body) })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     if (data.status == 204) {
-    //       router.push('/admin/dashboard')
-    //     }
-    //   });
+    fetch('/api/items', { method: 'POST', body: JSON.stringify(data) })
+      .then(response => response.json())
+      .then(data => {
+        console.log('teh data', data);
+        // if (data.status == 204) {
+        //   router.push('/admin/dashboard')
+        // }
+      });
 
   }
 
@@ -198,13 +208,18 @@ const CatalogForm = ({ item, categories }) => {
                     <Card className="mb-3">
                       <CardBody>
                         <div className="form-row">
-                          <div className="form-group col-md-4">
+                          {/* <div className="form-group col-md-4">
                             <label htmlFor="priceId">Price ID</label>
                             <Field name="priceId" id="priceId" className={`${errors.referenceId && touched.referenceId ? "is-invalid" : null} form-control`} />
-                          </div>
+                          </div> */}
                           <div className="form-group col-md-4">
                             <label htmlFor="price">Price</label>
-                            <Field name="price" id="price" className={`${errors.referenceId && touched.referenceId ? "is-invalid" : null} form-control`} />
+                            <Field name="price" id="price" className={`${errors.price && touched.price ? "is-invalid" : null} form-control`} />
+                            <ErrorMessage
+                              name="price"
+                              component="div"
+                              className="invalid-feedback"
+                            />
                           </div>
                           <div className="form-group">
                             <label htmlFor="currency">Currency</label>
@@ -217,6 +232,10 @@ const CatalogForm = ({ item, categories }) => {
                           <div className="form-group col-md-4">
                             <label htmlFor="effectiveDate">Effective Date</label>
                             <DatePicker name="effectiveDate" />
+                          </div>
+                          <div className="form-group col-md-4">
+                            <label htmlFor="endDate">End Date</label>
+                            <DatePicker name="endDate" />
                           </div>
                         </div>
                       </CardBody>

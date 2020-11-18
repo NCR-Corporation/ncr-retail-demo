@@ -21,9 +21,8 @@ import {
 } from 'reactstrap';
 
 
-const Header = ({ site, categories }) => {
+const Header = ({ categories }) => {
   const { userStore, setUserStore } = useContext(UserStoreContext);
-
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -100,17 +99,19 @@ const Header = ({ site, categories }) => {
                     <a href="/catalog" className="nav-link pl-0"><strong>All Items</strong></a>
                   </NavItem>
                   {categories.length > 0 && categories.map(category => {
-                    if (category.children.length > 0) {
+                    let children = category.children;
+                    delete children['array'];
+                    if (Object.keys(children).length > 0) {
                       return (
                         <UncontrolledDropdown nav inNavbar key={category.nodeCode}>
                           <DropdownToggle nav caret>
                             {category.title.value}
                           </DropdownToggle>
                           <DropdownMenu right>
-                            {category.children.map(child => (
-                              <Link key={child.nodeCode} href={`/category/${child.nodeCode}`}>
+                            {Object.keys(children).map(child => (
+                              <Link key={children[child].nodeCode} href={`/category/${children[child].nodeCode}`}>
                                 <DropdownItem>
-                                  {child.title.value}
+                                  {children[child].title.value}
                                 </DropdownItem>
                               </Link>
                             ))}

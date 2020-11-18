@@ -14,7 +14,7 @@ body {
 }
 
 .bg {
-  height: 100%;
+  height: 100vh;
   padding-bottom:20px;
   background-color: #f8f9fa;
 }

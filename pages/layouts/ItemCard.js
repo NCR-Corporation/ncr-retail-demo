@@ -8,7 +8,7 @@ const ItemCard = ({ item }) => {
   return (
     <div>
       <Card>
-        <CardImg top width="100%" src="https://via.placeholder.com/150" alt="Card image cap" />
+        <CardImg className="p-4" top width="100%" src={item && item.attributes && item.attributes.imageUrls && item.attributes.imageUrls.length > 0 ? item.attributes.imageUrls[0] : "https://via.placeholder.com/150"} alt="Card image cap" />
         <CardBody>
           <Link href={`/catalog/${item.itemId.itemCode}`}>
             <a className="h5 card-title">{item.shortDescription.value}</a>

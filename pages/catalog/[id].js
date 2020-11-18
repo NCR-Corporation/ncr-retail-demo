@@ -6,6 +6,7 @@ import { UserStoreContext } from '../../context/AppContext';
 import useCatalogItem from '../../context/useCatalogItem';
 
 export default function Item({ id, categories }) {
+  console.log('here');
   const { userStore } = useContext(UserStoreContext);
   const { catalogItem, isLoading, isError } = useCatalogItem(id, userStore.id);
   console.log(catalogItem);
@@ -34,7 +35,7 @@ export default function Item({ id, categories }) {
           {!isLoading && !isError &&
             <div className="row no-gutters">
               <div className="col-sm-4">
-                <img width="100%" src="https://target.scene7.com/is/image/Target/GUEST_02227710-3cd3-43e8-8f46-af4c7f95bb8f?wid=700&hei=700&qlt=80&fmt=webp" alt="Card image cap" />
+                <img className="p-4" width="100%" src={item.attributes.imageUrls.length > 0 ? item.attributes.imageUrls[0] : "https://via.placeholder.com/150"} alt="Card image cap" />
               </div>
               <div className="col-sm-6">
                 <div className="card-body h-100 d-flex flex-column bd-highlight pb-5">
@@ -43,7 +44,7 @@ export default function Item({ id, categories }) {
                   </div>
                   <div className="p-2 bd-highlight">
                     <h6 className="card-subtitle mb-2 text-muted"><strong>Item #:</strong> {item.itemId.itemCode}</h6>
-                    <p className="card-text">{item.longDescription.values[0].value} // Long description</p>
+                    <p className="card-text">{item.longDescription.values[0].value}</p>
                   </div>
                   <div className="mt-auto p-2 bd-highlight">
                     <div className="d-flex bd-highlight mb-3">
