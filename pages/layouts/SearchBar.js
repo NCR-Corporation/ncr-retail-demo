@@ -9,3 +9,5 @@ const SearchBar = (props) => {
     </Form>
   )
 }
+
+export default SearchBar;
