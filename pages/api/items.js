@@ -36,9 +36,6 @@ export default async function handler(req, res) {
     delete itemAttributes['nonMerchandise'];
     delete itemAttributes['itemId'];
 
-    console.log('itemPrice', itemPrice);
-    console.log('itemAttributes', itemAttributes);
-
     delete itemCopy['imageUrl'];
 
     delete itemCopy['imageUrl'];

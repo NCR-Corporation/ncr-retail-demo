@@ -42,7 +42,6 @@ const ItemPriceForm = ({ selectedItem, siteId, toggleAndRefresh }) => {
       "enterpriseUnitId": siteId,
       "priceCode": priceCode
     };
-    console.log('data', data);
     let itemPrices = { "itemPrices": [data] };
 
     fetch('/api/item-prices', { method: 'POST', body: JSON.stringify(itemPrices) })

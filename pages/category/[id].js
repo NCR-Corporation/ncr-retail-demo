@@ -27,7 +27,7 @@ export default function Category({ id, categories }) {
     <div>
       <Header categories={categories} />
       <div className="container mt-2">
-        {isLoading && <p>Loading</p>}
+        {isLoading && <div />}
         {isError && <p>Error</p>}
         {!isLoading && !isError && (
           <div>

@@ -28,16 +28,12 @@ function Catalog({ data }) {
     delete selected['longDescription'];
     selected['shortDescription'] = { "values": [{ "locale": shortDescription.locale, "value": shortDescription.value }] };
     selected['longDescription'] = { "values": [{ "locale": longDescription.locale, "value": longDescription.value }] };
-    console.log(JSON.stringify(selected));
     fetch(`/api/items/${itemCode}`, { method: 'POST', body: JSON.stringify(selected) })
       .then(response => response.json())
       .then(data => {
-        // console.log('index', selected.index);
-        // catalog.splice(selected.index, 1);
         if (data.status == 204) {
           catalog[node.index].status = 'INACTIVE';
         }
-        console.log('data', data);
         setVisible(true);
         toggle();
       });

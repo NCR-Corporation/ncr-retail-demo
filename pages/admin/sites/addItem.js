@@ -12,17 +12,13 @@ export default function addItem({ id }) {
       .then(response => response.json())
       .then(data => {
         const { site, siteCatalog, catalog } = data;
-        console.log('here');
         setCatalogItems(Object.values(catalog))
       });
   }
 
   const refresh = () => {
-    console.log(selected);
     let updated = [...catalogItems];
-    console.log(updated);
     updated.splice(selected.index, 1);
-    console.log(updated);
     setCatalogItems(updated);
   }
 

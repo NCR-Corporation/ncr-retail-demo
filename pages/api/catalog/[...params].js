@@ -2,7 +2,6 @@ import { getCatalogItem, getCatalogItemPricesByItemCodes, getCatalogItemAttribut
 import { getCatalogItemCategoryAncestorsByMerchandiseCategory } from '../../../lib/category';
 
 export default async function handler(req, res) {
-  console.log(req.query);
   const catalogItem = await getCatalogItem(req.query.params[0], req.query.params[1]);
   let itemsObject = {};
   let itemCodes = [];
@@ -14,7 +13,6 @@ export default async function handler(req, res) {
   })
   const attributes = await getCatalogItemAttributesByItemCodes(req.query.params[0], itemCodes);
   attributes.data.itemAttributes.forEach((itemAttribute) => {
-    console.log(itemAttribute);
     itemsObject[itemAttribute.itemAttributesId.itemCode]['attributes'] = itemAttribute;
   })
   const ancestors = await getCatalogItemCategoryAncestorsByMerchandiseCategory(catalogItem.data.merchandiseCategory.nodeId);

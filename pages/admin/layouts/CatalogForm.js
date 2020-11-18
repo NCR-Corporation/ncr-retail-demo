@@ -80,13 +80,11 @@ const CatalogForm = ({ item, categories }) => {
 
     data['version'] = 2;
     data['merchandiseCategory'] = { "nodeId": parentCategory };
-    console.log(data);
     // let body = { "items": [data] };
 
     fetch('/api/items', { method: 'POST', body: JSON.stringify(data) })
       .then(response => response.json())
       .then(data => {
-        console.log('teh data', data);
         // if (data.status == 204) {
         //   router.push('/admin/dashboard')
         // }
@@ -101,10 +99,8 @@ const CatalogForm = ({ item, categories }) => {
         useEffect(() => {
           initialValues.merchandiseCategory = parentCategory;
           setFieldValue('merchandiseCategory', parentCategory);
-          console.log(initialValues);
           setFieldTouched('merchandiseCategory', true)
         }, [parentCategory])
-        console.log(errors, touched);
         return (
           <div className="bg pb-4">
             <Header />

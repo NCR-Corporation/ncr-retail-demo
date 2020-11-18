@@ -64,11 +64,11 @@ const Header = ({ categories }) => {
           <div className="container">
             <div className="row align-items-center">
               <div className="col-md-3 col-lg-3 col-sm-4 col-12">
-                <Link href="/">
+                <a href="/">
                   <a>
                     <img className="logo" src="/images/banner-ncr-logo.png"></img>
                   </a>
-                </Link>
+                </a>
               </div>
               <div className="col-md-4 col-lg-5 col-sm-8 col-12">
                 <form onSubmit={handleSubmit} className="search">

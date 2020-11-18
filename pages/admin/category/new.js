@@ -31,7 +31,6 @@ const New = ({ categories }) => {
 
   const handleSubmit = async values => {
     values["parentCategory"] = parentCategory;
-    console.log(values);
   }
 
   return (

@@ -67,7 +67,6 @@ const New = () => {
     fetch('/api/sites', { method: 'POST', body: JSON.stringify(data) })
       .then(response => response.json())
       .then(data => console.log(data));
-    console.log(result);
   }
 
   return (
@@ -78,7 +77,6 @@ const New = () => {
     >
       {(formik) => {
         const { errors, touched, isValid, dirty } = formik;
-        console.log(errors);
         return (
           <div className="bg pb-4">
             <Header />

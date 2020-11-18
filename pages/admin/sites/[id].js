@@ -31,7 +31,6 @@ export default function Site({ id, categories }) {
   }
   const { site, siteCatalog, catalog } = siteData;
   // const [selectedItem, setSelectedItem] = useState(false);
-  console.log(siteCatalog);
   return (
     <div>
       <Header categories={categories} />

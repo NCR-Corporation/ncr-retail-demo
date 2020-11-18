@@ -6,14 +6,11 @@ import { UserStoreContext } from '../../context/AppContext';
 import useCatalogItem from '../../context/useCatalogItem';
 
 export default function Item({ id, categories }) {
-  console.log('here');
   const { userStore } = useContext(UserStoreContext);
   const { catalogItem, isLoading, isError } = useCatalogItem(id, userStore.id);
-  console.log(catalogItem);
   let item;
   if (!isLoading && !isError && catalogItem) {
     item = catalogItem[id];
-    console.log(catalogItem);
   }
 
   return (
@@ -30,7 +27,7 @@ export default function Item({ id, categories }) {
           </nav>
         }
         <div className="card mb-3">
-          {isLoading && <p>Loading</p>}
+          {isLoading && <div />}
           {isError && <p>Error</p>}
           {!isLoading && !isError &&
             <div className="row no-gutters">

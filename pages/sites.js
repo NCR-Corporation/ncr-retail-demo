@@ -3,7 +3,6 @@ import { getSites } from '../lib/sites';
 import Header from './layouts/Header';
 
 export default function Sites({ data, categories }) {
-  console.log('the sites', data);
   const sites = data.data.pageContent;
   return (
     <div>

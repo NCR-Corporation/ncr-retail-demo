@@ -10,7 +10,6 @@ const FindStoreModal = (props) => {
   } = props;
 
   const { userStore, setUserStore } = useContext(UserStoreContext);
-  console.log('userstore', userStore);
 
   const [coordinates, setCoordinates] = useState(coords);
   let [modal, setModal] = useState(modalProp);

@@ -2,12 +2,10 @@ import React, { useReducer, useEffect } from "react";
 const isServer = typeof window === "undefined";
 
 let reducer = (userStore, newUserStore) => {
-  console.log('new user store');
   if (newUserStore === null) {
     if (!isServer) { localStorage.removeItem("userStore") };
     return initialState;
   }
-  console.log('here');
   return { ...userStore, ...newUserStore };
 };
 

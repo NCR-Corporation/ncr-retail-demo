@@ -42,7 +42,6 @@ const CategorySelect = ({ setParentCategory, categories }) => {
   }
 
   const handleGrandChildCategoryChange = e => {
-    console.log(e.target.value);
     if (e.target.value != '') {
       setSelectedGrandChild(selectedCategory.children[selectedChild.nodeCode].children[e.target.value]);
       setParentCategory(selectedCategory.children[selectedChild.nodeCode].children[e.target.value].nodeCode);
