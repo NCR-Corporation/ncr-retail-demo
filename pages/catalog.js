@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import Header from './layouts/Header';
+import Header from '../components/public/Header';
 import { UserStoreContext } from '../context/AppContext';
-import ItemCard from './layouts/ItemCard';
+import ItemCard from '../components/public/ItemCard';
 import useCatalog from '../context/useCatalog';
 
 

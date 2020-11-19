@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Header from './layouts/Header';
+import Header from '../components/public/Header';
 import {
   Jumbotron, Button, Row, Col,
   Card, CardImg, CardText, CardBody,
@@ -16,7 +16,7 @@ function Home({ data, categories }) {
         </Jumbotron>
         <Row>
           {Array(3).fill(0).map((key, value) => (
-            <Col sm="4">
+            <Col sm="4" key={value}>
               <Card>
                 <CardImg top width="100%" src="https://via.placeholder.com/250" alt="Card image cap" />
                 <CardBody>

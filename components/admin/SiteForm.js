@@ -1,21 +1,47 @@
-import Header from '../layouts/Header';
+import Header from '../../components/admin/Header';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Row, Col, Card, CardTitle, CardBody } from 'reactstrap';
+import { Row, Col, Card, CardTitle, CardBody, Alert, Spinner } from 'reactstrap';
+import useSite from '../../context/useSite';
+import { useState, useEffect } from 'react';
 
 const createSiteSchema = Yup.object().shape({
   siteName: Yup.string().required("Site Name is required").min(1, "Minimum of 1 character").max(200, "Maximum of 200 characters"), // Regex?
   contactPerson: Yup.string().max(512, "Maximum of 512 characters"),
-  contactPhoneNumber: Yup.string().max(32, "Maximum of 32 characters"),
-  contactPhoneNumberCountryCode: Yup.string().max(3, "Maximum of 3 characters"), // Regex
+  contactPhoneNumber: Yup.string().max(32, "Maximum of 32 characters").when('contactPerson', {
+    is: (contactPerson) => contactPerson && contactPerson.length > 0,
+    then: Yup.string()
+      .required('Phone Number is required')
+  }),
+  contactPhoneNumberCountryCode: Yup.string().max(3, "Maximum of 3 characters").when('contactPerson', {
+    is: (contactPerson) => contactPerson && contactPerson.length > 0,
+    then: Yup.string()
+      .required('Phone Number Country Code is required')
+  }), // Regex
   timezone: Yup.string(),
   description: Yup.string().max(512, "Maximum of 512 characters").min(1, "Minimum of 1 character"), //Regex
   currency: Yup.string().matches(/^[A-Z]{3}$/, "Matches 3 characters, A-Z. Example, USD"),
   street: Yup.string().max(256, "Maximum of 256 characters"),
-  city: Yup.string().max(128, "Maximum of 128 characters"),
-  country: Yup.string().max(128, "Maximum of 128 characters"),
-  postalCode: Yup.string().max(64, "Maximum of 64 characters"),
-  state: Yup.string().max(128, "Maximum of 128 characters"),
+  city: Yup.string().max(128, "Maximum of 128 characters").when('street', {
+    is: (street) => street && street.length > 0,
+    then: Yup.string()
+      .required('City is required')
+  }),
+  country: Yup.string().max(128, "Maximum of 128 characters").when('street', {
+    is: (street) => street && street.length > 0,
+    then: Yup.string()
+      .required('Country is required')
+  }),
+  postalCode: Yup.string().max(64, "Maximum of 64 characters").when('street', {
+    is: (street) => street && street.length > 0,
+    then: Yup.string()
+      .required('Postal Code is required')
+  }),
+  state: Yup.string().max(128, "Maximum of 128 characters").when('street', {
+    is: (street) => street && street.length > 0,
+    then: Yup.string()
+      .required('State is required')
+  }),
   latitude: Yup.number().required().moreThan(-180).lessThan(180),
   longitude: Yup.number().required().moreThan(-90).lessThan(90),
   status: Yup.mixed().required().oneOf(['ACTIVE', 'INACTIVE']),
@@ -23,14 +49,14 @@ const createSiteSchema = Yup.object().shape({
   referenceId: Yup.string().max(100).min(1)
 });
 
-const initialValues = {
+let init = {
   siteName: "",
   contactPerson: "",
   contactPhoneNumberCountryCode: "",
   contactPhoneNumber: "",
   timezone: "",
   description: "",
-  currency: "USD",
+  currency: "",
   street: "",
   city: "",
   state: "",
@@ -38,12 +64,44 @@ const initialValues = {
   postalCode: "",
   latitude: "",
   longitude: "",
-  status: "ACTIVE",
+  status: "",
   parentEnterpriseUnitId: "",
   referenceId: ""
 };
 
-const New = () => {
+const New = ({ siteId }) => {
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const onDismiss = () => setVisible(false);
+  let { site, isLoading, isError } = useSite(siteId, true);
+  const [initialValues, setInitialValues] = useState(init);
+  if (!isLoading && !isError && initialValues.siteName == '') {
+    const { coordinates, currency, organizationName, description, enterpriseUnitName, id, referenceId, siteName, status, contact, timezone, address } = site.data;
+    let siteValues = {
+      siteName,
+      contactPerson: contact ? contact.contactPerson : '',
+      contactPhoneNumberCountryCode: contact ? contact.phoneNumberCountryCode : '',
+      contactPhoneNumber: contact ? contact.phoneNumber : '',
+      timezone: timezone ?? '',
+      status,
+      referenceId,
+      id,
+      enterpriseUnitName,
+      parentEnterpriseUnitId: '',
+      description: description ?? '',
+      currency: currency ?? '',
+      street: address ? address.street : '',
+      state: address ? address.state : '',
+      city: address ? address.city : '',
+      country: address ? address.country : '',
+      postalCode: address ? address.postalCode : '',
+      latitude: coordinates ? coordinates.latitude : '',
+      longitude: coordinates ? coordinates.longitude : '',
+    }
+    setInitialValues(siteValues);
+  }
 
   const handleSumbit = async values => {
     let data = {};
@@ -56,6 +114,24 @@ const New = () => {
         data['enterpriseUnitName'] = values[key];
       }
     }
+    if (data['street']) {
+      data['address'] = {
+        'city': data['city'],
+        'postalCode': data['postalCode'],
+        'state': data['state'],
+        'street': data['street'],
+        'country': data['country']
+      };
+      ["city", "postalCode", "state", 'street', 'country'].forEach(e => delete data[e]);
+    }
+    if (data['contactPerson']) {
+      data['contact'] = {
+        'contactPerson': data['contactPerson'],
+        'phoneNumber': data['contactPhoneNumber'],
+        'phoneNumberCountryCode': data['contactPhoneNumberCountryCode']
+      };
+      ['contactPerson', 'phoneNumber', 'phoneNumberCountryCode'].forEach(e => delete data[e]);
+    }
     data['coordinates'] = {
       'latitude': data['latitude'],
       'longitude': data['longitude']
@@ -64,13 +140,23 @@ const New = () => {
     delete data['longitude'];
 
 
-    fetch('/api/sites', { method: 'POST', body: JSON.stringify(data) })
-      .then(response => response.json())
-      .then(data => console.log(data));
+    if (siteId) {
+      fetch(`/api/sites/${siteId}`, { method: 'PUT', body: JSON.stringify(data) })
+        .then(response => response.json())
+        .then(data => { setVisible(true); setShowAlert({ status: data.status, message: 'Site successfully updated' }) })
+        .catch(err => { setVisible(true); setShowAlert({ status: err.status, message: err.message }) });
+    } else {
+      fetch('/api/sites', { method: 'POST', body: JSON.stringify(data) })
+        .then(response => response.json())
+        .then(data => { setVisible(true); setShowAlert({ status: data.status, message: 'Site successfully created' }) })
+        .catch(err => { setVisible(true); setShowAlert({ status: err.status, message: err.message }) });
+    }
+
   }
 
   return (
     <Formik
+      enableReinitialize={true}
       initialValues={initialValues}
       validationSchema={createSiteSchema}
       onSubmit={handleSumbit}
@@ -79,15 +165,28 @@ const New = () => {
         const { errors, touched, isValid, dirty } = formik;
         return (
           <div className="bg pb-4">
+
             <Header />
             <main className="container">
               <Form>
+                {isLoading && (<div className="mt-4 d-flex justify-content-center"><Spinner color="primary" /></div>)}
+                <Alert toggle={onDismiss} isOpen={visible} className="mt-4" color={showAlert.status == 200 ? 'success' : 'danger'}>{showAlert.message}</Alert>
                 <Row className="mt-4">
+                  <Col>
+                    <h4 className="mb-1">{siteId ? 'Edit' : 'Create'} Site</h4>
+                  </Col>
+                  <Col>
+                    <div className="form-group float-right">
+                      <button type="submit" className={`${!(dirty && isValid) ? "disabled" : ""} btn btn-primary`} disabled={`${!(dirty && isValid) ? "disabled" : ""}`}> {siteId ? '+ Update' : '+ Create'} Site</button>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
                   <Col md="8">
                     <Card className="mb-2">
                       <CardBody>
                         <CardTitle>
-                          <h4 className="mb-4">Create Site</h4>
+
                         </CardTitle>
                         <div className="form-row">
                           <div className="form-group col-md-6">
@@ -154,12 +253,12 @@ const New = () => {
                           </div>
                           <div className="form-group col-md-3">
                             <label htmlFor="postalCode">Postal Code</label>
+                            <Field name="postalCode" id="postalCode" className={`${errors.postalCode && touched.postalCode ? "is-invalid" : null} form-control`} />
                             <ErrorMessage
                               name="postalCode"
                               component="div"
                               className="invalid-feedback"
                             />
-                            <Field name="postalCode" id="postalCode" className={`${errors.postalCode && touched.postalCode ? "is-invalid" : null} form-control`} />
                           </div>
                           <div className="form-group col-md-3">
                             <label htmlFor="country">Country</label>
@@ -249,9 +348,11 @@ const New = () => {
                     <Card>
                       <CardBody>
                         <div className="form-row">
-                          <div className="form-group col-sm-3">
+                          <div className="form-group col-sm-6">
                             <label htmlFor="currency">Currency</label>
-                            <Field name="currency" id="currency" className={`${errors.currency && touched.currency ? "is-invalid" : null} form-control`} />
+                            <Field as="select" name="currency" className={`${errors.currency && touched.currency ? "is-invalid" : null} form-control`}>
+                              <option value="USD">USD</option>
+                            </Field>
                             <ErrorMessage
                               name="currency"
                               component="div"
@@ -287,7 +388,6 @@ const New = () => {
                           <small className="form-text text-muted" id="parentEnterpriseUnitId">Parent or organization enterprise unit ID for site</small>
                         </div>
                         <div className="form-group">
-                          <button type="submit" className={`${!(dirty && isValid) ? "disabled" : ""} btn btn-primary`}>Create</button>
                         </div>
 
                       </CardBody>

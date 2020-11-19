@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../layouts/Header';
+import Header from '../../components/public/Header';
 import useSiteCatalog from '../../../context/useSiteCatalog';
 import AddItemsCatalogTable from '../layouts/AddItemsCatalogTable';
 import AddItemDetailsModal from '../layouts/AddItemDetailsModal';

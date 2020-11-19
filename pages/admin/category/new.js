@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Header from '../layouts/Header';
+import Header from '../../components/public/Header';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import CategorySelect from '../layouts/CategorySelect';
 import * as Yup from "yup";

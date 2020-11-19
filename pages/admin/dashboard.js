@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Header from './layouts/Header';
-import Sites from './layouts/Sites';
-import Categories from './layouts/Categories';
-import Catalog from './layouts/Catalog';
+import Header from '../../components/admin/Header';
+import Sites from '../../components/admin/Sites';
+import Categories from '../../components/admin/Categories';
+import Catalog from '../../components/admin/Catalog';
 import { getSites } from '../../lib/sites';
 import { getCategoryNodes } from '../../lib/category';
 import { getCatalogItems } from '../../lib/catalog';
@@ -21,7 +21,7 @@ function Dashboard({ sites, categoryNodes, catalog }) {
         <Nav tabs>
           <NavItem>
             <NavLink
-              className={activeTab === '1' && 'active'}
+              active={activeTab === '1' && true}
               onClick={() => { toggle('1'); }}
             >
               Sites
@@ -29,7 +29,7 @@ function Dashboard({ sites, categoryNodes, catalog }) {
           </NavItem>
           <NavItem>
             <NavLink
-              className={activeTab === '2' && 'active'}
+              active={activeTab === '2' && true}
               onClick={() => { toggle('2'); }}
             >
               Categories
@@ -37,7 +37,7 @@ function Dashboard({ sites, categoryNodes, catalog }) {
           </NavItem>
           <NavItem>
             <NavLink
-              className={activeTab === '3' && 'active'}
+              active={activeTab === '3' && true}
               onClick={() => { toggle('3'); }}
             >
               Catalog
@@ -61,7 +61,7 @@ function Dashboard({ sites, categoryNodes, catalog }) {
 }
 
 export async function getServerSideProps(context) {
-  const sites = await getSites();
+  const sites = await getSites(true);
   const categoryNodes = await getCategoryNodes();
   const catalog = await getCatalogItems();
   return {

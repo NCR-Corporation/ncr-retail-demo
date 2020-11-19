@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getSites } from '../lib/sites';
-import Header from './layouts/Header';
+import Header from '../components/public/Header';
 
 export default function Sites({ data, categories }) {
   const sites = data.data.pageContent;

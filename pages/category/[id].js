@@ -1,6 +1,6 @@
-import Header from '../layouts/Header';
+import Header from '../../components/public/Header';
 import Link from 'next/link';
-import ItemCard from '../layouts/ItemCard';
+import ItemCard from '../../components/public/ItemCard';
 import {
   Card, Col, Row, CardBody, CardImg,
   CardSubtitle

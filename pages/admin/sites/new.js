@@ -1,8 +1,9 @@
-import SiteForm from '../layouts/SiteForm';
-const New = () => {
+import SiteForm from '../../../components/admin/SiteForm';
+const New = ({ }) => {
   return (
     <SiteForm />
   )
 }
+
 
 export default New;

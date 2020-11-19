@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from 'reactstrap';
 import { findNearby } from '../lib/sites';
-import Header from './layouts/Header';
+import Header from '../components/public/Header';
 
 function Search({ sites }) {
 

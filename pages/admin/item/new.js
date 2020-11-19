@@ -1,4 +1,4 @@
-import CatalogForm from '../layouts/CatalogForm';
+import CatalogForm from '../../../components/admin/CatalogForm';
 
 const New = ({ categories }) => {
   return (

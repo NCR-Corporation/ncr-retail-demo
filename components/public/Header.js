@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
 import FindStoreModal from './FindStoreModal';
 import { UserStoreContext } from '../../context/AppContext';
+import useHeader from '../../context/useHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser, faCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -21,13 +22,17 @@ import {
 } from 'reactstrap';
 
 
-const Header = ({ categories }) => {
+const Header = () => {
+  const { categories, isLoading, isError } = useHeader();
+
   const { userStore, setUserStore } = useContext(UserStoreContext);
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   const handleParam = setValue => e => setValue(e.target.value);
   const preventDefault = f => e => {
@@ -47,14 +52,14 @@ const Header = ({ categories }) => {
       <Head>
         <title>A Simple Sample App</title>
       </Head>
-      {Object.keys(userStore).length === 0 && userStore.constructor === Object && <FindStoreModal modalProp={true} />}
+      <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
       <header className="section-header">
         <section className="header-top-light border-bottom">
           <div className="container">
             <nav className="d-flex justify-content-end row">
               <ul className="nav">
                 <li className="nav-item">
-                  <a href="/admin/dashboard" className="nav-link">Manage</a>
+                  <Link href="/admin/dashboard" className="nav-link">Manage</Link>
                 </li>
               </ul>
             </nav>
@@ -64,11 +69,9 @@ const Header = ({ categories }) => {
           <div className="container">
             <div className="row align-items-center">
               <div className="col-md-3 col-lg-3 col-sm-4 col-12">
-                <a href="/">
-                  <a>
-                    <img className="logo" src="/images/banner-ncr-logo.png"></img>
-                  </a>
-                </a>
+                <Link href="/">
+                  <img className="logo" src="/images/banner-ncr-logo.png"></img>
+                </Link>
               </div>
               <div className="col-md-4 col-lg-5 col-sm-8 col-12">
                 <form onSubmit={handleSubmit} className="search">
@@ -98,7 +101,7 @@ const Header = ({ categories }) => {
                   <NavItem>
                     <a href="/catalog" className="nav-link pl-0"><strong>All Items</strong></a>
                   </NavItem>
-                  {categories.length > 0 && categories.map(category => {
+                  {categories && categories.length > 0 && categories.map(category => {
                     let children = category.children;
                     delete children['array'];
                     if (Object.keys(children).length > 0) {
@@ -138,7 +141,7 @@ const Header = ({ categories }) => {
                       {userStore != undefined ? userStore.siteName : 'Change Store'}
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem onClick={() => setUserStore(null)}>
+                      <DropdownItem onClick={() => setIsModalOpen(true)}>
                         Change Store
                       </DropdownItem>
                     </DropdownMenu>

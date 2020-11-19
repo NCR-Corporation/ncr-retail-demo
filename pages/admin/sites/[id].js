@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Header from '../layouts/Header';
+import Header from '../../../components/admin/Header';
 import useSiteCatalog from '../../../context/useSiteCatalog';
 import { Row, Col, Card, CardBody, CardTitle, Button } from 'reactstrap';
-import SiteCatalogTable from '../layouts/SiteCatalogTable';
+import SiteCatalogTable from '../../../components/admin/SiteCatalogTable';
 // import AddItemDetailsModal from '../layouts/AddItemDetailsModal';
 
 
@@ -43,6 +43,7 @@ export default function Site({ id, categories }) {
                 <CardTitle>
                   {site.siteName}
                 </CardTitle>
+                <a href={`/admin/sites/edit?id=${site.id}`}>Edit Site</a>
                 <a href={`/admin/sites/addItem?id=${site.id}`}>Add Item</a>
                 {/* <AddItemModal catalog={catalog} /> */}
                 {/* <AddItemDetailsModal selectedItem={selectedItem} /> */}

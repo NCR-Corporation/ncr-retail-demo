@@ -6,16 +6,14 @@ import { UserStoreContext } from '../../context/AppContext';
 const FindStoreModal = (props) => {
   const {
     modalProp,
+    toggle,
     coords,
   } = props;
 
   const { userStore, setUserStore } = useContext(UserStoreContext);
 
   const [coordinates, setCoordinates] = useState(coords);
-  let [modal, setModal] = useState(modalProp);
   const [sites, setSites] = useState();
-
-  const toggle = () => setModal(!modal);
 
   if (props.coords && !coordinates) {
     setCoordinates(props.coords);
@@ -44,14 +42,9 @@ const FindStoreModal = (props) => {
     fetchData();
   }, [coordinates])
 
-  // TODO: Validate this more.
-  if (Object.keys(userStore).length === 0 && userStore.constructor === Object) {
-    modal = true;
-  }
-
   return (
     <div>
-      <Modal isOpen={modal} toggle={toggle} size="lg">
+      <Modal isOpen={modalProp} toggle={toggle} size="lg">
         <ModalHeader toggle={toggle}>Find a Store</ModalHeader>
         <ModalBody>
           {

@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { useContext } from 'react';
-import Header from '../layouts/Header';
-import { Row, Col, Button } from 'reactstrap';
+import Header from '../../components/public/Header';
+import { Button, Spinner } from 'reactstrap';
 import { UserStoreContext } from '../../context/AppContext';
 import useCatalogItem from '../../context/useCatalogItem';
 
 export default function Item({ id, categories }) {
+  console.log('here');
   const { userStore } = useContext(UserStoreContext);
   const { catalogItem, isLoading, isError } = useCatalogItem(id, userStore.id);
   let item;
@@ -17,6 +18,11 @@ export default function Item({ id, categories }) {
     <div className="bg">
       <Header categories={categories} />
       <div className="container pt-4">
+        {isLoading && (
+          <div className="d-flex justify-content-center">
+            <Spinner color="dark" />
+          </div>
+        )}
         {!isLoading && !isError &&
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
@@ -26,10 +32,9 @@ export default function Item({ id, categories }) {
             </ol>
           </nav>
         }
-        <div className="card mb-3">
-          {isLoading && <div />}
-          {isError && <p>Error</p>}
-          {!isLoading && !isError &&
+        {isError && <p>Error</p>}
+        {!isLoading && !isError &&
+          <div className="card mb-3">
             <div className="row no-gutters">
               <div className="col-sm-4">
                 <img className="p-4" width="100%" src={item.attributes.imageUrls.length > 0 ? item.attributes.imageUrls[0] : "https://via.placeholder.com/150"} alt="Card image cap" />
@@ -54,8 +59,9 @@ export default function Item({ id, categories }) {
                 </div>
               </div>
             </div>
-          }
-        </div>
+          </div>
+        }
+
       </div>
     </div >
   )

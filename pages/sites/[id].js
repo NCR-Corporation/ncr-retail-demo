@@ -1,4 +1,4 @@
-import Header from '../layouts/Header';
+import Header from '../../components/public/Header';
 import { getById, getByReferenceId } from '../../lib/sites';
 import { Button } from 'reactstrap';
 import cookieCutter from 'cookie-cutter';

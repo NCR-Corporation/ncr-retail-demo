@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Header from '../layouts/Header';
+import Header from '../../components/admin/Header';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import CategorySelect from './CategorySelect';
@@ -108,11 +108,11 @@ const CatalogForm = ({ item, categories }) => {
               <Form>
                 <Row>
                   <Col>
-                    <h4 className="mb-4">Add Item</h4>
+                    <h4 className="mb-2">Add Item</h4>
                   </Col>
                   <Col>
                     <div className="form-group float-right">
-                      <button type="submit" className={`${!(dirty && isValid) ? "disabled" : ""} btn btn-primary`}>+ Create New Item</button>
+                      <button type="submit" className={`${(dirty && isValid) ? "disabled" : ""} btn btn-primary`}>+ Create New Item</button>
                     </div>
                   </Col>
                 </Row>
@@ -276,7 +276,7 @@ const CatalogForm = ({ item, categories }) => {
                     <Card className="mb-3">
                       <CardBody>
                         <Field name="merchandiseCategory" id="merchandiseCategory" className="d-none" value={parentCategory || ''} />
-                        <CategorySelect setParentCategory={setParentCategory} categories={categories} />
+                        {/* <CategorySelect setParentCategory={setParentCategory} categories={categories} /> */}
                         <div className="form-group">
                           <label htmlFor="alternateCategories">Alternate Categories</label>
                           <input type="text" className="form-control" id="alternateCategories" placeholder="TBD" disabled />
