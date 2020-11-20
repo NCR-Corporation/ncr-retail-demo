@@ -4,7 +4,7 @@ import Link from 'next/link';
 const Header = ({ }) => {
   return (
     <div>
-      <header className="section-header">
+      <header className="section-header bg-white shadow-sm">
         <section className="header-top-light border-bottom">
           <div className="container">
             <nav className="d-flex justify-content-end row">
@@ -20,9 +20,10 @@ const Header = ({ }) => {
           <div className="container">
             <div className="row align-items-center">
               <div className="col-md-3 col-lg-3 col-sm-4 col-12">
-                <a href="/admin/dashboard">
-                  <img className="logo" src="/images/banner-ncr-logo.png"></img>
-                </a>
+                <Link href="/admin/dashboard" className="logo-text">
+                  <a className="logo-text">MARKET</a>
+                  {/* <img className="logo" src="/images/logo.png"></img> */}
+                </Link>
               </div>
               <div className="col text-md-right">
                 <div>

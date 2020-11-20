@@ -10,7 +10,7 @@ function Home({ data, categories }) {
   return (
     <div>
       <Header site={data} categories={categories} />
-      <main className="container mt-2">
+      <main className="container mt-4">
         <Jumbotron>
           <h1 className="display-3">Latest Deals</h1>
         </Jumbotron>

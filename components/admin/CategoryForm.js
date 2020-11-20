@@ -149,28 +149,18 @@ const CategoryForm = ({ id, categoryNodes }) => {
                             />
                           </div>
                         </div>
-                        <div className="form-row">
-                          <div className="form-group col-md-6">
-                            <label htmlFor="nodeCode">Node Code</label>
-                            <Field name="nodeCode" id="nodeCode" className={`${errors.nodeCode && touched.nodeCode ? "is-invalid" : null} form-control`} />
-                            <ErrorMessage
-                              name="nodeCode"
-                              component="div"
-                              className="invalid-feedback"
-                            />
-                            <small id="nodeCode" className="form-text text-muted">
-                              This will be the same as the Node Id
-                        </small>
-                          </div>
-                          <div className="form-group col-md-6">
-                            <label htmlFor="tag">Tag</label>
-                            <Field name="tag" id="tag" className={`${errors.tag && touched.tag ? "is-invalid" : null} form-control`} />
-                            <ErrorMessage
-                              name="tag"
-                              component="div"
-                              className="invalid-feedback"
-                            />
-                          </div>
+
+                        <div className="form-group">
+                          <label htmlFor="tag">Banner URL</label>
+                          <Field name="tag" id="tag" className={`${errors.tag && touched.tag ? "is-invalid" : null} form-control`} />
+                          <ErrorMessage
+                            name="tag"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                          <small className="form-text text-muted">
+                            We are changing the use of `tag` to contain the image.
+                            </small>
                         </div>
                         <div className="row">
                           <div className="col-md-6">
@@ -212,16 +202,26 @@ const CategoryForm = ({ id, categoryNodes }) => {
                   <div className="col-md-4">
                     <div className="card">
                       <div className="card-body">
-                        <div className="form-row">
-                          <div className="form-group col-md-6">
-                            <label htmlFor="version">Version</label>
-                            <Field name="version" id="version" className={`${errors.version && touched.version ? "is-invalid" : null} form-control`} />
-                            <ErrorMessage
-                              name="version"
-                              component="div"
-                              className="invalid-feedback"
-                            />
-                          </div>
+                        <div className="form-group">
+                          <label htmlFor="nodeCode">Node Code</label>
+                          <Field name="nodeCode" id="nodeCode" className={`${errors.nodeCode && touched.nodeCode ? "is-invalid" : null} form-control`} disabled={id ? 'disabled' : ''} />
+                          <ErrorMessage
+                            name="nodeCode"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                          <small id="nodeCode" className="form-text text-muted">
+                            This will be the same as the Node Id
+                        </small>
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="version">Version</label>
+                          <Field name="version" id="version" className={`${errors.version && touched.version ? "is-invalid" : null} form-control`} />
+                          <ErrorMessage
+                            name="version"
+                            component="div"
+                            className="invalid-feedback"
+                          />
                         </div>
                         <div className="form-group">
                           <label htmlFor="status" className="h5">Status</label>

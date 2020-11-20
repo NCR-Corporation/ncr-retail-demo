@@ -14,7 +14,7 @@ export default function Item({ id, categories }) {
   }
 
   return (
-    <div className="bg">
+    <div>
       <Header categories={categories} />
       <div className="container pt-4">
         {isLoading && (
@@ -24,7 +24,7 @@ export default function Item({ id, categories }) {
         )}
         {!isLoading && !isError &&
           <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
+            <ol className="breadcrumb bg-white shadow-sm">
               {item['categories'].reverse().map((ancestor) => (
                 <li className="breadcrumb-item" key={ancestor.nodeCode}><Link href={`/category/${ancestor.nodeCode}`}>{ancestor.title.value}</Link></li>
               ))}
@@ -33,7 +33,7 @@ export default function Item({ id, categories }) {
         }
         {isError && <p>Error</p>}
         {!isLoading && !isError &&
-          <div className="card mb-3">
+          <div className="card mb-3 border-0 shadow-sm">
             <div className="row no-gutters">
               <div className="col-sm-4">
                 <img className="p-4" width="100%" src={item.attributes && item.attributes.imageUrls.length > 0 ? item.attributes.imageUrls[0] : "https://via.placeholder.com/150"} alt="Card image cap" />

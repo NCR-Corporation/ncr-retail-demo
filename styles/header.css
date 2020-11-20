@@ -3,6 +3,13 @@
   src: url('./fonts/Rubik-VariableFont_wght.ttf') format('truetype');
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding-bottom:20px;
+  background-color: #f8f9fa;
+}
+
 body {
   font-family: "Rubik", Arial, "Helvetica Neue", "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
 }
@@ -13,18 +20,23 @@ body {
   padding-bottom: 1rem;
 }
 
-.bg {
-  height: 100%;
-  padding-bottom:20px;
-  background-color: #f8f9fa;
-}
-
 .header-top-light .nav-link {
   color: #969696;
 }
 
-.logo {
-  max-height: 48px;
+.logo-text {
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+  color: #212529;
+  padding: 4px;
+}
+
+.logo-text:hover {
+  text-decoration: none;
+  color: #212529a1;
+  /* box-shadow: 0 2px 9px rgba(153, 153, 153, 0.3) !important; */
+  transition: 0.3s;
 }
 
 .navbar-main .nav-link {
@@ -42,3 +54,13 @@ body {
 label {
   margin-bottom: 0.3rem;
 }
+
+.category-card .card-title, .item-card .card-title {
+  color: #1c1c1c;
+}
+
+.category-card:hover, .item-card:hover {
+  box-shadow: 0 2px 9px rgba(153, 153, 153, 0.3) !important;
+    transition: 0.3s;
+}
+

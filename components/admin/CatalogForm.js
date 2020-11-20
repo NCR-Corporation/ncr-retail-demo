@@ -153,6 +153,7 @@ const CatalogForm = ({ id, categories }) => {
             <Header />
             <main className="container pt-4">
               <Form>
+                {id && <Alert isOpen={true} color="warning">Item id, price and attributes are unable to be edited on a global level.</Alert>}
                 {isLoading && (<div className="mt-4 d-flex justify-content-center"><Spinner color="primary" /></div>)}
                 <Alert toggle={onDismiss} isOpen={visible} className="mt-4" color={showAlert.status == 200 ? 'success' : 'danger'}>{showAlert.message}</Alert>
                 <Row>
@@ -209,7 +210,7 @@ const CatalogForm = ({ id, categories }) => {
                         <div className="form-row">
                           <div className="form-group col-md-6">
                             <label htmlFor="itemId">Item Id*</label>
-                            <Field name="itemId" id="itemId" className={`${errors.itemId && touched.itemId ? "is-invalid" : null} form-control`} />
+                            <Field name="itemId" id="itemId" className={`${errors.itemId && touched.itemId ? "is-invalid" : null} form-control`} disabled={id ? 'disabled' : ''} />
                             <ErrorMessage
                               name="itemId"
                               component="div"

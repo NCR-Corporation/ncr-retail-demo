@@ -17,7 +17,7 @@ function Dashboard({ sites, categoryNodes, catalog }) {
   return (
     <div>
       <Header />
-      <main className="container mt-2">
+      <main className="container mt-4">
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -44,7 +44,7 @@ function Dashboard({ sites, categoryNodes, catalog }) {
             </NavLink>
           </NavItem>
         </Nav>
-        <TabContent activeTab={activeTab}>
+        <TabContent activeTab={activeTab} className="bg-white">
           <TabPane tabId="1">
             <Sites data={sites} />
           </TabPane>

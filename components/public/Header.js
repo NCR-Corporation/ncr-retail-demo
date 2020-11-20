@@ -48,12 +48,12 @@ const Header = () => {
   });
 
   return (
-    <div>
+    <div className="bg-white">
       <Head>
         <title>A Simple Sample App</title>
       </Head>
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
-      <header className="section-header">
+      <header className="section-header shadow-sm">
         <section className="header-top-light border-bottom">
           <div className="container">
             <nav className="d-flex justify-content-end row">
@@ -69,8 +69,9 @@ const Header = () => {
           <div className="container">
             <div className="row align-items-center">
               <div className="col-md-3 col-lg-3 col-sm-4 col-12">
-                <Link href="/">
-                  <img className="logo" src="/images/banner-ncr-logo.png"></img>
+                <Link href="/" className="logo-text">
+                  <a className="logo-text">MARKET</a>
+                  {/* <img className="logo" src="/images/logo.png"></img> */}
                 </Link>
               </div>
               <div className="col-md-4 col-lg-5 col-sm-8 col-12">
@@ -92,7 +93,7 @@ const Header = () => {
             </div>
           </div>
         </section>
-        <nav className="navbar navbar-main navbar-expand-lg border-bottom">
+        <nav className="navbar navbar-main navbar-expand-lg">
           <div className="container">
             <Navbar expand="md" className="p-0">
               <NavbarToggler onClick={toggle} />
