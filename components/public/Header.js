@@ -59,13 +59,13 @@ const Header = () => {
             <nav className="d-flex justify-content-end row">
               <ul className="nav">
                 <li className="nav-item">
-                  <Link href="/admin/dashboard" className="nav-link">Manage</Link>
+                  <Link href="/admin/dashboard"><a className="nav-link">Manage</a></Link>
                 </li>
               </ul>
             </nav>
           </div>
         </section>
-        <section className="header-main border-bottom py-2">
+        <section className="header-main border-bottom py-3">
           <div className="container">
             <div className="row align-items-center">
               <div className="col-md-3 col-lg-3 col-sm-4 col-12">
@@ -86,8 +86,8 @@ const Header = () => {
               </div>
               <div className="col-md-5 col-lg-4 col-12 col-sm-12 text-md-right">
                 <div>
-                  <Link href="#"><a className="btn btn-outline-primary">Login</a></Link>
-                  <Link href="#"><a className="btn btn-outline-secondary ml-1">My Cart</a></Link>
+                  <Link href="#"><a className="btn btn-outline-secondary mr-1">My Cart</a></Link>
+                  <Link href="#"><a className="btn btn-primary">Login</a></Link>
                 </div>
               </div>
             </div>
