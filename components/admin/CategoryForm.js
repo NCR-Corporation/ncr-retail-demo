@@ -38,7 +38,6 @@ const CategoryForm = ({ id, categoryNodes }) => {
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.nodeCode == '') {
     const { data } = category;
-    console.log('data', data);
     const { departmentNode, departmentSale, nodeCode, status, tag, version, title, nodeId, parentId } = data;
     let categoryValues = {
       version: version + 1,
@@ -56,12 +55,10 @@ const CategoryForm = ({ id, categoryNodes }) => {
   const [parentCategory, setParentCategory] = useState();
 
   const handleSubmit = async values => {
-    console.log('values');
     if (values['parentCategory'] == '' && parentCategory) {
       values["parentCategory"] = parentCategory;
     }
 
-    console.log('values', values);
     let data = {};
     for (const key in values) {
       // Remove empty fields.
@@ -120,7 +117,6 @@ const CategoryForm = ({ id, categoryNodes }) => {
     <Formik enableReinitialize={true} initialValues={initialValues} validationSchema={createCategorySchema} onSubmit={handleSubmit}>
       {(formik) => {
         const { errors, touched, isValid, dirty } = formik;
-        console.log(errors);
         return (
           <div className="bg pb-4">
             <Header />

@@ -14,7 +14,6 @@ const FindStoreModal = (props) => {
 
   const [coordinates, setCoordinates] = useState(coords);
   const [sites, setSites] = useState();
-
   if (props.coords && !coordinates) {
     setCoordinates(props.coords);
   }
@@ -22,22 +21,20 @@ const FindStoreModal = (props) => {
   useEffect(async () => {
     // Get locations near user.
     const fetchData = async () => {
-      // if (coordinates && coordinates.latitude) {
-      //   console.log(coordinates);
-      //   fetch(`/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`)
-      //     .then(res => res.json())
-      //     .then(data => {
-      //       console.log(data);
-      //       setSites(data.data.sites)
-      //     });
-      // } else {
-      fetch(`/api/findSites`)
-        .then(res => res.json())
-        .then(data => {
-          setSites(data.data.pageContent)
-        });
+      if (props.coords && coordinates.latitude) {
+        fetch(`/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`)
+          .then(res => res.json())
+          .then(data => {
+            setSites(data.data.sites)
+          });
+      } else {
+        fetch(`/api/findSites`)
+          .then(res => res.json())
+          .then(data => {
+            setSites(data.data.pageContent)
+          });
 
-      // }
+      }
     }
     fetchData();
   }, [coordinates])
@@ -59,15 +56,24 @@ const FindStoreModal = (props) => {
                   )
 
           }
+          <small>{coordinates ? `Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}` : ''}</small>
           {sites && sites.length > 0 && (
             <div>
               {sites.map((site) => (
                 <Row className="mt-4 mb-4" key={site.id}>
-                  <Col sm="9">
+                  <Col sm="6">
                     <p className="h5">{site.siteName}</p>
-                    <p className="muted">
-                      {site.coordinates.latitude}, {site.coordinates.longitude}
-                    </p>
+                    <small className="muted">
+                      {site.address.street}, {site.address.city}, {site.address.state} {site.address.postalCode}
+                    </small>
+                  </Col>
+                  <Col sm="3">
+                    {site.distanceTo && (
+                      <p className="h5">
+                        {parseInt(site.distanceTo)} miles away
+                      </p>
+                    )}
+
                   </Col>
                   <Col sm="3">
                     <Button color="primary" onClick={() => { setUserStore(site); toggle(); }}>Set as My Store</Button>
@@ -77,10 +83,9 @@ const FindStoreModal = (props) => {
             </div>
           )}
         </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
+        {/* <ModalFooter>
           <Button color="secondary" onClick={toggle}>Cancel</Button>
-        </ModalFooter>
+        </ModalFooter> */}
       </Modal>
     </div>
   );

@@ -1,5 +1,7 @@
 import BootstrapTable from 'react-bootstrap-table-next';
 import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 function Catalog({ data }) {
   const catalog = data.data.pageContent;
@@ -17,15 +19,27 @@ function Catalog({ data }) {
     dataField: 'status',
     text: 'Status',
     sort: true
-  }]
+  },
+  {
+    dataField: "",
+    text: "Actions",
+    formatter: (rowContent, row) => {
+      return (
+        <>
+          <a href={`/admin/item/${row.itemId.itemCode}`}><FontAwesomeIcon icon={faEdit} /></a>
+        </>
+      )
+    }
+  }
+  ]
 
   const defaultSorted = [{
-    dataField: 'itemId.itemCode',
-    order: 'desc'
+    dataField: 'status',
+    order: 'asc'
   }];
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
-      router.push(`/admin/item/${row.itemId.itemCode}`)
+      // router.push(`/admin/item/${row.itemId.itemCode}`)
     }
   }
   const rowStyle = { "cursor": "pointer" };

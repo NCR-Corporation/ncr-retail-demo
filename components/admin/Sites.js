@@ -25,7 +25,6 @@ function Sites({ data }) {
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
 
-      console.log(e, row, rowIndex);
       router.push(`/admin/sites/${row.id}`)
     }
   }

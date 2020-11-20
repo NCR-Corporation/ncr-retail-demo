@@ -6,7 +6,6 @@ import { UserStoreContext } from '../../context/AppContext';
 import useCatalogItem from '../../context/useCatalogItem';
 
 export default function Item({ id, categories }) {
-  console.log('here');
   const { userStore } = useContext(UserStoreContext);
   const { catalogItem, isLoading, isError } = useCatalogItem(id, userStore.id);
   let item;
@@ -37,7 +36,7 @@ export default function Item({ id, categories }) {
           <div className="card mb-3">
             <div className="row no-gutters">
               <div className="col-sm-4">
-                <img className="p-4" width="100%" src={item.attributes.imageUrls.length > 0 ? item.attributes.imageUrls[0] : "https://via.placeholder.com/150"} alt="Card image cap" />
+                <img className="p-4" width="100%" src={item.attributes && item.attributes.imageUrls.length > 0 ? item.attributes.imageUrls[0] : "https://via.placeholder.com/150"} alt="Card image cap" />
               </div>
               <div className="col-sm-6">
                 <div className="card-body h-100 d-flex flex-column bd-highlight pb-5">
@@ -53,7 +52,7 @@ export default function Item({ id, categories }) {
                       <div className="p-2 bd-highlight">
                         <h3 className="text-muted">{item.price ? `$${item.price.price}` : 'Not available at this store'}</h3>
                       </div>
-                      <div className="ml-auto p-2 bd-highlight"><Button color="primary">Add to Cart</Button></div>
+                      <div className="ml-auto p-2 bd-highlight"><Button color="primary" disabled>Add to Cart</Button></div>
                     </div>
                   </div>
                 </div>

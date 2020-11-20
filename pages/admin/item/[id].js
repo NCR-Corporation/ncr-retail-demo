@@ -9,7 +9,6 @@ const Edit = ({ id, categoryNodes }) => {
 
 export async function getServerSideProps(context) {
   const categoryNodes = await getAllCategoryNodes();
-  console.log(categoryNodes);
   return {
     props: {
       id: context.params.id,

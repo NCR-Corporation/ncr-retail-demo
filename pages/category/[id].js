@@ -49,14 +49,12 @@ export default function Category({ id, categories }) {
                 ))}
               </Row>
             )}
-            <div className="container mt-2">
-              <div className="row">
-                {Object.keys(categoryItems).length > 0 && Object.keys(categoryItems).map(key => (
-                  <div className="col-md-3 mb-4" key={key}>
-                    <ItemCard item={categoryItems[key]} />
-                  </div>
-                ))}
-              </div>
+            <div className="row mt-2">
+              {Object.keys(categoryItems).length > 0 && Object.keys(categoryItems).map(key => (
+                <div className="col-md-3 mb-4" key={key}>
+                  <ItemCard item={categoryItems[key]} />
+                </div>
+              ))}
             </div>
           </div>
         )}

@@ -6,7 +6,6 @@ const Edit = ({ id }) => {
 }
 
 export async function getServerSideProps(context) {
-  console.log(context);
   return {
     props: {
       id: context.params.id

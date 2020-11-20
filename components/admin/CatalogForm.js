@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from '../../components/admin/Header';
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, yupToFormErrors } from "formik";
 import * as Yup from "yup";
 import CategorySelect from './CategorySelect';
 import useCatalogItem from '../../context/useCatalogItem';
-import { Row, Col, Card, CardBody, CardTitle, Input, FormGroup, Label } from 'reactstrap';
+import { Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
 import DatePicker from './DatePicker';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -34,16 +34,18 @@ const createItemSchema = Yup.object().shape({
   status: Yup.mixed().required().oneOf(["INACTIVE", "ACTIVE", "DISCONTINUED", "SEASONAL", "TO_DISCONTINUE", "UNAUTHORIZED"]),
   departmentId: Yup.string(),
   nonMerchandise: Yup.boolean(),
-  price: Yup.number().test(
-    'is-decimal',
-    'Input Valid Price',
-    value => (value + "").match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/),
-  ),
+  price: Yup.number().when("version", {
+    is: (val => val === 1),
+    then: Yup.number().test(
+      'is-decimal',
+      'Input Valid Price',
+      value => (value + "").match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/),
+    )
+  }),
   version: Yup.number().required()
 })
 
 const CatalogForm = ({ id, categories }) => {
-  console.log('categories', categories);
   const router = useRouter();
 
   const [showAlert, setShowAlert] = useState(false);
@@ -54,7 +56,6 @@ const CatalogForm = ({ id, categories }) => {
   let { catalogItem, isLoading, isError } = useCatalogItem(id);
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.itemId == '') {
-    console.log(catalogItem);
     const { departmentId, alternateCategories, itemId, longDescription, merchandiseCategory, nonMerchandise, referenceId, shortDescription, status, version } = catalogItem;
     let catalogValues = {
       version: version + 1,
@@ -80,6 +81,9 @@ const CatalogForm = ({ id, categories }) => {
       if (values[key] !== "") {
         data[key] = values[key];
       }
+      if (key === "version") {
+        data['version'] = values[key];
+      }
     }
 
     delete data['itemId'];
@@ -104,18 +108,35 @@ const CatalogForm = ({ id, categories }) => {
       }]
     };
 
-    data['version'] = 2;
-    data['merchandiseCategory'] = { "nodeId": parentCategory };
-    // let body = { "items": [data] };
+    // data['version'] = 2;
+    // data['merchandiseCategory'] = { "nodeId": parentCategory };
 
-    fetch('/api/items', { method: 'POST', body: JSON.stringify(data) })
-      .then(response => response.json())
-      .then(data => {
-        // if (data.status == 204) {
-        //   router.push('/admin/dashboard')
-        // }
-      });
 
+
+    if (id) {
+      // delete data['itemId'];
+      fetch(`/api/items/${id}`, { method: 'POST', body: JSON.stringify(data) })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status != 204) {
+            setShowAlert({ status: data.status, message: data.data.message })
+          } else {
+            setShowAlert({ status: 200, message: 'Item successfully updated.' })
+          }
+          setVisible(true);
+        });
+    } else {
+      fetch('/api/items', { method: 'POST', body: JSON.stringify(data) })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status != 204) {
+            setShowAlert({ status: data.status, message: data.data.message })
+          } else {
+            setShowAlert({ status: 200, message: 'Item successfully updated.' })
+          }
+          setVisible(true);
+        });
+    }
   }
 
   return (
@@ -132,13 +153,15 @@ const CatalogForm = ({ id, categories }) => {
             <Header />
             <main className="container pt-4">
               <Form>
+                {isLoading && (<div className="mt-4 d-flex justify-content-center"><Spinner color="primary" /></div>)}
+                <Alert toggle={onDismiss} isOpen={visible} className="mt-4" color={showAlert.status == 200 ? 'success' : 'danger'}>{showAlert.message}</Alert>
                 <Row>
                   <Col>
-                    <h4 className="mb-2">Add Item</h4>
+                    <h4 className="mb-2">{id ? 'Edit' : 'Create'} Item</h4>
                   </Col>
                   <Col>
                     <div className="form-group float-right">
-                      <button type="submit" className={`${(dirty && isValid) ? "disabled" : ""} btn btn-primary`}>+ Create New Item</button>
+                      <button type="submit" className={`${!(dirty && isValid) ? "disabled" : ""} btn btn-primary`} disabled={`${!(dirty && isValid) ? "disabled" : ""}`}>+ {id ? 'Update' : 'Create'} Item</button>
                     </div>
                   </Col>
                 </Row>
@@ -171,7 +194,7 @@ const CatalogForm = ({ id, categories }) => {
                       <CardBody>
                         <div className="form-group">
                           <label htmlFor="imageUrl">Image Url</label>
-                          <Field name="imageUrl" id="imageUrl" placeholder='https://...' className={`${errors.imageUrl && touched.imageUrl ? "is-invalid" : null} form-control`} />
+                          <Field name="imageUrl" id="imageUrl" placeholder='https://...' className={`${errors.imageUrl && touched.imageUrl ? "is-invalid" : null} form-control`} disabled={id ? 'disabled' : ''} />
                           <ErrorMessage
                             name="imageUrl"
                             component="div"
@@ -212,10 +235,7 @@ const CatalogForm = ({ id, categories }) => {
                               <input type="text" className="form-control" id="posNumber" placeholder="TBD" disabled />
                             </div>
                           </div>
-
                         </div>
-
-
                         <div className="form-group">
                           <label htmlFor="packageIdentifier">Package Identifier</label>
                           <input type="text" className="form-control" id="packageIdentifier" placeholder="TBD" disabled />
@@ -228,39 +248,42 @@ const CatalogForm = ({ id, categories }) => {
                       </CardBody>
                     </Card>
                     <Card className="mb-3">
-                      <CardBody>
-                        <div className="form-row">
-                          {/* <div className="form-group col-md-4">
-                            <label htmlFor="priceId">Price ID</label>
-                            <Field name="priceId" id="priceId" className={`${errors.referenceId && touched.referenceId ? "is-invalid" : null} form-control`} />
-                          </div> */}
-                          <div className="form-group col-md-4">
-                            <label htmlFor="price">Price</label>
-                            <Field name="price" id="price" className={`${errors.price && touched.price ? "is-invalid" : null} form-control`} />
-                            <ErrorMessage
-                              name="price"
-                              component="div"
-                              className="invalid-feedback"
-                            />
+                      {!id ? (
+                        <CardBody>
+                          <div className="form-row">
+                            <div className="form-group col-md-4">
+                              <label htmlFor="price">Price</label>
+                              <Field name="price" id="price" className={`${errors.price && touched.price ? "is-invalid" : null} form-control`} />
+                              <ErrorMessage
+                                name="price"
+                                component="div"
+                                className="invalid-feedback"
+                              />
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="currency">Currency</label>
+                              <Field as="select" name="currency" className={`${errors.currency && touched.currency ? "is-invalid" : null} form-control`}>
+                                <option value="USD">USD</option>
+                              </Field>
+                            </div>
+
                           </div>
-                          <div className="form-group">
-                            <label htmlFor="currency">Currency</label>
-                            <Field as="select" name="currency" className={`${errors.currency && touched.currency ? "is-invalid" : null} form-control`}>
-                              <option value="USD">USD</option>
-                            </Field>
+                          <div className="form-row">
+                            <div className="form-group col-md-4">
+                              <label htmlFor="effectiveDate">Effective Date</label>
+                              <DatePicker name="effectiveDate" />
+                            </div>
+                            <div className="form-group col-md-4">
+                              <label htmlFor="endDate">End Date</label>
+                              <DatePicker name="endDate" />
+                            </div>
                           </div>
-                        </div>
-                        <div className="form-row">
-                          <div className="form-group col-md-4">
-                            <label htmlFor="effectiveDate">Effective Date</label>
-                            <DatePicker name="effectiveDate" />
-                          </div>
-                          <div className="form-group col-md-4">
-                            <label htmlFor="endDate">End Date</label>
-                            <DatePicker name="endDate" />
-                          </div>
-                        </div>
-                      </CardBody>
+                        </CardBody>
+                      ) : (
+                          <CardBody>
+                            Price cannot be updated on a global level after creation. Prices are updated on each individual site.
+                          </CardBody>
+                        )}
                     </Card>
                     <Card>
                       <CardBody>
