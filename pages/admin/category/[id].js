@@ -1,15 +1,13 @@
-import CatalogForm from '../../../components/admin/CatalogForm';
+import CategoryForm from '../../../components/admin/CategoryForm';
 import { getAllCategoryNodes } from '../../../lib/category';
-
 const Edit = ({ id, categoryNodes }) => {
   return (
-    <CatalogForm id={id} categories={categoryNodes} />
+    <CategoryForm id={id} categoryNodes={categoryNodes} />
   )
 }
 
 export async function getServerSideProps(context) {
   const categoryNodes = await getAllCategoryNodes();
-  console.log(categoryNodes);
   return {
     props: {
       id: context.params.id,
@@ -17,6 +15,5 @@ export async function getServerSideProps(context) {
     }
   }
 }
-
 
 export default Edit;

@@ -75,7 +75,7 @@ const New = ({ siteId }) => {
   const [visible, setVisible] = useState(false);
 
   const onDismiss = () => setVisible(false);
-  let { site, isLoading, isError } = useSite(siteId, true);
+  let { site, isLoading, isError } = useSite(siteId);
   const [initialValues, setInitialValues] = useState(init);
   if (!isLoading && !isError && initialValues.siteName == '') {
     const { coordinates, currency, organizationName, description, enterpriseUnitName, id, referenceId, siteName, status, contact, timezone, address } = site.data;

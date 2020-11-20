@@ -4,48 +4,74 @@ import Header from '../../components/admin/Header';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import CategorySelect from './CategorySelect';
+import useCatalogItem from '../../context/useCatalogItem';
 import { Row, Col, Card, CardBody, CardTitle, Input, FormGroup, Label } from 'reactstrap';
 import DatePicker from './DatePicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-const CatalogForm = ({ item, categories }) => {
+const init = {
+  itemId: '',
+  shortDescription: '',
+  longDescription: '',
+  merchandiseCategory: '',
+  status: '',
+  departmentId: 'NA',
+  nonMerchandise: false,
+  price: '',
+  currency: "USD",
+  effectiveDate: '',
+  endDate: '',
+  imageUrl: '',
+  version: 1
+}
+
+const createItemSchema = Yup.object().shape({
+  itemId: Yup.string().required('Item id is required'),
+  shortDescription: Yup.string().required('Short description is required'),
+  longDescription: Yup.string(),
+  // Need to update this required check to handle hidden field on change
+  merchandiseCategory: Yup.string().required(),
+  status: Yup.mixed().required().oneOf(["INACTIVE", "ACTIVE", "DISCONTINUED", "SEASONAL", "TO_DISCONTINUE", "UNAUTHORIZED"]),
+  departmentId: Yup.string(),
+  nonMerchandise: Yup.boolean(),
+  price: Yup.number().test(
+    'is-decimal',
+    'Input Valid Price',
+    value => (value + "").match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/),
+  ),
+  version: Yup.number().required()
+})
+
+const CatalogForm = ({ id, categories }) => {
+  console.log('categories', categories);
   const router = useRouter();
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const onDismiss = () => setVisible(false)
+
+  let { catalogItem, isLoading, isError } = useCatalogItem(id);
+  const [initialValues, setInitialValues] = useState(init);
+  if (id && !isLoading && !isError && initialValues.itemId == '') {
+    console.log(catalogItem);
+    const { departmentId, alternateCategories, itemId, longDescription, merchandiseCategory, nonMerchandise, referenceId, shortDescription, status, version } = catalogItem;
+    let catalogValues = {
+      version: version + 1,
+      departmentId,
+      itemId: itemId.itemCode,
+      longDescription: longDescription ? longDescription.values[0].value : '',
+      shortDescription: shortDescription ? shortDescription.values[0].value : '',
+      merchandiseCategory: merchandiseCategory.nodeId,
+      nonMerchandise: nonMerchandise ?? false,
+      status
+    };
+    setInitialValues(catalogValues);
+  }
 
   const [parentCategory, setParentCategory] = useState();
 
 
-
-  const initialValues = {
-    itemId: '',
-    shortDescription: '',
-    longDescription: '',
-    merchandiseCategory: '',
-    status: '',
-    departmentId: 'NA',
-    nonMerchandise: false,
-    price: '',
-    currency: "USD",
-    effectiveDate: '',
-    endDate: '',
-    imageUrl: ''
-  }
-
-  // TODO: Add all validation.
-  const createItemSchema = Yup.object().shape({
-    itemId: Yup.string().required('Item id is required'),
-    shortDescription: Yup.string().required('Short description is required'),
-    longDescription: Yup.string(),
-    // Need to update this required check to handle hidden field on change
-    merchandiseCategory: Yup.string().required(),
-    status: Yup.mixed().required().oneOf(["INACTIVE", "ACTIVE", "DISCONTINUED", "SEASONAL", "TO_DISCONTINUE", "UNAUTHORIZED"]),
-    departmentId: Yup.string(),
-    nonMerchandise: Yup.boolean(),
-    price: Yup.number().test(
-      'is-decimal',
-      'Input Valid Price',
-      value => (value + "").match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/),
-    )
-  })
 
   const handleSubmit = async values => {
     let data = {};
@@ -93,7 +119,7 @@ const CatalogForm = ({ item, categories }) => {
   }
 
   return (
-    <Formik initialValues={initialValues} validationSchema={createItemSchema} onSubmit={handleSubmit}>
+    <Formik enableReinitialize={true} initialValues={initialValues} validationSchema={createItemSchema} onSubmit={handleSubmit}>
       {(formik) => {
         const { errors, touched, isValid, dirty, setFieldTouched, setFieldValue } = formik;
         useEffect(() => {
@@ -249,7 +275,17 @@ const CatalogForm = ({ item, categories }) => {
                   <Col md='4'>
                     <Card className="mb-3">
                       <CardBody>
-
+                        <div className="form-row">
+                          <div className="form-group col-md-6">
+                            <label htmlFor="version">Version</label>
+                            <Field name="version" id="version" className={`${errors.version && touched.version ? "is-invalid" : null} form-control`} />
+                            <ErrorMessage
+                              name="version"
+                              component="div"
+                              className="invalid-feedback"
+                            />
+                          </div>
+                        </div>
                         <div className="form-group">
                           <label htmlFor="status">Status*</label>
                           <Field as="select" name="status" className={`${errors.status && touched.status ? "is-invalid" : null} form-control`}>
@@ -276,7 +312,7 @@ const CatalogForm = ({ item, categories }) => {
                     <Card className="mb-3">
                       <CardBody>
                         <Field name="merchandiseCategory" id="merchandiseCategory" className="d-none" value={parentCategory || ''} />
-                        {/* <CategorySelect setParentCategory={setParentCategory} categories={categories} /> */}
+                        <CategorySelect currentCategory={initialValues.merchandiseCategory} initialCategory={initialValues.parentCategory ?? ''} setDisabled={initialValues.merchandiseCategory ? true : false} setParentCategory={setParentCategory} categories={categories} />
                         <div className="form-group">
                           <label htmlFor="alternateCategories">Alternate Categories</label>
                           <input type="text" className="form-control" id="alternateCategories" placeholder="TBD" disabled />

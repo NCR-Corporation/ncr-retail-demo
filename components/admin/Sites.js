@@ -2,7 +2,6 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { useRouter } from 'next/router';
 
 function Sites({ data }) {
-  // TODO: Fix if no content
   const router = useRouter();
   const sites = data.data.pageContent;
   const columns = [{
@@ -27,17 +26,15 @@ function Sites({ data }) {
     onClick: (e, row, rowIndex) => {
 
       console.log(e, row, rowIndex);
-      router.push(`/admin/sites/edit?id=${row.id}`)
+      router.push(`/admin/sites/${row.id}`)
     }
   }
   const rowStyle = { "cursor": "pointer" };
   return (
     <div className="mt-4">
-      <BootstrapTable keyField="id" data={sites} columns={columns} rowEvents={rowEvents} hover rowStyle={rowStyle} defaultSorted={defaultSorted} />
+      <BootstrapTable bootstrap4 keyField="id" data={sites} columns={columns} rowEvents={rowEvents} hover rowStyle={rowStyle} defaultSorted={defaultSorted} />
     </div>
   )
 }
-
-
 
 export default Sites;

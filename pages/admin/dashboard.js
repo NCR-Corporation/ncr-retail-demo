@@ -4,7 +4,7 @@ import Sites from '../../components/admin/Sites';
 import Categories from '../../components/admin/Categories';
 import Catalog from '../../components/admin/Catalog';
 import { getSites } from '../../lib/sites';
-import { getCategoryNodes } from '../../lib/category';
+import { getAllCategoryNodes } from '../../lib/category';
 import { getCatalogItems } from '../../lib/catalog';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
@@ -49,7 +49,7 @@ function Dashboard({ sites, categoryNodes, catalog }) {
             <Sites data={sites} />
           </TabPane>
           <TabPane tabId="2">
-            <Categories data={categoryNodes} />
+            <Categories categories={categoryNodes} />
           </TabPane>
           <TabPane tabId="3">
             <Catalog data={catalog} />
@@ -62,7 +62,7 @@ function Dashboard({ sites, categoryNodes, catalog }) {
 
 export async function getServerSideProps(context) {
   const sites = await getSites(true);
-  const categoryNodes = await getCategoryNodes();
+  const categoryNodes = await getAllCategoryNodes(true);
   const catalog = await getCatalogItems();
   return {
     props: {

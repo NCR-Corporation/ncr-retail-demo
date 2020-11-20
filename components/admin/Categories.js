@@ -1,23 +1,42 @@
-function Categories({ data }) {
-  const categories = data.data.pageContent;
-  // TODO: Fix if no content
+import BootstrapTable from 'react-bootstrap-table-next';
+import { useRouter } from 'next/router';
+
+function Categories({ categories }) {
+  const router = useRouter();
+  const columns = [{
+    dataField: 'nodeId.nodeId',
+    text: 'ID',
+    sort: true,
+  }, {
+    dataField: 'title.value',
+    text: 'Name',
+    sort: true,
+  }, {
+    dataField: 'parentId.nodeId',
+    text: 'Parent',
+    sort: true,
+  }, {
+    dataField: 'status',
+    text: 'Status',
+    sort: true
+  }]
+
+  const defaultSorted = [{
+    dataField: 'id',
+    order: 'desc'
+  }];
+  const rowEvents = {
+    onClick: (e, row, rowIndex) => {
+      router.push(`/admin/category/${row.nodeId.nodeId}`)
+    }
+  }
+  const rowStyle = { "cursor": "pointer" };
+
   return (
     <div className="mt-4">
-      <ul className="list-group">
-        {categories.map((category) => (
-          <a key={category.nodeCode} href='#' className="list-group-item list-group-item-action">
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">{category.title.value}</h5>
-              <small>{category.status}</small>
-            </div>
-            <small>{category.nodeCode}</small>
-          </a>
-        ))}
-      </ul>
+      <BootstrapTable bootstrap4 keyField="nodeId.nodeId" data={categories} columns={columns} rowEvents={rowEvents} hover rowStyle={rowStyle} defaultSorted={defaultSorted} />
     </div>
   )
 }
-
-
 
 export default Categories;
