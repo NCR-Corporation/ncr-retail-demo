@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Input } from 'reactstrap';
 
 const CategorySelect = ({ currentCategory, initialCategory, setDisabled, setParentCategory, categories }) => {
+
+  console.log(categories);
   const [selectedCategory, setSelectedCategory] = useState({ "nodeCode": "--" });
   const [childVisible, setChildVisible] = useState(false);
   const [selectedChild, setSelectedChild] = useState(({ "nodeCode": "--" }))
@@ -83,7 +85,7 @@ const CategorySelect = ({ currentCategory, initialCategory, setDisabled, setPare
         <Input disabled={setDisabled ? 'disabled' : ''} type="select" name="select" onChange={e => handleRootCategoryChange(e)} value={selectedCategory.nodeCode}>
           <option value="">--</option>
           {categories.map((category) => (
-            <option key={category.nodeCode} value={category.nodeCode}>{category.title.value}</option>
+            <option key={category.nodeCode} value={category.nodeCode}>{category.title.value} [{category.nodeCode}]</option>
           ))}
 
         </Input>
@@ -97,7 +99,7 @@ const CategorySelect = ({ currentCategory, initialCategory, setDisabled, setPare
                 let category = categoryChildren[key];
                 if (key != "array") {
                   return (
-                    <option key={category.nodeCode} value={category.nodeCode}>{category.title.value}</option>
+                    <option key={category.nodeCode} value={category.nodeCode}>{category.title.value} [{category.nodeCode}]</option>
                   )
                 }
               })}
@@ -114,7 +116,7 @@ const CategorySelect = ({ currentCategory, initialCategory, setDisabled, setPare
               let category = categoryGrandchildren[key];
               if (key != "array") {
                 return (
-                  <option key={category.nodeCode} value={category.nodeCode}>{category.title.value}</option>
+                  <option key={category.nodeCode} value={category.nodeCode}>{category.title.value} [{category.nodeCode}]</option>
                 )
               }
             })}

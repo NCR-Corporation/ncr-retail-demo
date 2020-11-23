@@ -2,8 +2,7 @@ import Header from '../../components/public/Header';
 import Link from 'next/link';
 import ItemCard from '../../components/public/ItemCard';
 import {
-  Card, Col, Row, CardBody, CardImg,
-  CardSubtitle
+  Card, Col, Row, CardBody, CardDeck
 } from 'reactstrap';
 import useCategory from '../../context/useCategory';
 import { useContext } from 'react';
@@ -69,7 +68,7 @@ export default function Category({ id, categories }) {
                 ))}
               </Row>
             )}
-            <div className="row">
+            <div className="row row-cols-md-3">
               {categoryItems.length > 0 && categoryItems.map(item => (
                 <div className="col-md-6 col-lg-4 mb-4" key={item.item.itemId.itemCode}>
                   <ItemCard catalogItem={item} />

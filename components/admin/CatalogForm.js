@@ -129,10 +129,15 @@ const CatalogForm = ({ id, categories }) => {
       fetch('/api/items', { method: 'POST', body: JSON.stringify(data) })
         .then(response => response.json())
         .then(data => {
-          if (data.status != 204) {
-            setShowAlert({ status: data.status, message: data.data.message })
-          } else {
-            setShowAlert({ status: 200, message: 'Item successfully updated.' })
+          let error = false
+          data.forEach(element => {
+            if (element.status != 204) {
+              setShowAlert({ status: data.status, message: data.data.message })
+              errot = true;
+            }
+          })
+          if (!error) {
+            setShowAlert({ status: 200, message: 'Item successfully created.' })
           }
           setVisible(true);
         });
@@ -336,7 +341,7 @@ const CatalogForm = ({ id, categories }) => {
                     <Card className="mb-3">
                       <CardBody>
                         <Field name="merchandiseCategory" id="merchandiseCategory" className="d-none" value={parentCategory || ''} />
-                        <CategorySelect currentCategory={initialValues.merchandiseCategory} initialCategory={initialValues.parentCategory ?? ''} setDisabled={initialValues.merchandiseCategory ? true : false} setParentCategory={setParentCategory} categories={categories} />
+                        <CategorySelect currentCategory={initialValues.merchandiseCategory} initialCategory={initialValues.parentCategory ?? ''} setDisabled={false} setParentCategory={setParentCategory} categories={categories} />
                         <div className="form-group">
                           <label htmlFor="alternateCategories">Alternate Categories</label>
                           <input type="text" className="form-control" id="alternateCategories" placeholder="TBD" disabled />
