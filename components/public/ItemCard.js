@@ -4,7 +4,7 @@ import {
   CardFooter, Row, Col, Button
 } from 'reactstrap';
 
-const ItemCard = ({ catalogItem }) => {
+const ItemCard = ({ catalogItem, showCartButton = true }) => {
   const { item, itemPrices, itemAttributes } = catalogItem;
   return (
     <Card className="border-0 shadow-sm item-card h-100">
@@ -19,9 +19,11 @@ const ItemCard = ({ catalogItem }) => {
           <Col md="6">
             {itemPrices && itemPrices.length > 0 ? `$${itemPrices[0].price}` : 'Not available at this store'}
           </Col>
-          <Col md="6">
-            <Button className="float-right" color="primary">Add to Cart</Button>
-          </Col>
+          {showCartButton && (
+            <Col md="6">
+              <Button className="float-right" color="primary" disabled>Add to Cart</Button>
+            </Col>
+          )}
         </Row></CardFooter>
     </Card>
   );

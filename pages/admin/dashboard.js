@@ -6,71 +6,31 @@ import Catalog from '../../components/admin/Catalog';
 import { getSites } from '../../lib/sites';
 import { getAllCategoryNodes } from '../../lib/category';
 import { getCatalogItems } from '../../lib/catalog';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Tooltip, Button } from 'reactstrap';
-import PostmanCollection from '../../public/Sample Retail APIs.postman_collection.json';
-import _ from 'lodash';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Tooltip, Button, Modal, ModalHeader, ModalBody, Spinner } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
 function Dashboard({ sites, categoryNodes, catalog }) {
+  const [exporting, setIsExporting] = useState(false);
   const [activeTab, setActiveTab] = useState('1');
+  const [modal, setModal] = useState(false);
   const [downloadJSON, setDownloadJSON] = useState()
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
   }
 
+  const toggleModal = () => setModal(!modal);
+
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const toggleTooltip = () => setTooltipOpen(!tooltipOpen);
 
   const exportPostman = () => {
+    setIsExporting(true);
     fetch(`/api/export`).then(res => res.json()).then(data => {
-      const { items, sites, categories, itemPrices, itemAttributes } = data;
-      let itemsObject = {
-        "items": items
-      };
-      let itemAttributesObject = {
-        "itemAttributes": itemAttributes
-      };
-      let itemPricesObject = {
-        "itemPrices": itemPrices
-      }
-      let categoriesObject = {
-        "nodes": categories
-      };
-
-      PostmanCollection.item.forEach(item => {
-        console.log('item', item.name);
-        switch (item.name) {
-          case "1: Create Sites":
-            console.log('here');
-            item.request.body.raw = `{ "sites": "${sites}"}`;
-            break;
-          case "2: Create Categories":
-            item.request.body.raw = JSON.stringify(categoriesObject);
-            break;
-          case "3: Create Items":
-            item.request.body.raw = JSON.stringify(itemsObject);
-            break;
-          case "4: Create Item Prices":
-            item.request.body.raw = JSON.stringify(itemPricesObject);
-            break;
-          case "5: Create Item Attributes":
-            item.request.body.raw = JSON.stringify(itemAttributesObject);
-            break;
-          default:
-            break;
-        }
-      })
-      console.log(PostmanCollection)
-
-      // let index = _.findIndex(PostmanCollection.event, { "listen": "prerequest" })
-      // PostmanCollection.event[index].script.exec.push(`postman.setEnvironmentVariable('create-sites', '${sites}');`);
-      // PostmanCollection.event[index].script.exec.push(`postman.setEnvironmentVariable('create-categories', ${categoriesObject});`);
-      // PostmanCollection.event[index].script.exec.push(`postman.setEnvironmentVariable('create-items', ${itemsObject});`);
-      // PostmanCollection.event[index].script.exec.push(`postman.setEnvironmentVariable('create-item-prices', ${itemPricesObject});`);
-      // PostmanCollection.event[index].script.exec.push(`postman.setEnvironmentVariable('create-item-attributes', ${itemAttributesObject});`);
-      var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(PostmanCollection));
-      // window.location.href = '/Sample Retail APIs.postman_collection.json';
+      toggleModal();
+      setIsExporting(false);
       setDownloadJSON(data);
     });
   }
@@ -79,13 +39,18 @@ function Dashboard({ sites, categoryNodes, catalog }) {
     <div>
       <Header />
       <main className="container mt-4">
-        <Button outline color="primary" className="float-right" id="TooltipExample" onClick={() => exportPostman()}>Export All Data</Button>
-        {downloadJSON &&
-          <a href={`data:${downloadJSON}`} download="Sample Retail APIs.postman_collection.json">Download</a>
-        }
+        <Button color="primary" className="float-right" id="TooltipExample" onClick={() => exportPostman()}>{exporting ? <Spinner color="light" size="sm" /> : <FontAwesomeIcon icon={faDownload} />} Export All Data</Button>
         <Tooltip placement="right" isOpen={tooltipOpen} target="TooltipExample" toggle={toggleTooltip}>
           Returns all ACTIVE data in Postman collection.
-      </Tooltip>
+        </Tooltip>
+        <Modal isOpen={modal} toggle={toggleModal}>
+          <ModalHeader toggle={toggleModal}>Postman Collection</ModalHeader>
+          <ModalBody>
+            <p>Follow the numbering of the requests to make sure the sites, categories, and items are all set up correctly.</p>
+            <a href={`data:${downloadJSON}`} download="Sample Retail APIs.postman_collection.json" className="btn btn-primary"><FontAwesomeIcon icon={faDownload} /> Download Postman Collection</a>
+          </ModalBody>
+
+        </Modal>
         <Nav tabs>
           <NavItem>
             <NavLink

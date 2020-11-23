@@ -1,31 +1,30 @@
-import Link from 'next/link';
+import { useContext } from 'react';
 import Header from '../components/public/Header';
 import {
-  Jumbotron, Button, Row, Col,
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle
+  Jumbotron, Row, Col,
+  Spinner
 } from 'reactstrap';
+import useCatalog from '../context/useCatalog';
+import ItemCard from '../components/public/ItemCard';
+import { UserStoreContext } from '../context/AppContext';
 
-function Home({ data, categories }) {
+function Home() {
+  const { userStore } = useContext(UserStoreContext);
+  const { catalogItems, isLoading, isError } = useCatalog(userStore.id);
+  console.log(catalogItems);
   return (
     <div>
-      <Header site={data} categories={categories} />
+      <Header />
       <main className="container mt-4">
         <Jumbotron>
           <h1 className="display-3">Latest Deals</h1>
         </Jumbotron>
         <Row>
-          {Array(3).fill(0).map((key, value) => (
-            <Col sm="4" key={value}>
-              <Card>
-                <CardImg top width="100%" src="https://via.placeholder.com/250" alt="Card image cap" />
-                <CardBody>
-                  <Link href='#'>
-                    <a className="h5 card-title">Lorem Ipsum</a>
-                  </Link>
-                  <CardSubtitle tag="h6" className="mb-2 text-muted">$10.99</CardSubtitle>
-                </CardBody>
-              </Card>
+          {isLoading && <Spinner />}
+          {isError && <small className="text-muted center">Uhoh, we've hit an error.</small>}
+          {!isLoading && !isError && catalogItems.data.pageContent.map((item) => (
+            <Col sm="3" md="3" lg="3" className="mb-4" key={item.item.itemId.itemCode}>
+              <ItemCard catalogItem={item} showCartButton={false} />
             </Col>
 
           ))}

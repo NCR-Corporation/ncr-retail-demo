@@ -6,7 +6,7 @@ import FindStoreModal from './FindStoreModal';
 import { UserStoreContext } from '../../context/AppContext';
 import useHeader from '../../context/useHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser, faCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   Button,
   Collapse,

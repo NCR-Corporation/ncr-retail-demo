@@ -1,3 +1,4 @@
+import React from 'react';
 import Header from '../../components/public/Header';
 import Link from 'next/link';
 import ItemCard from '../../components/public/ItemCard';
@@ -41,7 +42,6 @@ export default function Category({ id, categories }) {
     }
   }
 
-  console.log(categoryItems);
   return (
     <div>
       <Header categories={categories} />
@@ -56,12 +56,15 @@ export default function Category({ id, categories }) {
                 {childrenCategories.data.pageContent.map((child) => (
                   <Col sm={columns} key={child.nodeCode}>
                     <Card className="shadow-sm p-2 bg-white rounded border-0 mb-4 category-card">
-                      <CardBody>
-                        <Link href={`/category/${child.nodeCode}`}>
-                          <a className="h5 card-title">{child.title.value}</a>
-                        </Link>
-                        {/* <CardSubtitle tag="h6" className="mb-2 text-muted">{child.nodeCode}</CardSubtitle> */}
-                      </CardBody>
+
+                      <Link href={`/category/${child.nodeCode}`} passHref>
+                        <a>
+                          <CardBody>
+                            <p className='h5 card-title'>{child.title.value}</p>
+                          </CardBody>
+                        </a>
+                      </Link>
+
 
                     </Card>
                   </Col>
@@ -69,11 +72,13 @@ export default function Category({ id, categories }) {
               </Row>
             )}
             <div className="row row-cols-md-3">
-              {categoryItems.length > 0 && categoryItems.map(item => (
+              {categoryItems.length > 0 ? categoryItems.map(item => (
                 <div className="col-md-6 col-lg-4 mb-4" key={item.item.itemId.itemCode}>
                   <ItemCard catalogItem={item} />
                 </div>
-              ))}
+              )) :
+                <small className="col text-muted">No products yet.</small>
+              }
             </div>
           </div>
         )}
