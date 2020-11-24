@@ -26,21 +26,14 @@ export default function SiteCatalogTable({ catalog, siteId, fetchUpdatedCatalog 
       width: "100px"
     }
   }, {
-    dataField: "itemAttributes.imageUrls[0]",
-    text: "Image",
-    formatter: (rowContent, row) => {
-      return (
-        <img key={row.item.itemId.itemCode} className="w-100" src={`${row.itemAttributes.imageUrls[0]}`} />
-      )
-    },
-    headerStyle: {
-      width: "150px"
-    }
-  },
-  {
     dataField: "item.shortDescription.values[0].value",
     sort: true,
     text: "Name"
+  },
+  {
+    dataField: "itemAttributes.status",
+    sort: true,
+    text: "Status"
   }, {
     dataField: "itemPrices[0].price",
     sort: true,

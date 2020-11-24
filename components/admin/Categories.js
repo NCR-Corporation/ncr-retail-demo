@@ -46,11 +46,10 @@ function Categories({ categories }) {
       // router.push(`/admin/category/${row.nodeId.nodeId}`)
     }
   }
-  const rowStyle = { "cursor": "pointer" };
 
   return (
     <div className="mt-4">
-      <BootstrapTable bootstrap4 keyField="nodeId.nodeId" data={categories} columns={columns} rowEvents={rowEvents} hover rowStyle={rowStyle} defaultSorted={defaultSorted} />
+      <BootstrapTable bootstrap4 keyField="nodeId.nodeId" data={categories} columns={columns} rowEvents={rowEvents} hover defaultSorted={defaultSorted} />
     </div>
   )
 }

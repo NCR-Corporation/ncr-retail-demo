@@ -48,11 +48,9 @@ function Catalog({ data }) {
       // router.push(`/admin/item/${row.itemId.itemCode}`)
     }
   }
-  const rowStyle = { "cursor": "pointer" };
-
   return (
     <div className="mt-4">
-      <BootstrapTable bootstrap4 keyField="itemId.itemCode" data={catalog} columns={columns} rowEvents={rowEvents} hover rowStyle={rowStyle} defaultSorted={defaultSorted} />
+      <BootstrapTable bootstrap4 keyField="itemId.itemCode" data={catalog} columns={columns} rowEvents={rowEvents} hover defaultSorted={defaultSorted} />
     </div >
   )
 }

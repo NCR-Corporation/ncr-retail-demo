@@ -51,10 +51,9 @@ function Sites({ data }) {
 
     }
   }
-  const rowStyle = { "cursor": "pointer" };
   return (
     <div className="mt-4">
-      <BootstrapTable bootstrap4 keyField="id" data={sites} columns={columns} rowEvents={rowEvents} hover rowStyle={rowStyle} defaultSorted={defaultSorted} />
+      <BootstrapTable bootstrap4 keyField="id" data={sites} columns={columns} rowEvents={rowEvents} hover defaultSorted={defaultSorted} />
     </div>
   )
 }
