@@ -143,13 +143,25 @@ const New = ({ siteId }) => {
     if (siteId) {
       fetch(`/api/sites/${siteId}`, { method: 'PUT', body: JSON.stringify(data) })
         .then(response => response.json())
-        .then(data => { setVisible(true); setShowAlert({ status: data.status, message: 'Site successfully updated' }) })
-        .catch(err => { setVisible(true); setShowAlert({ status: err.status, message: err.message }) });
+        .then(data => {
+          if (data.status != 204) {
+            setShowAlert({ status: data.status, message: data.data.message })
+          } else {
+            setShowAlert({ status: data.status, message: 'Site successfully updated' })
+          }
+          setVisible(true);
+        })
     } else {
       fetch('/api/sites', { method: 'POST', body: JSON.stringify(data) })
         .then(response => response.json())
-        .then(data => { setVisible(true); setShowAlert({ status: data.status, message: 'Site successfully created' }) })
-        .catch(err => { setVisible(true); setShowAlert({ status: err.status, message: err.message }) });
+        .then(data => {
+          if (data.status != 204) {
+            setShowAlert({ status: data.status, message: data.data.message })
+          } else {
+            setShowAlert({ status: data.status, message: 'Site successfully created' })
+          }
+          setVisible(true);
+        })
     }
 
   }

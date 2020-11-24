@@ -1,10 +1,11 @@
 import BootstrapTable from 'react-bootstrap-table-next';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faClipboardList } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link';
+import { Col, Row } from 'reactstrap';
 
 function Sites({ data }) {
-  const router = useRouter();
   const sites = data.data.pageContent;
   const columns = [{
     dataField: "referenceId",
@@ -29,9 +30,14 @@ function Sites({ data }) {
     },
     formatter: (rowContent, row) => {
       return (
-        <>
-          <a href={`/admin/sites/${row.id}`}><FontAwesomeIcon icon={faEdit} /></a>
-        </>
+        <Row>
+          <Col sm="6">
+            <Link href={`/admin/sites/${row.id}`}><a><FontAwesomeIcon icon={faEdit} /></a></Link>
+          </Col>
+          <Col sm="6">
+            <Link href={`/admin/sites/catalog/${row.id}`}><a><FontAwesomeIcon icon={faClipboardList} /></a></Link>
+          </Col>
+        </Row>
       )
     }
   }];
@@ -43,8 +49,6 @@ function Sites({ data }) {
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
 
-      // console.log(e, row, rowIndex);
-      // router.push(`/admin/sites/${row.id}`)
     }
   }
   const rowStyle = { "cursor": "pointer" };

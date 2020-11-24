@@ -1,50 +1,93 @@
+import { useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import SiteCatalogItemForm from './SiteCatalogItemForm';
 
-export default function SiteCatalogTable({ catalog }) {
-  const columns = [{
-    dataField: "itemId.itemCode",
-    text: "ID"
-  }, {
-    dataField: "shortDescription.value",
-    text: "Name"
-  }, {
-    dataField: "price.price",
-    text: "Price"
-  }];
+export default function SiteCatalogTable({ catalog, siteId, fetchUpdatedCatalog }) {
+  const [modal, setModal] = useState(false);
+  const [item, setItem] = useState();
 
-  const expandRow = {
-    renderer: row => (
-      <div>
-        <p>{`This expand row belongs to rowKey ${row.id}`}</p>
-      </div>
-    ),
-    showExpandColumn: true,
-    expandHeaderColumnRenderer: ({ isAnyExpands }) => {
-      if (isAnyExpands) {
-        return <b>-</b>;
-      }
-      return <b>+</b>;
-    },
-    expandColumnRenderer: ({ expanded }) => {
-      if (expanded) {
-        return (
-          <b>-</b>
-        );
-      }
-      return (
-        <b>+</b>
-      );
-    }
+  const onDismiss = () => setVisible(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const toggle = (item) => {
+    setItem(item);
+    setModal(!modal);
   }
 
+  const columns = [{
+    dataField: "item.itemId.itemCode",
+    text: "ID",
+    sort: true,
+    headerStyle: {
+      width: "100px"
+    }
+  }, {
+    dataField: "itemAttributes.imageUrls[0]",
+    text: "Image",
+    formatter: (rowContent, row) => {
+      return (
+        <img key={row.item.itemId.itemCode} className="w-100" src={`${row.itemAttributes.imageUrls[0]}`} />
+      )
+    },
+    headerStyle: {
+      width: "150px"
+    }
+  },
+  {
+    dataField: "item.shortDescription.values[0].value",
+    sort: true,
+    text: "Name"
+  }, {
+    dataField: "itemPrices[0].price",
+    sort: true,
+    text: "Price",
+    headerStyle: {
+      width: '80px'
+    }
+  }, {
+    dataField: "",
+    text: "",
+    headerStyle: {
+      width: '60px'
+    },
+    formatter: (rowContent, row) => {
+      return (
+        <FontAwesomeIcon key={row.item.itemId.itemCode} icon={faEdit} size="sm" onClick={() => toggle(row)} />
+      )
+    }
+  }];
+
+
+  const defaultSorted = [{
+    dataField: 'itemId.itemCode',
+    order: 'asc'
+  }]
+  const showAlertMessage = ({ status, message }) => {
+    toggle(null);
+    setShowAlert({ status, message });
+    setVisible(true);
+    fetchUpdatedCatalog();
+  }
   return (
-    <div>
+    <div className="bg-white">
+      <Modal isOpen={modal} toggle={() => toggle(null)}>
+        {item && (
+          <SiteCatalogItemForm siteId={siteId} toggle={toggle} itemObject={item} setShowAlert={showAlertMessage} />
+        )}
+      </Modal>
+      <Alert toggle={onDismiss} isOpen={visible} className="mt-4" color={showAlert.status == 204 ? 'success' : 'danger'}>{showAlert.message}</Alert>
       <BootstrapTable
-        keyField='itemId.itemCode'
-        data={catalog}
+        bootstrap4
+        keyField='item.itemId.itemCode'
+        data={catalog.data.pageContent}
         columns={columns}
-        expandRow={expandRow}
+        hover
+        defaultSorted={defaultSorted}
       />
-    </div>
+    </div >
   );
 }
