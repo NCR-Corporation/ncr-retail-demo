@@ -27,9 +27,9 @@ const Header = ({ }) => {
               </div>
               <div className="col text-md-right">
                 <div>
-                  <a href="/admin/site/new" className="btn btn-primary ml-1">New Site</a>
-                  <a href="/admin/category/new" className="btn btn-primary ml-1">New Category</a>
-                  <a href="/admin/item/new" className="btn btn-primary ml-1">New Item</a>
+                  <Link href="/admin/sites/new" ><a className="btn btn-primary ml-1">New Site</a></Link>
+                  <Link href="/admin/category/new"><a className="btn btn-primary ml-1">New Category</a></Link>
+                  <Link href="/admin/item/new"><a className="btn btn-primary ml-1">New Item</a></Link>
                   <a href="#" className="btn btn-outline-primary ml-1">Logout</a>
                 </div>
               </div>

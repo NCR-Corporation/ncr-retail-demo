@@ -10,7 +10,10 @@ function Catalog({ data }) {
   const columns = [{
     dataField: "itemId.itemCode",
     text: 'ID',
-    sort: true
+    sort: true,
+    headerStyle: {
+      width: '100px'
+    }
   }, {
     dataField: "shortDescription.value",
     text: "Name",
@@ -22,7 +25,7 @@ function Catalog({ data }) {
   },
   {
     dataField: "",
-    text: "Actions",
+    text: "",
     headerStyle: {
       width: '80px'
     },
