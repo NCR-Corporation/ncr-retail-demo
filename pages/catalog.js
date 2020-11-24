@@ -8,7 +8,6 @@ import useCatalog from '../context/useCatalog';
 export default function Catalog({ query, categories }) {
   const { userStore } = useContext(UserStoreContext);
   const { catalogItems, isLoading, isError } = useCatalog(userStore.id, query);
-  console.log(catalogItems);
   return (
     <div>
       <Header categories={categories} />

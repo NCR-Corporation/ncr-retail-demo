@@ -41,7 +41,6 @@ export default function Category({ id, categories }) {
         break;
     }
   }
-
   return (
     <div>
       <Header categories={categories} />

@@ -47,6 +47,11 @@ const Header = () => {
     })
   });
 
+  useEffect(() => {
+    if (Object.keys(userStore).length == 0) {
+      setIsModalOpen(true);
+    }
+  }, [isModalOpen]);
   return (
     <div className="bg-white">
       <Head>

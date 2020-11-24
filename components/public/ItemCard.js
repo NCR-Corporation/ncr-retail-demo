@@ -9,10 +9,13 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
   return (
     <Card className="border-0 shadow-sm item-card h-100">
       <CardImg className="p-4" top width="100%" src={itemAttributes && itemAttributes.imageUrls && itemAttributes.imageUrls.length > 0 ? itemAttributes.imageUrls[0] : "https://via.placeholder.com/150"} alt="Card image cap" />
-      <CardBody>
-        <Link href={`/catalog/${item.itemId.itemCode}`}>
-          <a className="h5 card-title mb-2">{item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}</a>
-        </Link>
+      <CardBody className="d-flex">
+
+        <div className="align-self-end">
+          <Link href={`/catalog/${item.itemId.itemCode}`}>
+            <a className="h5 card-title mb-2">{item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}</a>
+          </Link>
+        </div>
       </CardBody>
       <CardFooter className="bg-white font-weight-bold h6">
         <Row>

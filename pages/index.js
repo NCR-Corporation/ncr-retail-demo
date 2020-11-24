@@ -11,13 +11,12 @@ import { UserStoreContext } from '../context/AppContext';
 function Home() {
   const { userStore } = useContext(UserStoreContext);
   const { catalogItems, isLoading, isError } = useCatalog(userStore.id);
-  console.log(catalogItems);
   return (
     <div>
       <Header />
       <main className="container mt-4">
         <Jumbotron>
-          <h1 className="display-3">Latest Deals</h1>
+          <h1 className="display-4">Latest Items</h1>
         </Jumbotron>
         <Row>
           {isLoading && <Spinner />}

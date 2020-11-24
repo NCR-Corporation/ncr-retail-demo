@@ -3,7 +3,6 @@ import { Input } from 'reactstrap';
 
 const CategorySelect = ({ currentCategory, initialCategory, setDisabled, setParentCategory, categories }) => {
 
-  console.log(categories);
   const [selectedCategory, setSelectedCategory] = useState({ "nodeCode": "--" });
   const [childVisible, setChildVisible] = useState(false);
   const [selectedChild, setSelectedChild] = useState(({ "nodeCode": "--" }))

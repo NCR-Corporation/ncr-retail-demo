@@ -23,6 +23,9 @@ function Catalog({ data }) {
   {
     dataField: "",
     text: "Actions",
+    headerStyle: {
+      width: '80px'
+    },
     formatter: (rowContent, row) => {
       return (
         <>

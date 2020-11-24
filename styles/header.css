@@ -39,7 +39,7 @@ body {
   transition: 0.3s;
 }
 
-.navbar-main .nav-link {
+.navbar-main .nav-link, .breadcrumb-item a {
   color:#1c1c1c;
 }
 

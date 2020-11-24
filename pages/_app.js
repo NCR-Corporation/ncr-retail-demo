@@ -4,6 +4,14 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import '../styles/header.css';
 import { UserStoreProvider } from "../context/AppContext";
 
+
+export function reportWebVitals(metric) {
+  if (metric.label === 'custom') {
+    console.log(metric);
+  }
+}
+
+
 function MyApp({ Component, pageProps, categories }) {
   return (
     <UserStoreProvider>

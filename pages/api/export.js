@@ -21,7 +21,6 @@ export default async function handler(req, res) {
   PostmanCollection.item.forEach(item => {
     switch (item.name) {
       case "1: Create Sites":
-        console.log('here');
         item.request.body.raw = `{ "sites": "${sites}"}`;
         break;
       case "2: Create Categories":
