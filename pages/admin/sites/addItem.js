@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/public/Header';
 import useSiteCatalog from '../../../context/useSiteCatalog';
-import AddItemsCatalogTable from '../layouts/AddItemsCatalogTable';
-import AddItemDetailsModal from '../layouts/AddItemDetailsModal';
+import AddItemsCatalogTable from '../../../components/admin/AddItemsCatalogTable'
+import AddItemDetailsModal from '../../../components/admin/AddItemDetailsModal';
 
 export default function addItem({ id }) {
   const [selected, setSelected] = useState();
