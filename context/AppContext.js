@@ -1,9 +1,11 @@
-import React, { useReducer, useEffect } from "react";
-const isServer = typeof window === "undefined";
+import React, { useReducer, useEffect } from 'react';
+const isServer = typeof window === 'undefined';
 
 let reducer = (userStore, newUserStore) => {
   if (newUserStore === null) {
-    if (!isServer) { localStorage.removeItem("userStore") };
+    if (!isServer) {
+      localStorage.removeItem('userStore');
+    }
     return initialState;
   }
   return { ...userStore, ...newUserStore };
@@ -13,17 +15,20 @@ const initialState = {};
 let localState;
 
 if (!isServer) {
-  localState = JSON.parse(localStorage.getItem("userStore"));
+  localState = JSON.parse(localStorage.getItem('userStore'));
 }
 
 const UserStoreContext = React.createContext();
 
 function UserStoreProvider(props) {
-  const [userStore, setUserStore] = useReducer(reducer, localState || initialState);
+  const [userStore, setUserStore] = useReducer(
+    reducer,
+    localState || initialState
+  );
 
   useEffect(() => {
     if (!isServer) {
-      localStorage.setItem("userStore", JSON.stringify(userStore));
+      localStorage.setItem('userStore', JSON.stringify(userStore));
     }
   }, [userStore]);
 
@@ -34,4 +39,4 @@ function UserStoreProvider(props) {
   );
 }
 
-export { UserStoreContext, UserStoreProvider }
+export { UserStoreContext, UserStoreProvider };

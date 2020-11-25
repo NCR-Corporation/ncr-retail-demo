@@ -4,27 +4,35 @@ import _ from 'lodash';
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     let categories = await getAllCategoryNodes();
-    categories.forEach(element => {
+    categories.forEach((element) => {
       if (element.children.array.length > 0) {
         let children = element.children.array;
         let sortedC = [];
-        children.forEach(child => {
+        children.forEach((child) => {
           if (element.children[child].children) {
             let grandchildren = element.children[child].children;
             let sortedGC = [];
-            Object.keys(grandchildren).forEach(index => sortedGC.push(grandchildren[index]));
-            sortedGC = _.sortBy(sortedGC, function (c) { return c.nodeCode });
+            Object.keys(grandchildren).forEach((index) =>
+              sortedGC.push(grandchildren[index])
+            );
+            sortedGC = _.sortBy(sortedGC, function (c) {
+              return c.nodeCode;
+            });
             element.children[child].children = sortedGC;
           }
           sortedC.push(element.children[child]);
-        })
-        sortedC = _.sortBy(sortedC, function (c) { return c.nodeCode });
+        });
+        sortedC = _.sortBy(sortedC, function (c) {
+          return c.nodeCode;
+        });
         element.children = sortedC;
       }
-    })
-    categories = _.sortBy(categories, function (c) { return c.nodeCode });
+    });
+    categories = _.sortBy(categories, function (c) {
+      return c.nodeCode;
+    });
     res.json(categories);
-  } else if (req.method === "PUT") {
+  } else if (req.method === 'PUT') {
     let response = await createCategory(req.body);
     res.json(response);
   }

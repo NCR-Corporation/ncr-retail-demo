@@ -1,13 +1,20 @@
 import _ from 'lodash';
-import { getCatalogItemDetails, getCatalogItemPricesByItemCodes, getCatalogItemAttributesByItemCodes } from '../../lib/catalog';
+import {
+  getCatalogItemDetails,
+  getCatalogItemPricesByItemCodes,
+  getCatalogItemAttributesByItemCodes,
+} from '../../lib/catalog';
 
 export default async function handler(req, res) {
   // const catalogItems = await getCatalogItems()
-  const catalogItems = await getCatalogItemDetails(req.query.id, req.query.query);
+  const catalogItems = await getCatalogItemDetails(
+    req.query.id,
+    req.query.query
+  );
   let data = catalogItems.data.pageContent;
   var sortByItemCode = function (obj) {
     return obj.item.itemId.itemCode;
-  }
+  };
   let items = _.sortBy(data, sortByItemCode);
   catalogItems.data.pageContent = items;
   // let items = catalogItems.data.pageContent;

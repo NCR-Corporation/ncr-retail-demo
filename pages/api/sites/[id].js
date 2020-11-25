@@ -9,6 +9,5 @@ export default async function handler(req, res) {
     res.json(response);
     // let response = await createOrUpdateCatalogItem(req.query.id, req.body)
     // res.json(response);
-
   }
 }

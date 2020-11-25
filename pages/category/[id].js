@@ -2,15 +2,12 @@ import React from 'react';
 import Header from '../../components/public/Header';
 import Link from 'next/link';
 import ItemCard from '../../components/public/ItemCard';
-import {
-  Card, Col, Row, CardBody, CardDeck
-} from 'reactstrap';
+import { Card, Col, Row, CardBody, CardDeck } from 'reactstrap';
 import useCategory from '../../context/useCategory';
 import { useContext } from 'react';
 import { UserStoreContext } from '../../context/AppContext';
 
 export default function Category({ id, categories }) {
-
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCategory(id, userStore.id);
   let category, childrenCategories, categoryItems;
@@ -34,10 +31,10 @@ export default function Category({ id, categories }) {
         columns = 4;
         break;
       case 4:
-        columns = 3
+        columns = 3;
         break;
       default:
-        columns = 2
+        columns = 2;
         break;
     }
   }
@@ -55,41 +52,43 @@ export default function Category({ id, categories }) {
                 {childrenCategories.data.pageContent.map((child) => (
                   <Col sm={columns} key={child.nodeCode}>
                     <Card className="shadow-sm p-2 bg-white rounded border-0 mb-4 category-card">
-
                       <Link href={`/category/${child.nodeCode}`} passHref>
                         <a>
                           <CardBody>
-                            <p className='h5 card-title'>{child.title.value}</p>
+                            <p className="h5 card-title">{child.title.value}</p>
                           </CardBody>
                         </a>
                       </Link>
-
-
                     </Card>
                   </Col>
                 ))}
               </Row>
             )}
             <div className="row row-cols-md-3">
-              {categoryItems.length > 0 ? categoryItems.map(item => (
-                <div className="col-md-6 col-lg-4 mb-4" key={item.item.itemId.itemCode}>
-                  <ItemCard catalogItem={item} />
-                </div>
-              )) :
+              {categoryItems.length > 0 ? (
+                categoryItems.map((item) => (
+                  <div
+                    className="col-md-6 col-lg-4 mb-4"
+                    key={item.item.itemId.itemCode}
+                  >
+                    <ItemCard catalogItem={item} />
+                  </div>
+                ))
+              ) : (
                 <small className="col text-muted">No products yet.</small>
-              }
+              )}
             </div>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
   return {
     props: {
-      id: context.params.id
-    }
-  }
+      id: context.params.id,
+    },
+  };
 }

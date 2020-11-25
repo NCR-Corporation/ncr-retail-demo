@@ -1,17 +1,19 @@
 @font-face {
-  font-family: "Rubik";
+  font-family: 'Rubik';
   src: url('./fonts/Rubik-VariableFont_wght.ttf') format('truetype');
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
-  padding-bottom:20px;
+  padding-bottom: 20px;
   background-color: #f8f9fa;
 }
 
 body {
-  font-family: "Rubik", Arial, "Helvetica Neue", "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+  font-family: 'Rubik', Arial, 'Helvetica Neue', 'Segoe UI', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 .header {
@@ -39,8 +41,9 @@ body {
   transition: 0.3s;
 }
 
-.navbar-main .nav-link, .breadcrumb-item a {
-  color:#1c1c1c;
+.navbar-main .nav-link,
+.breadcrumb-item a {
+  color: #1c1c1c;
 }
 
 .nav-tabs .nav-link {
@@ -48,19 +51,20 @@ body {
 }
 
 .pointer {
-  cursor: pointer
+  cursor: pointer;
 }
 
 label {
   margin-bottom: 0.3rem;
 }
 
-.category-card .card-title, .item-card .card-title {
+.category-card .card-title,
+.item-card .card-title {
   color: #1c1c1c;
 }
 
-.category-card:hover, .item-card:hover {
+.category-card:hover,
+.item-card:hover {
   box-shadow: 0 2px 9px rgba(153, 153, 153, 0.3) !important;
-    transition: 0.3s;
+  transition: 0.3s;
 }
-

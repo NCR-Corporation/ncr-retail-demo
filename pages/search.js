@@ -4,7 +4,6 @@ import { findNearby } from '../lib/sites';
 import Header from '../components/public/Header';
 
 function Search({ sites }) {
-
   return (
     <div>
       <Header />
@@ -12,17 +11,17 @@ function Search({ sites }) {
         <p>Searching store: {localStorage.getItem('defaultStore')}</p>
         <Button>Search Item</Button>
       </div>
-    </div >
-  )
+    </div>
+  );
 }
 
 export async function getServerSideProps(context) {
   const sites = await findNearby(0, 0);
   return {
     props: {
-      sites
-    }
-  }
+      sites,
+    },
+  };
 }
 
 export default Search;

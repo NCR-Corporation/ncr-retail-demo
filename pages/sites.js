@@ -11,19 +11,21 @@ export default function Sites({ data, categories }) {
         <h1>Stores</h1>
         <ul>
           {sites.map((site) => (
-            <li key={site.id}><Link href={`/sites/${site.id}`}>{site.siteName}</Link></li>
+            <li key={site.id}>
+              <Link href={`/sites/${site.id}`}>{site.siteName}</Link>
+            </li>
           ))}
         </ul>
       </div>
-    </div >
-  )
+    </div>
+  );
 }
 
 export async function getServerSideProps(context) {
   const data = await getSites();
   return {
     props: {
-      data
-    }
-  }
+      data,
+    },
+  };
 }

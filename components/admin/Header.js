@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
-const Header = ({ }) => {
+const Header = ({}) => {
   return (
     <div>
       <header className="section-header bg-white shadow-sm">
@@ -10,7 +10,9 @@ const Header = ({ }) => {
             <nav className="d-flex justify-content-end row">
               <ul className="nav">
                 <li className="nav-item">
-                  <a href="/" className="nav-link">Home</a>
+                  <a href="/" className="nav-link">
+                    Home
+                  </a>
                 </li>
               </ul>
             </nav>
@@ -27,10 +29,18 @@ const Header = ({ }) => {
               </div>
               <div className="col text-md-right">
                 <div>
-                  <Link href="/admin/sites/new" ><a className="btn btn-primary ml-1">New Site</a></Link>
-                  <Link href="/admin/category/new"><a className="btn btn-primary ml-1">New Category</a></Link>
-                  <Link href="/admin/item/new"><a className="btn btn-primary ml-1">New Item</a></Link>
-                  <a href="#" className="btn btn-outline-primary ml-1">Logout</a>
+                  <Link href="/admin/sites/new">
+                    <a className="btn btn-primary ml-1">New Site</a>
+                  </Link>
+                  <Link href="/admin/category/new">
+                    <a className="btn btn-primary ml-1">New Category</a>
+                  </Link>
+                  <Link href="/admin/item/new">
+                    <a className="btn btn-primary ml-1">New Item</a>
+                  </Link>
+                  <a href="#" className="btn btn-outline-primary ml-1">
+                    Logout
+                  </a>
                 </div>
               </div>
             </div>
@@ -38,7 +48,7 @@ const Header = ({ }) => {
         </section>
       </header>
     </div>
-  )
-}
+  );
+};
 
 export default Header;
