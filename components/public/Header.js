@@ -54,7 +54,7 @@ const Header = () => {
   return (
     <div className="bg-white">
       <Head>
-        <title>A Simple Sample App</title>
+        <title>MARKET | Sample Retail Demo</title>
       </Head>
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
       <header className="section-header shadow-sm">

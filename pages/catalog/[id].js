@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useContext } from 'react';
 import Header from '~/components/public/Header';
 import { Button, Spinner } from 'reactstrap';
@@ -40,15 +41,19 @@ export default function Item({ id, categories }) {
           <div className="card mb-3 border-0 shadow-sm">
             <div className="row no-gutters">
               <div className="col-sm-4">
-                <img
-                  className="p-4"
-                  width="100%"
+                <Image
+                  // layout="fill"
                   src={
                     item.attributes && item.attributes.imageUrls.length > 0
                       ? item.attributes.imageUrls[0]
                       : 'https://via.placeholder.com/150'
                   }
-                  alt="Card image cap"
+                  layout="responsive"
+                  width={500}
+                  height={500}
+                  // alt="Picture of the author"
+
+                  className="p-4"
                 />
               </div>
               <div className="col-sm-6">
