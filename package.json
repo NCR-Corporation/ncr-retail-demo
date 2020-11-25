@@ -5,7 +5,44 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "find:unused": "next-unused"
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true
+  },
+  "next-unused": {
+    "alias": {
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@context/*": [
+        "context/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
+    },
+    "debug": true,
+    "include": [
+      "components",
+      "lib",
+      "pages"
+    ],
+    "exclude": [],
+    "entrypoints": [
+      "pages"
+    ]
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -28,5 +65,9 @@
     "request": "^2.88.2",
     "swr": "^0.3.8",
     "yup": "^0.29.3"
+  },
+  "devDependencies": {
+    "next-unused": "0.0.3",
+    "prettier": "^2.2.0"
   }
 }

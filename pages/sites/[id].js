@@ -1,14 +1,13 @@
-import Header from '../../components/public/Header';
-import { getById, getByReferenceId } from '../../lib/sites';
+import Header from '~/components/public/Header';
+import { getById, getByReferenceId } from '~/lib/sites';
 import { Button } from 'reactstrap';
 import cookieCutter from 'cookie-cutter';
 
 export default function Site({ site, categories }) {
-
   const setAsMyStore = () => {
     cookieCutter.set('defaultStoreReferenceId', site.referenceId);
     cookieCutter.set('defaultStoreId', site.id);
-  }
+  };
 
   return (
     <div>
@@ -19,15 +18,14 @@ export default function Site({ site, categories }) {
         <Button onClick={setAsMyStore}>Set as my store</Button>
       </div>
     </div>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
-  const site = await getById(context.params.id)
+  const site = await getById(context.params.id);
   return {
     props: {
-      site
-    }
-  }
-
+      site,
+    },
+  };
 }

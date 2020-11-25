@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
 import FindStoreModal from './FindStoreModal';
-import { UserStoreContext } from '../../context/AppContext';
-import useHeader from '../../context/useHeader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { UserStoreContext } from '~/context/AppContext';
+import useHeader from '~/context/useHeader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {
   Button,
   Collapse,
@@ -21,7 +21,6 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
-
 const Header = () => {
   const { categories, isLoading, isError } = useHeader();
 
@@ -34,17 +33,17 @@ const Header = () => {
   const toggle = () => setIsOpen(!isOpen);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  const handleParam = setValue => e => setValue(e.target.value);
-  const preventDefault = f => e => {
+  const handleParam = (setValue) => (e) => setValue(e.target.value);
+  const preventDefault = (f) => (e) => {
     e.preventDefault();
     f(e);
-  }
+  };
 
   const handleSubmit = preventDefault(() => {
     router.push({
       pathname: '/catalog',
-      query: { query }
-    })
+      query: { query },
+    });
   });
 
   useEffect(() => {
@@ -64,7 +63,9 @@ const Header = () => {
             <nav className="d-flex justify-content-end row">
               <ul className="nav">
                 <li className="nav-item">
-                  <Link href="/admin/dashboard"><a className="nav-link">Manage</a></Link>
+                  <Link href="/admin/dashboard">
+                    <a className="nav-link">Manage</a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -82,17 +83,31 @@ const Header = () => {
               <div className="col-md-4 col-lg-5 col-sm-8 col-12">
                 <form onSubmit={handleSubmit} className="search">
                   <div className="input-group w-100">
-                    <input type="text" className="form-control" placeholder="Search" name="query" value={query} onChange={handleParam(setQuery)} aria-label="Search" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Search"
+                      name="query"
+                      value={query}
+                      onChange={handleParam(setQuery)}
+                      aria-label="Search"
+                    />
                     <div className="input-group-append">
-                      <Button color="primary" type="submit"><FontAwesomeIcon icon={faSearch} /></Button>
+                      <Button color="primary" type="submit">
+                        <FontAwesomeIcon icon={faSearch} />
+                      </Button>
                     </div>
                   </div>
                 </form>
               </div>
               <div className="col-md-5 col-lg-4 col-12 col-sm-12 text-md-right">
                 <div>
-                  <Link href="#"><a className="btn btn-outline-secondary mr-1">My Cart</a></Link>
-                  <Link href="#"><a className="btn btn-primary">Login</a></Link>
+                  <Link href="#">
+                    <a className="btn btn-outline-secondary mr-1">My Cart</a>
+                  </Link>
+                  <Link href="#">
+                    <a className="btn btn-primary">Login</a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -105,36 +120,48 @@ const Header = () => {
               <Collapse isOpen={isOpen} navbar>
                 <Nav className="" navbar>
                   <NavItem>
-                    <a href="/catalog" className="nav-link pl-0"><strong>All Items</strong></a>
+                    <a href="/catalog" className="nav-link pl-0">
+                      <strong>All Items</strong>
+                    </a>
                   </NavItem>
-                  {categories && categories.length > 0 && categories.map(category => {
-                    let children = category.children;
-                    delete children['array'];
-                    if (Object.keys(children).length > 0) {
+                  {categories &&
+                    categories.length > 0 &&
+                    categories.map((category) => {
+                      let children = category.children;
+                      delete children['array'];
+                      if (Object.keys(children).length > 0) {
+                        return (
+                          <UncontrolledDropdown
+                            nav
+                            inNavbar
+                            key={category.nodeCode}
+                          >
+                            <DropdownToggle nav caret>
+                              {category.title.value}
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                              {Object.keys(children).map((child) => (
+                                <Link
+                                  key={children[child].nodeCode}
+                                  href={`/category/${children[child].nodeCode}`}
+                                >
+                                  <DropdownItem>
+                                    {children[child].title.value}
+                                  </DropdownItem>
+                                </Link>
+                              ))}
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
+                        );
+                      }
                       return (
-                        <UncontrolledDropdown nav inNavbar key={category.nodeCode}>
-                          <DropdownToggle nav caret>
-                            {category.title.value}
-                          </DropdownToggle>
-                          <DropdownMenu right>
-                            {Object.keys(children).map(child => (
-                              <Link key={children[child].nodeCode} href={`/category/${children[child].nodeCode}`}>
-                                <DropdownItem>
-                                  {children[child].title.value}
-                                </DropdownItem>
-                              </Link>
-                            ))}
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
+                        <NavItem key={category.nodeCode}>
+                          <Link href={`/category/${category.nodeCode}`}>
+                            <NavLink>{category.title.value}</NavLink>
+                          </Link>
+                        </NavItem>
                       );
-                    }
-                    return (
-                      <NavItem key={category.nodeCode}>
-                        <Link href={`/category/${category.nodeCode}`}><NavLink>{category.title.value}</NavLink></Link>
-                      </NavItem>
-                    )
-                  }
-                  )}
+                    })}
                 </Nav>
               </Collapse>
             </Navbar>
@@ -142,9 +169,11 @@ const Header = () => {
               <NavbarToggler onClick={toggle} />
               <Collapse isOpen={isOpen} navbar>
                 <Nav className="ml-auto" navbar>
-                  <UncontrolledDropdown nav inNavbar >
+                  <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret suppressHydrationWarning>
-                      {userStore != undefined ? userStore.siteName : 'Change Store'}
+                      {userStore != undefined
+                        ? userStore.siteName
+                        : 'Change Store'}
                     </DropdownToggle>
                     <DropdownMenu right>
                       <DropdownItem onClick={() => setIsModalOpen(true)}>
@@ -159,7 +188,7 @@ const Header = () => {
         </nav>
       </header>
     </div>
-  )
-}
+  );
+};
 
 export default Header;

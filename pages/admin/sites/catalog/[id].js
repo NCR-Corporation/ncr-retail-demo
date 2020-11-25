@@ -1,21 +1,19 @@
 import Link from 'next/link';
 import { mutate } from 'swr';
-import Header from '../../../../components/admin/Header';
-import useSiteCatalog from '../../../../context/useSiteCatalog';
+import Header from '~/components/admin/Header';
+import useSiteCatalog from '~/context/useSiteCatalog';
 import { Row, Col } from 'reactstrap';
-import SiteCatalogTable from '../../../../components/admin/SiteCatalogTable';
-
+import SiteCatalogTable from '~/components/admin/SiteCatalogTable';
 
 export default function Site({ id, categories }) {
   console.log('the id', id, categories);
-
 
   let { siteData, isLoading, isError } = useSiteCatalog(id);
 
   const fetchUpdatedCatalog = () => {
     console.log('mutate');
     mutate(`/api/sites/${id}/catalog`);
-  }
+  };
 
   if (isError) {
     return (
@@ -25,7 +23,7 @@ export default function Site({ id, categories }) {
           <p>Error</p>
         </div>
       </div>
-    )
+    );
   }
   if (isLoading) {
     return (
@@ -35,10 +33,9 @@ export default function Site({ id, categories }) {
           <p>Loading</p>
         </div>
       </div>
-    )
+    );
   }
   const { site, catalog } = siteData;
-
 
   return (
     <div className="bg pb-4">
@@ -51,21 +48,27 @@ export default function Site({ id, categories }) {
           </Col>
           <Col>
             <div className="form-group float-right">
-              <Link href={`/admin/sites/${site.id}`}><a className="btn btn-primary">Edit Site</a></Link>
+              <Link href={`/admin/sites/${site.id}`}>
+                <a className="btn btn-primary">Edit Site</a>
+              </Link>
             </div>
           </Col>
         </Row>
-        <SiteCatalogTable catalog={catalog} setExpandRow={true} siteId={id} fetchUpdatedCatalog={fetchUpdatedCatalog} />
+        <SiteCatalogTable
+          catalog={catalog}
+          setExpandRow={true}
+          siteId={id}
+          fetchUpdatedCatalog={fetchUpdatedCatalog}
+        />
       </div>
     </div>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
   return {
     props: {
-      id: context.params.id
-    }
-  }
-
+      id: context.params.id,
+    },
+  };
 }
