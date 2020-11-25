@@ -6,11 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "find:unused": "next-unused"
-  },
-  "prettier": {
-    "semi": true,
-    "singleQuote": true
+    "find:unused": "next-unused",
+    "prettify": "npx prettier --write ."
   },
   "next-unused": {
     "alias": {
