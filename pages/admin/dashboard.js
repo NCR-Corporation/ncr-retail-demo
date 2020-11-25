@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Header from '../../components/admin/Header';
-import Sites from '../../components/admin/Sites';
-import Categories from '../../components/admin/Categories';
-import Catalog from '../../components/admin/Catalog';
-import { getSites } from '../../lib/sites';
-import { getAllCategoryNodes } from '../../lib/category';
-import { getCatalogItems } from '../../lib/catalog';
+import Header from '~/components/admin/Header';
+import Sites from '~/components/admin/Sites';
+import Categories from '~/components/admin/Categories';
+import Catalog from '~/components/admin/Catalog';
+import { getSites } from '~/lib/sites';
+import { getAllCategoryNodes } from '~/lib/category';
+import { getCatalogItems } from '~/lib/catalog';
 import {
   TabContent,
   TabPane,

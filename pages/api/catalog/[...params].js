@@ -2,8 +2,8 @@ import {
   getCatalogItem,
   getCatalogItemPricesByItemCodes,
   getCatalogItemAttributesByItemCodes,
-} from '../../../lib/catalog';
-import { getCatalogItemCategoryAncestorsByMerchandiseCategory } from '../../../lib/category';
+} from '~/lib/catalog';
+import { getCatalogItemCategoryAncestorsByMerchandiseCategory } from '~/lib/category';
 
 export default async function handler(req, res) {
   const catalogItem = await getCatalogItem(

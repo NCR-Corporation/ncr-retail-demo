@@ -3,7 +3,7 @@ import Header from './Header';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import CategorySelect from './CategorySelect';
 import * as Yup from 'yup';
-import useCategory from '../../context/useCategory';
+import useCategory from '~/context/useCategory';
 import { Alert, Row, Col, Spinner } from 'reactstrap';
 
 const init = {

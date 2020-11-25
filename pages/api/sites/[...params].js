@@ -1,5 +1,5 @@
-import { getCatalogItemDetails } from '../../../lib/catalog';
-import { getById } from '../../../lib/sites';
+import { getCatalogItemDetails } from '~/lib/catalog';
+import { getById } from '~/lib/sites';
 
 export default async function handler(req, res) {
   const site = await getById(req.query.params[0]);

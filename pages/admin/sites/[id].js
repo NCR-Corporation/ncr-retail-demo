@@ -1,4 +1,4 @@
-import SiteForm from '../../../components/admin/SiteForm';
+import SiteForm from '~/components/admin/SiteForm';
 const Edit = ({ id }) => {
   return <SiteForm siteId={id} />;
 };

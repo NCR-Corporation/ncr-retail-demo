@@ -2,8 +2,8 @@ import {
   createCatalogItems,
   createCatalogPricesItem,
   createCatalogAttributesItem,
-} from '../../lib/catalog';
-import { getSites } from '../../lib/sites';
+} from '~/lib/catalog';
+import { getSites } from '~/lib/sites';
 
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);

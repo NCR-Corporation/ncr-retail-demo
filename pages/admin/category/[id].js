@@ -1,5 +1,5 @@
-import CategoryForm from '../../../components/admin/CategoryForm';
-import { getAllCategoryNodes } from '../../../lib/category';
+import CategoryForm from '~/components/admin/CategoryForm';
+import { getAllCategoryNodes } from '~/lib/category';
 const Edit = ({ id, categoryNodes }) => {
   return <CategoryForm id={id} categoryNodes={categoryNodes} />;
 };

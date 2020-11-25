@@ -1,5 +1,5 @@
-import { exportAllData } from '../../lib/export';
-import PostmanCollection from '../../public/Sample Retail APIs.postman_collection.json';
+import { exportAllData } from '~/lib/export';
+import PostmanCollection from '~/public/Sample Retail APIs.postman_collection.json';
 import _ from 'lodash';
 
 export default async function handler(req, res) {

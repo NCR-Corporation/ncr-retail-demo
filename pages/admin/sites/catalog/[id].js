@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { mutate } from 'swr';
-import Header from '../../../../components/admin/Header';
-import useSiteCatalog from '../../../../context/useSiteCatalog';
+import Header from '~/components/admin/Header';
+import useSiteCatalog from '~/context/useSiteCatalog';
 import { Row, Col } from 'reactstrap';
-import SiteCatalogTable from '../../../../components/admin/SiteCatalogTable';
+import SiteCatalogTable from '~/components/admin/SiteCatalogTable';
 
 export default function Site({ id, categories }) {
   console.log('the id', id, categories);

@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
 import FindStoreModal from './FindStoreModal';
-import { UserStoreContext } from '@context/AppContext';
-import useHeader from '@/context/useHeader';
+import { UserStoreContext } from '~/context/AppContext';
+import useHeader from '~/context/useHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {

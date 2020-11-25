@@ -9,7 +9,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
-import { UserStoreContext } from '../../context/AppContext';
+import { UserStoreContext } from '~/context/AppContext';
 
 const FindStoreModal = (props) => {
   const { modalProp, toggle, coords } = props;

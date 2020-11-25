@@ -1,4 +1,4 @@
-import { getAllCategoryNodes, createCategory } from '../../lib/category';
+import { getAllCategoryNodes, createCategory } from '~/lib/category';
 import _ from 'lodash';
 
 export default async function handler(req, res) {

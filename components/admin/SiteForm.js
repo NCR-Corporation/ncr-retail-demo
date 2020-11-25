@@ -1,4 +1,4 @@
-import Header from '../../components/admin/Header';
+import Header from '~/components/admin/Header';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -10,7 +10,7 @@ import {
   Alert,
   Spinner,
 } from 'reactstrap';
-import useSite from '../../context/useSite';
+import useSite from '~/context/useSite';
 import { useState, useEffect } from 'react';
 
 const createSiteSchema = Yup.object().shape({

@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { useContext } from 'react';
-import Header from '../../components/public/Header';
+import Header from '~/components/public/Header';
 import { Button, Spinner } from 'reactstrap';
-import { UserStoreContext } from '../../context/AppContext';
-import useCatalogItem from '../../context/useCatalogItem';
+import { UserStoreContext } from '~/context/AppContext';
+import useCatalogItem from '~/context/useCatalogItem';
 
 export default function Item({ id, categories }) {
   const { userStore } = useContext(UserStoreContext);

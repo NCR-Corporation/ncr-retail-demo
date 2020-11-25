@@ -3,7 +3,7 @@ import {
   getCatalogItemDetails,
   getCatalogItemPricesByItemCodes,
   getCatalogItemAttributesByItemCodes,
-} from '../../lib/catalog';
+} from '~/lib/catalog';
 
 export default async function handler(req, res) {
   // const catalogItems = await getCatalogItems()

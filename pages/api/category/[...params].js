@@ -2,7 +2,7 @@ import {
   getCategoriesByParentId,
   getCategoryById,
   getCatelogItemsByMerchandiseCategoryId,
-} from '../../../lib/category';
+} from '~/lib/category';
 import _ from 'lodash';
 
 export default async function handler(req, res) {

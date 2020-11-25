@@ -1,4 +1,4 @@
-import { createCatalogItems } from '../../../lib/catalog';
+import { createCatalogItems } from '~/lib/catalog';
 
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);

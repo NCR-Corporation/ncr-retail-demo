@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Header from '../../components/admin/Header';
+import Header from '~/components/admin/Header';
 import { Formik, Form, Field, ErrorMessage, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 import CategorySelect from './CategorySelect';
-import useCatalogItem from '../../context/useCatalogItem';
+import useCatalogItem from '~/context/useCatalogItem';
 import { Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
 import DatePicker from './DatePicker';
 import 'react-datepicker/dist/react-datepicker.css';

@@ -1,7 +1,7 @@
 import {
   updateCatalogItemPricesByItemCode,
   updateCatalogItemAttributesByItemCode,
-} from '../../../../lib/catalog';
+} from '~/lib/catalog';
 
 export default async function handler(req, res) {
   let siteId = req.query.params[0];

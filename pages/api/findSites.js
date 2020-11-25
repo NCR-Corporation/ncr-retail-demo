@@ -1,7 +1,7 @@
 // This probably can be under sites.js...but this was quicker.
 import haversine from 'haversine';
 import _ from 'lodash';
-import { findNearby } from '../../lib/sites';
+import { findNearby } from '~/lib/sites';
 
 export default async function handler(req, res) {
   if (req.query.latitude && req.query.longitude) {
