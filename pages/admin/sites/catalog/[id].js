@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { mutate } from 'swr';
 import Header from '~/components/admin/Header';
-import useSiteCatalog from '~/context/useSiteCatalog';
+import useSiteCatalog from '~/lib/hooks/useSiteCatalog';
 import { Row, Col } from 'reactstrap';
 import SiteCatalogTable from '~/components/admin/sites/SiteCatalogTable';
 

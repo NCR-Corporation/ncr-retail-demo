@@ -16,8 +16,8 @@ import {
   CardText,
 } from 'reactstrap';
 import Header from '~/components/public/Header';
-import { UserStoreContext } from '~/context/AppContext';
-import useCatalogItem from '~/context/useCatalogItem';
+import { UserStoreContext } from '~/context/userStore';
+import useCatalogItem from '~/lib/hooks/useCatalogItem';
 
 const CatalogItem = ({ id }) => {
   const { userStore } = useContext(UserStoreContext);

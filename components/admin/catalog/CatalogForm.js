@@ -4,7 +4,7 @@ import Header from '~/components/admin/Header';
 import { Formik, Form, Field, ErrorMessage, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 import CategorySelect from '../categories/CategorySelect';
-import useCatalogItem from '~/context/useCatalogItem';
+import useCatalogItem from '~/lib/hooks/useCatalogItem';
 import { Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
 import DatePicker from '../DatePicker';
 import 'react-datepicker/dist/react-datepicker.css';

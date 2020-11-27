@@ -3,9 +3,9 @@ import Header from '~/components/public/Header';
 import Link from 'next/link';
 import ItemCard from '~/components/public/ItemCard';
 import { Card, Col, Row, CardBody, CardDeck } from 'reactstrap';
-import useCategory from '~/context/useCategory';
+import useCategory from '~/lib/hooks/useCategory';
 import { useContext } from 'react';
-import { UserStoreContext } from '~/context/AppContext';
+import { UserStoreContext } from '~/context/userStore';
 
 export default function Category({ id, categories }) {
   const { userStore } = useContext(UserStoreContext);

@@ -14,8 +14,8 @@
       "@lib/*": [
         "lib/*"
       ],
-      "@assets/*": [
-        "assets/*"
+      "@public/*": [
+        "public/*"
       ],
       "@config/*": [
         "config/*"

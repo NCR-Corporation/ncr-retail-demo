@@ -3,8 +3,8 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { Container, Nav, NavItem, Row, Col } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
-import { UserStoreContext } from '~/context/AppContext';
-import useHeader from '~/context/useHeader';
+import { UserStoreContext } from '~/context/userStore';
+import useHeader from '~/lib/hooks/useHeader';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';
 

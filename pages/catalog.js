@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import Header from '~/components/public/Header';
-import { UserStoreContext } from '~/context/AppContext';
+import { UserStoreContext } from '~/context/userStore';
 import ItemCard from '~/components/public/ItemCard';
-import useCatalog from '~/context/useCatalog';
+import useCatalog from '~/lib/hooks/useCatalog';
 
 export default function Catalog({ query, categories }) {
   const { userStore } = useContext(UserStoreContext);

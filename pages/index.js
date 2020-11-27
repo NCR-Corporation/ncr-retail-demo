@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import Header from '~/components/public/Header';
 import { Jumbotron, Row, Col, Spinner } from 'reactstrap';
-import useCatalog from '~/context/useCatalog';
+import Header from '~/components/public/Header';
+import useCatalog from '~/lib/hooks/useCatalog';
 import ItemCard from '~/components/public/ItemCard';
-import { UserStoreContext } from '~/context/AppContext';
+import { UserStoreContext } from '~/context/userStore';
 
 function Home() {
   const { userStore } = useContext(UserStoreContext);
