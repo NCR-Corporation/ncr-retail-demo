@@ -42,13 +42,13 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
               ? `$${itemPrices[0].price}`
               : 'Not available at this store'}
           </Col>
-          {showCartButton && (
+          {/* {showCartButton && (
             <Col md="6">
               <Button className="float-right" color="primary" disabled>
                 Add to Cart
               </Button>
             </Col>
-          )}
+          )} */}
         </Row>
       </CardFooter>
     </Card>

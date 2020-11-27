@@ -55,7 +55,9 @@ export default function Category({ id, categories }) {
                       <Link href={`/category/${child.nodeCode}`} passHref>
                         <a>
                           <CardBody>
-                            <p className="h5 card-title">{child.title.value}</p>
+                            <p className="h5 card-title text-center">
+                              {child.title.value}
+                            </p>
                           </CardBody>
                         </a>
                       </Link>

@@ -29,9 +29,11 @@ const Header = () => {
           <Container>
             <Nav className="d-flex justify-content-end row">
               <NavItem>
-                <Link href="/admin/dashboard">
-                  <a className="nav-link">Manage</a>
-                </Link>
+                {/* <Link> */}
+                <a href="/admin/dashboard" className="nav-link">
+                  Manage
+                </a>
+                {/* </Link> */}
               </NavItem>
             </Nav>
           </Container>
@@ -44,10 +46,10 @@ const Header = () => {
                   <a className="logo-text">MARKET</a>
                 </Link>
               </Col>
-              <Col sm="8" md="4" lg="5">
+              <Col sm="8" md="5">
                 <SearchBar />
               </Col>
-              <Col sm="12" md="5" lg="4" className="text-md-right">
+              <Col sm="12" md="5" className="text-md-right">
                 {/* <Link href="#">
                   <a>
                     <Button color="primary" outline className="mr-1">

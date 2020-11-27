@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import '~/styles/header.css';
+import '~/styles/style.css';
 import { UserStoreProvider } from '~/context/userStore';
 
 export function reportWebVitals(metric) {

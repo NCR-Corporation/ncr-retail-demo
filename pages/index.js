@@ -12,30 +12,35 @@ function Home() {
     <div>
       <Header />
       <main className="container mt-4">
-        <Jumbotron>
-          <h1 className="display-4">Latest Items</h1>
-        </Jumbotron>
-        <Row>
-          {isLoading && <Spinner />}
-          {isError && (
-            <small className="text-muted center">
-              Uhoh, we've hit an error.
-            </small>
-          )}
-          {!isLoading &&
-            !isError &&
-            catalogItems.data.pageContent.map((item) => (
-              <Col
-                sm="3"
-                md="3"
-                lg="3"
-                className="mb-4"
-                key={item.item.itemId.itemCode}
-              >
-                <ItemCard catalogItem={item} showCartButton={false} />
-              </Col>
-            ))}
-        </Row>
+        {isLoading && (
+          <div class="text-center">
+            <Spinner />
+          </div>
+        )}
+
+        {isError && (
+          <small className="text-muted center">Uhoh, we've hit an error.</small>
+        )}
+        {!isLoading && !isError && (
+          <div>
+            <Jumbotron>
+              <h1 className="display-4">Latest Items</h1>
+            </Jumbotron>
+            <Row>
+              {catalogItems.data.pageContent.map((item) => (
+                <Col
+                  sm="3"
+                  md="3"
+                  lg="3"
+                  className="mb-4"
+                  key={item.item.itemId.itemCode}
+                >
+                  <ItemCard catalogItem={item} showCartButton={false} />
+                </Col>
+              ))}
+            </Row>
+          </div>
+        )}
       </main>
     </div>
   );

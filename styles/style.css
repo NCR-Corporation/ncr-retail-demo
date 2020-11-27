@@ -63,8 +63,20 @@ label {
   color: #1c1c1c;
 }
 
+.category-card a:hover {
+  color: #1c1c1c;
+  text-decoration: none;
+}
+
 .category-card:hover,
 .item-card:hover {
   box-shadow: 0 2px 9px rgba(153, 153, 153, 0.3) !important;
   transition: 0.3s;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #16181b;
 }
