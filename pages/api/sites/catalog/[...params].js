@@ -1,6 +1,6 @@
 import {
-  updateCatalogItemPricesByItemCode,
-  updateCatalogItemAttributesByItemCode,
+  updateSiteCatalogItemPricesByItemCode,
+  updateSiteCatalogItemAttributesByItemCode,
 } from '~/lib/catalog';
 
 export default async function handler(req, res) {
@@ -38,13 +38,13 @@ export default async function handler(req, res) {
     status: body.status,
   };
 
-  let updatePrice = await updateCatalogItemPricesByItemCode(
+  let updatePrice = await updateSiteCatalogItemPricesByItemCode(
     siteId,
     itemId,
     body.priceId,
     itemPrices
   );
-  let updateAttributes = await updateCatalogItemAttributesByItemCode(
+  let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(
     siteId,
     itemId,
     itemAttributes

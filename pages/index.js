@@ -13,7 +13,7 @@ function Home() {
       <Header />
       <main className="container mt-4">
         {isLoading && (
-          <div class="text-center">
+          <div className="text-center">
             <Spinner />
           </div>
         )}

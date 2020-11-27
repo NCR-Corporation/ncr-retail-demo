@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
 import { UserStoreContext } from '~/context/userStore';
@@ -29,11 +31,9 @@ const Header = () => {
           <Container>
             <Nav className="d-flex justify-content-end row">
               <NavItem>
-                {/* <Link> */}
                 <a href="/admin/dashboard" className="nav-link">
-                  Manage
+                  <FontAwesomeIcon icon={faCog} /> Manage
                 </a>
-                {/* </Link> */}
               </NavItem>
             </Nav>
           </Container>
