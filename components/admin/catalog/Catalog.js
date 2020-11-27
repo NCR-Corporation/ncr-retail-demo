@@ -1,13 +1,13 @@
 import BootstrapTable from 'react-bootstrap-table-next';
-import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
-function Categories({ categories }) {
-  const router = useRouter();
+function Catalog({ data }) {
+  const catalog = data.data.pageContent;
+
   const columns = [
     {
-      dataField: 'nodeId.nodeId',
+      dataField: 'itemId.itemCode',
       text: 'ID',
       sort: true,
       headerStyle: {
@@ -15,13 +15,8 @@ function Categories({ categories }) {
       },
     },
     {
-      dataField: 'title.value',
+      dataField: 'shortDescription.value',
       text: 'Name',
-      sort: true,
-    },
-    {
-      dataField: 'parentId.nodeId',
-      text: 'Parent',
       sort: true,
     },
     {
@@ -37,9 +32,11 @@ function Categories({ categories }) {
       },
       formatter: (rowContent, row) => {
         return (
-          <a href={`/admin/category/${row.nodeId.nodeId}`}>
-            <FontAwesomeIcon icon={faEdit} />
-          </a>
+          <>
+            <a href={`/admin/catalog/${row.itemId.itemCode}`}>
+              <FontAwesomeIcon icon={faEdit} />
+            </a>
+          </>
         );
       },
     },
@@ -47,24 +44,17 @@ function Categories({ categories }) {
 
   const defaultSorted = [
     {
-      dataField: 'id',
-      order: 'desc',
+      dataField: 'status',
+      order: 'asc',
     },
   ];
-  const rowEvents = {
-    onClick: (e, row, rowIndex) => {
-      // router.push(`/admin/category/${row.nodeId.nodeId}`)
-    },
-  };
-
   return (
     <div className="mt-4">
       <BootstrapTable
         bootstrap4
-        keyField="nodeId.nodeId"
-        data={categories}
+        keyField="itemId.itemCode"
+        data={catalog}
         columns={columns}
-        rowEvents={rowEvents}
         hover
         defaultSorted={defaultSorted}
       />
@@ -72,4 +62,4 @@ function Categories({ categories }) {
   );
 }
 
-export default Categories;
+export default Catalog;

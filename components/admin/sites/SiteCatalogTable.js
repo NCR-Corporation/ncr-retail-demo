@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Alert,
-} from 'reactstrap';
+import { Modal, Alert } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import SiteCatalogItemForm from './SiteCatalogItemForm';

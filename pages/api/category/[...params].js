@@ -1,8 +1,5 @@
-import {
-  getCategoriesByParentId,
-  getCategoryById,
-  getCatelogItemsByMerchandiseCategoryId,
-} from '~/lib/category';
+import { getCategoriesByParentId, getCategoryById } from '~/lib/category';
+import { getCatelogItemsByMerchandiseCategoryId } from '~/lib/catalog';
 import _ from 'lodash';
 
 export default async function handler(req, res) {

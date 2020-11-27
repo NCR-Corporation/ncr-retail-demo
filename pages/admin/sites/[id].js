@@ -1,14 +1,15 @@
-import SiteForm from '~/components/admin/SiteForm';
-const Edit = ({ id }) => {
-  return <SiteForm siteId={id} />;
+import SiteForm from '~/components/admin/sites/SiteForm';
+
+const EditSite = ({ siteId }) => {
+  return <SiteForm siteId={siteId} />;
 };
 
 export async function getServerSideProps(context) {
   return {
     props: {
-      id: context.params.id,
+      siteId: context.params.id,
     },
   };
 }
 
-export default Edit;
+export default EditSite;

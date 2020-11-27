@@ -1,7 +1,7 @@
-import CatalogForm from '~/components/admin/CatalogForm';
+import CatalogForm from '~/components/admin/catalog/CatalogForm';
 import { getAllCategoryNodes } from '~/lib/category';
 
-const Edit = ({ id, categoryNodes }) => {
+const EditCatalogItem = ({ id, categoryNodes }) => {
   return <CatalogForm id={id} categories={categoryNodes} />;
 };
 
@@ -15,4 +15,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default Edit;
+export default EditCatalogItem;

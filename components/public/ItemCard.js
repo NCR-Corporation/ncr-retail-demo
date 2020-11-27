@@ -1,21 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  Card,
-  CardImg,
-  CardBody,
-  CardFooter,
-  Row,
-  Col,
-  Button,
-} from 'reactstrap';
+import { Card, CardBody, CardFooter, Row, Col, Button } from 'reactstrap';
 
 const ItemCard = ({ catalogItem, showCartButton = true }) => {
   const { item, itemPrices, itemAttributes } = catalogItem;
   return (
     <Card className="border-0 shadow-sm item-card h-100">
       <Image
-        // layout="fill"
+        alt={
+          item.shortDescription.values
+            ? item.shortDescription.values[0].value
+            : item.shortDescription.value
+        }
         src={
           itemAttributes &&
           itemAttributes.imageUrls &&
@@ -26,23 +22,8 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
         layout="responsive"
         width={500}
         height={500}
-        // alt="Picture of the author"
-
         className="p-4"
       />
-      {/* <CardImg
-        
-        top
-        width="100%"
-        src={
-          itemAttributes &&
-          itemAttributes.imageUrls &&
-          itemAttributes.imageUrls.length > 0
-            ? itemAttributes.imageUrls[0]
-            : 'https://via.placeholder.com/150'
-        }
-        alt="Card image cap"
-      /> */}
       <CardBody className="d-flex">
         <div className="align-self-end">
           <Link href={`/catalog/${item.itemId.itemCode}`}>

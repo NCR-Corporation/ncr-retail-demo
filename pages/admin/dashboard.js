@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Header from '~/components/admin/Header';
-import Sites from '~/components/admin/Sites';
-import Categories from '~/components/admin/Categories';
-import Catalog from '~/components/admin/Catalog';
+import Sites from '~/components/admin/sites/Sites';
+import Categories from '~/components/admin/categories/Categories';
+import Catalog from '~/components/admin/catalog/Catalog';
 import { getSites } from '~/lib/sites';
 import { getAllCategoryNodes } from '~/lib/category';
 import { getCatalogItems } from '~/lib/catalog';
@@ -22,7 +22,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-function Dashboard({ sites, categoryNodes, catalog }) {
+const Dashboard = ({ sites, categoryNodes, catalog }) => {
   const [exporting, setIsExporting] = useState(false);
   const [activeTab, setActiveTab] = useState('1');
   const [modal, setModal] = useState(false);
@@ -136,7 +136,7 @@ function Dashboard({ sites, categoryNodes, catalog }) {
       </main>
     </div>
   );
-}
+};
 
 export async function getServerSideProps(context) {
   const sites = await getSites(true);

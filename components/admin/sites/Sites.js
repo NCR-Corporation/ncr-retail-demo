@@ -1,5 +1,4 @@
 import BootstrapTable from 'react-bootstrap-table-next';
-import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faClipboardList } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
@@ -61,9 +60,6 @@ function Sites({ data }) {
       order: 'desc',
     },
   ];
-  const rowEvents = {
-    onClick: (e, row, rowIndex) => {},
-  };
   return (
     <div className="mt-4">
       <BootstrapTable
@@ -71,7 +67,6 @@ function Sites({ data }) {
         keyField="id"
         data={sites}
         columns={columns}
-        rowEvents={rowEvents}
         hover
         defaultSorted={defaultSorted}
       />

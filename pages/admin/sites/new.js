@@ -1,6 +1,7 @@
-import SiteForm from '~/components/admin/SiteForm';
-const New = ({}) => {
+import SiteForm from '~/components/admin/sites/SiteForm';
+
+const NewSite = () => {
   return <SiteForm />;
 };
 
-export default New;
+export default NewSite;

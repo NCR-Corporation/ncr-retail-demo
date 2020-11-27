@@ -60,8 +60,4 @@ export default async function handler(req, res) {
   );
 
   res.json([itemsResponse, pricesResponse, attributesResponse]);
-
-  // let response = await createCatalogItem(req.body)
-  // res.json(response);
-  // res.json({});
 }

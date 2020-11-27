@@ -10,7 +10,7 @@ import {
   Button,
   Alert,
 } from 'reactstrap';
-import DatePicker from './DatePicker';
+import DatePicker from '../DatePicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const createItemSchema = Yup.object().shape({
