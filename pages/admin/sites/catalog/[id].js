@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { mutate } from 'swr';
 import Header from '~/components/admin/Header';
-import useSiteCatalog from '~/context/useSiteCatalog';
+import useSiteCatalog from '~/lib/hooks/useSiteCatalog';
 import { Row, Col } from 'reactstrap';
-import SiteCatalogTable from '~/components/admin/SiteCatalogTable';
+import SiteCatalogTable from '~/components/admin/sites/SiteCatalogTable';
 
-export default function Site({ id, categories }) {
+const SiteCatalog = ({ id, categories }) => {
   console.log('the id', id, categories);
 
   let { siteData, isLoading, isError } = useSiteCatalog(id);
@@ -63,7 +63,7 @@ export default function Site({ id, categories }) {
       </div>
     </div>
   );
-}
+};
 
 export async function getServerSideProps(context) {
   return {
@@ -72,3 +72,5 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+export default SiteCatalog;

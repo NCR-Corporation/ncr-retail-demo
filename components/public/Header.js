@@ -1,51 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
+import { Container, Nav, NavItem, Row, Col } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
-import { UserStoreContext } from '~/context/AppContext';
-import useHeader from '~/context/useHeader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import {
-  Button,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from 'reactstrap';
+import { UserStoreContext } from '~/context/userStore';
+import useHeader from '~/lib/hooks/useHeader';
+import SubHeader from './SubHeader';
+import SearchBar from './SearchBar';
 
 const Header = () => {
-  const { categories, isLoading, isError } = useHeader();
-
-  const { userStore, setUserStore } = useContext(UserStoreContext);
-  const router = useRouter();
-  const [query, setQuery] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
+  const { categories } = useHeader();
+  const { userStore } = useContext(UserStoreContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const toggle = () => setIsOpen(!isOpen);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const handleParam = (setValue) => (e) => setValue(e.target.value);
-  const preventDefault = (f) => (e) => {
-    e.preventDefault();
-    f(e);
-  };
-
-  const handleSubmit = preventDefault(() => {
-    router.push({
-      pathname: '/catalog',
-      query: { query },
-    });
-  });
-
   useEffect(() => {
     if (Object.keys(userStore).length == 0) {
       setIsModalOpen(true);
@@ -54,138 +21,54 @@ const Header = () => {
   return (
     <div className="bg-white">
       <Head>
-        <title>A Simple Sample App</title>
+        <title>MARKET | Sample Retail Demo</title>
       </Head>
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
       <header className="section-header shadow-sm">
         <section className="header-top-light border-bottom">
-          <div className="container">
-            <nav className="d-flex justify-content-end row">
-              <ul className="nav">
-                <li className="nav-item">
-                  <Link href="/admin/dashboard">
-                    <a className="nav-link">Manage</a>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          <Container>
+            <Nav className="d-flex justify-content-end row">
+              <NavItem>
+                <Link href="/admin/dashboard">
+                  <a className="nav-link">Manage</a>
+                </Link>
+              </NavItem>
+            </Nav>
+          </Container>
         </section>
         <section className="header-main border-bottom py-3">
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col-md-3 col-lg-3 col-sm-4 col-12">
-                <Link href="/" className="logo-text">
+          <Container>
+            <Row className="align-items-center">
+              <Col sm="4" md="3">
+                <Link href="/">
                   <a className="logo-text">MARKET</a>
-                  {/* <img className="logo" src="/images/logo.png"></img> */}
                 </Link>
-              </div>
-              <div className="col-md-4 col-lg-5 col-sm-8 col-12">
-                <form onSubmit={handleSubmit} className="search">
-                  <div className="input-group w-100">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Search"
-                      name="query"
-                      value={query}
-                      onChange={handleParam(setQuery)}
-                      aria-label="Search"
-                    />
-                    <div className="input-group-append">
-                      <Button color="primary" type="submit">
-                        <FontAwesomeIcon icon={faSearch} />
-                      </Button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div className="col-md-5 col-lg-4 col-12 col-sm-12 text-md-right">
-                <div>
-                  <Link href="#">
-                    <a className="btn btn-outline-secondary mr-1">My Cart</a>
-                  </Link>
-                  <Link href="#">
-                    <a className="btn btn-primary">Login</a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+              </Col>
+              <Col sm="8" md="4" lg="5">
+                <SearchBar />
+              </Col>
+              <Col sm="12" md="5" lg="4" className="text-md-right">
+                {/* <Link href="#">
+                  <a>
+                    <Button color="primary" outline className="mr-1">
+                      My Cart
+                    </Button>
+                  </a>
+                </Link>
+                <Link href="#">
+                  <a>
+                    <Button color="primary">Login</Button>
+                  </a>
+                </Link> */}
+              </Col>
+            </Row>
+          </Container>
         </section>
-        <nav className="navbar navbar-main navbar-expand-lg">
-          <div className="container">
-            <Navbar expand="md" className="p-0">
-              <NavbarToggler onClick={toggle} />
-              <Collapse isOpen={isOpen} navbar>
-                <Nav className="" navbar>
-                  <NavItem>
-                    <a href="/catalog" className="nav-link pl-0">
-                      <strong>All Items</strong>
-                    </a>
-                  </NavItem>
-                  {categories &&
-                    categories.length > 0 &&
-                    categories.map((category) => {
-                      let children = category.children;
-                      delete children['array'];
-                      if (Object.keys(children).length > 0) {
-                        return (
-                          <UncontrolledDropdown
-                            nav
-                            inNavbar
-                            key={category.nodeCode}
-                          >
-                            <DropdownToggle nav caret>
-                              {category.title.value}
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                              {Object.keys(children).map((child) => (
-                                <Link
-                                  key={children[child].nodeCode}
-                                  href={`/category/${children[child].nodeCode}`}
-                                >
-                                  <DropdownItem>
-                                    {children[child].title.value}
-                                  </DropdownItem>
-                                </Link>
-                              ))}
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        );
-                      }
-                      return (
-                        <NavItem key={category.nodeCode}>
-                          <Link href={`/category/${category.nodeCode}`}>
-                            <NavLink>{category.title.value}</NavLink>
-                          </Link>
-                        </NavItem>
-                      );
-                    })}
-                </Nav>
-              </Collapse>
-            </Navbar>
-            <Navbar expand="md" className="p-0">
-              <NavbarToggler onClick={toggle} />
-              <Collapse isOpen={isOpen} navbar>
-                <Nav className="ml-auto" navbar>
-                  <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret suppressHydrationWarning>
-                      {userStore != undefined
-                        ? userStore.siteName
-                        : 'Change Store'}
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem onClick={() => setIsModalOpen(true)}>
-                        Change Store
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </Nav>
-              </Collapse>
-            </Navbar>
-          </div>
-        </nav>
+        <SubHeader
+          categories={categories}
+          userStore={userStore}
+          setIsModalOpen={setIsModalOpen}
+        />
       </header>
     </div>
   );

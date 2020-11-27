@@ -1,7 +1,7 @@
-import CatalogForm from '~/components/admin/CatalogForm';
+import CatalogForm from '~/components/admin/catalog/CatalogForm';
 import { getAllCategoryNodes } from '~/lib/category';
 
-const New = ({ categoryNodes }) => {
+const NewCatalogItem = ({ categoryNodes }) => {
   return <CatalogForm item={null} categories={categoryNodes} />;
 };
 
@@ -14,4 +14,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default New;
+export default NewCatalogItem;

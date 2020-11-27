@@ -10,7 +10,7 @@ import {
   Alert,
   Spinner,
 } from 'reactstrap';
-import useSite from '~/context/useSite';
+import useSite from '~/lib/hooks/useSite';
 import { useState, useEffect } from 'react';
 
 const createSiteSchema = Yup.object().shape({

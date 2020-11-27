@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import Header from './Header';
+import Header from '../Header';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import CategorySelect from './CategorySelect';
 import * as Yup from 'yup';
-import useCategory from '~/context/useCategory';
+import useCategory from '~/lib/hooks/useCategory';
 import { Alert, Row, Col, Spinner } from 'reactstrap';
 
 const init = {
@@ -37,14 +37,14 @@ const createCategorySchema = Yup.object().shape({
   version: Yup.number().required(),
 });
 
-const CategoryForm = ({ id, categoryNodes }) => {
+const CategoryForm = ({ categoryId, categoryNodes }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [visible, setVisible] = useState(false);
 
   const onDismiss = () => setVisible(false);
-  let { category, isLoading, isError } = useCategory(id);
+  let { category, isLoading, isError } = useCategory(categoryId);
   const [initialValues, setInitialValues] = useState(init);
-  if (id && !isLoading && !isError && initialValues.nodeCode == '') {
+  if (categoryId && !isLoading && !isError && initialValues.nodeCode == '') {
     const { data } = category;
     const {
       departmentNode,
@@ -108,8 +108,8 @@ const CategoryForm = ({ id, categoryNodes }) => {
       nodeId: data['nodeCode'],
     };
     let nodes = { nodes: [data] };
-    if (id) {
-      fetch(`/api/category/${id}`, {
+    if (categoryId) {
+      fetch(`/api/category/${categoryId}`, {
         method: 'PUT',
         body: JSON.stringify(nodes),
       })
@@ -171,7 +171,9 @@ const CategoryForm = ({ id, categoryNodes }) => {
                 </Alert>
                 <Row className="mt-4">
                   <Col>
-                    <h4 className="mb-1">{id ? 'Edit' : 'Create'} Category</h4>
+                    <h4 className="mb-1">
+                      {categoryId ? 'Edit' : 'Create'} Category
+                    </h4>
                   </Col>
                   <Col>
                     <div className="form-group float-right">
@@ -183,7 +185,7 @@ const CategoryForm = ({ id, categoryNodes }) => {
                         disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}
                       >
                         {' '}
-                        {id ? '+ Update' : '+ Create'} Category
+                        {categoryId ? '+ Update' : '+ Create'} Category
                       </button>
                     </div>
                   </Col>

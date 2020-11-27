@@ -3,13 +3,11 @@ import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
-function Catalog({ data }) {
-  const catalog = data.data.pageContent;
+function Categories({ categories }) {
   const router = useRouter();
-
   const columns = [
     {
-      dataField: 'itemId.itemCode',
+      dataField: 'nodeId.nodeId',
       text: 'ID',
       sort: true,
       headerStyle: {
@@ -17,8 +15,13 @@ function Catalog({ data }) {
       },
     },
     {
-      dataField: 'shortDescription.value',
+      dataField: 'title.value',
       text: 'Name',
+      sort: true,
+    },
+    {
+      dataField: 'parentId.nodeId',
+      text: 'Parent',
       sort: true,
     },
     {
@@ -34,11 +37,9 @@ function Catalog({ data }) {
       },
       formatter: (rowContent, row) => {
         return (
-          <>
-            <a href={`/admin/item/${row.itemId.itemCode}`}>
-              <FontAwesomeIcon icon={faEdit} />
-            </a>
-          </>
+          <a href={`/admin/category/${row.nodeId.nodeId}`}>
+            <FontAwesomeIcon icon={faEdit} />
+          </a>
         );
       },
     },
@@ -46,23 +47,18 @@ function Catalog({ data }) {
 
   const defaultSorted = [
     {
-      dataField: 'status',
-      order: 'asc',
+      dataField: 'id',
+      order: 'desc',
     },
   ];
-  const rowEvents = {
-    onClick: (e, row, rowIndex) => {
-      // router.push(`/admin/item/${row.itemId.itemCode}`)
-    },
-  };
+
   return (
     <div className="mt-4">
       <BootstrapTable
         bootstrap4
-        keyField="itemId.itemCode"
-        data={catalog}
+        keyField="nodeId.nodeId"
+        data={categories}
         columns={columns}
-        rowEvents={rowEvents}
         hover
         defaultSorted={defaultSorted}
       />
@@ -70,4 +66,4 @@ function Catalog({ data }) {
   );
 }
 
-export default Catalog;
+export default Categories;

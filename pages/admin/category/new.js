@@ -1,7 +1,7 @@
-import CategoryForm from '~/components/admin/CategoryForm';
+import CategoryForm from '~/components/admin/categories/CategoryForm';
 import { getAllCategoryNodes } from '~/lib/category';
 
-const New = ({ categoryNodes }) => {
+const NewCategory = ({ categoryNodes }) => {
   return <CategoryForm categoryNodes={categoryNodes} />;
 };
 
@@ -14,4 +14,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default New;
+export default NewCategory;
