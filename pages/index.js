@@ -29,9 +29,9 @@ function Home() {
             <Row>
               {catalogItems.data.pageContent.map((item) => (
                 <Col
-                  sm="3"
+                  xs="6"
+                  sm="4"
                   md="3"
-                  lg="3"
                   className="mb-4"
                   key={item.item.itemId.itemCode}
                 >

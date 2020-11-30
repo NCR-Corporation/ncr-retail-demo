@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
-import Head from 'next/head';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col } from 'reactstrap';
@@ -22,9 +21,6 @@ const Header = () => {
   }, [isModalOpen]);
   return (
     <div className="bg-white">
-      <Head>
-        <title>MARKET | Sample Retail Demo</title>
-      </Head>
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
       <header className="section-header shadow-sm">
         <section className="header-top-light border-bottom">

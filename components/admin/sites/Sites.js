@@ -6,6 +6,7 @@ import { Col, Row } from 'reactstrap';
 
 function Sites({ data }) {
   const sites = data.data.pageContent;
+
   const columns = [
     {
       dataField: 'referenceId',

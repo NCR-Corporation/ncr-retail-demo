@@ -61,6 +61,7 @@ export default function SiteCatalogTable({
             key={row.item.itemId.itemCode}
             icon={faEdit}
             size="sm"
+            className="pointer"
             onClick={() => toggle(row)}
           />
         );

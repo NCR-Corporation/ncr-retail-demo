@@ -32,31 +32,40 @@ const createItemSchema = Yup.object().shape({
       (value + '').match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/)
     ),
   }),
+  currency: Yup.mixed().required().oneOf(['USD']),
   version: Yup.number().required(),
 });
 
 const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {
+  console.log('item', itemObject);
   const { item, itemAttributes, itemPrices } = itemObject;
   const initialValues = {
-    shortDescription: itemAttributes.shortDescription.values[0].value,
-    longDescription:
-      itemAttributes.longDescription &&
-      itemAttributes.longDescription.values.length > 0
+    shortDescription: itemAttributes
+      ? itemAttributes.shortDescription.values[0].value
+      : item.shortDescription.values[0].value,
+    longDescription: itemAttributes
+      ? itemAttributes.longDescription &&
+        itemAttributes.longDescription.values.length > 0
         ? itemAttributes.longDescription.values[0].value
-        : '',
-    status: itemAttributes.status,
-    price: itemPrices[0].price,
-    currency: itemPrices[0].currency,
-    effectiveDate: itemPrices[0].effectiveDate,
-    imageUrl: itemAttributes.imageUrls[0],
-    version:
-      itemAttributes.version > itemPrices[0].version
-        ? itemAttributes.version + 1
-        : itemPrices[0].version + 1,
-    priceId: itemPrices[0].priceId.priceCode,
+        : ''
+      : item.longDescription.values[0].value,
+    status: itemAttributes ? itemAttributes.status : item.status,
+    price: itemPrices.length > 0 ? itemPrices[0].price : '',
+    currency: itemPrices.length > 0 ? itemPrices[0].currency : '',
+    effectiveDate: itemPrices.length > 0 ? itemPrices[0].effectiveDate : '',
+    imageUrl: itemAttributes ? itemAttributes.imageUrls[0] : '',
+    version: itemAttributes
+      ? itemPrices.length > 0
+        ? itemAttributes.version > itemPrices[0].version
+          ? itemAttributes.version + 1
+          : itemPrices[0].version + 1
+        : itemAttributes.version
+      : item.version,
+    priceId: itemPrices.length > 0 ? itemPrices[0].priceId.priceCode : '',
   };
 
   const handleSubmit = async (values) => {
+    console.log('the values', values);
     fetch(`/api/sites/catalog/${siteId}/${item.itemId.itemCode}`, {
       method: 'POST',
       body: JSON.stringify(values),
@@ -217,6 +226,7 @@ const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {
                             : null
                         } form-control`}
                       >
+                        <option>--</option>
                         <option value="USD">USD</option>
                       </Field>
                     </div>
