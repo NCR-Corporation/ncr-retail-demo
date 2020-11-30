@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
-import Head from 'next/head';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
 import { UserStoreContext } from '~/context/userStore';
@@ -20,20 +21,15 @@ const Header = () => {
   }, [isModalOpen]);
   return (
     <div className="bg-white">
-      <Head>
-        <title>MARKET | Sample Retail Demo</title>
-      </Head>
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
       <header className="section-header shadow-sm">
         <section className="header-top-light border-bottom">
           <Container>
             <Nav className="d-flex justify-content-end row">
               <NavItem>
-                {/* <Link> */}
                 <a href="/admin/dashboard" className="nav-link">
-                  Manage
+                  <FontAwesomeIcon icon={faCog} /> Manage
                 </a>
-                {/* </Link> */}
               </NavItem>
             </Nav>
           </Container>

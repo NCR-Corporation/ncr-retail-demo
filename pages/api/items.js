@@ -51,13 +51,9 @@ export default async function handler(req, res) {
   let itemsBody = { items: items };
   let pricesBody = { itemPrices: prices };
   let attributesBody = { itemAttributes: attributes };
-  let itemsResponse = await createCatalogItems(JSON.stringify(itemsBody));
-  let pricesResponse = await createCatalogPricesItem(
-    JSON.stringify(pricesBody)
-  );
-  let attributesResponse = await createCatalogAttributesItem(
-    JSON.stringify(attributesBody)
-  );
+  let itemsResponse = await createCatalogItems(itemsBody);
+  let pricesResponse = await createCatalogPricesItem(pricesBody);
+  let attributesResponse = await createCatalogAttributesItem(attributesBody);
 
   res.json([itemsResponse, pricesResponse, attributesResponse]);
 }

@@ -3,9 +3,7 @@ import Header from '~/components/admin/Header';
 import Sites from '~/components/admin/sites/Sites';
 import Categories from '~/components/admin/categories/Categories';
 import Catalog from '~/components/admin/catalog/Catalog';
-import { getSites } from '~/lib/sites';
-import { getAllCategoryNodes } from '~/lib/category';
-import { getCatalogItems } from '~/lib/catalog';
+
 import {
   TabContent,
   TabPane,
@@ -21,8 +19,11 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import useDashboard from '~/lib/hooks/useDashboard';
 
-const Dashboard = ({ sites, categoryNodes, catalog }) => {
+const Dashboard = () => {
+  let { data, isLoading, isError } = useDashboard();
+
   const [exporting, setIsExporting] = useState(false);
   const [activeTab, setActiveTab] = useState('1');
   const [modal, setModal] = useState(false);
@@ -90,6 +91,7 @@ const Dashboard = ({ sites, categoryNodes, catalog }) => {
             </a>
           </ModalBody>
         </Modal>
+
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -122,33 +124,30 @@ const Dashboard = ({ sites, categoryNodes, catalog }) => {
             </NavLink>
           </NavItem>
         </Nav>
-        <TabContent activeTab={activeTab} className="bg-white">
-          <TabPane tabId="1">
-            <Sites data={sites} />
-          </TabPane>
-          <TabPane tabId="2">
-            <Categories categories={categoryNodes} />
-          </TabPane>
-          <TabPane tabId="3">
-            <Catalog data={catalog} />
-          </TabPane>
-        </TabContent>
+        {isLoading && (
+          <div className="d-flex justify-content-center mt-5">
+            <Spinner color="dark" />
+          </div>
+        )}
+        {isError && (
+          <small className="text-muted">Uhoh, we've hit an error.</small>
+        )}
+        {!isLoading && !isError && (
+          <TabContent activeTab={activeTab} className="bg-white">
+            <TabPane tabId="1">
+              <Sites data={data.sites} />
+            </TabPane>
+            <TabPane tabId="2">
+              <Categories categories={data.categoryNodes} />
+            </TabPane>
+            <TabPane tabId="3">
+              <Catalog data={data.catalog} />
+            </TabPane>
+          </TabContent>
+        )}
       </main>
     </div>
   );
 };
-
-export async function getServerSideProps(context) {
-  const sites = await getSites(true);
-  const categoryNodes = await getAllCategoryNodes(true);
-  const catalog = await getCatalogItems();
-  return {
-    props: {
-      sites,
-      categoryNodes,
-      catalog,
-    },
-  };
-}
 
 export default Dashboard;

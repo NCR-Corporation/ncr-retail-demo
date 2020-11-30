@@ -311,7 +311,7 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                                 ? 'is-invalid'
                                 : null
                             } form-control`}
-                            disabled={id ? 'disabled' : ''}
+                            disabled={categoryId ? 'disabled' : ''}
                           />
                           <ErrorMessage
                             name="nodeCode"

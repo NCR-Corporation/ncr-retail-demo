@@ -1,6 +1,7 @@
+import uniqid from 'uniqid';
 import {
-  updateCatalogItemPricesByItemCode,
-  updateCatalogItemAttributesByItemCode,
+  updateSiteCatalogItemPricesByItemCode,
+  updateSiteCatalogItemAttributesByItemCode,
 } from '~/lib/catalog';
 
 export default async function handler(req, res) {
@@ -37,14 +38,15 @@ export default async function handler(req, res) {
     effectiveDate: body.effectiveDate,
     status: body.status,
   };
-
-  let updatePrice = await updateCatalogItemPricesByItemCode(
+  let priceId = body.priceId !== '' ? body.priceId : uniqid();
+  let updatePrice = await updateSiteCatalogItemPricesByItemCode(
     siteId,
     itemId,
-    body.priceId,
+    priceId,
     itemPrices
   );
-  let updateAttributes = await updateCatalogItemAttributesByItemCode(
+  console.log(updatePrice);
+  let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(
     siteId,
     itemId,
     itemAttributes

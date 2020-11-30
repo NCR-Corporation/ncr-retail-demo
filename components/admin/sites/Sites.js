@@ -1,11 +1,12 @@
 import BootstrapTable from 'react-bootstrap-table-next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faClipboardList } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTags } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { Col, Row } from 'reactstrap';
 
 function Sites({ data }) {
   const sites = data.data.pageContent;
+
   const columns = [
     {
       dataField: 'referenceId',
@@ -33,18 +34,18 @@ function Sites({ data }) {
       },
       formatter: (rowContent, row) => {
         return (
-          <Row>
+          <Row className="pr-2">
             <Col sm="6">
               <Link href={`/admin/sites/${row.id}`}>
                 <a>
-                  <FontAwesomeIcon icon={faEdit} />
+                  <FontAwesomeIcon icon={faEdit} color="darkslategrey" />
                 </a>
               </Link>
             </Col>
             <Col sm="6">
               <Link href={`/admin/sites/catalog/${row.id}`}>
                 <a>
-                  <FontAwesomeIcon icon={faClipboardList} />
+                  <FontAwesomeIcon icon={faTags} color="darkslategrey" />
                 </a>
               </Link>
             </Col>

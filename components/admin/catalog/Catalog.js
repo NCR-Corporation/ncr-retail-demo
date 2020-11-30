@@ -34,7 +34,7 @@ function Catalog({ data }) {
         return (
           <>
             <a href={`/admin/catalog/${row.itemId.itemCode}`}>
-              <FontAwesomeIcon icon={faEdit} />
+              <FontAwesomeIcon icon={faEdit} color="darkslategray" />
             </a>
           </>
         );

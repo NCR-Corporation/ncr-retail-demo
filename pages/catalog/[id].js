@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   Container,
-  Button,
   Spinner,
   Card,
   Row,
@@ -21,13 +20,7 @@ import useCatalogItem from '~/lib/hooks/useCatalogItem';
 
 const CatalogItem = ({ id }) => {
   const { userStore } = useContext(UserStoreContext);
-
   const { catalogItem, isLoading, isError } = useCatalogItem(id, userStore.id);
-  let item;
-  if (!isLoading && !isError && catalogItem) {
-    item = catalogItem[id];
-    console.log(item.categories);
-  }
 
   return (
     <div>
@@ -40,7 +33,7 @@ const CatalogItem = ({ id }) => {
         )}
         {!isLoading && !isError && (
           <Breadcrumb className="bg-white shadow-sm">
-            {item['categories'].map((ancestor) => (
+            {catalogItem['categories'].map((ancestor) => (
               <BreadcrumbItem key={ancestor.nodeCode}>
                 <Link href={`/category/${ancestor.nodeCode}`}>
                   {ancestor.title.value}
@@ -56,32 +49,35 @@ const CatalogItem = ({ id }) => {
               <Col sm="4">
                 <Image
                   src={
-                    item.attributes && item.attributes.imageUrls.length > 0
-                      ? item.attributes.imageUrls[0]
+                    catalogItem.itemAttributes &&
+                    catalogItem.itemAttributes.imageUrls.length > 0
+                      ? catalogItem.itemAttributes.imageUrls[0]
                       : 'https://via.placeholder.com/500'
                   }
                   layout="responsive"
                   width={500}
                   height={500}
-                  alt={item.shortDescription.values[0].value}
+                  alt={catalogItem.item.shortDescription.values[0].value}
                   className="p-4"
                 />
               </Col>
               <Col sm="6">
                 <CardBody className="h-100 d-flex flex-column bd-highlight pb-5">
                   <CardTitle tag="h2" className="bd-highlight">
-                    {item.shortDescription.values[0].value}
+                    {catalogItem.item.shortDescription.values[0].value}
                   </CardTitle>
                   <CardSubtitle className="bd-highlight mb-2 text-muted">
-                    <strong>Item #:</strong> {item.itemId.itemCode}
+                    <strong>Item #:</strong> {catalogItem.item.itemId.itemCode}
                   </CardSubtitle>
-                  <CardText>{item.longDescription.values[0].value}</CardText>
+                  <CardText>
+                    {catalogItem.item.longDescription.values[0].value}
+                  </CardText>
                   <div className="mt-auto p-2 bd-highlight">
                     <div className="d-flex bd-highlight mb-3">
                       <div className="ml-auto p-2 bd-highlight">
                         <h3 className="text-muted">
-                          {item.price
-                            ? `$${item.price.price}`
+                          {catalogItem.itemPrices
+                            ? `$${catalogItem.itemPrices[0].price}`
                             : 'Not available at this store'}
                         </h3>
                       </div>

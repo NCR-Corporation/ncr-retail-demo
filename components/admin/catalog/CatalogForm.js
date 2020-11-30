@@ -63,6 +63,7 @@ const CatalogForm = ({ id, categories }) => {
   let { catalogItem, isLoading, isError } = useCatalogItem(id);
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.itemId == '') {
+    console.log('here', catalogItem);
     const {
       departmentId,
       alternateCategories,
@@ -77,7 +78,7 @@ const CatalogForm = ({ id, categories }) => {
     } = catalogItem;
     let catalogValues = {
       version: version + 1,
-      departmentId,
+      departmentId: departmentId ?? 'NA',
       itemId: itemId.itemCode,
       longDescription: longDescription ? longDescription.values[0].value : '',
       shortDescription: shortDescription

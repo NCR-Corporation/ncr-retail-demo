@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, NavLink, Row, Col, Button } from 'reactstrap';
 
 const Header = () => {
@@ -9,7 +11,9 @@ const Header = () => {
         <Container>
           <Nav className="d-flex justify-content-end row">
             <NavItem>
-              <NavLink href="/">Home</NavLink>
+              <NavLink href="/">
+                <FontAwesomeIcon icon={faHome} /> Home
+              </NavLink>
             </NavItem>
           </Nav>
         </Container>
