@@ -37,7 +37,6 @@ const createItemSchema = Yup.object().shape({
 
 const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {
   const { item, itemAttributes, itemPrices } = itemObject;
-  console.log('itemPrices', itemPrices);
   const initialValues = {
     shortDescription: itemAttributes.shortDescription.values[0].value,
     longDescription:

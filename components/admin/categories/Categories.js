@@ -38,7 +38,7 @@ function Categories({ categories }) {
       formatter: (rowContent, row) => {
         return (
           <a href={`/admin/category/${row.nodeId.nodeId}`}>
-            <FontAwesomeIcon icon={faEdit} />
+            <FontAwesomeIcon icon={faEdit} color="darkslategray" />
           </a>
         );
       },

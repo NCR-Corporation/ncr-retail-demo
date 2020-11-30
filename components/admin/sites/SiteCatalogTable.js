@@ -80,7 +80,6 @@ export default function SiteCatalogTable({
     setVisible(true);
     fetchUpdatedCatalog();
   };
-  console.log('item', item);
   return (
     <div className="bg-white">
       <Modal isOpen={modal} toggle={() => toggle(null)}>

@@ -146,9 +146,6 @@ const New = ({ siteId }) => {
       if (values[key] !== '') {
         data[key] = values[key];
       }
-      if (key === 'siteName') {
-        data['enterpriseUnitName'] = values[key];
-      }
     }
     if (data['street']) {
       data['address'] = {
@@ -178,6 +175,7 @@ const New = ({ siteId }) => {
     };
     delete data['latitude'];
     delete data['longitude'];
+    data['enterpriseUnitName'] = data['siteName'];
 
     if (siteId) {
       fetch(`/api/sites/${siteId}`, {
@@ -200,7 +198,7 @@ const New = ({ siteId }) => {
       fetch('/api/sites', { method: 'POST', body: JSON.stringify(data) })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status != 204) {
+          if (data.status != 200) {
             setShowAlert({ status: data.status, message: data.data.message });
           } else {
             setShowAlert({
@@ -591,6 +589,7 @@ const New = ({ siteId }) => {
                                 : null
                             } form-control`}
                           >
+                            <option>--</option>
                             <option value="ACTIVE">ACTIVE</option>
                             <option value="INACTIVE">INACTIVE</option>
                           </Field>
