@@ -13,14 +13,49 @@ import {
   CardBody,
   CardSubtitle,
   CardText,
+  Button,
 } from 'reactstrap';
 import Header from '~/components/public/Header';
 import { UserStoreContext } from '~/context/userStore';
+import { UserCartContext } from '~/context/userCart';
 import useCatalogItem from '~/lib/hooks/useCatalogItem';
 
 const CatalogItem = ({ id }) => {
   const { userStore } = useContext(UserStoreContext);
+  const { userCart, setUserCart } = useContext(UserCartContext);
   const { catalogItem, isLoading, isError } = useCatalogItem(id, userStore.id);
+
+  const handleAddToCart = (item, itemPrices, itemAttributes) => {
+    let currentUserCart = userCart;
+    let itemId = item.itemId.itemCode;
+    if (currentUserCart.totalQuantity) {
+      currentUserCart.totalQuantity++;
+    } else {
+      currentUserCart.totalQuantity = 1;
+    }
+    if (currentUserCart.totalPrice) {
+      currentUserCart.totalPrice =
+        currentUserCart.totalPrice + itemPrices[0].price;
+    } else {
+      currentUserCart.totalPrice = itemPrices[0].price;
+    }
+    if (!currentUserCart.items) {
+      currentUserCart.items = {};
+    }
+    if (currentUserCart.items[itemId]) {
+      currentUserCart.items[itemId].quantity =
+        currentUserCart.items[itemId].quantity + 1;
+    } else {
+      currentUserCart.items[itemId] = {
+        quantity: 1,
+        item,
+        itemPrices,
+        itemAttributes,
+      };
+    }
+    // create new cart
+    setUserCart(currentUserCart);
+  };
 
   return (
     <div>
@@ -81,11 +116,20 @@ const CatalogItem = ({ id }) => {
                             : 'Not available at this store'}
                         </h3>
                       </div>
-                      {/* <div className="ml-auto p-2 bd-highlight">
-                        <Button color="primary" disabled>
+                      <div className="ml-auto p-2 bd-highlight">
+                        <Button
+                          color="primary"
+                          onClick={() =>
+                            handleAddToCart(
+                              catalogItem.item,
+                              catalogItem.itemPrices,
+                              catalogItem.itemAttributes
+                            )
+                          }
+                        >
                           Add to Cart
                         </Button>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
                 </CardBody>

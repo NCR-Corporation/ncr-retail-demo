@@ -60,7 +60,9 @@ const FindStoreModal = (props) => {
           )}
           <small>
             {coordinates
-              ? `Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`
+              ? `Latitude: ${coordinates.latitude.toFixed(
+                  2
+                )}, Longitude: ${coordinates.longitude.toFixed(2)}`
               : ''}
           </small>
           {sites && sites.length > 0 && (

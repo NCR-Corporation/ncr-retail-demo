@@ -1,17 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
-import { Container, Nav, NavItem, Row, Col } from 'reactstrap';
+import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
 import { UserStoreContext } from '~/context/userStore';
 import useHeader from '~/lib/hooks/useHeader';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';
+import { UserCartContext } from '~/context/userCart';
 
 const Header = () => {
   const { categories } = useHeader();
   const { userStore } = useContext(UserStoreContext);
+  const { userCart } = useContext(UserCartContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   useEffect(() => {
@@ -45,15 +47,20 @@ const Header = () => {
               <Col sm="8" md="5">
                 <SearchBar />
               </Col>
-              <Col sm="12" md="5" className="text-md-right">
-                {/* <Link href="#">
+              <Col sm="12" md="4" className="text-md-right">
+                <Link href="/cart">
                   <a>
-                    <Button color="primary" outline className="mr-1">
+                    <Button color="dark" outline className="mr-1">
                       My Cart
+                      {userCart && userCart.totalQuantity > 0 && (
+                        <Badge color="warning" className="ml-1">
+                          {userCart.totalQuantity}
+                        </Badge>
+                      )}
                     </Button>
                   </a>
                 </Link>
-                <Link href="#">
+                {/* <Link href="#">
                   <a>
                     <Button color="primary">Login</Button>
                   </a>
