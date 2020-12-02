@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
+import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
+import LoginModal from '~/components/auth/LoginModal';
 import { UserStoreContext } from '~/context/userStore';
 import useHeader from '~/lib/hooks/useHeader';
 import SubHeader from './SubHeader';
@@ -15,7 +17,11 @@ const Header = () => {
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
+  const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
+  const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
   useEffect(() => {
     if (Object.keys(userStore).length == 0) {
       setIsModalOpen(true);
@@ -24,6 +30,16 @@ const Header = () => {
   return (
     <div className="bg-white">
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
+      <LoginModal
+        modalProp={isLoginModalOpen}
+        toggle={toggleLoginModal}
+        toggleRegister={toggleRegisterModal}
+      />
+      <RegisterConsumerModal
+        modalProp={isRegisterModalOpen}
+        toggle={toggleRegisterModal}
+        toggleLogin={toggleLoginModal}
+      />
       <header className="section-header shadow-sm">
         <section className="header-top-light border-bottom">
           <Container>
@@ -60,11 +76,9 @@ const Header = () => {
                     </Button>
                   </a>
                 </Link>
-                {/* <Link href="#">
-                  <a>
-                    <Button color="primary">Login</Button>
-                  </a>
-                </Link> */}
+                <Button color="primary" onClick={toggleLoginModal}>
+                  Login
+                </Button>
               </Col>
             </Row>
           </Container>
