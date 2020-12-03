@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { signIn, getSession, useSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import { signIn, getSession } from 'next-auth/client';
 // import Header from '~/components/public/Header';
 import {
   Row,
@@ -10,6 +11,7 @@ import {
   CardTitle,
   Col,
   Button,
+  Spinner,
   CardFooter,
 } from 'reactstrap';
 
@@ -21,16 +23,21 @@ const initialValues = {
 };
 
 const createConsumerSchema = Yup.object().shape({
-  firstName: Yup.string().required(),
-  lastName: Yup.string().required(),
-  emailAddress: Yup.string().email().required(),
-  password: Yup.string().required(),
+  username: Yup.string().required('Username is required.'),
+  firstName: Yup.string().required('First name is required.'),
+  lastName: Yup.string().required('Last name is required.'),
+  emailAddress: Yup.string().email().required('Email address is required.'),
+  password: Yup.string().required('Password is required.'),
 });
 
 export default function Register({ showLoginModal }) {
+  const router = useRouter();
+  const [registering, setRegistering] = useState(false);
   const handleSubmit = async (values) => {
-    const { emailAddress, firstName, lastName, password } = values;
+    setRegistering(true);
+    const { username, emailAddress, firstName, lastName, password } = values;
     signIn('register', {
+      username,
       emailAddress,
       firstName,
       lastName,
@@ -38,6 +45,13 @@ export default function Register({ showLoginModal }) {
       disableCallback: true,
     }).then(async () => {
       let status = await getSession();
+      setRegistering(false);
+      if (status === null) {
+        // set errors
+      } else {
+        showLoginModal();
+        router.reload();
+      }
       console.log(status);
     });
   };
@@ -101,6 +115,27 @@ export default function Register({ showLoginModal }) {
                     <Row>
                       <Col>
                         <div className="form-group">
+                          <label htmlFor="username">Username*</label>
+                          <Field
+                            name="username"
+                            id="username"
+                            className={`${
+                              errors.username && touched.username
+                                ? 'is-invalid'
+                                : null
+                            } form-control`}
+                          />
+                          <ErrorMessage
+                            name="username"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <div className="form-group">
                           <label htmlFor="emailAddress">Email*</label>
                           <Field
                             name="emailAddress"
@@ -150,7 +185,11 @@ export default function Register({ showLoginModal }) {
                           className={`${!(dirty && isValid) ? 'disabled' : ''}`}
                           disabled={!(dirty && isValid)}
                         >
-                          Sign Up
+                          {registering ? (
+                            <Spinner color="light" size="sm" />
+                          ) : (
+                            <span>Sign Up</span>
+                          )}
                         </Button>
                       </Col>
                     </Row>
@@ -174,19 +213,5 @@ export default function Register({ showLoginModal }) {
         );
       }}
     </Formik>
-    // <form method="post" action="/api/auth/signin/email">
-    //   <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-    //   <label>
-    //     Email address
-    //     <input type="text" id="email" name="email" />
-    //   </label>
-    //   <button type="submit">Sign in with Email</button>
-    // </form>
   );
 }
-
-Register.getInitialProps = async (context) => {
-  return {
-    csrfToken: await csrfToken(context),
-  };
-};

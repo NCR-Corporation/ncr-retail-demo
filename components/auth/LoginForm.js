@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { getSession, signIn, useSession } from 'next-auth/client';
-// import Header from '~/components/public/Header';
 import {
   Row,
   Card,
@@ -11,43 +10,50 @@ import {
   CardTitle,
   Col,
   Button,
+  Spinner,
   CardFooter,
   Alert,
 } from 'reactstrap';
 
 const initialValues = {
-  emailAddress: '',
+  username: '',
   password: '',
 };
 
 const createConsumerSchema = Yup.object().shape({
-  emailAddress: Yup.string().email().required(),
-  password: Yup.string().required(),
+  username: Yup.string().required('Username is required.'),
+  password: Yup.string().required('Password is required.'),
 });
 
 export default function Login({ toggle, showRegisterModal }) {
   const router = useRouter();
-  const [session] = useSession();
+  const [loginRequest, setLoginRequest] = useState(false);
   const [loginErrors, useErrors] = useState(false);
+  const [session, loading] = useSession();
 
   const [visible, setVisible] = useState(true);
   const onDismiss = () => setVisible(false);
 
   const handleSubmit = async (values) => {
+    setLoginRequest(true);
     console.log(values);
     signIn('login', {
       json: true,
-      emailAddress: values.emailAddress,
+      username: values.username,
       password: values.password,
       disableCallback: true,
     }).then(async () => {
       let status = await getSession();
+      console.log('the session', session);
+      setLoginRequest(false);
+      console.log('the status', status);
       if (status == null) {
         useErrors(true);
       } else {
         // If a modal
         if (toggle) {
           toggle();
+          router.reload();
         } else {
           router.push({
             pathname: '/',
@@ -80,19 +86,18 @@ export default function Login({ toggle, showRegisterModal }) {
                     <Row>
                       <Col>
                         <div className="form-group">
-                          <label htmlFor="emailAddress">Email*</label>
+                          <label htmlFor="username">Username*</label>
                           <Field
-                            name="emailAddress"
-                            id="emailAddress"
-                            value="email@email.com"
+                            name="username"
+                            id="username"
                             className={`${
-                              errors.emailAddress && touched.emailAddress
+                              errors.username && touched.username
                                 ? 'is-invalid'
                                 : null
                             } form-control`}
                           />
                           <ErrorMessage
-                            name="emailAddress"
+                            name="username"
                             component="div"
                             className="invalid-feedback"
                           />
@@ -106,7 +111,6 @@ export default function Login({ toggle, showRegisterModal }) {
                           <Field
                             name="password"
                             type="password"
-                            value="pass"
                             id="password"
                             className={`${
                               errors.password && touched.password
@@ -131,7 +135,11 @@ export default function Login({ toggle, showRegisterModal }) {
                           className={`${!(dirty && isValid) ? 'disabled' : ''}`}
                           disabled={!(dirty && isValid)}
                         >
-                          Login
+                          {loginRequest ? (
+                            <Spinner color="light" size="sm" />
+                          ) : (
+                            <span>Login</span>
+                          )}
                         </Button>
                       </Col>
                     </Row>

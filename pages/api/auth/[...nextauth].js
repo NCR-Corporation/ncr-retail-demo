@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-import { findConsumer, createConsumer } from '~/lib/cdm';
+import { createUser, getCurrentUserProfileData } from '~/lib/provisioning';
+import { authenticateUser, setPassword } from '~/lib/security';
 import bcrypt from 'bcryptjs';
 
 const salt = bcrypt.genSaltSync(10);
@@ -13,6 +14,10 @@ const options = {
       id: 'register',
       name: 'Register',
       credentials: {
+        username: {
+          type: 'text',
+          label: 'Username',
+        },
         firstName: {
           type: 'text',
           label: 'First Name',
@@ -31,43 +36,44 @@ const options = {
       authorize: async (credentials) => {
         console.log(credentials);
         let password = credentials.password;
-        password = bcrypt.hashSync(password, salt);
-        // let user = {
-        //   password: password,
-        //   consumerProfile: {
-        //     profileUsername: credentials.emailAddress,
-        //     firstName: credentials.firstName,
-        //     lastName: credentials.lastName,
-        //     identifiersData: [
-        //       {
-        //         fieldName: 'emailAddress',
-        //         fieldValue: credentials.emailAddress,
-        //         status: 'ACTIVE',
-        //       },
-        //     ],
-        //   },
-        // };
-        let user = {
+        let userObj = {
           email: credentials.emailAddress,
+          familyName: credentials.lastName,
           fullName: `${credentials.firstName} ${credentials.lastName}`,
           givenName: credentials.firstName,
+          forcePasswordChange: false,
           password,
           status: 'ACTIVE',
-          username: credentials.emailAddress,
+          username: credentials.username,
         };
-        console.log(user);
-        let consumer = await createConsumer(user);
-        console.log(consumer);
-        return Promise.resolve(consumer);
+        console.log(userObj);
+        let user = await createUser(userObj);
+        if (user.status == 200) {
+          let response = await authenticateUser(
+            credentials.username,
+            credentials.password
+          );
+          const { status, data } = response;
+          console.log('the data', data);
+          if (status === 200) {
+            let userProfile = await getCurrentUserProfileData(data.token);
+            if (userProfile.status == 200) {
+              let user = userProfile.data;
+              console.log('user', user);
+              return Promise.resolve(user);
+            }
+            return Promise.reject();
+          } else {
+            return Promise.reject();
+          }
+        } else {
+          return Promise.reject();
+        }
       },
     }),
     Providers.Credentials({
       id: 'login',
-      // The name to display on the sign in form (e.g. 'Sign in with...')
       name: 'Login',
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
       credentials: {
         emailAddress: {
           label: 'Email Address',
@@ -77,28 +83,40 @@ const options = {
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
-        let consumer = await findConsumer(credentials.emailAddress);
-        if (consumer.data.numberFound === 0) {
+        let response = await authenticateUser(
+          credentials.username,
+          credentials.password
+        );
+        const { status, data } = response;
+        if (status === 200) {
+          let userProfile = await getCurrentUserProfileData(data.token);
+          if (userProfile.status == 200) {
+            let user = userProfile.data;
+            return Promise.resolve(user);
+          }
           return Promise.reject();
         } else {
-        }
-
-        console.log('here', credentials);
-        if (false) {
-          // Any object returned will be saved in `user` property of the JWT
-          return Promise.resolve(user);
-        } else {
-          // If you return null or false then the credentials will be rejected
-          console.log('yo');
           return Promise.reject();
-          // You can also Reject this callback with an Error or with a URL:
-          // return Promise.reject(new Error('error message')) // Redirect to error page
-          // return Promise.reject('/path/to/redirect')        // Redirect to a URL
         }
       },
     }),
   ],
-
+  callbacks: {
+    session: async (session, user) => {
+      console.log('in the session', session);
+      session.user = user.data;
+      return Promise.resolve(session);
+    },
+    jwt: async (token, user, account, profile, isNewUser) => {
+      // The user argument is only passed the first time this callback is called on a new session, after the user signs in
+      if (user) {
+        // Add a new prop on token for user data
+        console.log('user', user);
+        token.data = user;
+      }
+      return Promise.resolve(token);
+    },
+  },
   session: {
     jwt: true,
     maxAge: 30 * 24 * 60 * 60,

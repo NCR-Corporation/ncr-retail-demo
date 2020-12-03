@@ -11,6 +11,7 @@ import useHeader from '~/lib/hooks/useHeader';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';
 import { UserCartContext } from '~/context/userCart';
+import HeaderProfile from '../auth/HeaderProfile';
 
 const Header = () => {
   const { categories } = useHeader();
@@ -76,9 +77,7 @@ const Header = () => {
                     </Button>
                   </a>
                 </Link>
-                <Button color="primary" onClick={toggleLoginModal}>
-                  Login
-                </Button>
+                <HeaderProfile toggleModalLogin={toggleLoginModal} />
               </Col>
             </Row>
           </Container>
