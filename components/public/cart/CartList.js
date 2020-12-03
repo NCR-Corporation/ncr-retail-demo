@@ -24,7 +24,7 @@ export default function CartList({ userCart }) {
                       <small>Item</small>
                     </Col>
                     <Col sm="2" className="text-muted text-uppercase">
-                      <small>Quantity</small>
+                      <small>Qty.</small>
                     </Col>
                     <Col sm="2"></Col>
                   </Row>

@@ -39,7 +39,7 @@ export default function CartItem({ userCart, item, itemKey }) {
   };
   return (
     <Row className="d-flex align-items-center">
-      <Col sm="2">
+      <Col sm="2" className="d-sm-none d-md-block">
         <Image
           alt={
             item.item.shortDescription.values
@@ -59,9 +59,9 @@ export default function CartItem({ userCart, item, itemKey }) {
           className="p-4"
         />
       </Col>
-      <Col sm="10">
-        <Row className="w-100">
-          <Col sm="8" className="mb-2">
+      <Col sm="12" md="10">
+        <Row className="w-100 no-gutters">
+          <Col sm="6" md="8" className="mb-2">
             <Link href={`/catalog/${item.item.itemId.itemCode}`}>
               <a className="h5 card-title mb-2">
                 {item.itemAttributes
@@ -76,7 +76,7 @@ export default function CartItem({ userCart, item, itemKey }) {
               {/* ${item.itemPrices[0].price} */}
             </h6>
           </Col>
-          <Col sm="2">
+          <Col sm="4" md="2">
             <FormGroup>
               <Input
                 type="select"
@@ -86,7 +86,7 @@ export default function CartItem({ userCart, item, itemKey }) {
                 onChange={() => handleQuantityChange(event, itemKey)}
               >
                 {Array.from({ length: 10 }, (_, i) => i + 1).map((item) => (
-                  <option>{item}</option>
+                  <option key={item}>{item}</option>
                 ))}
               </Input>
             </FormGroup>
