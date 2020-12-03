@@ -145,7 +145,7 @@ export default function Cart() {
                                   id="qtySelect"
                                   value={userCart.items[key].quantity}
                                   onChange={() =>
-                                    handleQuantityChange(evt, key)
+                                    handleQuantityChange(event, key)
                                   }
                                 >
                                   {Array.from(
