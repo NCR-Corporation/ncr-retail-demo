@@ -1,16 +1,21 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { Card, CardBody, CardFooter, Row, Col, Button } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 
 const ItemCard = ({ catalogItem, showCartButton = true }) => {
   const { item, itemPrices, itemAttributes } = catalogItem;
   const { userCart, setUserCart } = useContext(UserCartContext);
+  const [addingToCart, setAddingToCart] = useState(false);
 
   const handleAddToCart = (item, itemPrices, itemAttributes) => {
+    setAddingToCart(true);
     let currentUserCart = userCart;
     let itemId = item.itemId.itemCode;
+    console.log(currentUserCart, itemId);
     if (currentUserCart.totalQuantity) {
       currentUserCart.totalQuantity++;
     } else {
@@ -26,6 +31,7 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
       currentUserCart.items = {};
     }
     if (currentUserCart.items[itemId]) {
+      console.log('heeere', currentUserCart.items[itemId].quantity);
       currentUserCart.items[itemId].quantity =
         currentUserCart.items[itemId].quantity + 1;
     } else {
@@ -36,6 +42,7 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
         itemAttributes,
       };
     }
+    console.log(currentUserCart);
     // create new cart
     setUserCart(currentUserCart);
   };
@@ -81,13 +88,22 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
           {showCartButton && (
             <Col sm="12" md="6">
               <Button
-                className="float-right"
-                color="primary"
+                className={`float-right ${addingToCart && 'fade'}`}
+                color={addingToCart ? 'success' : 'primary'}
+                outline
                 onClick={() =>
                   handleAddToCart(item, itemPrices, itemAttributes)
                 }
+                onAnimationEnd={() => setAddingToCart(false)}
               >
-                Add to Cart
+                {addingToCart ? (
+                  <div>
+                    <FontAwesomeIcon icon={faCheckCircle} size="lg" />
+                    {'  '}Added
+                  </div>
+                ) : (
+                  'Add to Cart'
+                )}
               </Button>
             </Col>
           )}

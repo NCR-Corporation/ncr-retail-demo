@@ -63,7 +63,7 @@ const Dashboard = () => {
           {exporting ? (
             <Spinner color="light" size="sm" />
           ) : (
-            <FontAwesomeIcon icon={faDownload} />
+            <FontAwesomeIcon icon={faDownload} size="1x" />
           )}{' '}
           Export All Data
         </Button>

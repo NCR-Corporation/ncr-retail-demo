@@ -12,7 +12,7 @@ const Header = () => {
           <Nav className="d-flex justify-content-end row">
             <NavItem>
               <NavLink href="/">
-                <FontAwesomeIcon icon={faHome} /> Home
+                <FontAwesomeIcon icon={faHome} size="1x" /> Home
               </NavLink>
             </NavItem>
           </Nav>
@@ -23,7 +23,7 @@ const Header = () => {
           <Row className="align-items-center">
             <Col sm="4" md="3">
               <Link href="/admin/dashboard" className="logo-text">
-                <a className="logo-text">MARKET</a>
+                <a className="logo-text">MART</a>
               </Link>
             </Col>
             <Col className="col text-md-right">
