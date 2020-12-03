@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { useContext } from 'react';
 import {
   Col,
@@ -7,8 +9,8 @@ import {
   CardBody,
   CardTitle,
   Button,
-  InputGroup,
-  InputGroupAddon,
+  FormGroup,
+  Label,
   Input,
   CardSubtitle,
 } from 'reactstrap';
@@ -16,7 +18,6 @@ import Header from '~/components/public/Header';
 import { UserCartContext } from '~/context/userCart';
 export default function Cart() {
   const { userCart, setUserCart } = useContext(UserCartContext);
-  console.log(userCart);
   const cartTotal = userCart.totalPrice;
 
   const emptyCart = () => {
@@ -36,36 +37,24 @@ export default function Cart() {
     setUserCart(userCart);
   };
 
-  const increaseCartQuantity = (key) => {
+  const handleQuantityChange = (event, key) => {
     let currentItem = userCart.items[key];
     let totalQuantity = userCart.totalQuantity;
     let totalPrice = userCart.totalPrice;
-    currentItem.quantity++;
-    totalQuantity++;
-    totalPrice += currentItem.itemPrices[0].price;
+    totalQuantity =
+      totalQuantity - currentItem.quantity + parseInt(event.target.value);
+    totalPrice =
+      totalPrice -
+      currentItem.quantity * currentItem.itemPrices[0].price +
+      parseInt(event.target.value) * currentItem.itemPrices[0].price;
+    currentItem.quantity = event.target.value;
     userCart.items[key] = currentItem;
     userCart.totalPrice = totalPrice;
     userCart.totalQuantity = totalQuantity;
+    console.log(userCart);
     setUserCart(userCart);
   };
 
-  const decreaseCartQuantity = (key) => {
-    let currentItem = userCart.items[key];
-    if (currentItem.quantity == 1) {
-      // We are removing it then.
-      removeFromCart(key);
-    } else {
-      let totalQuantity = userCart.totalQuantity;
-      let totalPrice = userCart.totalPrice;
-      currentItem.quantity--;
-      totalQuantity--;
-      totalPrice -= currentItem.itemPrices[0].price;
-      userCart.items[key] = currentItem;
-      userCart.totalPrice = totalPrice;
-      userCart.totalQuantity = totalQuantity;
-      setUserCart(userCart);
-    }
-  };
   return (
     <div>
       <Header />
@@ -78,87 +67,111 @@ export default function Cart() {
         <Row>
           <Col md="8">
             <div>
-              {userCart.totalQuantity > 0 ? (
-                Object.keys(userCart.items).map((key) => (
-                  <Card className="mb-2">
-                    <Row>
-                      <Col sm="3">
-                        <Image
-                          alt={
-                            userCart.items[key].item.shortDescription.values
-                              ? userCart.items[key].item.shortDescription
-                                  .values[0].value
-                              : userCart.items[key].item.shortDescription.value
-                          }
-                          src={
-                            userCart.items[key].itemAttributes &&
-                            userCart.items[key].itemAttributes.imageUrls &&
-                            userCart.items[key].itemAttributes.imageUrls
-                              .length > 0
-                              ? userCart.items[key].itemAttributes.imageUrls[0]
-                              : 'https://via.placeholder.com/150'
-                          }
-                          layout="responsive"
-                          width={500}
-                          height={500}
-                          className="p-4"
-                        />
+              <Card className="mb-2">
+                <CardBody className="">
+                  {userCart.totalQuantity > 0 && (
+                    <Row className="mb-2">
+                      <Col sm="2"></Col>
+                      <Col sm="10">
+                        <Row className="w-100">
+                          <Col sm="8" className="text-muted text-uppercase">
+                            <small>Item</small>
+                          </Col>
+                          <Col sm="2" className="text-muted text-uppercase">
+                            <small>Quantity</small>
+                          </Col>
+                          <Col sm="2"></Col>
+                        </Row>
                       </Col>
-                      <Col sm="9">
-                        <CardBody className="h-100 d-flex align-items-center">
+                    </Row>
+                  )}
+                  {userCart.totalQuantity > 0 ? (
+                    Object.keys(userCart.items).map((key) => (
+                      <Row className="d-flex align-items-center">
+                        <Col sm="2">
+                          <Image
+                            alt={
+                              userCart.items[key].item.shortDescription.values
+                                ? userCart.items[key].item.shortDescription
+                                    .values[0].value
+                                : userCart.items[key].item.shortDescription
+                                    .value
+                            }
+                            src={
+                              userCart.items[key].itemAttributes &&
+                              userCart.items[key].itemAttributes.imageUrls &&
+                              userCart.items[key].itemAttributes.imageUrls
+                                .length > 0
+                                ? userCart.items[key].itemAttributes
+                                    .imageUrls[0]
+                                : 'https://via.placeholder.com/150'
+                            }
+                            layout="responsive"
+                            width={500}
+                            height={500}
+                            className="p-4"
+                          />
+                        </Col>
+                        <Col sm="10">
                           <Row className="w-100">
-                            <Col sm="12" md="8" className="mb-2">
-                              <CardTitle tag="h5">
+                            <Col sm="8" className="mb-2">
+                              <h5>
                                 {userCart.items[key].itemAttributes
                                   ? userCart.items[key].itemAttributes
                                       .shortDescription.values[0].value
                                   : userCart.items[key].item.shortDescription
                                       .values[0].value}
-                              </CardTitle>
-                              <CardSubtitle tag="h6" className="text-muted">
-                                ${userCart.items[key].itemPrices[0].price}
-                              </CardSubtitle>
+                              </h5>
+                              <h6 className="text-muted">
+                                {userCart.items[key].itemAttributes
+                                  ? userCart.items[key].itemAttributes
+                                      .longDescription.values[0].value
+                                  : userCart.items[key].item.longDescription
+                                      .values[0].value}
+                                {/* ${userCart.items[key].itemPrices[0].price} */}
+                              </h6>
                             </Col>
-                            <Col className="float-right">
-                              <InputGroup>
-                                <InputGroupAddon addonType="prepend">
-                                  <Button
-                                    onClick={() => decreaseCartQuantity(key)}
-                                  >
-                                    -
-                                  </Button>
-                                </InputGroupAddon>
+                            <Col sm="2">
+                              <FormGroup>
                                 <Input
-                                  className="text-center"
+                                  type="select"
+                                  name="select"
+                                  id="qtySelect"
                                   value={userCart.items[key].quantity}
-                                  disabled
-                                />
-                                <InputGroupAddon addonType="append">
-                                  <Button
-                                    onClick={() => increaseCartQuantity(key)}
-                                  >
-                                    +
-                                  </Button>
-                                </InputGroupAddon>
-                              </InputGroup>
+                                  onChange={() =>
+                                    handleQuantityChange(event, key)
+                                  }
+                                >
+                                  {Array.from(
+                                    { length: 10 },
+                                    (_, i) => i + 1
+                                  ).map((item) => (
+                                    <option>{item}</option>
+                                  ))}
+                                </Input>
+                              </FormGroup>
+                            </Col>
+                            <Col sm="2">
                               <Button
                                 onClick={() => removeFromCart(key)}
                                 color="link"
                                 className="float-right mt-1 text-muted p-0"
-                                size="sm"
                               >
-                                Remove
+                                <FontAwesomeIcon
+                                  icon={faTimesCircle}
+                                  size="lg"
+                                />
                               </Button>
                             </Col>
                           </Row>
-                        </CardBody>
-                      </Col>
-                    </Row>
-                  </Card>
-                ))
-              ) : (
-                <small className="text-muted">No items yet.</small>
-              )}
+                        </Col>
+                      </Row>
+                    ))
+                  ) : (
+                    <small className="text-muted">No items yet.</small>
+                  )}
+                </CardBody>
+              </Card>
               {userCart.totalQuantity > 0 && (
                 <Row>
                   <Col>
@@ -168,7 +181,7 @@ export default function Cart() {
                       className="mt-1 text-muted p-0"
                       size="sm"
                     >
-                      Empty Cart
+                      Clear Cart
                     </Button>
                   </Col>
                 </Row>
