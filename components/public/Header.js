@@ -41,7 +41,7 @@ const Header = () => {
             <Row className="align-items-center">
               <Col sm="4" md="3">
                 <Link href="/">
-                  <a className="logo-text">MARKET</a>
+                  <a className="logo-text">MART</a>
                 </Link>
               </Col>
               <Col sm="8" md="5">

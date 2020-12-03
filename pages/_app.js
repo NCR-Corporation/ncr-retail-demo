@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps, categories }) {
     <UserStoreProvider>
       <UserCartProvider>
         <Head>
-          <title>MARKET | Sample Retail Demo</title>
+          <title>MART | Sample Retail Demo</title>
         </Head>
         <Component {...pageProps} categories={categories} />
       </UserCartProvider>

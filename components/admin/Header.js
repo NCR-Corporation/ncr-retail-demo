@@ -23,7 +23,7 @@ const Header = () => {
           <Row className="align-items-center">
             <Col sm="4" md="3">
               <Link href="/admin/dashboard" className="logo-text">
-                <a className="logo-text">MARKET</a>
+                <a className="logo-text">MART</a>
               </Link>
             </Col>
             <Col className="col text-md-right">
