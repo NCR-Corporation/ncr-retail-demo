@@ -16,9 +16,11 @@ import {
 } from 'reactstrap';
 import Header from '~/components/public/Header';
 import { UserCartContext } from '~/context/userCart';
+import Link from 'next/link';
 export default function Cart() {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const cartTotal = userCart.totalPrice;
+  console.log(userCart);
 
   const emptyCart = () => {
     delete userCart.items;
@@ -67,7 +69,7 @@ export default function Cart() {
         <Row>
           <Col md="8">
             <div>
-              <Card className="mb-2">
+              <Card className="mb-2 cart-card">
                 <CardBody className="">
                   {userCart.totalQuantity > 0 && (
                     <Row className="mb-2">
@@ -115,13 +117,17 @@ export default function Cart() {
                         <Col sm="10">
                           <Row className="w-100">
                             <Col sm="8" className="mb-2">
-                              <h5>
-                                {userCart.items[key].itemAttributes
-                                  ? userCart.items[key].itemAttributes
-                                      .shortDescription.values[0].value
-                                  : userCart.items[key].item.shortDescription
-                                      .values[0].value}
-                              </h5>
+                              <Link
+                                href={`/catalog/${userCart.items[key].item.itemId.itemCode}`}
+                              >
+                                <a className="h5 card-title mb-2">
+                                  {userCart.items[key].itemAttributes
+                                    ? userCart.items[key].itemAttributes
+                                        .shortDescription.values[0].value
+                                    : userCart.items[key].item.shortDescription
+                                        .values[0].value}
+                                </a>
+                              </Link>
                               <h6 className="text-muted">
                                 {userCart.items[key].itemAttributes
                                   ? userCart.items[key].itemAttributes
@@ -139,7 +145,7 @@ export default function Cart() {
                                   id="qtySelect"
                                   value={userCart.items[key].quantity}
                                   onChange={() =>
-                                    handleQuantityChange(event, key)
+                                    handleQuantityChange(evt, key)
                                   }
                                 >
                                   {Array.from(
