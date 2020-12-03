@@ -12,7 +12,7 @@ const Header = () => {
           <Nav className="d-flex justify-content-end row">
             <NavItem>
               <NavLink href="/">
-                <FontAwesomeIcon icon={faHome} /> Home
+                <FontAwesomeIcon icon={faHome} size="1x" /> Home
               </NavLink>
             </NavItem>
           </Nav>

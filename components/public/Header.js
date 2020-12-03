@@ -30,7 +30,7 @@ const Header = () => {
             <Nav className="d-flex justify-content-end row">
               <NavItem>
                 <a href="/admin/dashboard" className="nav-link">
-                  <FontAwesomeIcon icon={faCog} /> Manage
+                  <FontAwesomeIcon icon={faCog} size="1x" /> Manage
                 </a>
               </NavItem>
             </Nav>
