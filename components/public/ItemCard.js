@@ -90,6 +90,7 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
               <Button
                 className={`float-right ${addingToCart && 'fade'}`}
                 color={addingToCart ? 'success' : 'primary'}
+                outline
                 onClick={() =>
                   handleAddToCart(item, itemPrices, itemAttributes)
                 }
