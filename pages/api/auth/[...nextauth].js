@@ -117,7 +117,7 @@ const options = {
       let now = new Date().getTime() / 1000;
       let expires = new Date(session.user.expires).getTime() / 1000;
       console.log('session time left: ', expires - now);
-      if (expires - now < 300) {
+      if (expires - now < 500) {
         console.log('I need to reauthenticate my token ' + session.user.token);
         let newToken = await exchangeToken(session.user.token);
         session.user.token = newToken.data.token;

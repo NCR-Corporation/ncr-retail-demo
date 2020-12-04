@@ -1,13 +1,16 @@
 import Header from '~/components/public/Header';
-import { getSession } from 'next-auth/client';
+import { getSession, signOut } from 'next-auth/client';
 import useUser from '~/lib/hooks/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
 import { Col, Row, Spinner } from 'reactstrap';
+import ProfileForm from '~/components/public/user/ProfileForm';
 
 const Settings = ({ session }) => {
   let { user, isLoading, isError } = useUser(session);
   if (!isLoading && !isError) {
-    console.log('me', user);
+    if (user.status == 500) {
+      signOut();
+    }
   }
   return (
     <div>
@@ -30,7 +33,7 @@ const Settings = ({ session }) => {
               <Sidebar url="profile" />
             </Col>
             <Col>
-              <div>{user.data.fullName}</div>
+              <ProfileForm user={user} session={session} />
             </Col>
           </Row>
         )}

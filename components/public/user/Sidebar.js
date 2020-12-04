@@ -1,30 +1,39 @@
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import Link from 'next/link';
+import { ListGroup } from 'reactstrap';
 
 export default function Sidebar({ url }) {
   return (
     <ListGroup>
-      <ListGroupItem active={url === 'profile' && true} tag="a" href="#" action>
-        Profile
-      </ListGroupItem>
-      <ListGroupItem active={url === 'orders' && true} tag="a" href="#" action>
-        Order History
-      </ListGroupItem>
-      <ListGroupItem
-        active={url === 'payments' && true}
-        tag="a"
-        href="#"
-        action
-      >
-        Payment Methods
-      </ListGroupItem>
-      <ListGroupItem
-        active={url === 'addresses' && true}
-        tag="a"
-        href="#"
-        action
-      >
-        Addresses
-      </ListGroupItem>
+      <Link href="/user/profile">
+        <a className={`list-group-item ${url === 'profile' && 'active'}`}>
+          Profile
+        </a>
+      </Link>
+      <Link href="/user/orders">
+        <a
+          className={`list-group-item ${url === 'orders' && 'active'} disabled`}
+        >
+          Order History
+        </a>
+      </Link>
+      <Link href="/user/payments">
+        <a
+          className={`list-group-item ${
+            url === 'payments' && 'active'
+          } disabled`}
+        >
+          Payment Methods
+        </a>
+      </Link>
+      <Link href="/user/password">
+        <a
+          className={`list-group-item ${
+            url === 'password' && 'active'
+          } disabled`}
+        >
+          Change Password
+        </a>
+      </Link>
     </ListGroup>
   );
 }
