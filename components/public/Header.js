@@ -13,7 +13,7 @@ import SearchBar from './SearchBar';
 import { UserCartContext } from '~/context/userCart';
 import HeaderProfile from '../auth/HeaderProfile';
 
-const Header = () => {
+export default function Header() {
   const { categories } = useHeader();
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);
@@ -90,6 +90,4 @@ const Header = () => {
       </header>
     </div>
   );
-};
-
-export default Header;
+}

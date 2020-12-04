@@ -1,10 +1,7 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import { createUser, getCurrentUserProfileData } from '~/lib/provisioning';
-import { authenticateUser, setPassword } from '~/lib/security';
-import bcrypt from 'bcryptjs';
-
-const salt = bcrypt.genSaltSync(10);
+import { authenticateUser, exchangeToken } from '~/lib/security';
 
 const options = {
   site: process.env.NEXTAUTH_URL || 'http://localhost:3000',
@@ -34,7 +31,6 @@ const options = {
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
-        console.log(credentials);
         let password = credentials.password;
         let userObj = {
           email: credentials.emailAddress,
@@ -46,7 +42,6 @@ const options = {
           status: 'ACTIVE',
           username: credentials.username,
         };
-        console.log(userObj);
         let user = await createUser(userObj);
         if (user.status == 200) {
           let response = await authenticateUser(
@@ -54,13 +49,16 @@ const options = {
             credentials.password
           );
           const { status, data } = response;
-          console.log('the data', data);
           if (status === 200) {
             let userProfile = await getCurrentUserProfileData(data.token);
             if (userProfile.status == 200) {
               let user = userProfile.data;
-              console.log('user', user);
-              return Promise.resolve(user);
+              let userSessionObj = {
+                token: data.token,
+                username: user.username,
+                givenName: user.givenName,
+              };
+              return Promise.resolve(userSessionObj);
             }
             return Promise.reject();
           } else {
@@ -92,7 +90,12 @@ const options = {
           let userProfile = await getCurrentUserProfileData(data.token);
           if (userProfile.status == 200) {
             let user = userProfile.data;
-            return Promise.resolve(user);
+            let userSessionObj = {
+              token: data.token,
+              username: user.username,
+              givenName: user.givenName,
+            };
+            return Promise.resolve(userSessionObj);
           }
           return Promise.reject();
         } else {
@@ -103,23 +106,30 @@ const options = {
   ],
   callbacks: {
     session: async (session, user) => {
-      console.log('in the session', session);
       session.user = user.data;
+      // Renew token if time is close.
+      let now = new Date().getTime();
+      if (now - new Date(session.expires).getTime() < 60) {
+        console.log(
+          'I need to reauthenticate with token ' + session.user.token
+        );
+        let newToken = await exchangeToken(session.user.token);
+        console.log('the new token', newToken);
+      }
       return Promise.resolve(session);
     },
     jwt: async (token, user, account, profile, isNewUser) => {
       // The user argument is only passed the first time this callback is called on a new session, after the user signs in
       if (user) {
         // Add a new prop on token for user data
-        console.log('user', user);
         token.data = user;
       }
       return Promise.resolve(token);
     },
   },
   session: {
-    jwt: true,
-    maxAge: 30 * 24 * 60 * 60,
+    jwt: false,
+    maxAge: 10, // Set from API.
   },
   debug: true,
 };

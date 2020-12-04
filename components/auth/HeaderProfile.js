@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useSession, getSession, signOut } from 'next-auth/client';
+import { useState } from 'react';
+import { useSession, signOut } from 'next-auth/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -11,10 +11,10 @@ import {
   DropdownToggle,
   Nav,
 } from 'reactstrap';
+import Link from 'next/link';
 function HeaderProfile({ toggleModalLogin }) {
   const [session, loading] = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  console.log(session, loading);
 
   const toggle = () => setDropdownOpen(!dropdownOpen);
   return (
@@ -35,9 +35,16 @@ function HeaderProfile({ toggleModalLogin }) {
               <FontAwesomeIcon icon={faUser} /> {session.user.givenName}
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem>Settings</DropdownItem>
+              {/* <DropdownItem>
+                <Link href="/user/orders">Recent Orders</Link>
+              </DropdownItem> */}
+              <DropdownItem>
+                <Link href="/user/profile">Profile</Link>
+              </DropdownItem>
               <DropdownItem divider />
-              <DropdownItem onClick={signOut}>Logout</DropdownItem>
+              <DropdownItem onClick={() => signOut({ callbackUrl: '/' })}>
+                Logout
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </Nav>
