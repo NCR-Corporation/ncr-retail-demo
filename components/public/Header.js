@@ -11,7 +11,7 @@ import useHeader from '~/lib/hooks/useHeader';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';
 import { UserCartContext } from '~/context/userCart';
-import HeaderProfile from '../auth/HeaderProfile';
+import ProfileDropdown from '../auth/ProfileDropdown';
 
 export default function Header() {
   const { categories } = useHeader();
@@ -77,7 +77,7 @@ export default function Header() {
                     </Button>
                   </a>
                 </Link>
-                <HeaderProfile toggleModalLogin={toggleLoginModal} />
+                <ProfileDropdown toggleModalLogin={toggleLoginModal} />
               </Col>
             </Row>
           </Container>

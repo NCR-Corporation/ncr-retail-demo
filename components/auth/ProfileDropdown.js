@@ -11,8 +11,9 @@ import {
   DropdownToggle,
   Nav,
 } from 'reactstrap';
-import Link from 'next/link';
-function HeaderProfile({ toggleModalLogin }) {
+import { useRouter } from 'next/router';
+function ProfileDropdown({ toggleModalLogin }) {
+  const router = useRouter();
   const [session, loading] = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -38,8 +39,14 @@ function HeaderProfile({ toggleModalLogin }) {
               {/* <DropdownItem>
                 <Link href="/user/orders">Recent Orders</Link>
               </DropdownItem> */}
-              <DropdownItem>
-                <Link href="/user/profile">Profile</Link>
+              <DropdownItem
+                onClick={() =>
+                  router.push({
+                    pathname: '/user/profile',
+                  })
+                }
+              >
+                Profile
               </DropdownItem>
               <DropdownItem divider />
               <DropdownItem onClick={() => signOut({ callbackUrl: '/' })}>
@@ -53,4 +60,4 @@ function HeaderProfile({ toggleModalLogin }) {
   );
 }
 
-export default HeaderProfile;
+export default ProfileDropdown;
