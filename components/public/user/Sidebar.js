@@ -3,24 +3,14 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 export default function Sidebar({ url }) {
   return (
     <ListGroup>
-      <ListGroupItem
-        // active={url === 'profile' && 'active'}
-        tag="a"
-        href="#"
-        action
-      >
+      <ListGroupItem active={url === 'profile' && true} tag="a" href="#" action>
         Profile
       </ListGroupItem>
-      <ListGroupItem
-        // acitive={url === 'orders' && 'active'}
-        tag="a"
-        href="#"
-        action
-      >
+      <ListGroupItem active={url === 'orders' && true} tag="a" href="#" action>
         Order History
       </ListGroupItem>
       <ListGroupItem
-        // active={url === 'payments' && 'active'}
+        active={url === 'payments' && true}
         tag="a"
         href="#"
         action
@@ -28,7 +18,7 @@ export default function Sidebar({ url }) {
         Payment Methods
       </ListGroupItem>
       <ListGroupItem
-        // active={url === 'addresses' && 'active'}
+        active={url === 'addresses' && true}
         tag="a"
         href="#"
         action

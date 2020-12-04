@@ -53,10 +53,13 @@ const options = {
             let userProfile = await getCurrentUserProfileData(data.token);
             if (userProfile.status == 200) {
               let user = userProfile.data;
+              let expiresAt = new Date();
+              expiresAt.setSeconds(expiresAt.getSeconds() + 900);
               let userSessionObj = {
                 token: data.token,
                 username: user.username,
                 givenName: user.givenName,
+                expires: expiresAt,
               };
               return Promise.resolve(userSessionObj);
             }
@@ -90,10 +93,13 @@ const options = {
           let userProfile = await getCurrentUserProfileData(data.token);
           if (userProfile.status == 200) {
             let user = userProfile.data;
+            let expiresAt = new Date();
+            expiresAt.setSeconds(expiresAt.getSeconds() + 900);
             let userSessionObj = {
               token: data.token,
               username: user.username,
               givenName: user.givenName,
+              expires: expiresAt,
             };
             return Promise.resolve(userSessionObj);
           }
@@ -107,21 +113,22 @@ const options = {
   callbacks: {
     session: async (session, user) => {
       session.user = user.data;
-      // Renew token if time is close.
-      let now = new Date().getTime();
-      if (now - new Date(session.expires).getTime() < 60) {
-        console.log(
-          'I need to reauthenticate with token ' + session.user.token
-        );
+      // Renew token if token expires in 5 minutes.
+      let now = new Date().getTime() / 1000;
+      let expires = new Date(session.user.expires).getTime() / 1000;
+      console.log('session time left: ', expires - now);
+      if (expires - now < 300) {
+        console.log('I need to reauthenticate my token ' + session.user.token);
         let newToken = await exchangeToken(session.user.token);
-        console.log('the new token', newToken);
+        session.user.token = newToken.data.token;
+        let expiresAt = new Date();
+        expiresAt.setSeconds(expiresAt.getSeconds() + 900);
+        session.user.expires = expiresAt;
       }
       return Promise.resolve(session);
     },
     jwt: async (token, user, account, profile, isNewUser) => {
-      // The user argument is only passed the first time this callback is called on a new session, after the user signs in
       if (user) {
-        // Add a new prop on token for user data
         token.data = user;
       }
       return Promise.resolve(token);
@@ -129,7 +136,6 @@ const options = {
   },
   session: {
     jwt: false,
-    maxAge: 10, // Set from API.
   },
   debug: true,
 };
