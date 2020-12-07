@@ -1,19 +1,37 @@
+import { useEffect, useState } from 'react';
 import Header from '~/components/public/Header';
-import { getSession, signOut } from 'next-auth/client';
+import { getSession } from 'next-auth/client';
 import useUser from '~/lib/hooks/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
-import { Col, Row, Spinner } from 'reactstrap';
+import { Button, Col, Row, Spinner } from 'reactstrap';
 import ProfileForm from '~/components/public/user/ProfileForm';
+import LoginModal from '~/components/auth/LoginModal';
+import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
 
 const Settings = ({ session }) => {
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+  const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
+  const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
   let { user, isLoading, isError } = useUser(session);
   if (!isLoading && !isError) {
     if (user.status == 500) {
-      signOut();
+      setLoginModalOpen(true);
     }
   }
+
   return (
     <div>
+      <LoginModal
+        modalProp={isLoginModalOpen}
+        toggle={toggleLoginModal}
+        toggleRegister={toggleRegisterModal}
+      />
+      <RegisterConsumerModal
+        modalProp={isRegisterModalOpen}
+        toggle={toggleRegisterModal}
+        toggleLogin={toggleLoginModal}
+      />
       <Header />
       <main className="container pt-4">
         {isLoading && (
@@ -22,10 +40,20 @@ const Settings = ({ session }) => {
           </div>
         )}
         {isError && (
-          <small className="text-muted">Uhoh, we've hit an error.</small>
+          <div>
+            <small className="text-muted">Uhoh, we've hit an error.</small>
+            <br />
+            <Button
+              size="sm"
+              color="primary"
+              onClick={() => setLoginModalOpen(true)}
+            >
+              Please login again.
+            </Button>
+          </div>
         )}
         {!isLoading && !isError && !user.data && (
-          <small className="text-muted">Uhoh, we've hit an error.</small>
+          <small className="text-muted"></small>
         )}
         {!isLoading && !isError && user.data && (
           <Row>

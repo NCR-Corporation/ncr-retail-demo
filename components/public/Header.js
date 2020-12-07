@@ -28,6 +28,10 @@ export default function Header() {
       setIsModalOpen(true);
     }
   }, [isModalOpen]);
+
+  useEffect(() => {
+    console.log('the user store', userStore);
+  }, [userStore]);
   return (
     <div className="bg-white">
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
@@ -65,18 +69,18 @@ export default function Header() {
                 <SearchBar />
               </Col>
               <Col sm="12" md="4" className="text-md-right">
-                <Link href="/cart">
-                  <a>
-                    <Button color="dark" outline className="mr-1">
-                      My Cart
-                      {userCart && userCart.totalQuantity > 0 && (
+                {userCart && userCart.totalQuantity > 0 && (
+                  <Link href="/cart">
+                    <a>
+                      <Button color="dark" outline className="mr-1">
+                        My Cart
                         <Badge color="warning" className="ml-1">
                           {userCart.totalQuantity}
                         </Badge>
-                      )}
-                    </Button>
-                  </a>
-                </Link>
+                      </Button>
+                    </a>
+                  </Link>
+                )}
                 <ProfileDropdown toggleModalLogin={toggleLoginModal} />
               </Col>
             </Row>
