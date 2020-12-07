@@ -1,21 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { geolocated } from 'react-geolocated';
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Row,
-  Col,
-} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Row, Col } from 'reactstrap';
 import { UserStoreContext } from '~/context/userStore';
 
 const FindStoreModal = (props) => {
   const { modalProp, toggle, coords } = props;
 
-  const { userStore, setUserStore } = useContext(UserStoreContext);
-
+  const { setUserStore } = useContext(UserStoreContext);
   const [coordinates, setCoordinates] = useState(coords);
   const [sites, setSites] = useState();
   if (props.coords && !coordinates) {
@@ -99,9 +90,6 @@ const FindStoreModal = (props) => {
             </div>
           )}
         </ModalBody>
-        {/* <ModalFooter>
-          <Button color="secondary" onClick={toggle}>Cancel</Button>
-        </ModalFooter> */}
       </Modal>
     </div>
   );

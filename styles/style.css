@@ -45,6 +45,10 @@ body {
   background-color: #fff;
 }
 
+.text-darker {
+  color: #1c1c1c;
+}
+
 .navbar-main .nav-link,
 .breadcrumb-item a {
   color: #1c1c1c;
@@ -86,10 +90,10 @@ label {
   background-color: #16181b;
 }
 
-.fade {
-  animation: fade-in-keyframes 0.5s;
+.fade-btn {
+  animation: fade-btn-in-keyframes 0.5s;
 }
-@keyframes fade-in-keyframes {
+@keyframes fade-btn-in-keyframes {
   from {
     opacity: 0.5;
   }

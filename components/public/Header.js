@@ -4,26 +4,47 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
+import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
+import LoginModal from '~/components/auth/LoginModal';
 import { UserStoreContext } from '~/context/userStore';
 import useHeader from '~/lib/hooks/useHeader';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';
 import { UserCartContext } from '~/context/userCart';
+import ProfileDropdown from '../auth/ProfileDropdown';
 
-const Header = () => {
+export default function Header() {
   const { categories } = useHeader();
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
+  const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
+  const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
   useEffect(() => {
     if (Object.keys(userStore).length == 0) {
       setIsModalOpen(true);
     }
   }, [isModalOpen]);
+
+  useEffect(() => {
+    console.log('the user store', userStore);
+  }, [userStore]);
   return (
     <div className="bg-white">
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
+      <LoginModal
+        modalProp={isLoginModalOpen}
+        toggle={toggleLoginModal}
+        toggleRegister={toggleRegisterModal}
+      />
+      <RegisterConsumerModal
+        modalProp={isRegisterModalOpen}
+        toggle={toggleRegisterModal}
+        toggleLogin={toggleLoginModal}
+      />
       <header className="section-header shadow-sm">
         <section className="header-top-light border-bottom">
           <Container>
@@ -48,23 +69,19 @@ const Header = () => {
                 <SearchBar />
               </Col>
               <Col sm="12" md="4" className="text-md-right">
-                <Link href="/cart">
-                  <a>
-                    <Button color="dark" outline className="mr-1">
-                      My Cart
-                      {userCart && userCart.totalQuantity > 0 && (
+                {userCart && userCart.totalQuantity > 0 && (
+                  <Link href="/cart">
+                    <a>
+                      <Button color="dark" outline className="mr-1">
+                        My Cart
                         <Badge color="warning" className="ml-1">
                           {userCart.totalQuantity}
                         </Badge>
-                      )}
-                    </Button>
-                  </a>
-                </Link>
-                {/* <Link href="#">
-                  <a>
-                    <Button color="primary">Login</Button>
-                  </a>
-                </Link> */}
+                      </Button>
+                    </a>
+                  </Link>
+                )}
+                <ProfileDropdown toggleModalLogin={toggleLoginModal} />
               </Col>
             </Row>
           </Container>
@@ -77,6 +94,4 @@ const Header = () => {
       </header>
     </div>
   );
-};
-
-export default Header;
+}
