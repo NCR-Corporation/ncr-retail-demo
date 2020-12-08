@@ -61,7 +61,7 @@ const CatalogItem = ({ id }) => {
   return (
     <div>
       <Header />
-      <Container className="pt-4">
+      <Container className="my-4">
         {isLoading && (
           <div className="d-flex justify-content-center">
             <Spinner color="dark" />

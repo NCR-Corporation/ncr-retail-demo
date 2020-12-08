@@ -53,7 +53,7 @@ const Dashboard = () => {
   return (
     <div>
       <Header />
-      <main className="container mt-4">
+      <main className="container my-4">
         <Button
           color="primary"
           className="float-right"

@@ -45,7 +45,7 @@ export default function Cart() {
                 {userCart.location.split('/')[2]} // {userCart.etag}
               </div>
             )}
-            <Row className="mt-4 mb-2">
+            <Row className="my-4 mb-2">
               <Col>
                 <h4 className="mb-1">My Cart</h4>
               </Col>

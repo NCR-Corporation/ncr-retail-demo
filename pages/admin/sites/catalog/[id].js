@@ -26,7 +26,7 @@ const SiteCatalog = ({ id, categories }) => {
       )}
       {!isLoading && !isError && (
         <div className="container">
-          <Row className="mt-4">
+          <Row className="my-4">
             <Col>
               <h4 className="m-1">{siteData.site.siteName}</h4>
             </Col>

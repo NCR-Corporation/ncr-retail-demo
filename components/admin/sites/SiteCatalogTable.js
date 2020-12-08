@@ -96,7 +96,7 @@ export default function SiteCatalogTable({
       <Alert
         toggle={onDismiss}
         isOpen={visible}
-        className="mt-4"
+        className="my-4"
         color={showAlert.status == 204 ? 'success' : 'danger'}
       >
         {showAlert.message}

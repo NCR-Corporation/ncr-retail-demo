@@ -9,7 +9,7 @@ const Addresses = ({}) => {
   return (
     <div>
       <Header />
-      <main className="container pt-4">
+      <main className="container my-4">
         <Row>
           <Col md="3">
             <Sidebar url="addresses" />

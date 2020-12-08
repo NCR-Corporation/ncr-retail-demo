@@ -62,7 +62,7 @@ function Sites({ data }) {
     },
   ];
   return (
-    <div className="mt-4">
+    <div className="my-4">
       <BootstrapTable
         bootstrap4
         keyField="id"

@@ -36,9 +36,9 @@ const Settings = ({ session }) => {
         toggleLogin={toggleLoginModal}
       />
       <Header />
-      <main className="container pt-4">
+      <main className="container my-4">
         {isLoading && (
-          <div className="mt-4 d-flex justify-content-center">
+          <div className="my-4 d-flex justify-content-center">
             <Spinner color="dark" />
           </div>
         )}

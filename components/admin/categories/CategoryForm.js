@@ -157,19 +157,19 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
             <main className="container">
               <Form>
                 {isLoading && (
-                  <div className="mt-4 d-flex justify-content-center">
+                  <div className="my-4 d-flex justify-content-center">
                     <Spinner color="primary" />
                   </div>
                 )}
                 <Alert
                   toggle={onDismiss}
                   isOpen={visible}
-                  className="mt-4"
+                  className="my-4"
                   color={showAlert.status == 200 ? 'success' : 'danger'}
                 >
                   {showAlert.message}
                 </Alert>
-                <Row className="mt-4">
+                <Row className="my-4">
                   <Col>
                     <h4 className="mb-1">
                       {categoryId ? 'Edit' : 'Create'} Category

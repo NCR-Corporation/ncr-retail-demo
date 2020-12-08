@@ -46,7 +46,7 @@ export default function Category({ id }) {
   return (
     <div>
       <Header />
-      <div className="container mt-4">
+      <div className="container my-4">
         {isLoading && (
           <div className="d-flex justify-content-center">
             <Spinner color="dark" />

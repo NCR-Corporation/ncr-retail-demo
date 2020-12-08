@@ -59,7 +59,7 @@ const FindStoreModal = (props) => {
           {sites && sites.length > 0 && (
             <div>
               {sites.map((site) => (
-                <Row className="mt-4 mb-4" key={site.id}>
+                <Row className="my-4 mb-4" key={site.id}>
                   <Col sm="6">
                     <p className="h5">{site.siteName}</p>
                     <small className="muted">

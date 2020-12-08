@@ -115,7 +115,7 @@ export default function ProfileForm({ session, user }) {
             <Alert
               toggle={onDismiss}
               isOpen={visible}
-              className="mt-4"
+              className="my-4"
               color={showAlert.status == 200 ? 'success' : 'danger'}
             >
               {showAlert.message}

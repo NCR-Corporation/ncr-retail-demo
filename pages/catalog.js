@@ -12,7 +12,7 @@ export default function Catalog({ query }) {
   return (
     <div>
       <Header />
-      <div className="container mt-4">
+      <div className="container my-4">
         <Row>
           {isLoading && <div></div>}
           {isError && <div>Error</div>}

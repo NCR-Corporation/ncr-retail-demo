@@ -41,7 +41,7 @@ export default function Register({ csrfToken }) {
         return (
           <div className="bg pb-4">
             {/* <Header /> */}
-            <main className="container pt-4">
+            <main className="container my-4">
               <Form>
                 <Row className="justify-content-md-center">
                   <Col md="4">

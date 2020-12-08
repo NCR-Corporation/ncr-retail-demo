@@ -53,7 +53,7 @@ function Categories({ categories }) {
   ];
 
   return (
-    <div className="mt-4">
+    <div className="my-4">
       <BootstrapTable
         bootstrap4
         keyField="nodeId.nodeId"

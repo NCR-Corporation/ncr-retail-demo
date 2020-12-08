@@ -13,7 +13,7 @@ export default function Sidebar({ url }) {
         <a
           className={`list-group-item ${url === 'orders' && 'active'} disabled`}
         >
-          Order History
+          Orders
         </a>
       </Link>
       <Link href="/user/payments">
