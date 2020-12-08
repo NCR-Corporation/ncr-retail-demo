@@ -49,24 +49,28 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
 
   return (
     <Card className="border-0 shadow-sm item-card h-100">
-      <Image
-        alt={
-          item.shortDescription.values
-            ? item.shortDescription.values[0].value
-            : item.shortDescription.value
-        }
-        src={
-          itemAttributes &&
-          itemAttributes.imageUrls &&
-          itemAttributes.imageUrls.length > 0
-            ? itemAttributes.imageUrls[0]
-            : 'https://via.placeholder.com/150'
-        }
-        layout="responsive"
-        width={500}
-        height={500}
-        className="p-4"
-      />
+      <Link href={`/catalog/${item.itemId.itemCode}`}>
+        <a>
+          <Image
+            alt={
+              item.shortDescription.values
+                ? item.shortDescription.values[0].value
+                : item.shortDescription.value
+            }
+            src={
+              itemAttributes &&
+              itemAttributes.imageUrls &&
+              itemAttributes.imageUrls.length > 0
+                ? itemAttributes.imageUrls[0]
+                : 'https://via.placeholder.com/150'
+            }
+            layout="responsive"
+            width={500}
+            height={500}
+            className="p-4"
+          />
+        </a>
+      </Link>
       <CardBody className="d-flex">
         <div className="align-self-end">
           <Link href={`/catalog/${item.itemId.itemCode}`}>
