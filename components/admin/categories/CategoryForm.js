@@ -228,10 +228,6 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                             component="div"
                             className="invalid-feedback"
                           />
-                          <small className="form-text text-muted">
-                            We are changing the use of `tag` to contain the
-                            image.
-                          </small>
                         </div>
                         <div className="row">
                           <div className="col-md-6">
