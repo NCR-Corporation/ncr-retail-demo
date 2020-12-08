@@ -42,13 +42,15 @@ const FindStoreModal = (props) => {
         <ModalHeader toggle={toggle}>Find a Store</ModalHeader>
         <ModalBody>
           {!props.isGeolocationAvailable ? (
-            <div>Nope</div>
-          ) : !props.isGeolocationEnabled ? (
-            <div>Not enabled</div>
-          ) : props.coords ? (
-            <div></div>
+            <div>
+              <small className="text-muted">Geolocation is unavailable.</small>
+            </div>
           ) : (
-            <div>Getting</div>
+            !props.isGeolocationEnabled && (
+              <div>
+                <small className="text-muted">User location not enabled</small>
+              </div>
+            )
           )}
           <small>
             {coordinates
