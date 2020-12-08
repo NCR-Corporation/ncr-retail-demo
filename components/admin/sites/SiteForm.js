@@ -264,7 +264,6 @@ const New = ({ siteId }) => {
                     <Col md="8">
                       <Card className="mb-2">
                         <CardBody>
-                          <CardTitle></CardTitle>
                           <div className="form-row">
                             <div className="form-group col-md-6">
                               <label htmlFor="referenceId">Reference Id</label>

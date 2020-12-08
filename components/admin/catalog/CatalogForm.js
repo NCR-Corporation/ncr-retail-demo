@@ -45,8 +45,11 @@ const createItemSchema = Yup.object().shape({
   nonMerchandise: Yup.boolean(),
   price: Yup.number().when('version', {
     is: (val) => val === 1,
-    then: Yup.number().test('is-decimal', 'Input Valid Price', (value) =>
-      (value + '').match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/)
+    then: Yup.number().test(
+      'is-decimal',
+      'Input Valid Price',
+      (value) =>
+        (value + '').match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/) // needs to be updated, doesn't accept an ending 0
     ),
   }),
   version: Yup.number().required(),

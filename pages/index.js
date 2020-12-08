@@ -31,11 +31,10 @@ function Home() {
                 <Col
                   xs="6"
                   sm="4"
-                  md="3"
                   className="mb-4"
                   key={item.item.itemId.itemCode}
                 >
-                  <ItemCard catalogItem={item} showCartButton={false} />
+                  <ItemCard catalogItem={item} />
                 </Col>
               ))}
             </Row>

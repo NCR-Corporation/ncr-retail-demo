@@ -45,6 +45,10 @@ body {
   background-color: #fff;
 }
 
+.text-darker {
+  color: #1c1c1c;
+}
+
 .navbar-main .nav-link,
 .breadcrumb-item a {
   color: #1c1c1c;
@@ -63,6 +67,7 @@ label {
 }
 
 .category-card .card-title,
+.cart-card .card-title,
 .item-card .card-title {
   color: #1c1c1c;
 }
@@ -83,4 +88,16 @@ label {
   color: #fff;
   text-decoration: none;
   background-color: #16181b;
+}
+
+.fade-btn {
+  animation: fade-btn-in-keyframes 0.5s;
+}
+@keyframes fade-btn-in-keyframes {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
 }
