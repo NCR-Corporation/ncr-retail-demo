@@ -2,7 +2,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faBoxes } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import { Col, Row } from 'reactstrap';
+import { Col, Row, Button } from 'reactstrap';
 
 function Sites({ data }) {
   const sites = data.data.pageContent;
@@ -77,15 +77,23 @@ function Sites({ data }) {
     },
   ];
   return (
-    <div className="my-4">
-      <BootstrapTable
-        bootstrap4
-        keyField="referenceId"
-        data={sites}
-        columns={columns}
-        hover
-        defaultSorted={defaultSorted}
-      />
+    <div>
+      <div className="text-right my-2">
+        <Link href="/admin/sites/new">
+          <a className="btn btn-primary">New Site</a>
+        </Link>
+      </div>
+
+      <div className="bg-white">
+        <BootstrapTable
+          bootstrap4
+          keyField="referenceId"
+          data={sites}
+          columns={columns}
+          hover
+          defaultSorted={defaultSorted}
+        />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,8 @@
+import Link from 'next/link';
+import { Button } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 function Catalog({ data }) {
   const catalog = data.data.pageContent;
@@ -49,15 +51,22 @@ function Catalog({ data }) {
     },
   ];
   return (
-    <div className="my-4">
-      <BootstrapTable
-        bootstrap4
-        keyField="itemId.itemCode"
-        data={catalog}
-        columns={columns}
-        hover
-        defaultSorted={defaultSorted}
-      />
+    <div>
+      <div className="text-right my-2">
+        <Link href="/admin/catalog/new">
+          <a className="btn btn-primary">New Catalog Item</a>
+        </Link>
+      </div>
+      <div className="bg-white">
+        <BootstrapTable
+          bootstrap4
+          keyField="itemId.itemCode"
+          data={catalog}
+          columns={columns}
+          hover
+          defaultSorted={defaultSorted}
+        />
+      </div>
     </div>
   );
 }
