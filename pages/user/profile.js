@@ -15,8 +15,10 @@ const Settings = ({ session }) => {
   const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
   let { user, isLoading, isError } = useUser(session);
   if (!isLoading && !isError) {
+    console.log(user);
     if (user.status == 500) {
-      setLoginModalOpen(true);
+      // setLoginModalOpen(true);
+      isError = true;
     }
   }
 
