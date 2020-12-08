@@ -1,6 +1,6 @@
 import BootstrapTable from 'react-bootstrap-table-next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTags } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faBoxes } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { Col, Row } from 'reactstrap';
 
@@ -28,24 +28,39 @@ function Sites({ data }) {
     },
     {
       dataField: '',
-      text: '',
+      text: 'Edit Site',
       headerStyle: {
-        width: '80px',
+        width: '120px',
+        textAlign: 'center',
       },
       formatter: (rowContent, row) => {
         return (
-          <Row className="pr-2">
-            <Col sm="6">
+          <Row key={row.id}>
+            <Col sm="12" className="text-center">
               <Link href={`/admin/sites/${row.id}`}>
                 <a>
                   <FontAwesomeIcon icon={faEdit} color="darkslategrey" />
                 </a>
               </Link>
             </Col>
-            <Col sm="6">
+          </Row>
+        );
+      },
+    },
+    {
+      dataField: '',
+      text: 'Catalog',
+      headerStyle: {
+        width: '120px',
+        textAlign: 'center',
+      },
+      formatter: (rowContent, row) => {
+        return (
+          <Row key={row.id}>
+            <Col sm="12" className="text-center">
               <Link href={`/admin/sites/catalog/${row.id}`}>
                 <a>
-                  <FontAwesomeIcon icon={faTags} color="darkslategrey" />
+                  <FontAwesomeIcon icon={faBoxes} color="darkslategrey" />
                 </a>
               </Link>
             </Col>
@@ -57,7 +72,7 @@ function Sites({ data }) {
 
   const defaultSorted = [
     {
-      dataField: 'id',
+      dataField: 'referenceId',
       order: 'desc',
     },
   ];
@@ -65,7 +80,7 @@ function Sites({ data }) {
     <div className="my-4">
       <BootstrapTable
         bootstrap4
-        keyField="id"
+        keyField="referenceId"
         data={sites}
         columns={columns}
         hover
