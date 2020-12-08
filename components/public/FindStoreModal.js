@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { geolocated } from 'react-geolocated';
-import { Button, Modal, ModalHeader, ModalBody, Row, Col } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { UserStoreContext } from '~/context/userStore';
+import FindStoreModalStore from './FindStoreModalStore';
 
 const FindStoreModal = (props) => {
   const { modalProp, toggle, coords } = props;
@@ -59,33 +60,12 @@ const FindStoreModal = (props) => {
           {sites && sites.length > 0 && (
             <div>
               {sites.map((site) => (
-                <Row className="my-4 mb-4" key={site.id}>
-                  <Col sm="6">
-                    <p className="h5">{site.siteName}</p>
-                    <small className="muted">
-                      {site.address.street}, {site.address.city},{' '}
-                      {site.address.state} {site.address.postalCode}
-                    </small>
-                  </Col>
-                  <Col sm="3">
-                    {site.distanceTo && (
-                      <p className="h5">
-                        {parseInt(site.distanceTo)} miles away
-                      </p>
-                    )}
-                  </Col>
-                  <Col sm="3">
-                    <Button
-                      color="primary"
-                      onClick={() => {
-                        setUserStore(site);
-                        toggle();
-                      }}
-                    >
-                      Set as My Store
-                    </Button>
-                  </Col>
-                </Row>
+                <FindStoreModalStore
+                  site={site}
+                  toggle={toggle}
+                  setUserStore={setUserStore}
+                  key={site.id}
+                />
               ))}
             </div>
           )}
