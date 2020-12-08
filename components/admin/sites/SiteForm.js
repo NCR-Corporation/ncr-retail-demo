@@ -1,15 +1,7 @@
 import Header from '~/components/admin/Header';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import {
-  Row,
-  Col,
-  Card,
-  CardTitle,
-  CardBody,
-  Alert,
-  Spinner,
-} from 'reactstrap';
+import { Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
 import useSite from '~/lib/hooks/useSite';
 import { useState } from 'react';
 
@@ -67,7 +59,6 @@ const createSiteSchema = Yup.object().shape({
   latitude: Yup.number().required().moreThan(-180).lessThan(180),
   longitude: Yup.number().required().moreThan(-90).lessThan(90),
   status: Yup.mixed().required().oneOf(['ACTIVE', 'INACTIVE']),
-  parentEnterpriseUnitId: Yup.string(), // Validate against server?
   referenceId: Yup.string().max(100).min(1),
 });
 
@@ -87,7 +78,6 @@ let init = {
   latitude: '',
   longitude: '',
   status: '',
-  parentEnterpriseUnitId: '',
   referenceId: '',
 };
 
@@ -125,7 +115,6 @@ const New = ({ siteId }) => {
       referenceId,
       id,
       enterpriseUnitName,
-      parentEnterpriseUnitId: '',
       description: description ?? '',
       currency: currency ?? '',
       street: address ? address.street : '',
@@ -604,38 +593,6 @@ const New = ({ siteId }) => {
                               className="invalid-feedback"
                             />
                           </div>
-                          {/* <div className="form-group col-md-6"> */}
-                          {/* <label htmlFor="enterpriseUnitName">Enterprise Unit Name</label>
-                    <Field type="text" name="enterpriseUnitName" id="enterpriseUnitName" className={`${errors.enterpriseUnitName && touched.enterpriseUnitName ? "is-invalid" : null} form-control`} />
-                    <small>I think this should be autopopulated</small>
-                  </div> */}
-                          <div className="form-group">
-                            <label htmlFor="parentEnterpriseUnitId">
-                              Parent Enterprise Unit Id
-                            </label>
-                            <Field
-                              name="parentEnterpriseUnitId"
-                              id="parentEnterpriseUnitId"
-                              className={`${
-                                errors.parentEnterpriseUnitId &&
-                                touched.parentEnterpriseUnitId
-                                  ? 'is-invalid'
-                                  : null
-                              } form-control`}
-                            />
-                            <ErrorMessage
-                              name="parentEnterpriseUnitId"
-                              component="div"
-                              className="invalid-feedback"
-                            />
-                            <small
-                              className="form-text text-muted"
-                              id="parentEnterpriseUnitId"
-                            >
-                              Parent or organization enterprise unit ID for site
-                            </small>
-                          </div>
-                          <div className="form-group"></div>
                         </CardBody>
                       </Card>
                     </Col>
