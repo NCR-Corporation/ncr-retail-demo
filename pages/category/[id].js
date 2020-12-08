@@ -44,11 +44,11 @@ export default function Category({ id }) {
     }
   }
   return (
-    <div>
+    <div className="d-flex flex-column main-container">
       <Header />
-      <div className="container my-4">
+      <div className="container my-4 flex-grow-1 flex-grow-1">
         {isLoading && (
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center h-100">
             <Spinner color="dark" />
           </div>
         )}

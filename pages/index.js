@@ -10,9 +10,9 @@ function Home() {
   const { userStore } = useContext(UserStoreContext);
   const { catalogItems, isLoading, isError } = useCatalog(userStore.id);
   return (
-    <div>
+    <div className="d-flex flex-column main-container">
       <Header />
-      <main className="container my-4">
+      <main className="container my-4 flex-grow-1">
         {isLoading && (
           <div className="text-center">
             <Spinner />

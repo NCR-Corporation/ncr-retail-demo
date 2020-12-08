@@ -59,11 +59,11 @@ const CatalogItem = ({ id }) => {
   };
 
   return (
-    <div>
+    <div className="d-flex flex-column main-container">
       <Header />
       <Container className="my-4">
         {isLoading && (
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center h-100">
             <Spinner color="dark" />
           </div>
         )}
@@ -78,7 +78,7 @@ const CatalogItem = ({ id }) => {
             ))}
           </Breadcrumb>
         )}
-        {isError && <p>Error</p>}
+        {isError && <p className="text-muted">Uhoh, we've hit an error.</p>}
         {!isLoading && !isError && (
           <Card className="mb-3 border-0 shadow-sm">
             <Row className="no-gutters">

@@ -31,7 +31,7 @@ export default function Cart() {
   // // }
 
   return (
-    <div>
+    <div className="d-flex flex-column main-container">
       <Header />
       <main className="container">
         {!cartCreated ? (

@@ -7,9 +7,9 @@ import { Col, Row, Spinner } from 'reactstrap';
 
 const Orders = ({}) => {
   return (
-    <div>
+    <div className="d-flex flex-column main-container">
       <Header />
-      <main className="container my-4">
+      <main className="container my-4 flex-grow-1">
         <Row>
           <Col md="3">
             <Sidebar url="orders" />

@@ -197,7 +197,7 @@ const CatalogForm = ({ id, categories }) => {
         return (
           <div className="bg pb-4">
             <Header />
-            <main className="container my-4">
+            <main className="container my-4 flex-grow-1">
               <Form>
                 {id && (
                   <Alert isOpen={true} color="warning">

@@ -24,7 +24,7 @@ const Settings = ({ session }) => {
   }
 
   return (
-    <div>
+    <div className="d-flex flex-column main-container">
       <LoginModal
         modalProp={isLoginModalOpen}
         toggle={toggleLoginModal}
@@ -36,7 +36,7 @@ const Settings = ({ session }) => {
         toggleLogin={toggleLoginModal}
       />
       <Header />
-      <main className="container my-4">
+      <main className="container my-4 flex-grow-1">
         {isLoading && (
           <div className="my-4 d-flex justify-content-center">
             <Spinner color="dark" />

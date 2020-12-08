@@ -26,7 +26,7 @@ const Dashboard = () => {
   return (
     <div>
       <Header />
-      <main className="container my-4">
+      <main className="container my-4 flex-grow-1">
         <Nav tabs>
           <NavItem>
             <NavLink

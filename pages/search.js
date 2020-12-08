@@ -5,7 +5,7 @@ import Header from '~/components/public/Header';
 
 function Search({ sites }) {
   return (
-    <div>
+    <div className="d-flex flex-column main-container">
       <Header />
       <div className="container">
         <p>Searching store: {localStorage.getItem('defaultStore')}</p>

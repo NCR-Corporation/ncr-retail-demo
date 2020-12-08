@@ -4,18 +4,22 @@ import Footer from '~/components/public/Footer';
 import { UserStoreContext } from '~/context/userStore';
 import ItemCard from '~/components/public/ItemCard';
 import useCatalog from '~/lib/hooks/useCatalog';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Spinner } from 'reactstrap';
 
 export default function Catalog({ query }) {
   const { userStore } = useContext(UserStoreContext);
   const { catalogItems, isLoading, isError } = useCatalog(userStore.id, query);
   return (
-    <div>
+    <div className="d-flex flex-column main-container">
       <Header />
-      <div className="container my-4">
+      <div className="container my-4 flex-grow-1">
         <Row>
-          {isLoading && <div></div>}
-          {isError && <div>Error</div>}
+          {isLoading && (
+            <div className="d-flex justify-content-center h-100">
+              <Spinner color="dark" />
+            </div>
+          )}
+          {isError && <p className="text-muted">Uhoh, we've hit an error.</p>}
           {!isLoading &&
             !isError &&
             catalogItems.data.pageContent.length > 0 &&
