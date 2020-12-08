@@ -56,9 +56,17 @@ const createSiteSchema = Yup.object().shape({
       is: (street) => street && street.length > 0,
       then: Yup.string().required('State is required'),
     }),
-  latitude: Yup.number().required().moreThan(-180).lessThan(180),
-  longitude: Yup.number().required().moreThan(-90).lessThan(90),
-  status: Yup.mixed().required().oneOf(['ACTIVE', 'INACTIVE']),
+  latitude: Yup.number()
+    .required('Latitude is required')
+    .moreThan(-180)
+    .lessThan(180),
+  longitude: Yup.number()
+    .required('Longitude is required')
+    .moreThan(-90)
+    .lessThan(90),
+  status: Yup.mixed()
+    .required('Status is required')
+    .oneOf(['ACTIVE', 'INACTIVE']),
   referenceId: Yup.string().max(100).min(1),
 });
 

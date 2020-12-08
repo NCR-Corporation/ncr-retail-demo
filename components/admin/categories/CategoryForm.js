@@ -24,7 +24,7 @@ const createCategorySchema = Yup.object().shape({
   departmentNode: Yup.boolean(),
   departmentSale: Yup.boolean(),
   status: Yup.mixed()
-    .required()
+    .required('Status is required')
     .oneOf([
       'INACTIVE',
       'ACTIVE',
@@ -34,7 +34,7 @@ const createCategorySchema = Yup.object().shape({
       'UNAUTHORIZED',
     ]),
   parentCategory: Yup.string(), //todo this validation
-  version: Yup.number().required(),
+  version: Yup.number().required('Version is required when updating category.'),
 });
 
 const CategoryForm = ({ categoryId, categoryNodes }) => {

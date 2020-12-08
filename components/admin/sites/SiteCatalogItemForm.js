@@ -17,7 +17,7 @@ const createItemSchema = Yup.object().shape({
   shortDescription: Yup.string().required('Short description is required'),
   longDescription: Yup.string(),
   status: Yup.mixed()
-    .required()
+    .required('Status is required')
     .oneOf([
       'INACTIVE',
       'ACTIVE',
@@ -33,7 +33,7 @@ const createItemSchema = Yup.object().shape({
     ),
   }),
   currency: Yup.mixed().required().oneOf(['USD']),
-  version: Yup.number().required(),
+  version: Yup.number().required('Version is required when updating category.'),
 });
 
 const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {

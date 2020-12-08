@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Header from '~/components/admin/Header';
-import { Formik, Form, Field, ErrorMessage, yupToFormErrors } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import CategorySelect from '../categories/CategorySelect';
 import useCatalogItem from '~/lib/hooks/useCatalogItem';
@@ -30,9 +29,11 @@ const createItemSchema = Yup.object().shape({
   shortDescription: Yup.string().required('Short description is required'),
   longDescription: Yup.string(),
   // Need to update this required check to handle hidden field on change
-  merchandiseCategory: Yup.string().required(),
+  merchandiseCategory: Yup.string().required(
+    'Merchandise Category is required'
+  ),
   status: Yup.mixed()
-    .required()
+    .required('Status is required')
     .oneOf([
       'INACTIVE',
       'ACTIVE',
@@ -52,12 +53,10 @@ const createItemSchema = Yup.object().shape({
         (value + '').match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/) // needs to be updated, doesn't accept an ending 0
     ),
   }),
-  version: Yup.number().required(),
+  version: Yup.number().required('Version is required when updating catalog.'),
 });
 
 const CatalogForm = ({ id, categories }) => {
-  const router = useRouter();
-
   const [showAlert, setShowAlert] = useState(false);
   const [visible, setVisible] = useState(false);
 

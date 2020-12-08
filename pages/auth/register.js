@@ -22,10 +22,10 @@ const initialValues = {
 };
 
 const createConsumerSchema = Yup.object().shape({
-  firstName: Yup.string().required(),
-  lastName: Yup.string().required(),
-  emailAddress: Yup.string().email().required(),
-  password: Yup.string().required(),
+  firstName: Yup.string().required('First name is required'),
+  lastName: Yup.string().required('Last name is required'),
+  emailAddress: Yup.string().email().required('Email address is required'),
+  password: Yup.string().required('Password is required'),
 });
 
 export default function Register({ csrfToken }) {
