@@ -16,6 +16,7 @@ import {
   Button,
 } from 'reactstrap';
 import Header from '~/components/public/Header';
+import Footer from '~/components/public/Footer';
 import { UserStoreContext } from '~/context/userStore';
 import { UserCartContext } from '~/context/userCart';
 import useCatalogItem from '~/lib/hooks/useCatalogItem';
@@ -138,6 +139,7 @@ const CatalogItem = ({ id }) => {
           </Card>
         )}
       </Container>
+      <Footer />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { Col, Row, Spinner } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import Header from '~/components/public/Header';
+import Footer from '~/components/public/Footer';
 import CartCheckout from '~/components/public/cart/CartCheckout';
 import CartList from '~/components/public/cart/CartList';
 
@@ -56,6 +57,7 @@ export default function Cart() {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

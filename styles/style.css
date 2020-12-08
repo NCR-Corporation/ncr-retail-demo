@@ -22,6 +22,10 @@ body {
   padding-bottom: 1rem;
 }
 
+footer {
+  background-color: #fff;
+}
+
 .header-top-light .nav-link {
   color: #969696;
 }

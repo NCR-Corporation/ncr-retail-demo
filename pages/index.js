@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { Jumbotron, Row, Col, Spinner } from 'reactstrap';
+import Footer from '~/components/public/Footer';
 import Header from '~/components/public/Header';
 import useCatalog from '~/lib/hooks/useCatalog';
 import ItemCard from '~/components/public/ItemCard';
@@ -11,7 +12,7 @@ function Home() {
   return (
     <div>
       <Header />
-      <main className="container mt-4">
+      <main className="container my-4">
         {isLoading && (
           <div className="text-center">
             <Spinner />
@@ -41,6 +42,7 @@ function Home() {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

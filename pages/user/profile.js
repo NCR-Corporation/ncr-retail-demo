@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Header from '~/components/public/Header';
+import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/client';
 import useUser from '~/lib/hooks/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
@@ -68,6 +69,7 @@ const Settings = ({ session }) => {
           </Row>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

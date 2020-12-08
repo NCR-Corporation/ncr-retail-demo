@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '~/components/public/Header';
+import Footer from '~/components/public/Footer';
 import Link from 'next/link';
 import ItemCard from '~/components/public/ItemCard';
 import { Card, Col, Row, CardBody, Spinner } from 'reactstrap';
@@ -94,6 +95,7 @@ export default function Category({ id }) {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
