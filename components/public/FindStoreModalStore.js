@@ -12,10 +12,20 @@ const FindStoreModalStore = ({ toggle, setUserStore, site }) => {
           {site.address.street}, {site.address.city}, {site.address.state}{' '}
           {site.address.postalCode}
         </small>
+        <p className="m-0">
+          <small>
+            <a
+              className="muted"
+              href={`http://maps.google.com/?q=${site.address.street} ${site.address.city} ${site.address.state} ${site.address.postalCode}`}
+            >
+              Directions
+            </a>
+          </small>
+        </p>
       </Col>
       <Col sm="3">
         {site.distanceTo && (
-          <p className="h5">{parseInt(site.distanceTo)} miles away</p>
+          <p className="h6">{parseInt(site.distanceTo)} miles away</p>
         )}
       </Col>
       <Col sm="3">
