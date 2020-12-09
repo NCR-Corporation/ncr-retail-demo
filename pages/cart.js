@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Col, Row, Spinner } from 'reactstrap';
+import { Col, Container, Row, Spinner } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import Header from '~/components/public/Header';
@@ -33,9 +33,9 @@ export default function Cart() {
   return (
     <div className="d-flex flex-column main-container">
       <Header />
-      <main className="container">
+      <Container className="my-4 flex-grow-1">
         {!cartCreated ? (
-          <div className="d-flex justify-content-center mt-5">
+          <div className="d-flex justify-content-center">
             <Spinner color="dark" />
           </div>
         ) : (
@@ -45,7 +45,7 @@ export default function Cart() {
                 {userCart.location.split('/')[2]} // {userCart.etag}
               </div>
             )}
-            <Row className="my-4 mb-2">
+            <Row className="mb-2">
               <Col>
                 <h4 className="mb-1">My Cart</h4>
               </Col>
@@ -56,7 +56,7 @@ export default function Cart() {
             </Row>
           </div>
         )}
-      </main>
+      </Container>
       <Footer />
     </div>
   );

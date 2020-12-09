@@ -3,7 +3,7 @@ import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import Link from 'next/link';
 import ItemCard from '~/components/public/ItemCard';
-import { Card, Col, Row, CardBody, Spinner } from 'reactstrap';
+import { Container, Card, Col, Row, CardBody, Spinner } from 'reactstrap';
 import useCategory from '~/lib/hooks/useCategory';
 import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
@@ -46,7 +46,7 @@ export default function Category({ id }) {
   return (
     <div className="d-flex flex-column main-container">
       <Header />
-      <div className="container my-4 flex-grow-1 flex-grow-1">
+      <Container className="my-4 flex-grow-1">
         {isLoading && (
           <div className="d-flex justify-content-center h-100">
             <Spinner color="dark" />
@@ -94,7 +94,7 @@ export default function Category({ id }) {
             </div>
           </div>
         )}
-      </div>
+      </Container>
       <Footer />
     </div>
   );

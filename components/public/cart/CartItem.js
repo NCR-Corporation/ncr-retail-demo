@@ -21,7 +21,6 @@ export default function CartItem({ userCart, item, itemKey }) {
 
   const handleQuantityChange = (event, itemKey) => {
     let currentItem = userCart.items[itemKey];
-    console.log(currentItem, item, itemKey);
     let totalQuantity = userCart.totalQuantity;
     let totalPrice = userCart.totalPrice;
     totalQuantity =
@@ -83,7 +82,7 @@ export default function CartItem({ userCart, item, itemKey }) {
                 name="select"
                 id="qtySelect"
                 value={item.quantity}
-                onChange={() => handleQuantityChange(event, itemKey)}
+                onChange={() => handleQuantityChange(e, itemKey)}
               >
                 {Array.from({ length: 10 }, (_, i) => i + 1).map((item) => (
                   <option key={item}>{item}</option>
