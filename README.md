@@ -7,6 +7,7 @@ MART
 <h4 align="center">A sample retail demo application built on top of <a href="https://developer.ncrcloud.com" target="_blank">NCR's APIs.</a></h4>
 
 <p align="center">
+<a href="https://sample-app-retail-demo.vercel.app/"><img src="https://img.shields.io/badge/-Visit%20Demo-blue" alt="Demo" /></a>
 <img src="https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg" alt="Dependencies" />
 <a href="https://github.com/kg185155/sample-app-retail-demo/issues"><img src="https://img.shields.io/github/issues/kg185155/sample-app-retail-demo" alt="Github Issues" /></a>
 <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions Welcome" />
@@ -14,6 +15,7 @@ MART
 </p>
 
 <p align="center">
+<a href="https://sample-app-retail-demo.vercel.app/" target="_blank">Demo</a> //
 <a href="#features">Features</a> //
 <a href="#overview">Overview</a> //
 <a href="#how-to-use">How to Use</a> //
@@ -34,7 +36,7 @@ MART
 
 MART integrates with multiple NCR APIs including [Catalog](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8717/documentation), [Sites](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8849/documentation?proxy=bsp-site-site-v1&path=post_sites), [Security](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8302/documentation?proxy=bsp-core-security&path=post_authentication), & [Provisioning](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8306/documentation?proxy=bsp-core-provisioning&path=post_configuration-sets). The demo application showcases one possible way to utilize one or many of the available APIs.
 
-This repository showcases an imaginary retail company with multiple stores in different location. The company can be configured globally as well as at the individual store level.
+This repository showcases an imaginary retail company with multiple stores in different location. The company can be managed globally as well as at the individual store level.
 
 ## How to Use
 
