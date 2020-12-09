@@ -25,7 +25,7 @@ const init = {
 };
 
 const createItemSchema = Yup.object().shape({
-  itemId: Yup.string().required('Item id is required'),
+  itemId: Yup.string().required('Item ID is required'),
   shortDescription: Yup.string().required('Short description is required'),
   longDescription: Yup.string(),
   // Need to update this required check to handle hidden field on change
@@ -201,7 +201,7 @@ const CatalogForm = ({ id, categories }) => {
               <Form>
                 {id && (
                   <Alert isOpen={true} color="warning">
-                    Item id, price and attributes are unable to be edited on a
+                    Item ID, price and attributes are unable to be edited on a
                     global level.
                   </Alert>
                 )}
@@ -307,92 +307,6 @@ const CatalogForm = ({ id, categories }) => {
                       </CardBody>
                     </Card>
                     <Card className="mb-3">
-                      <CardBody>
-                        <div className="form-row">
-                          <div className="form-group col-md-6">
-                            <label htmlFor="itemId">Item Id*</label>
-                            <Field
-                              name="itemId"
-                              id="itemId"
-                              className={`${
-                                errors.itemId && touched.itemId
-                                  ? 'is-invalid'
-                                  : null
-                              } form-control`}
-                              disabled={id ? 'disabled' : ''}
-                            />
-                            <ErrorMessage
-                              name="itemId"
-                              component="div"
-                              className="invalid-feedback"
-                            />
-                          </div>
-                          <div className="form-group col-md-6">
-                            <div className="form-group">
-                              <label htmlFor="referenceId">referenceId</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                id="referenceId"
-                                placeholder="TBD"
-                                disabled
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="form-row">
-                          <div className="form-group col-md-6">
-                            <label htmlFor="manufacturerCode">
-                              manufacturerCode
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="manufacturerCode"
-                              placeholder="TBD"
-                              disabled
-                            />
-                          </div>
-                          <div className="form-group col-md-6">
-                            <div className="form-group">
-                              <label htmlFor="posNumber">posNumber</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                id="posNumber"
-                                placeholder="TBD"
-                                disabled
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="packageIdentifier">
-                            Package Identifier
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="packageIdentifier"
-                            placeholder="TBD"
-                            disabled
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="externalIdentifiers">
-                            externalIdentifiers
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="externalIdentifiers"
-                            placeholder="TBD"
-                            disabled
-                          />
-                        </div>
-                      </CardBody>
-                    </Card>
-                    <Card className="mb-3">
                       {!id ? (
                         <CardBody>
                           <div className="form-row">
@@ -448,22 +362,6 @@ const CatalogForm = ({ id, categories }) => {
                         </CardBody>
                       )}
                     </Card>
-                    <Card>
-                      <CardBody>
-                        <div className="form-group">
-                          <label htmlFor="dynamicAttributes">
-                            dynamicAttributes
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="dynamicAttributes"
-                            placeholder="TBD"
-                            disabled
-                          />
-                        </div>
-                      </CardBody>
-                    </Card>
                   </Col>
                   <Col md="4">
                     <Card className="mb-3">
@@ -482,6 +380,26 @@ const CatalogForm = ({ id, categories }) => {
                             />
                             <ErrorMessage
                               name="version"
+                              component="div"
+                              className="invalid-feedback"
+                            />
+                          </div>
+                        </div>
+                        <div className="form-row">
+                          <div className="form-group col-12">
+                            <label htmlFor="itemId">Item ID*</label>
+                            <Field
+                              name="itemId"
+                              id="itemId"
+                              className={`${
+                                errors.itemId && touched.itemId
+                                  ? 'is-invalid'
+                                  : null
+                              } form-control`}
+                              disabled={id ? 'disabled' : ''}
+                            />
+                            <ErrorMessage
+                              name="itemId"
                               component="div"
                               className="invalid-feedback"
                             />
@@ -515,17 +433,6 @@ const CatalogForm = ({ id, categories }) => {
                             className="invalid-feedback"
                           />
                         </div>
-                        <div className="form-group">
-                          <label htmlFor="nonMerchandise">nonMerchandise</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="nonMerchandise"
-                            placeholder="TBD"
-                            disabled
-                            required
-                          />
-                        </div>
                       </CardBody>
                     </Card>
                     <Card className="mb-3">
@@ -543,46 +450,6 @@ const CatalogForm = ({ id, categories }) => {
                           setParentCategory={setParentCategory}
                           categories={categories}
                         />
-                        <div className="form-group">
-                          <label htmlFor="alternateCategories">
-                            Alternate Categories
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="alternateCategories"
-                            placeholder="TBD"
-                            disabled
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="departmentId">Department Id</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="departmentId"
-                            placeholder="TBD"
-                            disabled
-                            required
-                          />
-                        </div>
-
-                        <div className="form-group">
-                          <label htmlFor="familyCode">familyCode</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="familyCode"
-                            placeholder="TBD"
-                            disabled
-                          />
-                        </div>
-                        {/* <FormGroup check>
-                          <Label check>
-                            <Input type="checkbox" />{' '}
-                            Apply to All Stores
-                          </Label>
-                        </FormGroup> */}
                       </CardBody>
                     </Card>
                   </Col>
