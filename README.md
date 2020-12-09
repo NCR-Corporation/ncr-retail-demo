@@ -17,7 +17,7 @@ MART
 <a href="#features">Features</a> //
 <a href="#overview">Overview</a> //
 <a href="#how-to-use">How to Use</a> //
-<a href="#support">Supprt & Contributions</a> //
+<a href="#support">Supprt</a> //
 <a href="#license">License</a>
 
 ## Features
@@ -38,13 +38,23 @@ This repository showcases an imaginary retail company with multiple stores in di
 
 ## How to Use
 
+❗❗ **Important Note** ❗❗
+
+If this is the **first time** using a project with the generated keys, you will most likely **not see any data**. Why? When using the Try It Out feature, each application is a fresh installation with no data. See [Seed the Database](#seeding-the-database) to populate the database with test data.
+
 ### Getting Started
 
 First, clone the repository for local development.
 
-Secondly, rename `.env copy.local` to `.env.local` and update `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncrcloud.com).
+```bash
+git clone https://github.com/kg185155/sample-app-retail-demo.git
+```
 
-Next, install all the packages with
+Secondly, open the repository in an editor and rename `.env copy.local` to `.env.local`.
+
+After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncrcloud.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncrcloud.com) and visit the [Try It Out Documentation](https://developer.ncrcloud.com/portals/dev-portal/help-center/topics?topic=Try%20It%20Out%20Feature).
+
+Next, install all npm packages in the project directory:
 
 ```bash
 npm install
@@ -56,12 +66,23 @@ Finally, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the sample demo application _generated with your keys._
 
 > This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 > To learn more about Next.js, visit the [Next.js Documentation](https://nextjs.org/docs).
 
-## Support & Contributions
+### Seeding the Database
+
+Every new application built with NCR is a blank installation with no data. If you are looking to become familiar with the APIs and see the application in action locally, you will need to either:
+
+1. Create your own Sites, Categories, and Items
+2. Seed the database.
+
+To seed the database, visit the [Admin Dashboard](http://localhost:3000/admin/dashboard) by clicking "⚙ Manage" in the top of the homepage or visiting `/admin/dashboard`. From there, near the top is a blue button "⬇ Export All Data". Click on this button and a modal will appear.
+
+From there, either download the corresponding Postman collection or click "Seed Database". Seeding the database will take some time but once it is complete, a copy sample application will be returned.
+
+## Support
 
 Feel free to open an issue.
 
