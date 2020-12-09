@@ -1,64 +1,34 @@
-import React, { useState } from 'react';
 import Header from '~/components/admin/Header';
-import Sites from '~/components/admin/sites/Sites';
-import Categories from '~/components/admin/categories/Categories';
-import Catalog from '~/components/admin/catalog/Catalog';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
+  faStore,
+  faThList,
+  faBox,
+  faCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  Container,
+  CardTitle,
+  Card,
+  CardBody,
+  Col,
+  Row,
   Spinner,
 } from 'reactstrap';
+import NavigationTabs from '~/components/admin/NavigationTabs';
 import useDashboard from '~/lib/hooks/useDashboard';
+import Orders from '~/components/admin/orders/Orders';
 
 const Dashboard = () => {
   let { data, isLoading, isError } = useDashboard();
-
-  const [activeTab, setActiveTab] = useState('1');
-
-  const toggle = (tab) => {
-    if (activeTab !== tab) setActiveTab(tab);
-  };
-
+  if (!isLoading && !isError) {
+    console.log(data);
+  }
   return (
     <div>
       <Header />
-      <main className="container my-4 flex-grow-1">
-        <Nav tabs>
-          <NavItem>
-            <NavLink
-              active={activeTab === '1' && true}
-              onClick={() => {
-                toggle('1');
-              }}
-            >
-              Sites
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              active={activeTab === '2' && true}
-              onClick={() => {
-                toggle('2');
-              }}
-            >
-              Categories
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              active={activeTab === '3' && true}
-              onClick={() => {
-                toggle('3');
-              }}
-            >
-              Catalog
-            </NavLink>
-          </NavItem>
-        </Nav>
+      <Container className="my-4 flex-grow-1">
+        <NavigationTabs activeTab="dashboard" />
         {isLoading && (
           <div className="d-flex justify-content-center mt-5">
             <Spinner color="dark" />
@@ -68,19 +38,91 @@ const Dashboard = () => {
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
         {!isLoading && !isError && (
-          <TabContent activeTab={activeTab}>
-            <TabPane tabId="1">
-              <Sites data={data.sites} />
-            </TabPane>
-            <TabPane tabId="2">
-              <Categories categories={data.categoryNodes} />
-            </TabPane>
-            <TabPane tabId="3">
-              <Catalog data={data.catalog} />
-            </TabPane>
-          </TabContent>
+          <div className="my-4">
+            <Row className="text-center">
+              <Col md="4">
+                <Card>
+                  <CardBody>
+                    <CardTitle tag="h5">
+                      <span className="fa-layers fa-fw pb-2">
+                        <FontAwesomeIcon
+                          className="text-success"
+                          icon={faCircle}
+                          size="2x"
+                          transform="left-3"
+                        />
+                        <FontAwesomeIcon
+                          icon={faStore}
+                          inverse
+                          transform="shrink-2"
+                        />
+                      </span>
+                    </CardTitle>
+                    <CardTitle tag="h4" className="m-0">
+                      <strong>{data.sites.data.totalResults}</strong>
+                    </CardTitle>
+                    <small className="text-muted">operating sites</small>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col md="4">
+                <Card>
+                  <CardBody>
+                    <CardTitle tag="h5">
+                      <span className="fa-layers fa-fw pb-2">
+                        <FontAwesomeIcon
+                          className="text-success"
+                          icon={faCircle}
+                          size="2x"
+                          transform="left-3"
+                        />
+                        <FontAwesomeIcon
+                          icon={faThList}
+                          inverse
+                          transform="shrink-2"
+                        />
+                      </span>
+                    </CardTitle>
+                    <CardTitle tag="h4" className="m-0">
+                      <strong>{data.categoryNodes.length}</strong>
+                    </CardTitle>
+                    <small className="text-muted">total categories</small>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col md="4">
+                <Card>
+                  <CardBody>
+                    <CardTitle tag="h5">
+                      <span className="fa-layers fa-fw pb-2">
+                        <FontAwesomeIcon
+                          className="text-success"
+                          icon={faCircle}
+                          size="2x"
+                          transform="left-3"
+                        />
+                        <FontAwesomeIcon
+                          icon={faBox}
+                          inverse
+                          transform="shrink-2"
+                        />
+                      </span>
+                    </CardTitle>
+                    <CardTitle tag="h4" className="m-0">
+                      <strong>{data.catalog.data.totalResults}</strong>
+                    </CardTitle>
+                    <small className="text-muted">available items</small>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+            <div className="my-4">
+              <h4 className="mb-1">Recent Orders</h4>
+              <Orders />
+            </div>
+          </div>
         )}
-      </main>
+      </Container>
     </div>
   );
 };

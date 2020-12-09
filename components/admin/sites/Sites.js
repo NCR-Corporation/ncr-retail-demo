@@ -27,7 +27,7 @@ function Sites({ data }) {
       sort: true,
     },
     {
-      dataField: '',
+      dataField: 'site',
       text: 'Edit Site',
       headerStyle: {
         width: '120px',
@@ -48,7 +48,7 @@ function Sites({ data }) {
       },
     },
     {
-      dataField: '',
+      dataField: 'catalog',
       text: 'Catalog',
       headerStyle: {
         width: '120px',

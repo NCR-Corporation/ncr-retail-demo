@@ -218,11 +218,11 @@ const New = ({ siteId }) => {
       {(formik) => {
         const { errors, touched, isValid, dirty } = formik;
         return (
-          <div className="bg pb-4">
+          <div className="bg">
             <Header />
-            <main className="container">
+            <main className="container my-4">
               {isLoading && (
-                <div className="my-4 d-flex justify-content-center">
+                <div className="d-flex justify-content-center">
                   <Spinner color="primary" />
                 </div>
               )}
@@ -236,7 +236,7 @@ const New = ({ siteId }) => {
                   >
                     {showAlert.message}
                   </Alert>
-                  <Row className="my-4">
+                  <Row>
                     <Col>
                       <h4 className="mb-1">
                         {siteId ? 'Edit' : 'Create'} Site
