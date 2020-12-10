@@ -24,17 +24,16 @@ const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
       <Navbar expand="md" className="p-0" light color="faded">
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav navbar>
-            <NavItem>
-              <Link href="/catalog">
-                <a className="pl-0 nav-link">
-                  <strong>All Items</strong>
-                </a>
-              </Link>
-            </NavItem>
-            {categories &&
-              categories.length > 0 &&
-              categories.map((category) => {
+          {categories && categories.length > 0 && (
+            <Nav navbar>
+              <NavItem>
+                <Link href="/catalog">
+                  <a className="pl-0 nav-link">
+                    <strong>All Items</strong>
+                  </a>
+                </Link>
+              </NavItem>
+              {categories.map((category) => {
                 let children = category.children;
                 delete children['array'];
                 if (Object.keys(children).length > 0) {
@@ -66,7 +65,8 @@ const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
                   </NavItem>
                 );
               })}
-          </Nav>
+            </Nav>
+          )}
           <Nav className="ml-auto" navbar>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret suppressHydrationWarning>

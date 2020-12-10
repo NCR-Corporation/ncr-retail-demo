@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
@@ -197,13 +198,19 @@ export default function Register({ showLoginModal }) {
                   <CardFooter className="bg">
                     <p className="text-muted mb-0">
                       Already have an account?{' '}
-                      <Button
-                        color="link"
-                        className="p-0 b-0"
-                        onClick={showLoginModal}
-                      >
-                        Login
-                      </Button>
+                      {!showLoginModal ? (
+                        <Link href="/auth/login">
+                          <a className="link p-0 m-0">Login</a>
+                        </Link>
+                      ) : (
+                        <Button
+                          color="link"
+                          className="p-0 b-0"
+                          onClick={showLoginModal}
+                        >
+                          Login
+                        </Button>
+                      )}
                     </p>
                   </CardFooter>
                 </Card>
