@@ -71,10 +71,10 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
           />
         </a>
       </Link>
-      <CardBody className="d-flex">
+      <CardBody className="d-flex pb-1">
         <div className="align-self-end">
           <Link href={`/catalog/${item.itemId.itemCode}`}>
-            <a className="h5 card-title mb-2">
+            <a className="h5 card-title mb-0">
               {item.shortDescription.values
                 ? item.shortDescription.values[0].value
                 : item.shortDescription.value}
@@ -84,14 +84,15 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
       </CardBody>
       <CardFooter className="bg-white font-weight-bold h6">
         <Row>
-          <Col md="6">
+          <Col md="12" className="mb-2">
             {itemPrices && itemPrices.length > 0
               ? `$${itemPrices[0].price}`
               : 'Not available at this store'}
           </Col>
           {showCartButton && (
-            <Col sm="12" md="6">
+            <Col sm="12" md="12">
               <Button
+                block
                 className={`float-right ${addingToCart && 'fade-btn'}`}
                 color={addingToCart ? 'success' : 'primary'}
                 outline

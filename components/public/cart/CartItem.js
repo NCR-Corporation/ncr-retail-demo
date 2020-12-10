@@ -84,7 +84,7 @@ export default function CartItem({ userCart, item, itemKey }) {
                 value={item.quantity}
                 onChange={() => handleQuantityChange(e, itemKey)}
               >
-                {Array.from({ length: 10 }, (_, i) => i + 1).map((item) => (
+                {Array.from({ length: 20 }, (_, i) => i + 1).map((item) => (
                   <option key={item}>{item}</option>
                 ))}
               </Input>
