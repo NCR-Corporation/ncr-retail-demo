@@ -19,11 +19,27 @@ export default async function handler(req, res) {
       currency: itemCopy.currency,
       effectiveDate: itemCopy.effectiveDate,
       status: itemCopy.status,
+      basePrice: true,
       priceId: {
         itemCode: itemCopy.itemId.itemCode,
         enterpriseUnitId: site.id,
         priceCode: itemCopy.itemId.itemCode,
       },
+      dynamicAttributes: [
+        {
+          type: 'retail-price',
+          attributes: [
+            {
+              key: 'UOM',
+              value: 'EA',
+            },
+            {
+              key: 'UNITS',
+              value: '1',
+            },
+          ],
+        },
+      ],
     };
     delete itemCopy['price'];
     delete itemCopy['currency'];

@@ -38,6 +38,13 @@ const NavigationTabs = ({ activeTab }) => {
           </a>
         </Link>
       </NavItem>
+      <NavItem>
+        <Link href="/admin/settings">
+          <a className={`nav-link ${activeTab === 'settings' && 'active'}`}>
+            Settings
+          </a>
+        </Link>
+      </NavItem>
     </Nav>
   );
 };

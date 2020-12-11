@@ -36,7 +36,24 @@ export default async function handler(req, res) {
     price: body.price,
     currency: body.currency,
     effectiveDate: body.effectiveDate,
+    endDate: '2100-12-17T05:00:00Z',
     status: body.status,
+    basePrice: true,
+    dynamicAttributes: [
+      {
+        type: 'retail-price',
+        attributes: [
+          {
+            key: 'UOM',
+            value: 'EA',
+          },
+          {
+            key: 'UNITS',
+            value: '1',
+          },
+        ],
+      },
+    ],
   };
   let priceId = body.priceId !== '' ? body.priceId : uniqid();
   let updatePrice = await updateSiteCatalogItemPricesByItemCode(

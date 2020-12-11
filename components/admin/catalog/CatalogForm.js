@@ -54,6 +54,9 @@ const createItemSchema = Yup.object().shape({
     ),
   }),
   version: Yup.number().required('Version is required when updating catalog.'),
+  unitOfMeasure: Yup.mixed()
+    .required('Unit of Measure is required')
+    .oneOf(['EA']),
 });
 
 const CatalogForm = ({ id, categories }) => {
@@ -68,12 +71,10 @@ const CatalogForm = ({ id, categories }) => {
     console.log('here', catalogItem);
     const {
       departmentId,
-      alternateCategories,
       itemId,
       longDescription,
       merchandiseCategory,
       nonMerchandise,
-      referenceId,
       shortDescription,
       status,
       version,
@@ -86,7 +87,7 @@ const CatalogForm = ({ id, categories }) => {
       shortDescription: shortDescription
         ? shortDescription.values[0].value
         : '',
-      merchandiseCategory: merchandiseCategory.nodeId,
+      merchandiseCategory: 'Drinks',
       nonMerchandise: nonMerchandise ?? false,
       status,
     };
@@ -107,11 +108,36 @@ const CatalogForm = ({ id, categories }) => {
       }
     }
 
+    let unitOfMeasure = data['unitOfMeasure'];
+    //This is pretty static.
+    data['dynamicAttributes'] = [
+      {
+        type: 'retail-item',
+        attributes: [
+          {
+            key: 'ITEM_TYPE_CODE',
+            value: '0',
+          },
+        ],
+      },
+    ];
+
+    data['packageIdentifiers'] = [
+      {
+        type: '0',
+        value: data['itemId'],
+      },
+    ];
+    data['departmentId'] = '02';
+
+    delete data['unitOfMeasure'];
+
     delete data['itemId'];
     data['itemId'] = { itemCode: values['itemId'] };
 
     delete data['merchandiseCategory'];
     data['merchandiseCategory'] = { nodeId: values['merchandiseCategory'] };
+    // data['merchandiseCategory'] = 'Drinks';
 
     delete data['shortDescription'];
     data['shortDescription'] = {
@@ -426,6 +452,26 @@ const CatalogForm = ({ id, categories }) => {
                               label="To Discontinue"
                             />
                             <option value="UNAUTHORIZED" label="Unauthorized" />
+                          </Field>
+                          <ErrorMessage
+                            name="status"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="status">Unit of Measure*</label>
+                          <Field
+                            as="select"
+                            name="unitOfMeasure"
+                            className={`${
+                              errors.unitOfMeasure && touched.unitOfMeasure
+                                ? 'is-invalid'
+                                : null
+                            } form-control`}
+                          >
+                            <option>--</option>
+                            <option value="EA" label="Each" />
                           </Field>
                           <ErrorMessage
                             name="status"

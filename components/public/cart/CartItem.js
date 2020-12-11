@@ -82,7 +82,7 @@ export default function CartItem({ userCart, item, itemKey }) {
                 name="select"
                 id="qtySelect"
                 value={item.quantity}
-                onChange={() => handleQuantityChange(e, itemKey)}
+                onChange={() => handleQuantityChange(event, itemKey)}
               >
                 {Array.from({ length: 20 }, (_, i) => i + 1).map((item) => (
                   <option key={item}>{item}</option>

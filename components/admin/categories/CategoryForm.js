@@ -98,6 +98,9 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
       ],
     };
 
+    data['departmentSale'] = null;
+    data['departmentNode'] = null;
+
     if (data['parentCategory']) {
       data['parentId'] = {
         nodeId: data['parentCategory'],
@@ -215,7 +218,7 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                         </div>
 
                         <div className="form-group">
-                          <label htmlFor="tag">Banner URL</label>
+                          <label htmlFor="tag">Tag</label>
                           <Field
                             name="tag"
                             id="tag"
@@ -229,7 +232,7 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                             className="invalid-feedback"
                           />
                         </div>
-                        <div className="row">
+                        {/* <div className="row">
                           <div className="col-md-6">
                             <div className="form-group form-check">
                               <Field
@@ -290,7 +293,7 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div>*/}
                       </div>
                     </div>
                   </div>
