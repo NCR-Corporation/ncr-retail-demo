@@ -40,11 +40,11 @@ export default function Cart() {
           </div>
         ) : (
           <div>
-            {userCart && userCart.location && (
+            {/* {userCart && userCart.location && (
               <div>
                 {userCart.location.split('/')[2]} // {userCart.etag}
               </div>
-            )}
+            )} */}
             <Row className="mb-2">
               <Col>
                 <h4 className="mb-1">My Cart</h4>

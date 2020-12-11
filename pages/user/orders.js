@@ -3,7 +3,7 @@ import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/client';
 import useUser from '~/lib/hooks/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
-import { Col, Row, Spinner } from 'reactstrap';
+import { Card, Col, Row, CardBody, Spinner } from 'reactstrap';
 
 const Orders = ({}) => {
   return (
@@ -14,7 +14,13 @@ const Orders = ({}) => {
           <Col md="3">
             <Sidebar url="orders" />
           </Col>
-          <Col></Col>
+          <Col>
+            <Card className="shadow-sm">
+              <CardBody>
+                <small className="text-muted">No orders found.</small>
+              </CardBody>
+            </Card>
+          </Col>
         </Row>
       </main>
       <Footer />
