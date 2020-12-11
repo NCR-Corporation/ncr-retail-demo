@@ -59,6 +59,7 @@ const FindStoreModal = (props) => {
                 )}, Longitude: ${coordinates.longitude.toFixed(2)}`
               : ''}
           </small>
+          {/* <FindStoreMap coordinates={coordinates} sites={sites} /> */}
           {sites && sites.length > 0 && (
             <div>
               {sites.map((site) => (
