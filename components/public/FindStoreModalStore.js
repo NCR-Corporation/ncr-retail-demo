@@ -38,7 +38,9 @@ const FindStoreModalStore = ({ toggle, setUserStore, site }) => {
             setUserStore(site);
           }}
           onAnimationEnd={() => {
-            toggle();
+            if (toggle) {
+              toggle();
+            }
           }}
         >
           {addingUserStore ? (
