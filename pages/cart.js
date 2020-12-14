@@ -15,27 +15,34 @@ export default function Cart() {
   console.log(userCart);
 
   const [cartCreated, setCartCreated] = useState(false);
-  if (!userCart.etag || !userCart.location) {
-    React.useEffect(async () => {
-      setCartCreated(false);
-      fetch(`/api/cart`, {
-        method: 'POST',
-        body: JSON.stringify({ siteId: userStore.id, cart: userCart }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('here');
-          console.log('cart data', data);
-          userCart.location = data.location;
-          userCart.etag = data.etag;
-          setUserCart(userCart);
-          setCartCreated(true);
-        });
-    }, [cartCreated]);
+  if (userCart.totalQuantity > 0) {
+    if (!userCart.etag || !userCart.location) {
+      console.log('creating a new cart...');
+      React.useEffect(async () => {
+        setCartCreated(false);
+        fetch(`/api/cart`, {
+          method: 'POST',
+          body: JSON.stringify({ siteId: userStore.id, cart: userCart }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('here');
+            console.log('cart data', data);
+            userCart.location = data.location;
+            userCart.etag = data.etag;
+            setUserCart(userCart);
+            setCartCreated(true);
+          });
+      }, [cartCreated]);
+    } else {
+      React.useEffect(() => {
+        setCartCreated(true);
+        fetchCart();
+      }, [cartCreated]);
+    }
   } else {
     React.useEffect(() => {
       setCartCreated(true);
-      fetchCart();
     }, [cartCreated]);
   }
 

@@ -10,6 +10,12 @@ const SettingsTab = () => {
     });
   };
 
+  const resetDatabase = () => {
+    fetch('/api/reset', {
+      method: 'POST',
+    });
+  };
+
   return (
     <div>
       <Header />
@@ -17,6 +23,9 @@ const SettingsTab = () => {
         <NavigationTabs activeTab="settings" />
         <div className="bg my-4">
           <h5>Settings</h5>
+          <Button color="primary" onClick={resetDatabase}>
+            Reset Database
+          </Button>{' '}
           <Button color="primary">Create Tax Authority</Button>{' '}
           <Button color="primary">Create Tax Rate</Button>{' '}
           <Button color="primary">Create Tender</Button>

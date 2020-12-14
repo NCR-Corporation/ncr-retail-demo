@@ -46,6 +46,7 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
     // create new cart
     setUserCart(currentUserCart);
   };
+  console.log(itemAttributes);
 
   return (
     <Card className="border-0 shadow-sm item-card h-100">

@@ -1,11 +1,17 @@
 import BootstrapTable from 'react-bootstrap-table-next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faBoxes } from '@fortawesome/free-solid-svg-icons';
+import filterFactory, { selectFilter } from 'react-bootstrap-table2-filter';
 import Link from 'next/link';
 import { Col, Row, Button } from 'reactstrap';
 
 function Sites({ data }) {
   const sites = data.data.pageContent;
+
+  const selectOptions = {
+    ACTIVE: 'ACTIVE',
+    INACTIVE: 'INACTIVE',
+  };
 
   const columns = [
     {
@@ -25,6 +31,13 @@ function Sites({ data }) {
       dataField: 'status',
       text: 'Status',
       sort: true,
+      formatter: (cell) => {
+        return selectOptions[cell];
+      },
+      filter: selectFilter({
+        options: selectOptions,
+        defaultValue: 'ACTIVE',
+      }),
     },
     {
       dataField: 'site',
@@ -92,6 +105,8 @@ function Sites({ data }) {
           columns={columns}
           hover
           defaultSorted={defaultSorted}
+          noDataIndication="No sites found"
+          filter={filterFactory()}
         />
       </div>
     </div>

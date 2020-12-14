@@ -181,7 +181,8 @@ const New = ({ siteId }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status != 204) {
+          console.log(data);
+          if (data.status != 200) {
             setShowAlert({ status: data.status, message: data.data.message });
           } else {
             setShowAlert({

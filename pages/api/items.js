@@ -7,6 +7,7 @@ import { getSites } from '~/lib/sites';
 
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
+  console.log('the body', body);
   let { data } = await getSites();
   let items = [];
   let prices = [];
@@ -31,7 +32,7 @@ export default async function handler(req, res) {
           attributes: [
             {
               key: 'UOM',
-              value: 'EA',
+              value: itemCopy.unitOfMeasure,
             },
             {
               key: 'UNITS',
@@ -44,6 +45,7 @@ export default async function handler(req, res) {
     delete itemCopy['price'];
     delete itemCopy['currency'];
     delete itemCopy['effectiveDate'];
+    delete itemCopy['unitOfMeasure'];
 
     let itemAttributes = Object.assign({}, itemCopy);
     itemAttributes['imageUrls'] = [itemCopy.imageUrl];
@@ -55,6 +57,7 @@ export default async function handler(req, res) {
     delete itemAttributes['departmentId'];
     delete itemAttributes['nonMerchandise'];
     delete itemAttributes['itemId'];
+    delete itemAttributes['packageIdentifiers'];
 
     delete itemCopy['imageUrl'];
 

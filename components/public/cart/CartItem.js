@@ -15,7 +15,13 @@ export default function CartItem({ userCart, item, itemKey }) {
     delete userCart.items[itemKey];
     userCart.totalQuantity = userCart.totalQuantity - quantity;
     userCart.totalPrice = userCart.totalPrice - price * quantity;
-
+    if (userCart.totalQuantity == 0) {
+      delete userCart.items;
+      userCart.totalQuantity = 0;
+      userCart.totalPrice = 0;
+      delete userCart.etag;
+      delete userCart.location;
+    }
     setUserCart(userCart);
   };
 
@@ -68,12 +74,12 @@ export default function CartItem({ userCart, item, itemKey }) {
                   : item.item.shortDescription.values[0].value}
               </a>
             </Link>
-            <h6 className="text-muted">
+            {/* <h6 className="text-muted">
               {item.itemAttributes
                 ? item.itemAttributes.longDescription.values[0].value
                 : item.item.longDescription.values[0].value}
-              {/* ${item.itemPrices[0].price} */}
-            </h6>
+            </h6> */}
+            <h6 className="text-muted">${item.itemPrices[0].price}</h6>
           </Col>
           <Col sm="4" md="2">
             <FormGroup>

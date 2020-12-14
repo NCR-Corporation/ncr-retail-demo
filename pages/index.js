@@ -43,19 +43,23 @@ function Home({ setup }) {
                 </Row>
               </CardBody>
             </Card>
-            <h6 className="text-muted">Full Catalog</h6>
-            <Row>
-              {catalogItems.data.pageContent.map((item) => (
-                <Col
-                  xs="4"
-                  sm="3"
-                  className="mb-4"
-                  key={item.item.itemId.itemCode}
-                >
-                  <ItemCard catalogItem={item} />
-                </Col>
-              ))}
-            </Row>
+            {catalogItems.data.pageContent.length > 0 && (
+              <div>
+                <h6 className="text-muted">Full Catalog</h6>
+                <Row>
+                  {catalogItems.data.pageContent.map((item) => (
+                    <Col
+                      xs="4"
+                      sm="3"
+                      className="mb-4"
+                      key={item.item.itemId.itemCode}
+                    >
+                      <ItemCard catalogItem={item} />
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            )}
           </div>
         )}
       </main>

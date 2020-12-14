@@ -86,7 +86,7 @@ const Dashboard = () => {
                     <CardTitle tag="h4" className="m-0">
                       <strong>{data.categoryNodes.length}</strong>
                     </CardTitle>
-                    <small className="text-muted">total categories</small>
+                    <small className="text-muted">active categories</small>
                   </CardBody>
                 </Card>
               </Col>
@@ -111,7 +111,7 @@ const Dashboard = () => {
                     <CardTitle tag="h4" className="m-0">
                       <strong>{data.catalog.data.totalResults}</strong>
                     </CardTitle>
-                    <small className="text-muted">available items</small>
+                    <small className="text-muted">active items</small>
                   </CardBody>
                 </Card>
               </Col>

@@ -9,6 +9,7 @@ export default async function handler(req, res) {
   let items = body.cart.items;
 
   const promises = Object.keys(items).map(async (key) => {
+    console.log(items[key]);
     let obj = {
       itemId: key,
       scanData: key,

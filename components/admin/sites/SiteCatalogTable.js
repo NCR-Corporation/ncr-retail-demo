@@ -108,6 +108,7 @@ export default function SiteCatalogTable({
         columns={columns}
         hover
         defaultSorted={defaultSorted}
+        noDataIndication="No catalog items found"
       />
     </div>
   );

@@ -58,11 +58,13 @@ const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
                   );
                 }
                 return (
-                  <NavItem key={category.nodeCode}>
-                    <Link href={`/category/${category.nodeCode}`}>
-                      <a>{category.title.value}</a>
-                    </Link>
-                  </NavItem>
+                  <UncontrolledDropdown nav inNavbar key={category.nodeCode}>
+                    <DropdownToggle nav>
+                      <Link href={`/category/${category.nodeCode}`}>
+                        <a className="text-darker">{category.title.value}</a>
+                      </Link>
+                    </DropdownToggle>
+                  </UncontrolledDropdown>
                 );
               })}
             </Nav>

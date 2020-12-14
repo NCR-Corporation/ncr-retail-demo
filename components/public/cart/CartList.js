@@ -8,6 +8,8 @@ export default function CartList({ userCart }) {
     delete userCart.items;
     userCart.totalQuantity = 0;
     userCart.totalPrice = 0;
+    delete userCart.etag;
+    delete userCart.location;
     setUserCart(userCart);
   };
   return (

@@ -59,8 +59,8 @@ function Categories({ categories }) {
 
   const defaultSorted = [
     {
-      dataField: 'id',
-      order: 'desc',
+      dataField: 'nodeId.nodeId',
+      order: 'asc',
     },
   ];
 
@@ -79,6 +79,7 @@ function Categories({ categories }) {
           columns={columns}
           hover
           defaultSorted={defaultSorted}
+          noDataIndication="No categories found"
         />
       </div>
     </div>
