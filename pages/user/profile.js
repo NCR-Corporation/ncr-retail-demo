@@ -15,50 +15,44 @@ const Settings = ({ session }) => {
   const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
   const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
   let { user, isLoading, isError } = useUser(session);
-  if (!isLoading && !isError) {
-    console.log(user);
-    if (user.status == 500) {
-      // setLoginModalOpen(true);
-      isError = true;
-    }
+  if (isLoading) {
+    return (
+      <div className="d-flex flex-column main-container">
+        <Header />
+        <main className="container my-4 flex-grow-1">
+          <div className="my-4 d-flex justify-content-center">
+            <Spinner color="dark" />
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <div className="d-flex flex-column main-container">
+        <Header />
+        <LoginModal
+          modalProp={isRegisterModalOpen ? false : true}
+          toggle={toggleLoginModal}
+          toggleRegister={toggleRegisterModal}
+        />
+        <RegisterConsumerModal
+          modalProp={isRegisterModalOpen}
+          toggle={toggleRegisterModal}
+          toggleLogin={toggleLoginModal}
+        />
+        <main className="container my-4 flex-grow-1"></main>
+        <Footer />
+      </div>
+    );
   }
 
   return (
     <div className="d-flex flex-column main-container">
-      <LoginModal
-        modalProp={isLoginModalOpen}
-        toggle={toggleLoginModal}
-        toggleRegister={toggleRegisterModal}
-      />
-      <RegisterConsumerModal
-        modalProp={isRegisterModalOpen}
-        toggle={toggleRegisterModal}
-        toggleLogin={toggleLoginModal}
-      />
       <Header />
       <main className="container my-4 flex-grow-1">
-        {isLoading && (
-          <div className="my-4 d-flex justify-content-center">
-            <Spinner color="dark" />
-          </div>
-        )}
-        {isError && (
-          <div>
-            <small className="text-muted">Uhoh, we've hit an error.</small>
-            <br />
-            <Button
-              size="sm"
-              color="primary"
-              onClick={() => setLoginModalOpen(true)}
-            >
-              Please login again.
-            </Button>
-          </div>
-        )}
-        {!isLoading && !isError && !user.data && (
-          <small className="text-muted"></small>
-        )}
-        {!isLoading && !isError && user.data && (
+        {user.data && (
           <Row>
             <Col md="3">
               <Sidebar url="profile" />

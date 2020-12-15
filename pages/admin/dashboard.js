@@ -5,6 +5,7 @@ import {
   faThList,
   faBox,
   faCircle,
+  faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   Container,
@@ -39,7 +40,32 @@ const Dashboard = () => {
         {!isLoading && !isError && (
           <div className="my-4">
             <Row className="text-center">
-              <Col md="4">
+              <Col md="3">
+                <Card>
+                  <CardBody>
+                    <CardTitle tag="h5">
+                      <span className="fa-layers fa-fw pb-2">
+                        <FontAwesomeIcon
+                          className="text-success"
+                          icon={faCircle}
+                          size="2x"
+                          transform="left-3"
+                        />
+                        <FontAwesomeIcon
+                          icon={faShoppingCart}
+                          inverse
+                          transform="shrink-2"
+                        />
+                      </span>
+                    </CardTitle>
+                    <CardTitle tag="h4" className="m-0">
+                      <strong>0</strong>
+                    </CardTitle>
+                    <small className="text-muted">total orders</small>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col md="3">
                 <Card>
                   <CardBody>
                     <CardTitle tag="h5">
@@ -64,7 +90,7 @@ const Dashboard = () => {
                   </CardBody>
                 </Card>
               </Col>
-              <Col md="4">
+              <Col md="3">
                 <Card>
                   <CardBody>
                     <CardTitle tag="h5">
@@ -89,7 +115,7 @@ const Dashboard = () => {
                   </CardBody>
                 </Card>
               </Col>
-              <Col md="4">
+              <Col md="3">
                 <Card>
                   <CardBody>
                     <CardTitle tag="h5">
