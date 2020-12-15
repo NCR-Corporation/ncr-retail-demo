@@ -10,7 +10,7 @@ export default function Sidebar({ url }) {
         </a>
       </Link>
       <Link href="/user/orders">
-        <a className={`list-group-item ${url === 'orders' && 'active'} `}>
+        <a className={`list-group-item ${url === 'orders' && 'active'}`}>
           Orders
         </a>
       </Link>

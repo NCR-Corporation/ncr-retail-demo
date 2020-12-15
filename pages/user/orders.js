@@ -3,7 +3,7 @@ import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/client';
 import useUser from '~/lib/hooks/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
-import { Card, CardBody, Col, Row, Spinner } from 'reactstrap';
+import { Card, CardBody, Col, Row, Spinner } from 'reactstrap'; 
 
 const Orders = ({}) => {
   const orders = [];
@@ -18,7 +18,7 @@ const Orders = ({}) => {
           {orders.length == 0 ? (
             <Col sm="9">
               <Card className="shadow-sm">
-                <CardBody>No orders yet</CardBody>
+                <CardBody><small className="text-muted">No orders found.</small></CardBody>
               </Card>
             </Col>
           ) : (

@@ -34,7 +34,7 @@ const NavigationTabs = ({ activeTab }) => {
       <NavItem>
         <Link href="/admin/catalog">
           <a className={`nav-link ${activeTab === 'catalog' && 'active'}`}>
-            Catalog
+            Global Catalog
           </a>
         </Link>
       </NavItem>

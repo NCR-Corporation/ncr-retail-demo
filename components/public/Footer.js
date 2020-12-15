@@ -17,7 +17,7 @@ const Footer = () => {
             </h6>
             <ul className="list-unstyled text-small">
               <li>
-                <Link href="/stores">
+                <Link href="/sites">
                   <a className="text-darker">Find a Store</a>
                 </Link>
               </li>
