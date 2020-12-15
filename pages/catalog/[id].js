@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import {
   Container,
   Spinner,
@@ -28,37 +30,29 @@ const CatalogItem = ({ id }) => {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { catalogItem, isLoading, isError } = useCatalogItem(id, userStore.id);
   const [quantity, setItemQuantity] = useState(1);
+  const [addingToCart, setAddingToCart] = useState(false);
 
-  const handleAddToCart = (item, itemPrices, itemAttributes) => {
-    let currentUserCart = userCart;
-    let itemId = item.itemId.itemCode;
-    if (currentUserCart.totalQuantity) {
-      currentUserCart.totalQuantity += quantity;
-    } else {
-      currentUserCart.totalQuantity = quantity;
-    }
-    if (currentUserCart.totalPrice) {
-      currentUserCart.totalPrice =
-        currentUserCart.totalPrice + itemPrices[0].price;
-    } else {
-      currentUserCart.totalPrice = itemPrices[0].price;
-    }
-    if (!currentUserCart.items) {
-      currentUserCart.items = {};
-    }
-    if (currentUserCart.items[itemId]) {
-      currentUserCart.items[itemId].quantity =
-        currentUserCart.items[itemId].quantity + quantity;
-    } else {
-      currentUserCart.items[itemId] = {
-        quantity: quantity,
-        item,
-        itemPrices,
-        itemAttributes,
-      };
-    }
-    // create new cart
-    setUserCart(currentUserCart);
+  const handleAddToCart = (itemObj) => {
+    itemObj['quantity'] = quantity;
+    setAddingToCart(false);
+    fetch(`/api/cart`, {
+      method: 'POST',
+      body: JSON.stringify({
+        siteId: userStore.id,
+        cart: userCart,
+        etag: userCart.etag ?? false,
+        location: userCart.location ?? false,
+        item: itemObj,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        userCart.location = data.location;
+        userCart.etag = data.etag;
+        userCart.totalQuantity = userCart.totalQuantity + quantity;
+        setUserCart(userCart);
+        setAddingToCart(true);
+      });
   };
 
   const handleQuantityChange = (event) => {
@@ -148,15 +142,23 @@ const CatalogItem = ({ id }) => {
                           <Button
                             block
                             color="primary"
-                            onClick={() =>
-                              handleAddToCart(
-                                catalogItem.item,
-                                catalogItem.itemPrices,
-                                catalogItem.itemAttributes
-                              )
-                            }
+                            onClick={() => handleAddToCart(catalogItem.item)}
+                            className={`${addingToCart && 'fade-btn'}`}
+                            color={addingToCart ? 'success' : 'primary'}
+                            outline
+                            onAnimationEnd={() => setAddingToCart(false)}
                           >
-                            Add to Cart
+                            {addingToCart ? (
+                              <div>
+                                <FontAwesomeIcon
+                                  icon={faCheckCircle}
+                                  size="lg"
+                                />
+                                {'  '}Added
+                              </div>
+                            ) : (
+                              'Add to Cart'
+                            )}
                           </Button>
                         </Col>
                       </Row>

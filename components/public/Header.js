@@ -29,9 +29,7 @@ export default function Header() {
     }
   }, [isModalOpen]);
 
-  useEffect(() => {
-    console.log('the user store', userStore);
-  }, [userStore]);
+  // useEffect(() => {}, [userStore]);
   return (
     <div className="bg-white">
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />

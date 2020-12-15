@@ -10,54 +10,32 @@ import CartList from '~/components/public/cart/CartList';
 export default function Cart() {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
-  const [userAPICart, setUserAPICart] = useState({});
+  const [userAPICart, setUserAPICart] = useState({ cart: {}, cartItems: [] });
   const [userAPICartLoading, setUserAPICartLoading] = useState(false);
-  console.log(userCart);
 
   const [cartCreated, setCartCreated] = useState(false);
-  if (userCart.totalQuantity > 0) {
-    if (!userCart.etag || !userCart.location) {
-      console.log('creating a new cart...');
-      React.useEffect(async () => {
-        setCartCreated(false);
-        fetch(`/api/cart`, {
-          method: 'POST',
-          body: JSON.stringify({ siteId: userStore.id, cart: userCart }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('here');
-            console.log('cart data', data);
-            userCart.location = data.location;
-            userCart.etag = data.etag;
-            setUserCart(userCart);
-            setCartCreated(true);
-          });
-      }, [cartCreated]);
-    } else {
-      React.useEffect(() => {
-        setCartCreated(true);
-        fetchCart();
-      }, [cartCreated]);
-    }
-  } else {
-    React.useEffect(() => {
-      setCartCreated(true);
-    }, [cartCreated]);
-  }
+
+  React.useEffect(() => {
+    setCartCreated(true);
+    fetchCart();
+  }, [cartCreated]);
 
   const fetchCart = () => {
-    setUserAPICartLoading(true);
-    const { location } = userCart;
-    fetch(`/api/cart/${userStore.id}/${location}`)
-      .then((response) => response.json())
-      .then((res) => {
-        const { data } = res;
-        console.log(data);
-        setUserAPICart(data);
-        setUserAPICartLoading(false);
-      });
+    if (userCart.etag && userCart.location) {
+      setUserAPICartLoading(true);
+      const { location } = userCart;
+      fetch(`/api/cart/${userStore.id}/${location}`)
+        .then((response) => response.json())
+        .then((res) => {
+          const { cart, cartItems } = res;
+          setUserAPICart({ cart, cartItems });
+          setUserAPICartLoading(false);
+        });
+    } else {
+      setUserAPICart({ empty: true });
+    }
   };
+  console.log(userAPICart);
 
   return (
     <div className="d-flex flex-column main-container">
@@ -74,14 +52,25 @@ export default function Cart() {
                 <h4 className="mb-1">My Cart</h4>
               </Col>
             </Row>
-            <Row>
-              <CartList userCart={userCart} />
-              <CartCheckout
-                userCart={userCart}
-                userAPICartLoading={userAPICartLoading}
-                userAPICart={userAPICart}
-              />
-            </Row>
+            {userAPICart.empty === true ? (
+              <Row>No cart items.</Row>
+            ) : (
+              userAPICart.cartItems.data &&
+              userAPICart.cartItems.data.pageContent.length > 0 && (
+                <Row>
+                  <CartList
+                    userCart={userAPICart}
+                    location={userCart.location}
+                    siteId={userStore.id}
+                  />
+                  <CartCheckout
+                    userCart={userCart}
+                    userAPICartLoading={userAPICartLoading}
+                    userAPICart={userAPICart}
+                  />
+                </Row>
+              )
+            )}
           </div>
         )}
       </Container>

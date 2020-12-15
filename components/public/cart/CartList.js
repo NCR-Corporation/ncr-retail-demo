@@ -2,24 +2,23 @@ import { useContext } from 'react';
 import { Col, Row, Card, CardBody, Button } from 'reactstrap';
 import CartItem from './CartItem';
 import { UserCartContext } from '~/context/userCart';
-export default function CartList({ userCart }) {
-  const { setUserCart } = useContext(UserCartContext);
+export default function CartList({ userCart, location, siteId }) {
   const emptyCart = () => {
-    delete userCart.items;
-    userCart.totalQuantity = 0;
-    userCart.totalPrice = 0;
-    delete userCart.etag;
-    delete userCart.location;
-    setUserCart(userCart);
+    fetch(`/api/cart/${siteId}/${location}`, { method: 'DELETE' })
+      .then((response) => response.json())
+      .then((data) => {});
+    // const { userCart, setUserCart } = useContext(UserCartContext);
+    // setUserCart({ totalQuantity: 0, etag: null, location: null });
+    // console.log(data);
   };
+  const cartItems = userCart.cartItems.data.pageContent;
   return (
     <Col md="8">
       <div>
         <Card className="mb-2 cart-card">
           <CardBody className="">
-            {userCart.totalQuantity > 0 && (
+            {cartItems.length > 0 && (
               <Row className="mb-2">
-                <Col sm="2"></Col>
                 <Col sm="10">
                   <Row className="w-100">
                     <Col sm="8" className="text-muted text-uppercase">
@@ -33,13 +32,13 @@ export default function CartList({ userCart }) {
                 </Col>
               </Row>
             )}
-            {userCart.totalQuantity > 0 ? (
-              Object.keys(userCart.items).map((key) => (
+            {cartItems.length > 0 ? (
+              cartItems.map((item) => (
                 <CartItem
-                  item={userCart.items[key]}
-                  itemKey={key}
+                  item={item}
+                  itemKey={item.lineId}
                   userCart={userCart}
-                  key={key}
+                  key={item.lineId}
                 />
               ))
             ) : (
@@ -47,7 +46,7 @@ export default function CartList({ userCart }) {
             )}
           </CardBody>
         </Card>
-        {userCart.totalQuantity > 0 && (
+        {cartItems.length > 0 && (
           <Row>
             <Col>
               <Button
