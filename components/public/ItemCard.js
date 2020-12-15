@@ -34,7 +34,6 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
         userCart.totalQuantity = userCart.totalQuantity
           ? userCart.totalQuantity + 1
           : 1;
-        console.log('we made it');
         setUserCart(userCart);
         setAddingToCart(true);
       });

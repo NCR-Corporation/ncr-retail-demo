@@ -37,7 +37,6 @@ const createItemSchema = Yup.object().shape({
 });
 
 const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {
-  console.log('item', itemObject);
   const { item, itemAttributes, itemPrices } = itemObject;
   const initialValues = {
     shortDescription: itemAttributes
@@ -65,7 +64,6 @@ const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {
   };
 
   const handleSubmit = async (values) => {
-    console.log('the values', values);
     fetch(`/api/sites/catalog/${siteId}/${item.itemId.itemCode}`, {
       method: 'POST',
       body: JSON.stringify(values),

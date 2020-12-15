@@ -7,7 +7,6 @@ import { faEdit, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 function Catalog({ data }) {
   const catalog = data.data.pageContent;
-  console.log(catalog);
 
   const selectOptions = {
     ACTIVE: 'ACTIVE',

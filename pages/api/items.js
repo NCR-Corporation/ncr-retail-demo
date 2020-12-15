@@ -7,7 +7,6 @@ import { getSites } from '~/lib/sites';
 
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
-  console.log('the body', body);
   let { data } = await getSites();
   let items = [];
   let prices = [];

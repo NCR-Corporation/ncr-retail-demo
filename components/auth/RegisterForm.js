@@ -53,7 +53,6 @@ export default function Register({ showLoginModal }) {
         showLoginModal();
         router.reload();
       }
-      console.log(status);
     });
   };
   return (

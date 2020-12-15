@@ -28,7 +28,7 @@ const init = {
 const createItemSchema = Yup.object().shape({
   itemId: Yup.string().required('Item ID is required'),
   shortDescription: Yup.string().required('Short description is required'),
-  longDescription: Yup.string(),
+  longDescription: Yup.string().required('Long description is required'),
   // Need to update this required check to handle hidden field on change
   merchandiseCategory: Yup.string().required(
     'Merchandise Category is required'
@@ -69,7 +69,6 @@ const CatalogForm = ({ id, categories }) => {
   let { catalogItem, isLoading, isError } = useCatalogItem(id);
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.itemId == '') {
-    console.log('here', catalogItem);
     const {
       departmentId,
       itemId,
@@ -98,7 +97,6 @@ const CatalogForm = ({ id, categories }) => {
   const [parentCategory, setParentCategory] = useState();
 
   const handleSubmit = async (values) => {
-    console.log('the values', values);
     let data = {};
     for (const key in values) {
       // Remove empty fields.
@@ -177,7 +175,6 @@ const CatalogForm = ({ id, categories }) => {
         .then((response) => response.json())
         .then((data) => {
           let error = false;
-          console.log(data);
           for (let key in data) {
             if (data[key].status != 204) {
               setShowAlert({
