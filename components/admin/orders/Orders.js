@@ -1,40 +1,62 @@
 import BootstrapTable from 'react-bootstrap-table-next';
 
-function RecentOrders({ data }) {
+function RecentOrders({ orders }) {
+  console.log('orders', orders);
   const columns = [
     {
-      dataField: 'id',
-      text: 'Id',
+      dataField: 'customer.name',
+      text: 'Customer',
       sort: true,
-      headerStyle: {
-        width: '100px',
+    },
+    {
+      dataField: 'dateUpdated',
+      text: 'Last Updated',
+      sort: true,
+      formatter: (cell, row) => {
+        let locale = new Date(Date.parse(cell)).toLocaleString();
+        return <p>{locale}</p>;
       },
     },
     {
-      dataField: 'date',
-      text: 'Date',
+      dataField: 'owner',
+      text: 'Site',
       sort: true,
     },
     {
-      dataField: 'store',
-      text: 'Store',
+      dataField: 'status',
+      text: 'Status',
       sort: true,
+      headerStyle: {
+        width: '150px',
+      },
     },
     {
-      dataField: 'quantity',
-      text: 'Quantity',
+      dataField: 'orderLines',
+      text: 'Total Items',
       sort: true,
+      formatter: (cell, row) => {
+        return <p>{cell.length}</p>;
+      },
+      headerStyle: {
+        width: '150px',
+      },
     },
     {
-      dataField: 'total',
-      text: 'Total',
+      dataField: 'totals[0].value',
+      text: 'Price Total',
       sort: true,
+      formatter: (cell, row) => {
+        return <p>${cell}</p>;
+      },
+      headerStyle: {
+        width: '150px',
+      },
     },
   ];
 
   const defaultSorted = [
     {
-      dataField: 'id',
+      dataField: 'dateUpdated',
       order: 'desc',
     },
   ];
@@ -44,7 +66,7 @@ function RecentOrders({ data }) {
         <BootstrapTable
           bootstrap4
           keyField="id"
-          data={[]}
+          data={orders}
           columns={columns}
           hover
           defaultSorted={defaultSorted}

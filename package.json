@@ -67,6 +67,7 @@
     "react-datepicker": "^3.3.0",
     "react-dom": "17.0.1",
     "react-geolocated": "^3.1.0",
+    "react-payment-inputs": "^1.1.7",
     "reactstrap": "^8.7.1",
     "request": "^2.88.2",
     "swr": "^0.3.9",

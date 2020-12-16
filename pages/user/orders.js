@@ -1,12 +1,14 @@
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/client';
-import useUser from '~/lib/hooks/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
-import { Card, CardBody, Col, Row, Spinner } from 'reactstrap'; 
+import { Card, CardBody, Col, Row, Spinner } from 'reactstrap';
+import OrderList from '~/components/public/order/OrderList';
+import { getOrdersByUser } from '~/lib/order';
 
-const Orders = ({}) => {
-  const orders = [];
+const Orders = ({ session, orderData }) => {
+  const orders = orderData.data.pageContent;
+  console.log('or', orders);
   return (
     <div className="d-flex flex-column main-container">
       <Header />
@@ -18,11 +20,17 @@ const Orders = ({}) => {
           {orders.length == 0 ? (
             <Col sm="9">
               <Card className="shadow-sm">
-                <CardBody><small className="text-muted">No orders found.</small></CardBody>
+                <CardBody>
+                  <small className="text-muted">No orders found.</small>
+                </CardBody>
               </Card>
             </Col>
           ) : (
-            <Col></Col>
+            <Col sm="9">
+              {orders.map((order) => (
+                <OrderList order={order} />
+              ))}
+            </Col>
           )}
         </Row>
       </main>
@@ -46,8 +54,11 @@ export async function getServerSideProps(context) {
     };
   }
 
+  const orders = await getOrdersByUser(session.user.username);
+  console.log('ses', session.user.username);
+
   // If there is a user, return the current session
-  return { props: { session } };
+  return { props: { session, orderData: orders } };
 }
 
 export default Orders;

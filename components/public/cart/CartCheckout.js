@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Button, Col, CardBody, Card, Spinner } from 'reactstrap';
 export default function CartCheckout({
   userCart,
@@ -38,9 +39,9 @@ export default function CartCheckout({
               ) / 100}
             </dd>
           </dl>
-          <Button color="primary" block>
-            Purchase
-          </Button>
+          <Link href="/checkout">
+            <a className="btn btn-primary btn-block">Checkout</a>
+          </Link>
         </div>
       )}
     </CardBody>

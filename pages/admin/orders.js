@@ -8,6 +8,7 @@ import Orders from '~/components/admin/orders/Orders';
 
 const OrdersTab = () => {
   let { data, isLoading, isError } = useDashboard('orders');
+  console.log('the data', data);
 
   return (
     <div>
@@ -22,7 +23,7 @@ const OrdersTab = () => {
         {isError && (
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
-        {!isLoading && !isError && <Orders />}
+        {!isLoading && !isError && <Orders orders={data.data.pageContent} />}
       </main>
     </div>
   );
