@@ -18,9 +18,6 @@ function Catalog({ data }) {
       dataField: 'itemId.itemCode',
       text: 'ID',
       sort: true,
-      headerStyle: {
-        width: '100px',
-      },
     },
     {
       dataField: 'shortDescription.value',

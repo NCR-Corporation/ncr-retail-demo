@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import Link from 'next/link';
+import NavigationTabs from '~/components/admin/NavigationTabs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faDownload } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -18,7 +19,7 @@ import {
   ModalBody,
 } from 'reactstrap';
 
-const Header = () => {
+const Header = ({ navigation = true }) => {
   const [exporting, setIsExporting] = useState(false);
   const [modal, setModal] = useState(false);
   const [downloadJSON, setDownloadJSON] = useState();
@@ -71,11 +72,16 @@ const Header = () => {
       <section className="header-main border-bottom py-2">
         <Container>
           <Row className="align-items-center">
-            <Col sm="4" md="3">
+            <Col sm="4" md="2">
               <Link href="/admin/dashboard" className="logo-text">
                 <a className="logo-text">MART</a>
               </Link>
             </Col>
+            {navigation && (
+              <Col md="8">
+                <NavigationTabs tabs={false} />
+              </Col>
+            )}
             <Col className="col text-md-right">
               <Tooltip
                 placement="right"

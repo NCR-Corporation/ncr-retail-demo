@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { Nav, NavItem } from 'reactstrap';
-const NavigationTabs = ({ activeTab }) => {
+const NavigationTabs = ({ activeTab, tabs = true }) => {
   return (
-    <Nav tabs>
+    <Nav tabs={tabs ? true : ''}>
       <NavItem>
         <Link href="/admin/dashboard">
           <a className={`nav-link ${activeTab === 'dashboard' && 'active'}`}>

@@ -155,84 +155,79 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
       {(formik) => {
         const { errors, touched, isValid, dirty } = formik;
         return (
-          <div className="bg pb-4">
-            <Header />
-            <main className="container">
-              <Form>
-                {isLoading && (
-                  <div className="my-4 d-flex justify-content-center">
-                    <Spinner color="primary" />
-                  </div>
-                )}
-                <Alert
-                  toggle={onDismiss}
-                  isOpen={visible}
-                  className="my-4"
-                  color={showAlert.status == 200 ? 'success' : 'danger'}
-                >
-                  {showAlert.message}
-                </Alert>
-                <Row className="my-4">
-                  <Col>
-                    <h4 className="mb-1">
-                      {categoryId ? 'Edit' : 'Create'} Category
-                    </h4>
-                  </Col>
-                  <Col>
-                    <div className="form-group float-right">
-                      <button
-                        type="submit"
-                        className={`${
-                          !(dirty && isValid) ? 'disabled' : ''
-                        } btn btn-primary`}
-                        disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}
-                      >
-                        {' '}
-                        {categoryId ? '+ Update' : '+ Create'} Category
-                      </button>
+          <Form>
+            {isLoading && (
+              <div className="my-4 d-flex justify-content-center">
+                <Spinner color="primary" />
+              </div>
+            )}
+            <Alert
+              toggle={onDismiss}
+              isOpen={visible}
+              className="my-4"
+              color={showAlert.status == 200 ? 'success' : 'danger'}
+            >
+              {showAlert.message}
+            </Alert>
+            <Row className="my-4">
+              <Col>
+                <h4 className="mb-1">
+                  {categoryId ? 'Edit' : 'Create'} Category
+                </h4>
+              </Col>
+              <Col>
+                <div className="form-group float-right">
+                  <button
+                    type="submit"
+                    className={`${
+                      !(dirty && isValid) ? 'disabled' : ''
+                    } btn btn-primary`}
+                    disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}
+                  >
+                    {' '}
+                    {categoryId ? '+ Update' : '+ Create'} Category
+                  </button>
+                </div>
+              </Col>
+            </Row>
+            <div className="row">
+              <div className="col-md-8">
+                <div className="card">
+                  <div className="card-body">
+                    <div className="form-row">
+                      <div className="form-group col-md-6">
+                        <label htmlFor="title">Title*</label>
+                        <Field
+                          name="title"
+                          id="title"
+                          className={`${
+                            errors.title && touched.title ? 'is-invalid' : null
+                          } form-control`}
+                        />
+                        <ErrorMessage
+                          name="title"
+                          component="div"
+                          className="invalid-feedback"
+                        />
+                      </div>
                     </div>
-                  </Col>
-                </Row>
-                <div className="row">
-                  <div className="col-md-8">
-                    <div className="card">
-                      <div className="card-body">
-                        <div className="form-row">
-                          <div className="form-group col-md-6">
-                            <label htmlFor="title">Title*</label>
-                            <Field
-                              name="title"
-                              id="title"
-                              className={`${
-                                errors.title && touched.title
-                                  ? 'is-invalid'
-                                  : null
-                              } form-control`}
-                            />
-                            <ErrorMessage
-                              name="title"
-                              component="div"
-                              className="invalid-feedback"
-                            />
-                          </div>
-                        </div>
 
-                        <div className="form-group">
-                          <label htmlFor="tag">Tag</label>
-                          <Field
-                            name="tag"
-                            id="tag"
-                            className={`${
-                              errors.tag && touched.tag ? 'is-invalid' : null
-                            } form-control`}
-                          />
-                          <ErrorMessage
-                            name="tag"
-                            component="div"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                        {/* <div className="row">
+                    <div className="form-group">
+                      <label htmlFor="tag">Tag</label>
+                      <Field
+                        name="tag"
+                        id="tag"
+                        className={`${
+                          errors.tag && touched.tag ? 'is-invalid' : null
+                        } form-control`}
+                      />
+                      <ErrorMessage
+                        name="tag"
+                        component="div"
+                        className="invalid-feedback"
+                      />
+                    </div>
+                    {/* <div className="row">
                           <div className="col-md-6">
                             <div className="form-group form-check">
                               <Field
@@ -294,96 +289,87 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                             </div>
                           </div>
                         </div>*/}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="card">
-                      <div className="card-body">
-                        <div className="form-group">
-                          <label htmlFor="nodeCode">Node Code</label>
-                          <Field
-                            name="nodeCode"
-                            id="nodeCode"
-                            className={`${
-                              errors.nodeCode && touched.nodeCode
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                            disabled={categoryId ? 'disabled' : ''}
-                          />
-                          <ErrorMessage
-                            name="nodeCode"
-                            component="div"
-                            className="invalid-feedback"
-                          />
-                          <small id="nodeCode" className="form-text text-muted">
-                            This will be the same as the Node Id
-                          </small>
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="version">Version</label>
-                          <Field
-                            name="version"
-                            id="version"
-                            className={`${
-                              errors.version && touched.version
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                          />
-                          <ErrorMessage
-                            name="version"
-                            component="div"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="status" className="h5">
-                            Status
-                          </label>
-                          <Field
-                            as="select"
-                            name="status"
-                            className={`${
-                              errors.status && touched.status
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                          >
-                            <option value="" label="--" />
-                            <option value="ACTIVE" label="ACTIVE" />
-                            <option value="INACTIVE" label="INACTIVE" />
-                            <option value="DISCONTINUED" label="DISCONTINUED" />
-                            <option value="SEASONAL" label="SEASONAL" />
-                            <option
-                              value="TO_DISCONTINUE"
-                              label="TO_DISCONTINUE"
-                            />
-                            <option value="UNAUTHORIZED" label="UNAUTHORIZED" />
-                          </Field>
-                          <ErrorMessage
-                            name="status"
-                            component="div"
-                            className="invalid-feedback"
-                          />
-                        </div>
-                        <CategorySelect
-                          currentCategory={initialValues.nodeCode}
-                          initialCategory={initialValues.parentCategory ?? ''}
-                          setDisabled={
-                            initialValues.parentCategory ? true : false
-                          }
-                          setParentCategory={setParentCategory}
-                          categories={categoryNodes}
-                        />
-                      </div>
-                    </div>
                   </div>
                 </div>
-              </Form>
-            </main>
-          </div>
+              </div>
+              <div className="col-md-4">
+                <div className="card">
+                  <div className="card-body">
+                    <div className="form-group">
+                      <label htmlFor="nodeCode">Node Code</label>
+                      <Field
+                        name="nodeCode"
+                        id="nodeCode"
+                        className={`${
+                          errors.nodeCode && touched.nodeCode
+                            ? 'is-invalid'
+                            : null
+                        } form-control`}
+                        disabled={categoryId ? 'disabled' : ''}
+                      />
+                      <ErrorMessage
+                        name="nodeCode"
+                        component="div"
+                        className="invalid-feedback"
+                      />
+                      <small id="nodeCode" className="form-text text-muted">
+                        This will be the same as the Node Id
+                      </small>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="version">Version</label>
+                      <Field
+                        name="version"
+                        id="version"
+                        className={`${
+                          errors.version && touched.version
+                            ? 'is-invalid'
+                            : null
+                        } form-control`}
+                      />
+                      <ErrorMessage
+                        name="version"
+                        component="div"
+                        className="invalid-feedback"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="status" className="h5">
+                        Status
+                      </label>
+                      <Field
+                        as="select"
+                        name="status"
+                        className={`${
+                          errors.status && touched.status ? 'is-invalid' : null
+                        } form-control`}
+                      >
+                        <option value="" label="--" />
+                        <option value="ACTIVE" label="ACTIVE" />
+                        <option value="INACTIVE" label="INACTIVE" />
+                        <option value="DISCONTINUED" label="DISCONTINUED" />
+                        <option value="SEASONAL" label="SEASONAL" />
+                        <option value="TO_DISCONTINUE" label="TO_DISCONTINUE" />
+                        <option value="UNAUTHORIZED" label="UNAUTHORIZED" />
+                      </Field>
+                      <ErrorMessage
+                        name="status"
+                        component="div"
+                        className="invalid-feedback"
+                      />
+                    </div>
+                    <CategorySelect
+                      currentCategory={initialValues.nodeCode}
+                      initialCategory={initialValues.parentCategory ?? ''}
+                      setDisabled={initialValues.parentCategory ? true : false}
+                      setParentCategory={setParentCategory}
+                      categories={categoryNodes}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Form>
         );
       }}
     </Formik>

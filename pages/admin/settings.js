@@ -1,4 +1,4 @@
-import { Button } from 'reactstrap';
+import { Container, Button } from 'reactstrap';
 import Header from '~/components/admin/Header';
 import NavigationTabs from '~/components/admin/NavigationTabs';
 
@@ -18,8 +18,8 @@ const SettingsTab = () => {
 
   return (
     <div>
-      <Header />
-      <main className="container my-4 flex-grow-1">
+      <Header navigation={false} />
+      <Container fluid className="w-75 my-4 flex-grow-1">
         <NavigationTabs activeTab="settings" />
         <div className="bg my-4">
           <h5>Settings</h5>
@@ -30,7 +30,7 @@ const SettingsTab = () => {
           <Button color="primary">Create Tax Rate</Button>{' '}
           <Button color="primary">Create Tender</Button>
         </div>
-      </main>
+      </Container>
     </div>
   );
 };

@@ -1,6 +1,24 @@
 import BootstrapTable from 'react-bootstrap-table-next';
+import { mutate } from 'swr';
+import { Button } from 'reactstrap';
 
 function RecentOrders({ orders }) {
+  const updateOrderStatus = (order, status) => {
+    fetch(`/api/order/${order.id}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        siteId: order.enterpriseUnitId,
+        orderId: order.id,
+        values: {
+          status,
+        },
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        mutate(`/api/admin/dashboard`);
+      });
+  };
   const columns = [
     {
       dataField: 'customer.name',
@@ -25,9 +43,6 @@ function RecentOrders({ orders }) {
       dataField: 'status',
       text: 'Status',
       sort: true,
-      headerStyle: {
-        width: '150px',
-      },
     },
     {
       dataField: 'orderLines',
@@ -49,6 +64,50 @@ function RecentOrders({ orders }) {
       },
       headerStyle: {
         width: '150px',
+      },
+    },
+    {
+      dataField: '',
+      text: '',
+      formatter: (rowContent, row) => {
+        console.log(row);
+        return (
+          <div>
+            {row.status == 'OrderPlaced' && (
+              <Button
+                color="danger"
+                onClick={() => updateOrderStatus(row, 'ReceivedForFulfillment')}
+              >
+                Set Received
+              </Button>
+            )}
+            {row.status == 'ReceivedForFulfillment' && (
+              <Button
+                color="warning"
+                onClick={() => updateOrderStatus(row, 'InFulfillment')}
+              >
+                Set In Fulfillment
+              </Button>
+            )}
+            {row.status == 'InFulfillment' && (
+              <Button
+                color="info"
+                onClick={() => updateOrderStatus(row, 'Finished')}
+              >
+                Set Finished
+              </Button>
+            )}
+            {row.status == 'Finished' && (
+              <Button disabled color="success">
+                Completed
+              </Button>
+            )}
+            {/* 
+            <Link href={`/admin/orders/${row.id}`}>
+              <a className="btn btn-primary">Update</a>
+            </Link> */}
+          </div>
+        );
       },
     },
   ];

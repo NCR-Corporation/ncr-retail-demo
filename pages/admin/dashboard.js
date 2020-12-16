@@ -24,18 +24,20 @@ import Orders from '~/components/admin/orders/Orders';
 
 const Dashboard = () => {
   let { data, isLoading, isError } = useDashboard();
-  console.log('data', data);
-  let ordersPlaced, ordersShipped, ordersFulled;
+  let ordersPlaced, ordersReceived, ordersInFulfillment, ordersFilled;
   if (!isLoading && !isError) {
     let orders = data.orders.data.pageContent;
     ordersPlaced = orders.filter((el) => el.status == 'OrderPlaced');
-    ordersShipped = orders.filter((el) => el.status == 'InTransit');
-    ordersFulled = orders.filter((el) => el.status == 'Finished');
+    ordersReceived = orders.filter(
+      (el) => el.status == 'ReceivedForFulfillment'
+    );
+    ordersInFulfillment = orders.filter((el) => el.status == 'InFulfillment');
+    ordersFilled = orders.filter((el) => el.status == 'Finished');
   }
   return (
     <div>
-      <Header />
-      <Container className="my-4 flex-grow-1">
+      <Header navigation={false} />
+      <Container fluid className="w-75 py-4 flex-grow-1">
         <NavigationTabs activeTab="dashboard" />
         {isLoading && (
           <div className="d-flex justify-content-center mt-5">
@@ -69,9 +71,7 @@ const Dashboard = () => {
                     <CardTitle tag="h4" className="m-0">
                       <strong>{ordersPlaced.length}</strong>
                     </CardTitle>
-                    <small className="text-muted">
-                      orders waiting to be shipped
-                    </small>
+                    <small className="text-muted">new orders</small>
                   </CardBody>
                 </Card>
               </Col>
@@ -87,6 +87,31 @@ const Dashboard = () => {
                           transform="left-3"
                         />
                         <FontAwesomeIcon
+                          icon={faShoppingCart}
+                          inverse
+                          transform="shrink-2"
+                        />
+                      </span>
+                    </CardTitle>
+                    <CardTitle tag="h4" className="m-0">
+                      <strong>{ordersReceived.length}</strong>
+                    </CardTitle>
+                    <small className="text-muted">orders received</small>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col md="3">
+                <Card>
+                  <CardBody>
+                    <CardTitle tag="h5">
+                      <span className="fa-layers fa-fw pb-2">
+                        <FontAwesomeIcon
+                          className="text-info"
+                          icon={faCircle}
+                          size="2x"
+                          transform="left-3"
+                        />
+                        <FontAwesomeIcon
                           icon={faTruck}
                           inverse
                           transform="shrink-2"
@@ -94,9 +119,9 @@ const Dashboard = () => {
                       </span>
                     </CardTitle>
                     <CardTitle tag="h4" className="m-0">
-                      <strong>{ordersShipped.length}</strong>
+                      <strong>{ordersInFulfillment.length}</strong>
                     </CardTitle>
-                    <small className="text-muted">orders shipped</small>
+                    <small className="text-muted">orders in fulfillment</small>
                   </CardBody>
                 </Card>
               </Col>
@@ -119,34 +144,9 @@ const Dashboard = () => {
                       </span>
                     </CardTitle>
                     <CardTitle tag="h4" className="m-0">
-                      <strong>{ordersFulled.length}</strong>
+                      <strong>{ordersFilled.length}</strong>
                     </CardTitle>
                     <small className="text-muted">orders fulfilled</small>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col md="3">
-                <Card>
-                  <CardBody>
-                    <CardTitle tag="h5">
-                      <span className="fa-layers fa-fw pb-2">
-                        <FontAwesomeIcon
-                          className="text-secondary"
-                          icon={faCircle}
-                          size="2x"
-                          transform="left-3"
-                        />
-                        <FontAwesomeIcon
-                          icon={faShoppingCart}
-                          inverse
-                          transform="shrink-2"
-                        />
-                      </span>
-                    </CardTitle>
-                    <CardTitle tag="h4" className="m-0">
-                      <strong>{data.orders.data.totalResults}</strong>
-                    </CardTitle>
-                    <small className="text-muted">total orders</small>
                   </CardBody>
                 </Card>
               </Col>
