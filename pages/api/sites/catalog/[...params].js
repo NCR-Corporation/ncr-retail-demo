@@ -62,7 +62,6 @@ export default async function handler(req, res) {
     priceId,
     itemPrices
   );
-  console.log(updatePrice);
   let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(
     siteId,
     itemId,

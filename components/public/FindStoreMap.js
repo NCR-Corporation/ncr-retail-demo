@@ -11,7 +11,6 @@ const SiteMarker = ({ onMarkerClick, showInfoWindow, site }) => (
 );
 
 const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
-  console.log('the coordinates', coordinates);
   const defaultProps = {
     center: {
       lat:
@@ -29,7 +28,6 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
   const handleMarkerClick = (site) => {
     setShowInfoWindow(true);
   };
-  console.log('d', defaultProps);
 
   return (
     // Important! Always set the container height explicitly

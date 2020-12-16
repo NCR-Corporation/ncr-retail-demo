@@ -4,6 +4,7 @@ import CheckoutTotal from '~/components/public/checkout/CheckoutTotal';
 import HeaderCheckout from '~/components/public/HeaderCheckout';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
+import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/client';
 import useCart from '~/lib/hooks/useCart';
 import CheckoutList from '~/components/public/checkout/CheckoutList';
@@ -14,7 +15,8 @@ import LoginModal from '~/components/auth/LoginModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
 
 const Checkout = ({ session }) => {
-  const { userCart } = useContext(UserCartContext);
+  const router = useRouter();
+  const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
@@ -22,10 +24,29 @@ const Checkout = ({ session }) => {
   const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
   const userSession = useUser(session);
   const [order, setOrder] = useState({});
-  console.log('user sess', userSession);
 
   const { cart, isLoading, isError } = useCart(userStore.id, userCart.location);
 
+  const [isPurchasing, setIsPurchasing] = useState(false);
+
+  const purchase = async () => {
+    setIsPurchasing(true);
+    let userOrder = order;
+    userOrder['cart'] = cart.cart.data;
+    userOrder['lineItems'] = cart.cartItems.data.pageContent;
+    userOrder['user'] = userSession.user.data;
+    userOrder['store'] = userStore;
+    fetch(`/api/order`, { method: 'POST', body: JSON.stringify(userOrder) })
+      .then((res) => res.json())
+      .then((data) => {
+        // Reset the cart.
+        setUserCart({ totalQuantity: 0, etag: null, location: null });
+        if (data.status == 200) {
+          router.push(`/order/${data.data.id}`);
+        }
+        setIsPurchasing(false);
+      });
+  };
   return (
     <div className="d-flex flex-column main-container">
       <HeaderCheckout />
@@ -88,11 +109,9 @@ const Checkout = ({ session }) => {
               <Col md="4">
                 <Card className="mb-2 cart-card">
                   <CheckoutTotal
+                    purchase={purchase}
                     userAPICart={cart}
-                    order={order}
-                    setOrder={setOrder}
-                    user={userSession.user}
-                    store={userStore}
+                    isPurchasing={isPurchasing}
                   />
                 </Card>
               </Col>
@@ -105,21 +124,8 @@ const Checkout = ({ session }) => {
 };
 
 export async function getServerSideProps(context) {
-  // Get the user's session based on the request
   const session = await getSession(context);
-  if (!session) {
-    console.log("We've lost the session");
-    // If no user, redirect to login
-    return {
-      props: {},
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
 
-  // If there is a user, return the current session
   return { props: { session } };
 }
 

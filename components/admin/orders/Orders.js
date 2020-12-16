@@ -1,7 +1,6 @@
 import BootstrapTable from 'react-bootstrap-table-next';
 
 function RecentOrders({ orders }) {
-  console.log('orders', orders);
   const columns = [
     {
       dataField: 'customer.name',

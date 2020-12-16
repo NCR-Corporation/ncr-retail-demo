@@ -8,7 +8,7 @@ export default function OrderList({ order }) {
     }
   };
   return (
-    <Card>
+    <Card className="mb-2">
       <CardBody className="border-bottom pb-0">
         <CardTitle>
           <strong>Order ID: {order.id}</strong>

@@ -30,7 +30,6 @@ const Dashboard = () => {
     ordersPlaced = orders.filter((el) => el.status == 'OrderPlaced');
     ordersShipped = orders.filter((el) => el.status == 'InTransit');
     ordersFulled = orders.filter((el) => el.status == 'Finished');
-    console.log(ordersPlaced);
   }
   return (
     <div>

@@ -1,7 +1,6 @@
 import { CardBody, Col, Row } from 'reactstrap';
 
 export default function CheckoutList({ cartItems, showTitle = false }) {
-  console.log('the car items', cartItems);
   return (
     <CardBody>
       {showTitle && <h6>Order Items</h6>}

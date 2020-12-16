@@ -9,7 +9,6 @@ import { UserStoreContext } from '~/context/userStore';
 export default function CartItem({ location, item, itemKey }) {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
-  console.log(userCart, item, itemKey);
 
   const removeFromCart = (itemKey) => {
     fetch(`/api/cart/${location}`, {
@@ -35,7 +34,6 @@ export default function CartItem({ location, item, itemKey }) {
       },
       quantity: parseInt(event.target.value),
     };
-    console.log('the item', item);
     fetch(`/api/cart`, {
       method: 'POST',
       body: JSON.stringify({

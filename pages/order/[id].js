@@ -15,6 +15,7 @@ import {
 import CheckoutList from '~/components/public/checkout/CheckoutList';
 import { getOrderById } from '~/lib/order';
 export default function Order({ order, session }) {
+  console.log('the order', order);
   const convertStatusText = (text) => {
     if (text === 'OrderPlaced') {
       return 'Order Placed';
@@ -88,6 +89,7 @@ export async function getServerSideProps(context) {
     };
   }
   const order = await getOrderById(context.params.id);
+  console.log('the order', order);
   // SUPER basic check on if the current user can view the order
   if (order.data.customer.id != session.user.username) {
     return {

@@ -1,29 +1,7 @@
 import { Button, CardBody, Spinner } from 'reactstrap';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 
-export default function CheckoutTotal({ userAPICart, order, user, store }) {
-  const router = useRouter();
+export default function CheckoutTotal({ userAPICart, purchase, isPuchasing }) {
   const cartTotals = userAPICart.cart.data;
-  const [isPurchasing, setIsPurchasing] = useState(false);
-
-  const purchase = async () => {
-    setIsPurchasing(true);
-    let userOrder = order;
-    userOrder['cart'] = userAPICart.cart.data;
-    userOrder['lineItems'] = userAPICart.cartItems.data.pageContent;
-    userOrder['user'] = user.data;
-    userOrder['store'] = store;
-    fetch(`/api/order`, { method: 'POST', body: JSON.stringify(userOrder) })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.status == 200) {
-          router.push(`/order/${data.data.id}`);
-        }
-        setIsPurchasing(false);
-      });
-  };
   return (
     <CardBody>
       <h4 className="font-weight-bold mb-4">Review Cart</h4>
@@ -50,7 +28,7 @@ export default function CheckoutTotal({ userAPICart, order, user, store }) {
           </dd>
         </dl>
         <Button color="primary" block onClick={purchase}>
-          {isPurchasing && <Spinner />}
+          {isPuchasing && <Spinner size="sm" />}
           Purchase
         </Button>
       </div>

@@ -39,7 +39,6 @@ export default function Cart() {
 
   const fetchCart = () => {
     if (userCart.etag && userCart.location) {
-      console.log('here');
       setUserAPICartLoading(true);
       const { location } = userCart;
       fetch(`/api/cart/${userStore.id}/${location}`)

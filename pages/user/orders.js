@@ -8,7 +8,6 @@ import { getOrdersByUser } from '~/lib/order';
 
 const Orders = ({ session, orderData }) => {
   const orders = orderData.data.pageContent;
-  console.log('or', orders);
   return (
     <div className="d-flex flex-column main-container">
       <Header />
@@ -55,7 +54,6 @@ export async function getServerSideProps(context) {
   }
 
   const orders = await getOrdersByUser(session.user.username);
-  console.log('ses', session.user.username);
 
   // If there is a user, return the current session
   return { props: { session, orderData: orders } };
