@@ -1,13 +1,13 @@
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
-import { getSession } from 'next-auth/client';
 import Sidebar from '~/components/public/user/Sidebar';
 import { Card, CardBody, Col, Row, Spinner } from 'reactstrap';
 import OrderList from '~/components/public/order/OrderList';
-import { getOrdersByUser } from '~/lib/order';
+import useUserOrders from '~/lib/hooks/useUserOrders';
 
-const Orders = ({ session, orderData }) => {
-  const orders = orderData.data.pageContent;
+const Orders = () => {
+  const { orders, isLoading, isError } = useUserOrders();
+
   return (
     <div className="d-flex flex-column main-container">
       <Header />
@@ -16,47 +16,44 @@ const Orders = ({ session, orderData }) => {
           <Col md="3">
             <Sidebar url="orders" />
           </Col>
-          {orders.length == 0 ? (
+          {isLoading && (
+            <div className="d-flex justify-content-center h-100">
+              <Spinner color="dark" />
+            </div>
+          )}
+          {isError && (
             <Col sm="9">
               <Card className="shadow-sm">
                 <CardBody>
-                  <small className="text-muted">No orders found.</small>
+                  <small className="text-muted">
+                    Uhoh, we've hit an error.
+                  </small>
                 </CardBody>
               </Card>
             </Col>
-          ) : (
-            <Col sm="9">
-              {orders.map((order) => (
-                <OrderList order={order} />
-              ))}
-            </Col>
           )}
+          {!isLoading &&
+            !isError &&
+            (orders.data.pageContent.length == 0 ? (
+              <Col sm="9">
+                <Card className="shadow-sm">
+                  <CardBody>
+                    <small className="text-muted">No orders found.</small>
+                  </CardBody>
+                </Card>
+              </Col>
+            ) : (
+              <Col sm="9">
+                {orders.data.pageContent.map((order) => (
+                  <OrderList order={order} />
+                ))}
+              </Col>
+            ))}
         </Row>
       </main>
       <Footer />
     </div>
   );
 };
-
-export async function getServerSideProps(context) {
-  // Get the user's session based on the request
-  const session = await getSession(context);
-  if (!session) {
-    console.log("We've lost the session");
-    // If no user, redirect to login
-    return {
-      props: {},
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-
-  const orders = await getOrdersByUser(session.user.username);
-
-  // If there is a user, return the current session
-  return { props: { session, orderData: orders } };
-}
 
 export default Orders;
