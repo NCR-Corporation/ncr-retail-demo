@@ -3,8 +3,18 @@ import { Card, CardTitle, CardBody, Col, Row } from 'reactstrap';
 
 export default function OrderList({ order }) {
   const convertStatusText = (text) => {
+    console.log('text', text);
     if (text === 'OrderPlaced') {
       return 'Order Placed';
+    }
+    if (text === 'ReceivedForFulfillment') {
+      return 'Received for Fulfillment';
+    }
+    if (text == 'InFulfillment') {
+      return 'In Fulfillment';
+    }
+    if (text == 'Finished') {
+      return 'Completed';
     }
   };
   return (

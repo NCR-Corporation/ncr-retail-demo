@@ -19,6 +19,15 @@ export default function Order({ id }) {
     if (text === 'OrderPlaced') {
       return 'Order Placed';
     }
+    if (text === 'ReceivedForFulfillment') {
+      return 'Received for Fulfillment';
+    }
+    if (text == 'InFulfillment') {
+      return 'In Fulfillment';
+    }
+    if (text == 'Finished') {
+      return 'Completed';
+    }
   };
 
   return (

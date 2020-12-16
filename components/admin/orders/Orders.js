@@ -70,7 +70,6 @@ function RecentOrders({ orders }) {
       dataField: '',
       text: '',
       formatter: (rowContent, row) => {
-        console.log(row);
         return (
           <div>
             {row.status == 'OrderPlaced' && (
