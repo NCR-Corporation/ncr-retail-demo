@@ -20,9 +20,16 @@ const Settings = ({ session }) => {
       <div className="d-flex flex-column main-container">
         <Header />
         <main className="container my-4 flex-grow-1">
-          <div className="my-4 d-flex justify-content-center">
-            <Spinner color="dark" />
-          </div>
+          <Row>
+            <Col md="3">
+              <Sidebar url="profile" />
+            </Col>
+            <Col>
+              <div className="my-4 d-flex justify-content-center">
+                <Spinner color="dark" />
+              </div>
+            </Col>
+          </Row>
         </main>
         <Footer />
       </div>

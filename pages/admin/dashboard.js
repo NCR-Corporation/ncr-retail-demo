@@ -24,6 +24,7 @@ import Orders from '~/components/admin/orders/Orders';
 
 const Dashboard = () => {
   let { data, isLoading, isError } = useDashboard();
+  console.log('data', data);
   let ordersPlaced, ordersShipped, ordersFulled;
   if (!isLoading && !isError) {
     let orders = data.orders.data.pageContent;

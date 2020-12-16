@@ -17,9 +17,11 @@ const Orders = () => {
             <Sidebar url="orders" />
           </Col>
           {isLoading && (
-            <div className="d-flex justify-content-center h-100">
-              <Spinner color="dark" />
-            </div>
+            <Col md="9">
+              <div className="d-flex justify-content-center">
+                <Spinner color="dark" />
+              </div>
+            </Col>
           )}
           {isError && (
             <Col sm="9">
@@ -45,7 +47,7 @@ const Orders = () => {
             ) : (
               <Col sm="9">
                 {orders.data.pageContent.map((order) => (
-                  <OrderList order={order} />
+                  <OrderList order={order} key={order.id} />
                 ))}
               </Col>
             ))}

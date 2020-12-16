@@ -1,8 +1,11 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import usePaymentInputs from 'react-payment-inputs/lib/usePaymentInputs';
 import images from 'react-payment-inputs/images';
 import * as Yup from 'yup';
 import { Button, Card, Row, Col, CardTitle, CardBody } from 'reactstrap';
+import { useState } from 'react';
 
 const createUserSchema = Yup.object().shape({
   street: Yup.string()
@@ -38,7 +41,8 @@ const createUserSchema = Yup.object().shape({
   sameAsShipping: Yup.boolean(),
 });
 
-export default function CheckoutUser({ cartId, order, setOrder }) {
+export default function CheckoutUser({ order, setOrder }) {
+  const [tenderConfirmed, setTenderConfirmed] = useState(false);
   const {
     meta,
     getCardImageProps,
@@ -61,6 +65,7 @@ export default function CheckoutUser({ cartId, order, setOrder }) {
 
   const handleSubmit = async (values) => {
     setOrder({ ...order, payment: values });
+    setTenderConfirmed(true);
   };
 
   return (
@@ -262,14 +267,19 @@ export default function CheckoutUser({ cartId, order, setOrder }) {
                     </Col>
                   </Row>
                   <Button
-                    color="primary"
+                    color={`${tenderConfirmed ? 'success' : 'primary'}`}
                     type="submit"
                     className={`${
                       !(dirty && isValid) ? 'disabled' : ''
                     } float-right`}
                     disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}
                   >
-                    + Use Payment Method
+                    {tenderConfirmed ? (
+                      <FontAwesomeIcon icon={faCheckCircle} size="lg" />
+                    ) : (
+                      '+'
+                    )}{' '}
+                    Use Payment Method
                   </Button>
                 </CardBody>
               </Card>

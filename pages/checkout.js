@@ -26,6 +26,16 @@ const Checkout = ({ session }) => {
   const [order, setOrder] = useState({});
 
   const { cart, isLoading, isError } = useCart(userStore.id, userCart.location);
+  if (
+    userCart.totalQuantity == 0 ||
+    (!isLoading &&
+      !isError &&
+      (cart.cart.status == 404 || cart.cartItems.status == 404))
+  ) {
+    router.push({
+      pathname: '/',
+    });
+  }
 
   const [isPurchasing, setIsPurchasing] = useState(false);
 
@@ -36,12 +46,13 @@ const Checkout = ({ session }) => {
     userOrder['lineItems'] = cart.cartItems.data.pageContent;
     userOrder['user'] = userSession.user.data;
     userOrder['store'] = userStore;
+    userOrder['userCart'] = userCart;
     fetch(`/api/order`, { method: 'POST', body: JSON.stringify(userOrder) })
       .then((res) => res.json())
       .then((data) => {
         // Reset the cart.
-        setUserCart({ totalQuantity: 0, etag: null, location: null });
         if (data.status == 200) {
+          setUserCart({ totalQuantity: 0, etag: null, location: null });
           router.push(`/order/${data.data.id}`);
         }
         setIsPurchasing(false);
@@ -89,7 +100,7 @@ const Checkout = ({ session }) => {
               </Col>
             </Row>
           )}
-          {!isLoading && !isError && (
+          {!isLoading && !isError && cart && cart.cartItems.status == 200 && (
             <Row>
               <Col md="8">
                 <Card className="mb-2 cart-card">

@@ -3,7 +3,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
-import { Card, CardBody, CardFooter, Row, Col, Button } from 'reactstrap';
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Row,
+  Col,
+  Button,
+  Spinner,
+} from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import { addToCart } from '~/lib/hooks/useCart';
@@ -12,10 +20,12 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
   const { item, itemPrices, itemAttributes } = catalogItem;
   const { userCart, setUserCart } = useContext(UserCartContext);
   const [addingToCart, setAddingToCart] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { userStore } = useContext(UserStoreContext);
 
   const handleAddToCart = async (itemObj) => {
     itemObj['quantity'] = 1;
+    setLoading(true);
     setAddingToCart(false);
     fetch(`/api/cart`, {
       method: 'POST',
@@ -36,6 +46,7 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
           : 1;
         setUserCart(userCart);
         setAddingToCart(true);
+        setLoading(false);
       });
   };
 
@@ -79,7 +90,8 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
           <Col md="12" className="mb-2">
             {itemPrices && itemPrices.length > 0
               ? `$${itemPrices[0].price}`
-              : 'Not available at this store'}
+              : 'Not available at this store'}{' '}
+            {loading && <Spinner size="sm" />}
           </Col>
           {showCartButton && (
             <Col sm="12" md="12">

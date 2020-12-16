@@ -1,4 +1,5 @@
-import useUser from '~/lib/hooks/useUser';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -10,6 +11,7 @@ import {
   Spinner,
   Button,
 } from 'reactstrap';
+import { useState } from 'react';
 
 const createUserSchema = Yup.object().shape({
   street: Yup.string().max(256, 'Maximum of 256 characters'),
@@ -41,6 +43,7 @@ const createUserSchema = Yup.object().shape({
 
 export default function CheckoutUser({ session, order, setOrder }) {
   // const { user, isLoading, isError } = useUser(session);
+  const [shipmentConfirmed, setShipmentConfirmed] = useState(false);
 
   let address = {};
   const initialValues = {
@@ -53,6 +56,7 @@ export default function CheckoutUser({ session, order, setOrder }) {
 
   const handleSubmit = async (values) => {
     setOrder({ ...order, shipping: values });
+    setShipmentConfirmed(true);
   };
 
   return (
@@ -162,14 +166,19 @@ export default function CheckoutUser({ session, order, setOrder }) {
                   </Col>
                 </Row>
                 <Button
-                  color="primary"
+                  color={`${shipmentConfirmed ? 'success' : 'primary'}`}
                   type="submit"
                   className={`${
                     !(dirty && isValid) ? 'disabled' : ''
                   } float-right`}
                   disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}
                 >
-                  + Set Shipping Address
+                  {shipmentConfirmed ? (
+                    <FontAwesomeIcon icon={faCheckCircle} size="lg" />
+                  ) : (
+                    '+'
+                  )}{' '}
+                  Set Shipping Address
                 </Button>
               </CardBody>
             </Card>
