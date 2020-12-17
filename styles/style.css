@@ -114,3 +114,7 @@ label {
   color: #16181b;
   font-size: 2rem;
 }
+
+.admin-nav .active {
+  border-bottom: 2px solid black;
+}

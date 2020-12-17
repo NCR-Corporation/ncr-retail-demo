@@ -10,9 +10,8 @@ const SitesTab = () => {
 
   return (
     <div>
-      <Header navigation={false} />
+      <Header navigation={true} activeTab="sites" />
       <Container fluid className="w-75 my-4 flex-grow-1">
-        <NavigationTabs activeTab="sites" />
         {isLoading && (
           <div className="d-flex justify-content-center mt-5">
             <Spinner color="dark" />

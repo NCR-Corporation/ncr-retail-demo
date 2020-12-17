@@ -18,9 +18,8 @@ const SettingsTab = () => {
 
   return (
     <div>
-      <Header navigation={false} />
+      <Header navigation={true} activeTab="settings" />
       <Container fluid className="w-75 my-4 flex-grow-1">
-        <NavigationTabs activeTab="settings" />
         <div className="bg my-4">
           <h5>Settings</h5>
           <Button color="primary" onClick={resetDatabase}>

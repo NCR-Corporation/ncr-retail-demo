@@ -20,7 +20,7 @@ import {
   ModalBody,
 } from 'reactstrap';
 
-const Header = ({ navigation = true }) => {
+const Header = ({ navigation = true, activeTab }) => {
   const [exporting, setIsExporting] = useState(false);
   const [modal, setModal] = useState(false);
   const [downloadJSON, setDownloadJSON] = useState();
@@ -107,7 +107,7 @@ const Header = ({ navigation = true }) => {
       {navigation && (
         <Container className="">
           <Navbar expand="md" className="p-0" light color="faded">
-            <NavigationTabs tabs={false} />
+            <NavigationTabs tabs={false} activeTab={activeTab} />
           </Navbar>
         </Container>
       )}

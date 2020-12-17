@@ -63,7 +63,7 @@ const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {
       : item.version,
     priceId: itemPrices.length > 0 ? itemPrices[0].priceId.priceCode : '',
     groups:
-      itemAttributes.groups.length > 0
+      itemAttributes && itemAttributes.groups.length > 0
         ? itemAttributes.groups[0].groupCode
         : '',
   };

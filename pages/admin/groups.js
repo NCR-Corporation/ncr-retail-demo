@@ -11,7 +11,7 @@ const GroupsTab = () => {
 
   return (
     <div>
-      <Header navigation={false} />
+      <Header navigation={true} activeTab="groups" />
       <Container fluid className="w-75 my-4 flex-grow-1">
         <NavigationTabs activeTab="groups" />
         {isLoading && (

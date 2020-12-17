@@ -36,9 +36,9 @@ const Dashboard = () => {
   }
   return (
     <div>
-      <Header navigation={false} />
+      <Header navigation={true} activeTab="dashboard" />
       <Container fluid className="w-75 py-4 flex-grow-1">
-        <NavigationTabs activeTab="dashboard" />
+        {/* <NavigationTabs tabs={false} activeTab="dashboard" /> */}
         {isLoading && (
           <div className="d-flex justify-content-center mt-5">
             <Spinner color="dark" />

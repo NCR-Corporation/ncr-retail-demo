@@ -11,9 +11,8 @@ const CategoriesTab = () => {
 
   return (
     <div>
-      <Header navigation={false} />
+      <Header navigation={true} activeTab="categories" />
       <Container fluid className="w-75 my-4 flex-grow-1">
-        <NavigationTabs activeTab="categories" />
         {isLoading && (
           <div className="d-flex justify-content-center mt-5">
             <Spinner color="dark" />
