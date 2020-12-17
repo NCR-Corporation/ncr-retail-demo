@@ -15,11 +15,20 @@ function RecentOrders({ orders }) {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         mutate(`/api/admin/dashboard`);
+        mutate(`/api/order/${order.id}`);
       });
   };
   const columns = [
+    {
+      dataField: 'id',
+      text: 'Id',
+      sort: true,
+      formatter: (cell, row) => {
+        return <small>{cell}</small>;
+      },
+    },
     {
       dataField: 'customer.name',
       text: 'Customer',
