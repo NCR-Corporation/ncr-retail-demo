@@ -52,7 +52,18 @@ export default function Order({ id }) {
                 <h5 className="text-center">
                   {convertStatusText(order.data.status)}
                 </h5>
-                <Progress value="1" max="5" />
+                <Progress
+                  value={`${
+                    order.data.status === 'OrderPlaced'
+                      ? '1'
+                      : order.data.status == 'ReceivedForFulfillment'
+                      ? '2'
+                      : order.data.status == 'InFulfillment'
+                      ? '3'
+                      : '4'
+                  }`}
+                  max="4"
+                />
               </Col>
             </CardBody>
             <CardBody className="border-bottom">
