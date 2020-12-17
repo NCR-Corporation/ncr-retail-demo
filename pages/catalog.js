@@ -26,7 +26,7 @@ export default function Catalog({ query }) {
             catalogItems.data.pageContent.map((item) => (
               <Col
                 sm="6"
-                md="4"
+                md="3"
                 className="mb-4"
                 key={item.item.itemId.itemCode}
               >

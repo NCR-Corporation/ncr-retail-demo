@@ -19,7 +19,7 @@ const SettingsTab = () => {
   return (
     <div>
       <Header navigation={true} activeTab="settings" />
-      <Container fluid className="w-75 my-4 flex-grow-1">
+      <Container fluid className="w-75 my-2 flex-grow-1">
         <div className="bg my-4">
           <h5>Settings</h5>
           <Button color="primary" onClick={resetDatabase}>

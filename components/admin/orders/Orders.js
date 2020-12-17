@@ -83,6 +83,7 @@ function RecentOrders({ orders }) {
           <div>
             {row.status == 'OrderPlaced' && (
               <Button
+                size="sm"
                 color="danger"
                 onClick={() => updateOrderStatus(row, 'ReceivedForFulfillment')}
               >
@@ -91,6 +92,7 @@ function RecentOrders({ orders }) {
             )}
             {row.status == 'ReceivedForFulfillment' && (
               <Button
+                size="sm"
                 color="warning"
                 onClick={() => updateOrderStatus(row, 'InFulfillment')}
               >
@@ -99,6 +101,7 @@ function RecentOrders({ orders }) {
             )}
             {row.status == 'InFulfillment' && (
               <Button
+                size="sm"
                 color="info"
                 onClick={() => updateOrderStatus(row, 'Finished')}
               >
@@ -106,7 +109,7 @@ function RecentOrders({ orders }) {
               </Button>
             )}
             {row.status == 'Finished' && (
-              <Button disabled color="success">
+              <Button disabled color="success" size="sm">
                 Completed
               </Button>
             )}

@@ -12,7 +12,7 @@ const CatalogTab = () => {
   return (
     <div>
       <Header navigation={true} activeTab="catalog" />
-      <Container fluid className="w-75 my-4 flex-grow-1">
+      <Container fluid className="w-75 my-2 flex-grow-1">
         {isLoading && (
           <div className="d-flex justify-content-center mt-5">
             <Spinner color="dark" />

@@ -12,8 +12,7 @@ const GroupsTab = () => {
   return (
     <div>
       <Header navigation={true} activeTab="groups" />
-      <Container fluid className="w-75 my-4 flex-grow-1">
-        <NavigationTabs activeTab="groups" />
+      <Container fluid className="w-75 my-2 flex-grow-1">
         {isLoading && (
           <div className="d-flex justify-content-center mt-5">
             <Spinner color="dark" />
