@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    let categories = await getAllCategoryNodes();
+    console.log('here');
+    let categories = await getAllCategoryNodes(false, false);
     if (categories.length > 0) {
       categories.forEach((element) => {
         if (element.children.array.length > 0) {

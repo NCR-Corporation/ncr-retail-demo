@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import Header from '../Header';
+import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import CategorySelect from './CategorySelect';
 import * as Yup from 'yup';
 import useCategory from '~/lib/hooks/useCategory';
-import { Alert, Row, Col, Spinner } from 'reactstrap';
+import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
+import generateGUID from '~/lib/generateGUID';
 
 const init = {
   title: '',
   nodeCode: '',
   tag: '',
-  departmentNode: false,
-  departmentSale: false,
+  departmentNode: null,
+  departmentSale: null,
   status: '',
   parentCategory: '',
   version: 1,
@@ -21,8 +21,8 @@ const createCategorySchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   nodeCode: Yup.string().required('Node code is required'),
   tag: Yup.string(),
-  departmentNode: Yup.boolean(),
-  departmentSale: Yup.boolean(),
+  departmentNode: Yup.boolean().nullable(),
+  departmentSale: Yup.boolean().nullable(),
   status: Yup.mixed()
     .required('Status is required')
     .oneOf([
@@ -62,8 +62,8 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
       tag,
       nodeCode,
       tag: tag ?? '',
-      departmentNode: departmentNode ?? false,
-      departmentSale: departmentSale ?? false,
+      departmentNode: departmentNode ?? null,
+      departmentSale: departmentSale ?? null,
       status,
       title: title.values[0].value, // this should beupdated for locales?
       parentCategory: parentId ? parentId.nodeId : '',
@@ -97,9 +97,6 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
         },
       ],
     };
-
-    data['departmentSale'] = null;
-    data['departmentNode'] = null;
 
     if (data['parentCategory']) {
       data['parentId'] = {
@@ -153,7 +150,7 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
       onSubmit={handleSubmit}
     >
       {(formik) => {
-        const { errors, touched, isValid, dirty } = formik;
+        const { errors, touched, isValid, dirty, setFieldValue } = formik;
         return (
           <Form>
             {isLoading && (
@@ -169,7 +166,7 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
             >
               {showAlert.message}
             </Alert>
-            <Row className="my-4">
+            <Row className="mt-4">
               <Col>
                 <h4 className="mb-1">
                   {categoryId ? 'Edit' : 'Create'} Category
@@ -227,68 +224,66 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                         className="invalid-feedback"
                       />
                     </div>
-                    {/* <div className="row">
-                          <div className="col-md-6">
-                            <div className="form-group form-check">
-                              <Field
-                                type="checkbox"
-                                name="departmentNode"
-                                id="departmentNode"
-                                className={`${
-                                  errors.departmentNode &&
-                                  touched.departmentNode
-                                    ? 'is-invalid'
-                                    : null
-                                } form-check-input`}
-                              />
-                              <ErrorMessage
-                                name="departmentNode"
-                                component="div"
-                                className="invalid-feedback"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="departmentNode"
-                              >
-                                Department Node
-                              </label>
-                              <small
-                                id="departmentNode"
-                                className="form-text text-muted"
-                              >
-                                Indicates if this node represents a department
-                              </small>
-                            </div>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="form-group form-check">
+                          <Field
+                            type="checkbox"
+                            name="departmentNode"
+                            id="departmentNode"
+                            className={`${
+                              errors.departmentNode && touched.departmentNode
+                                ? 'is-invalid'
+                                : null
+                            } form-check-input`}
+                          />
+                          <ErrorMessage
+                            name="departmentNode"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="departmentNode"
+                          >
+                            Department Node
+                          </label>
+                          <small
+                            id="departmentNode"
+                            className="form-text text-muted"
+                          >
+                            Indicates if this node represents a department
+                          </small>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <div className="form-check">
+                            <Field
+                              type="checkbox"
+                              name="departmentSale"
+                              id="departmentSale"
+                              className={`${
+                                errors.departmentSale && touched.departmentSale
+                                  ? 'is-invalid'
+                                  : null
+                              } form-check-input`}
+                            />
+                            <ErrorMessage
+                              name="departmentNode"
+                              component="div"
+                              className="invalid-feedback"
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="departmentSale"
+                            >
+                              Department Sale
+                            </label>
                           </div>
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <div className="form-check">
-                                <Field
-                                  type="checkbox"
-                                  name="departmentSale"
-                                  id="departmentSale"
-                                  className={`${
-                                    errors.departmentSale &&
-                                    touched.departmentSale
-                                      ? 'is-invalid'
-                                      : null
-                                  } form-check-input`}
-                                />
-                                <ErrorMessage
-                                  name="departmentNode"
-                                  component="div"
-                                  className="invalid-feedback"
-                                />
-                                <label
-                                  className="form-check-label"
-                                  htmlFor="departmentSale"
-                                >
-                                  Department Sale
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>*/}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -312,9 +307,15 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                         component="div"
                         className="invalid-feedback"
                       />
-                      <small id="nodeCode" className="form-text text-muted">
-                        This will be the same as the Node Id
-                      </small>
+                      <Button
+                        onClick={() =>
+                          setFieldValue('nodeCode', generateGUID())
+                        }
+                        color="link"
+                        className="m-0 p-0"
+                      >
+                        Generate
+                      </Button>
                     </div>
                     <div className="form-group">
                       <label htmlFor="version">Version</label>
@@ -361,7 +362,11 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                     <CategorySelect
                       currentCategory={initialValues.nodeCode}
                       initialCategory={initialValues.parentCategory ?? ''}
-                      setDisabled={initialValues.parentCategory ? true : false}
+                      setDisabled={
+                        initialValues.parentCategory || categoryId
+                          ? true
+                          : false
+                      }
                       setParentCategory={setParentCategory}
                       categories={categoryNodes}
                     />

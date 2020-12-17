@@ -23,6 +23,7 @@ const init = {
   endDate: '',
   imageUrl: '',
   version: 1,
+  // alternateCategories: '',
 };
 
 const createItemSchema = Yup.object().shape({
@@ -58,6 +59,7 @@ const createItemSchema = Yup.object().shape({
   unitOfMeasure: Yup.mixed()
     .required('Unit of Measure is required')
     .oneOf(['EA']),
+  alternateCategories: Yup.string(),
 });
 
 const CatalogForm = ({ id, categories }) => {
@@ -69,6 +71,7 @@ const CatalogForm = ({ id, categories }) => {
   let { catalogItem, isLoading, isError } = useCatalogItem(id);
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.itemId == '') {
+    console.log('cata', catalogItem);
     const {
       departmentId,
       itemId,
@@ -78,6 +81,7 @@ const CatalogForm = ({ id, categories }) => {
       shortDescription,
       status,
       version,
+      // alternateCategories,
     } = catalogItem;
     let catalogValues = {
       version: version + 1,
@@ -90,6 +94,7 @@ const CatalogForm = ({ id, categories }) => {
       merchandiseCategory: 'Drinks',
       nonMerchandise: nonMerchandise ?? false,
       status,
+      alternateCategories,
     };
     setInitialValues(catalogValues);
   }
@@ -144,6 +149,7 @@ const CatalogForm = ({ id, categories }) => {
         },
       ],
     };
+    data['alternateCategories'] = [{ nodeId: data['alternateCategories'] }];
 
     delete data['longDescription'];
     data['longDescription'] = {
@@ -503,6 +509,30 @@ const CatalogForm = ({ id, categories }) => {
                         />
                       </CardBody>
                     </Card>
+                    {/* <Card className="mb-3">
+                      <CardBody>
+                        <div className="form-group">
+                          <label htmlFor="alternateCategories">
+                            Alternate Categories
+                          </label>
+                          <Field
+                            name="alternateCategories"
+                            id="alternateCategories"
+                            className={`${
+                              errors.alternateCategories &&
+                              touched.alternateCategories
+                                ? 'is-invalid'
+                                : null
+                            } form-control`}
+                          />
+                          <ErrorMessage
+                            name="alternateCategories"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                      </CardBody>
+                    </Card> */}
                   </Col>
                 </Row>
               </Form>

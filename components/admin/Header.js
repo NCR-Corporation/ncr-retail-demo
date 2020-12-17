@@ -7,6 +7,7 @@ import { faHome, faDownload } from '@fortawesome/free-solid-svg-icons';
 import {
   Container,
   Nav,
+  Navbar,
   NavItem,
   NavLink,
   Row,
@@ -77,11 +78,6 @@ const Header = ({ navigation = true }) => {
                 <a className="logo-text">MART</a>
               </Link>
             </Col>
-            {navigation && (
-              <Col md="8">
-                <NavigationTabs tabs={false} />
-              </Col>
-            )}
             <Col className="col text-md-right">
               <Tooltip
                 placement="right"
@@ -108,6 +104,13 @@ const Header = ({ navigation = true }) => {
           </Row>
         </Container>
       </section>
+      {navigation && (
+        <Container className="">
+          <Navbar expand="md" className="p-0" light color="faded">
+            <NavigationTabs tabs={false} />
+          </Navbar>
+        </Container>
+      )}
     </header>
   );
 };
