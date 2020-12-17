@@ -8,6 +8,7 @@ export default async function handler(req, res) {
     let response = await findNearby(req.query.latitude, req.query.longitude);
     if (response.status == 200) {
       let sites = response.data.sites;
+      let activeSites = [];
       const start = {
         latitude: req.query.latitude,
         longitude: req.query.longitude,
@@ -18,8 +19,11 @@ export default async function handler(req, res) {
           longitude: site.coordinates.longitude,
         };
         site['distanceTo'] = haversine(start, end, { unit: 'mile' });
+        if (site.status == 'ACTIVE') {
+          activeSites.push(site);
+        }
       });
-      let orderedSites = _.orderBy(sites, ['distanceTo'], ['asc']);
+      let orderedSites = _.orderBy(activeSites, ['distanceTo'], ['asc']);
       response.data.sites = orderedSites;
       res.json(response);
     } else {

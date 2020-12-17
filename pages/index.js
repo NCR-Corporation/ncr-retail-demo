@@ -50,50 +50,55 @@ function Home() {
               Uhoh, we've hit an error.
             </small>
           )}
-          {!isLoading && !isError && data && data.homepageContent && (
-            <div>
-              {Object.keys(data.homepageContent).map((key) => (
-                <div key={key}>
-                  <Card
-                    inverse
-                    style={{ height: '250px' }}
-                    className="mb-4 shadow-sm"
-                  >
-                    <Image
-                      src={`${data.homepageContent[key].group.data.tag}`}
-                      alt={`${data.homepageContent[key].group.data.title.values[0].value}`}
-                      objectFit="none"
-                      layout="fill"
-                      objectPosition="center"
-                      style={{ opacity: '0.75' }}
-                    />
-                    <CardImgOverlay className="card-img-overlay d-flex align-content-center justify-content-center flex-wrap">
-                      <CardTitle tag="h2" className="image-overlay-title">
-                        {
-                          data.homepageContent[key].group.data.title.values[0]
-                            .value
-                        }
-                      </CardTitle>
-                    </CardImgOverlay>
-                  </Card>
-                  <Row>
-                    {data.homepageContent[key].catalog.data.pageContent.map(
-                      (item) => (
-                        <Col
-                          xs="4"
-                          sm="3"
-                          className="mb-4"
-                          key={item.item.itemId.itemCode}
-                        >
-                          <ItemCard catalogItem={item} />
-                        </Col>
-                      )
-                    )}
-                  </Row>
-                </div>
-              ))}
-            </div>
-          )}
+          {!isLoading &&
+            !isError &&
+            userStore.id &&
+            data &&
+            data.homepageContent && (
+              <div>
+                {Object.keys(data.homepageContent).length > 0 &&
+                  Object.keys(data.homepageContent).map((key) => (
+                    <div key={key}>
+                      <Card
+                        inverse
+                        style={{ height: '250px' }}
+                        className="mb-4 shadow-sm"
+                      >
+                        <Image
+                          src={`${data.homepageContent[key].group.data.tag}`}
+                          alt={`${data.homepageContent[key].group.data.title.values[0].value}`}
+                          objectFit="none"
+                          layout="fill"
+                          objectPosition="center"
+                          style={{ opacity: '0.75' }}
+                        />
+                        <CardImgOverlay className="card-img-overlay d-flex align-content-center justify-content-center flex-wrap">
+                          <CardTitle tag="h2" className="image-overlay-title">
+                            {
+                              data.homepageContent[key].group.data.title
+                                .values[0].value
+                            }
+                          </CardTitle>
+                        </CardImgOverlay>
+                      </Card>
+                      <Row>
+                        {data.homepageContent[key].catalog.data.pageContent.map(
+                          (item) => (
+                            <Col
+                              xs="4"
+                              sm="3"
+                              className="mb-4"
+                              key={item.item.itemId.itemCode}
+                            >
+                              <ItemCard catalogItem={item} />
+                            </Col>
+                          )
+                        )}
+                      </Row>
+                    </div>
+                  ))}
+              </div>
+            )}
         </div>
       </main>
       <Footer />

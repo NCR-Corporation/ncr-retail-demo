@@ -27,9 +27,6 @@ export default function SiteCatalogTable({
       dataField: 'item.itemId.itemCode',
       text: 'ID',
       sort: true,
-      headerStyle: {
-        width: '100px',
-      },
     },
     {
       dataField: 'item.shortDescription.values[0].value',
