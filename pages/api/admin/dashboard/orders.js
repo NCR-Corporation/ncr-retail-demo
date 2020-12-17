@@ -1,3 +1,6 @@
+import { getAllOrders } from '~/lib/order';
+
 export default async function handler(req, res) {
-  res.json({});
+  let result = await getAllOrders();
+  res.json(result);
 }

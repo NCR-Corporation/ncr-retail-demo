@@ -4,9 +4,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import CategorySelect from '../categories/CategorySelect';
 import useCatalogItem from '~/lib/hooks/useCatalogItem';
-import { Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
+import { Row, Col, Card, CardBody, Alert, Spinner, Button } from 'reactstrap';
 import DatePicker from '../DatePicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import generateGUID from '~/lib/generateGUID';
 
 const init = {
   itemId: '',
@@ -22,12 +23,13 @@ const init = {
   endDate: '',
   imageUrl: '',
   version: 1,
+  groups: '',
 };
 
 const createItemSchema = Yup.object().shape({
   itemId: Yup.string().required('Item ID is required'),
   shortDescription: Yup.string().required('Short description is required'),
-  longDescription: Yup.string(),
+  longDescription: Yup.string().required('Long description is required'),
   // Need to update this required check to handle hidden field on change
   merchandiseCategory: Yup.string().required(
     'Merchandise Category is required'
@@ -54,6 +56,10 @@ const createItemSchema = Yup.object().shape({
     ),
   }),
   version: Yup.number().required('Version is required when updating catalog.'),
+  unitOfMeasure: Yup.mixed()
+    .required('Unit of Measure is required')
+    .oneOf(['EA']),
+  groups: Yup.string(),
 });
 
 const CatalogForm = ({ id, categories }) => {
@@ -65,18 +71,17 @@ const CatalogForm = ({ id, categories }) => {
   let { catalogItem, isLoading, isError } = useCatalogItem(id);
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.itemId == '') {
-    console.log('here', catalogItem);
+    console.log('cata', catalogItem);
     const {
       departmentId,
-      alternateCategories,
       itemId,
       longDescription,
       merchandiseCategory,
       nonMerchandise,
-      referenceId,
       shortDescription,
       status,
       version,
+      groups,
     } = catalogItem;
     let catalogValues = {
       version: version + 1,
@@ -86,9 +91,10 @@ const CatalogForm = ({ id, categories }) => {
       shortDescription: shortDescription
         ? shortDescription.values[0].value
         : '',
-      merchandiseCategory: merchandiseCategory.nodeId,
+      merchandiseCategory: 'Drinks',
       nonMerchandise: nonMerchandise ?? false,
       status,
+      groups,
     };
     setInitialValues(catalogValues);
   }
@@ -106,6 +112,27 @@ const CatalogForm = ({ id, categories }) => {
         data['version'] = values[key];
       }
     }
+
+    data['dynamicAttributes'] = [
+      {
+        type: 'retail-item',
+        attributes: [
+          {
+            key: 'ITEM_TYPE_CODE',
+            value: '0',
+          },
+        ],
+      },
+    ];
+
+    data['packageIdentifiers'] = [
+      {
+        type: '0',
+        value: data['itemId'],
+      },
+    ];
+
+    data['departmentId'] = '02';
 
     delete data['itemId'];
     data['itemId'] = { itemCode: values['itemId'] };
@@ -133,11 +160,8 @@ const CatalogForm = ({ id, categories }) => {
       ],
     };
 
-    // data['version'] = 2;
-    // data['merchandiseCategory'] = { "nodeId": parentCategory };
-
     if (id) {
-      // delete data['itemId'];
+      delete data['unitOfMeasure'];
       fetch(`/api/items/${id}`, { method: 'POST', body: JSON.stringify(data) })
         .then((response) => response.json())
         .then((data) => {
@@ -156,12 +180,15 @@ const CatalogForm = ({ id, categories }) => {
         .then((response) => response.json())
         .then((data) => {
           let error = false;
-          data.forEach((element) => {
-            if (element.status != 204) {
-              setShowAlert({ status: data.status, message: data.data.message });
-              errot = true;
+          for (let key in data) {
+            if (data[key].status != 204) {
+              setShowAlert({
+                status: data[key].status,
+                message: data[key].data.message,
+              });
+              error = true;
             }
-          });
+          }
           if (!error) {
             setShowAlert({
               status: 200,
@@ -403,6 +430,15 @@ const CatalogForm = ({ id, categories }) => {
                               component="div"
                               className="invalid-feedback"
                             />
+                            <Button
+                              onClick={() =>
+                                setFieldValue('itemId', generateGUID())
+                              }
+                              color="link"
+                              className="m-0 p-0"
+                            >
+                              Generate
+                            </Button>
                           </div>
                         </div>
                         <div className="form-group">
@@ -433,6 +469,26 @@ const CatalogForm = ({ id, categories }) => {
                             className="invalid-feedback"
                           />
                         </div>
+                        <div className="form-group">
+                          <label htmlFor="status">Unit of Measure*</label>
+                          <Field
+                            as="select"
+                            name="unitOfMeasure"
+                            className={`${
+                              errors.unitOfMeasure && touched.unitOfMeasure
+                                ? 'is-invalid'
+                                : null
+                            } form-control`}
+                          >
+                            <option>--</option>
+                            <option value="EA" label="Each" />
+                          </Field>
+                          <ErrorMessage
+                            name="status"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </div>
                       </CardBody>
                     </Card>
                     <Card className="mb-3">
@@ -450,6 +506,28 @@ const CatalogForm = ({ id, categories }) => {
                           setParentCategory={setParentCategory}
                           categories={categories}
                         />
+                      </CardBody>
+                    </Card>
+                    <Card className="mb-3">
+                      <CardBody>
+                        <div className="form-group">
+                          <label htmlFor="groups">Group</label>
+                          <Field
+                            name="groups"
+                            id="groups"
+                            className={`${
+                              errors.groups && touched.groups
+                                ? 'is-invalid'
+                                : null
+                            } form-control`}
+                            disabled={id ? 'disabled' : ''}
+                          />
+                          <ErrorMessage
+                            name="groups"
+                            component="div"
+                            className="invalid-feedback"
+                          />
+                        </div>
                       </CardBody>
                     </Card>
                   </Col>

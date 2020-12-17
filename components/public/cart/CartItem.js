@@ -1,79 +1,68 @@
 import { useContext } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { Col, Row, Button, FormGroup, Input } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
+import { UserStoreContext } from '~/context/userStore';
 
-export default function CartItem({ userCart, item, itemKey }) {
-  const { setUserCart } = useContext(UserCartContext);
+export default function CartItem({ location, item, itemKey }) {
+  const { userCart, setUserCart } = useContext(UserCartContext);
+  const { userStore } = useContext(UserStoreContext);
 
   const removeFromCart = (itemKey) => {
-    let quantity = userCart.items[itemKey].quantity;
-    let price = userCart.items[itemKey].itemPrices[0].price; // Not 100% accurate.
-    delete userCart.items[itemKey];
-    userCart.totalQuantity = userCart.totalQuantity - quantity;
-    userCart.totalPrice = userCart.totalPrice - price * quantity;
-
-    setUserCart(userCart);
+    fetch(`/api/cart/${location}`, {
+      method: 'DELETE',
+      body: JSON.stringify({
+        siteId: userStore.id,
+        cartId: location,
+        lineItemId: itemKey,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        let totalQuantity = userCart.totalQuantity - item.quantity.value;
+        userCart.totalQuantity = totalQuantity;
+        setUserCart(userCart);
+      });
   };
 
-  const handleQuantityChange = (event, itemKey) => {
-    let currentItem = userCart.items[itemKey];
-    let totalQuantity = userCart.totalQuantity;
-    let totalPrice = userCart.totalPrice;
-    totalQuantity =
-      totalQuantity - currentItem.quantity + parseInt(event.target.value);
-    totalPrice =
-      totalPrice -
-      currentItem.quantity * currentItem.itemPrices[0].price +
-      parseInt(event.target.value) * currentItem.itemPrices[0].price;
-    currentItem.quantity = event.target.value;
-    userCart.items[itemKey] = currentItem;
-    userCart.totalPrice = totalPrice;
-    userCart.totalQuantity = totalQuantity;
-    console.log(userCart);
-    setUserCart(userCart);
+  const handleQuantityChange = (event, item) => {
+    let itemObj = {
+      itemId: {
+        itemCode: item.itemId.value,
+      },
+      quantity: parseInt(event.target.value),
+    };
+    fetch(`/api/cart`, {
+      method: 'POST',
+      body: JSON.stringify({
+        siteId: userStore.id,
+        cart: userCart,
+        etag: userCart.etag ?? false,
+        location: userCart.location ?? false,
+        item: itemObj,
+        fromCart: true,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        userCart.location = data.location;
+        userCart.etag = data.etag;
+        userCart.totalQuantity =
+          userCart.totalQuantity + parseInt(event.target.value);
+        setUserCart(userCart);
+      });
   };
   return (
     <Row className="d-flex align-items-center">
-      <Col sm="2" className="d-sm-none d-md-block">
-        <Image
-          alt={
-            item.item.shortDescription.values
-              ? item.item.shortDescription.values[0].value
-              : item.item.shortDescription.value
-          }
-          src={
-            item.itemAttributes &&
-            item.itemAttributes.imageUrls &&
-            item.itemAttributes.imageUrls.length > 0
-              ? item.itemAttributes.imageUrls[0]
-              : 'https://via.placeholder.com/150'
-          }
-          layout="responsive"
-          width={500}
-          height={500}
-          className="p-4"
-        />
-      </Col>
       <Col sm="12" md="10">
         <Row className="w-100 no-gutters">
           <Col sm="6" md="8" className="mb-2">
-            <Link href={`/catalog/${item.item.itemId.itemCode}`}>
-              <a className="h5 card-title mb-2">
-                {item.itemAttributes
-                  ? item.itemAttributes.shortDescription.values[0].value
-                  : item.item.shortDescription.values[0].value}
-              </a>
+            <Link href={`/catalog/${item.itemId.value}`}>
+              <a className="h5 card-title mb-2">{item.description}</a>
             </Link>
-            <h6 className="text-muted">
-              {item.itemAttributes
-                ? item.itemAttributes.longDescription.values[0].value
-                : item.item.longDescription.values[0].value}
-              {/* ${item.itemPrices[0].price} */}
-            </h6>
+            <h6 className="text-muted">${item.extendedAmount}</h6>
           </Col>
           <Col sm="4" md="2">
             <FormGroup>
@@ -81,8 +70,8 @@ export default function CartItem({ userCart, item, itemKey }) {
                 type="select"
                 name="select"
                 id="qtySelect"
-                value={item.quantity}
-                onChange={() => handleQuantityChange(e, itemKey)}
+                value={item.quantity.value}
+                onChange={() => handleQuantityChange(event, item)}
               >
                 {Array.from({ length: 20 }, (_, i) => i + 1).map((item) => (
                   <option key={item}>{item}</option>

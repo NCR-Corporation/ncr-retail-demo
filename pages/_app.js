@@ -13,7 +13,7 @@ config.autoAddCss = false; /* eslint-disable import/first */
 
 export function reportWebVitals(metric) {
   if (metric.label === 'custom') {
-    console.log(metric);
+    // console.log(metric);
   }
 }
 

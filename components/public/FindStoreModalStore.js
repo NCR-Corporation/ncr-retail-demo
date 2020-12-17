@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 const FindStoreModalStore = ({ toggle, setUserStore, site }) => {
   const [addingUserStore, setAddingUserStore] = useState(false);
-  console.log('the site', site);
   return (
     <Row className="my-4 mb-4" key={site.id}>
       <Col sm="6">

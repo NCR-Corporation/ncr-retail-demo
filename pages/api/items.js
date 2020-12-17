@@ -19,15 +19,32 @@ export default async function handler(req, res) {
       currency: itemCopy.currency,
       effectiveDate: itemCopy.effectiveDate,
       status: itemCopy.status,
+      basePrice: true,
       priceId: {
         itemCode: itemCopy.itemId.itemCode,
         enterpriseUnitId: site.id,
         priceCode: itemCopy.itemId.itemCode,
       },
+      dynamicAttributes: [
+        {
+          type: 'retail-price',
+          attributes: [
+            {
+              key: 'UOM',
+              value: itemCopy.unitOfMeasure,
+            },
+            {
+              key: 'UNITS',
+              value: '1',
+            },
+          ],
+        },
+      ],
     };
     delete itemCopy['price'];
     delete itemCopy['currency'];
     delete itemCopy['effectiveDate'];
+    delete itemCopy['unitOfMeasure'];
 
     let itemAttributes = Object.assign({}, itemCopy);
     itemAttributes['imageUrls'] = [itemCopy.imageUrl];
@@ -35,12 +52,19 @@ export default async function handler(req, res) {
       itemCode: itemCopy.itemId.itemCode,
       enterpriseUnitId: site.id,
     };
+    itemAttributes['groups'] = [
+      {
+        groupCode: itemCopy.groups,
+      },
+    ];
     delete itemAttributes['imageUrl'];
     delete itemAttributes['departmentId'];
     delete itemAttributes['nonMerchandise'];
     delete itemAttributes['itemId'];
+    delete itemAttributes['packageIdentifiers'];
 
     delete itemCopy['imageUrl'];
+    delete itemCopy['groups'];
 
     delete itemCopy['imageUrl'];
     items.push(itemCopy);

@@ -37,7 +37,6 @@ export default function Login({ toggle, showRegisterModal }) {
 
   const handleSubmit = async (values) => {
     setLoginRequest(true);
-    console.log(values);
     signIn('login', {
       json: true,
       username: values.username,
@@ -45,9 +44,7 @@ export default function Login({ toggle, showRegisterModal }) {
       disableCallback: true,
     }).then(async () => {
       let status = await getSession();
-      console.log('the session', session);
       setLoginRequest(false);
-      console.log('the status', status);
       if (status == null) {
         useErrors(true);
       } else {

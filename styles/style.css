@@ -109,3 +109,8 @@ label {
 .main-container {
   min-height: 100vh;
 }
+
+.image-overlay-title {
+  color: #16181b;
+  font-size: 2rem;
+}

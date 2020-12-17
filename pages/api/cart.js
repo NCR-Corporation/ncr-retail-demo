@@ -1,31 +1,67 @@
-import { createCart, addItemToCart } from '~/lib/cart';
+import {
+  createCart,
+  addItemToCart,
+  getCartItemsById,
+  updateItemInCartById,
+} from '~/lib/cart';
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
-  let cart = await createCart(body.siteId);
-  let location = cart.headers.get('location');
-  let etag = cart.headers.get('ETag');
-  let cartId = location.split('/')[2];
-  console.log(body);
-  let items = body.cart.items;
-  console.log('the items', items);
-  let cartItems = [];
+  if (body.etag == false || body.location == false) {
+    let cart = await createCart(body.siteId);
+    let location = cart.headers.get('location');
+    let etag = cart.headers.get('ETag');
+    let cartId = location.split('/')[2];
+    let item = body.item;
 
-  const promises = Object.keys(items).map(async (key) => {
-    console.log(key);
     let obj = {
-      // itemId: key,
-      scanData: key,
+      itemId: item.itemId.itemCode,
+      scanData: item.itemId.itemCode,
       quantity: {
         unitOfMeasure: 'EA', // ???
-        value: items[key].quantity,
+        value: item.quantity,
       },
     };
-    let cartItemAdded = await addItemToCart(body.siteId, cartId, obj);
-    console.log(obj);
-    cartItems.push(cartItemAdded);
-  });
-  await Promise.all(promises);
-  console.log(cartItems);
-  // res.json({ location, etag });
-  res.json({});
+    await addItemToCart(body.siteId, cartId, etag, obj);
+    res.json({ etag, location: cartId });
+  } else {
+    let cartId = body.location;
+    let etag = body.etag;
+    let cartItems = await getCartItemsById(body.siteId, cartId);
+
+    let item = body.item;
+    let itemId = body.item.itemId.itemCode;
+    // Check if we need to update.
+    let update = false;
+    let pageContent = cartItems.data.pageContent;
+    for (let index = 0; index < pageContent.length; index++) {
+      const element = pageContent[index];
+      if (element.itemId.value == itemId) {
+        update = element;
+        break;
+      }
+    }
+    if (!update) {
+      let obj = {
+        itemId: item.itemId.itemCode,
+        scanData: item.itemId.itemCode,
+        quantity: {
+          unitOfMeasure: 'EA', // ???
+          value: item.quantity,
+        },
+      };
+      await addItemToCart(body.siteId, cartId, etag, obj);
+    } else {
+      let updateObj = {
+        quantity: {
+          unitOfMeasure: 'EA',
+          value: body.fromCart
+            ? item.quantity
+            : update.quantity.value + item.quantity,
+        },
+      };
+      let lineId = update.lineId;
+      await updateItemInCartById(body.siteId, cartId, etag, lineId, updateObj);
+    }
+    res.json({ etag, location: cartId });
+  }
 }

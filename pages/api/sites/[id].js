@@ -5,10 +5,7 @@ export default async function handler(req, res) {
     let response = await getById(req.query.id);
     res.json(response);
   } else if (req.method === 'PUT') {
-    let response = await updateSite(
-      req.query.id,
-      JSON.parse(JSON.parse(req.body))
-    );
+    let response = await updateSite(req.query.id, JSON.parse(req.body));
     res.json(response);
   }
 }

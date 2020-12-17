@@ -8,6 +8,7 @@ export default async function handler(req, res) {
   let siteId = req.query.params[0];
   let itemId = req.query.params[1];
   let body = JSON.parse(req.body);
+  console.log('the body', body);
 
   let itemAttributes = {
     version: body.version,
@@ -31,12 +32,37 @@ export default async function handler(req, res) {
     status: body.status,
   };
 
+  if (body.groups) {
+    itemAttributes['groups'] = [
+      {
+        groupCode: body.groups,
+      },
+    ];
+  }
+
   let itemPrices = {
     version: body.version,
     price: body.price,
     currency: body.currency,
     effectiveDate: body.effectiveDate,
+    endDate: '2100-12-17T05:00:00Z',
     status: body.status,
+    basePrice: true,
+    dynamicAttributes: [
+      {
+        type: 'retail-price',
+        attributes: [
+          {
+            key: 'UOM',
+            value: 'EA',
+          },
+          {
+            key: 'UNITS',
+            value: '1',
+          },
+        ],
+      },
+    ],
   };
   let priceId = body.priceId !== '' ? body.priceId : uniqid();
   let updatePrice = await updateSiteCatalogItemPricesByItemCode(
@@ -45,7 +71,6 @@ export default async function handler(req, res) {
     priceId,
     itemPrices
   );
-  console.log(updatePrice);
   let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(
     siteId,
     itemId,

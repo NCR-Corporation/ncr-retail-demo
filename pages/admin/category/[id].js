@@ -1,8 +1,16 @@
 import CategoryForm from '~/components/admin/categories/CategoryForm';
 import { getAllCategoryNodes } from '~/lib/category';
+import Header from '~/components/admin/Header';
 
 const EditCategory = ({ categoryId, categoryNodes }) => {
-  return <CategoryForm categoryId={categoryId} categoryNodes={categoryNodes} />;
+  return (
+    <div className="bg pb-4">
+      <Header />
+      <main className="container">
+        <CategoryForm categoryId={categoryId} categoryNodes={categoryNodes} />
+      </main>
+    </div>
+  );
 };
 
 export async function getServerSideProps(context) {

@@ -32,6 +32,16 @@ function Categories({ categories }) {
       sort: true,
     },
     {
+      dataField: 'departmentSale',
+      text: 'Department Sale',
+      sort: true,
+    },
+    {
+      dataField: 'departmentNode',
+      text: 'Department Node',
+      sort: true,
+    },
+    {
       dataField: '',
       text: '',
       headerStyle: {
@@ -49,13 +59,13 @@ function Categories({ categories }) {
 
   const defaultSorted = [
     {
-      dataField: 'id',
-      order: 'desc',
+      dataField: 'nodeId.nodeId',
+      order: 'asc',
     },
   ];
 
   return (
-    <div>
+    <div className="pb-4">
       <div className="text-right my-2">
         <Link href="/admin/category/new">
           <a className="btn btn-primary">New Category</a>
@@ -69,6 +79,7 @@ function Categories({ categories }) {
           columns={columns}
           hover
           defaultSorted={defaultSorted}
+          noDataIndication="No categories found"
         />
       </div>
     </div>

@@ -1,40 +1,128 @@
 import BootstrapTable from 'react-bootstrap-table-next';
+import { mutate } from 'swr';
+import { Button } from 'reactstrap';
 
-function RecentOrders({ data }) {
+function RecentOrders({ orders }) {
+  const updateOrderStatus = (order, status) => {
+    fetch(`/api/order/${order.id}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        siteId: order.enterpriseUnitId,
+        orderId: order.id,
+        values: {
+          status,
+        },
+      }),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        mutate(`/api/admin/dashboard`);
+        mutate(`/api/order/${order.id}`);
+      });
+  };
   const columns = [
     {
       dataField: 'id',
       text: 'Id',
       sort: true,
-      headerStyle: {
-        width: '100px',
+      formatter: (cell, row) => {
+        return <small>{cell}</small>;
       },
     },
     {
-      dataField: 'date',
-      text: 'Date',
+      dataField: 'customer.name',
+      text: 'Customer',
       sort: true,
     },
     {
-      dataField: 'store',
-      text: 'Store',
+      dataField: 'dateUpdated',
+      text: 'Last Updated',
+      sort: true,
+      formatter: (cell, row) => {
+        let locale = new Date(Date.parse(cell)).toLocaleString();
+        return <p>{locale}</p>;
+      },
+    },
+    {
+      dataField: 'owner',
+      text: 'Site',
       sort: true,
     },
     {
-      dataField: 'quantity',
-      text: 'Quantity',
+      dataField: 'status',
+      text: 'Status',
       sort: true,
     },
     {
-      dataField: 'total',
-      text: 'Total',
+      dataField: 'orderLines',
+      text: 'Total Items',
       sort: true,
+      formatter: (cell, row) => {
+        return <p>{cell.length}</p>;
+      },
+      headerStyle: {
+        width: '150px',
+      },
+    },
+    {
+      dataField: 'totals[0].value',
+      text: 'Price Total',
+      sort: true,
+      formatter: (cell, row) => {
+        return <p>${cell}</p>;
+      },
+      headerStyle: {
+        width: '150px',
+      },
+    },
+    {
+      dataField: '',
+      text: '',
+      formatter: (rowContent, row) => {
+        return (
+          <div>
+            {row.status == 'OrderPlaced' && (
+              <Button
+                color="danger"
+                onClick={() => updateOrderStatus(row, 'ReceivedForFulfillment')}
+              >
+                Set Received
+              </Button>
+            )}
+            {row.status == 'ReceivedForFulfillment' && (
+              <Button
+                color="warning"
+                onClick={() => updateOrderStatus(row, 'InFulfillment')}
+              >
+                Set In Fulfillment
+              </Button>
+            )}
+            {row.status == 'InFulfillment' && (
+              <Button
+                color="info"
+                onClick={() => updateOrderStatus(row, 'Finished')}
+              >
+                Set Finished
+              </Button>
+            )}
+            {row.status == 'Finished' && (
+              <Button disabled color="success">
+                Completed
+              </Button>
+            )}
+            {/* 
+            <Link href={`/admin/orders/${row.id}`}>
+              <a className="btn btn-primary">Update</a>
+            </Link> */}
+          </div>
+        );
+      },
     },
   ];
 
   const defaultSorted = [
     {
-      dataField: 'id',
+      dataField: 'dateUpdated',
       order: 'desc',
     },
   ];
@@ -44,7 +132,7 @@ function RecentOrders({ data }) {
         <BootstrapTable
           bootstrap4
           keyField="id"
-          data={[]}
+          data={orders}
           columns={columns}
           hover
           defaultSorted={defaultSorted}

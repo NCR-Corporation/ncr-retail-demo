@@ -1,12 +1,14 @@
 import Header from '~/components/admin/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faStore,
+  faTruck,
   faThList,
-  faBox,
+  faCheckCircle,
   faCircle,
+  faExclamationCircle,
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
+import _ from 'lodash';
 import {
   Container,
   CardTitle,
@@ -22,13 +24,20 @@ import Orders from '~/components/admin/orders/Orders';
 
 const Dashboard = () => {
   let { data, isLoading, isError } = useDashboard();
+  let ordersPlaced, ordersReceived, ordersInFulfillment, ordersFilled;
   if (!isLoading && !isError) {
-    console.log(data);
+    let orders = data.orders.data.pageContent;
+    ordersPlaced = orders.filter((el) => el.status == 'OrderPlaced');
+    ordersReceived = orders.filter(
+      (el) => el.status == 'ReceivedForFulfillment'
+    );
+    ordersInFulfillment = orders.filter((el) => el.status == 'InFulfillment');
+    ordersFilled = orders.filter((el) => el.status == 'Finished');
   }
   return (
     <div>
-      <Header />
-      <Container className="my-4 flex-grow-1">
+      <Header navigation={false} />
+      <Container fluid className="w-75 py-4 flex-grow-1">
         <NavigationTabs activeTab="dashboard" />
         {isLoading && (
           <div className="d-flex justify-content-center mt-5">
@@ -47,7 +56,32 @@ const Dashboard = () => {
                     <CardTitle tag="h5">
                       <span className="fa-layers fa-fw pb-2">
                         <FontAwesomeIcon
-                          className="text-success"
+                          className="text-danger"
+                          icon={faCircle}
+                          size="2x"
+                          transform="left-3"
+                        />
+                        <FontAwesomeIcon
+                          icon={faExclamationCircle}
+                          inverse
+                          transform="shrink-2"
+                        />
+                      </span>
+                    </CardTitle>
+                    <CardTitle tag="h4" className="m-0">
+                      <strong>{ordersPlaced.length}</strong>
+                    </CardTitle>
+                    <small className="text-muted">new orders</small>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col md="3">
+                <Card>
+                  <CardBody>
+                    <CardTitle tag="h5">
+                      <span className="fa-layers fa-fw pb-2">
+                        <FontAwesomeIcon
+                          className="text-warning"
                           icon={faCircle}
                           size="2x"
                           transform="left-3"
@@ -60,9 +94,34 @@ const Dashboard = () => {
                       </span>
                     </CardTitle>
                     <CardTitle tag="h4" className="m-0">
-                      <strong>0</strong>
+                      <strong>{ordersReceived.length}</strong>
                     </CardTitle>
-                    <small className="text-muted">total orders</small>
+                    <small className="text-muted">orders received</small>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col md="3">
+                <Card>
+                  <CardBody>
+                    <CardTitle tag="h5">
+                      <span className="fa-layers fa-fw pb-2">
+                        <FontAwesomeIcon
+                          className="text-info"
+                          icon={faCircle}
+                          size="2x"
+                          transform="left-3"
+                        />
+                        <FontAwesomeIcon
+                          icon={faTruck}
+                          inverse
+                          transform="shrink-2"
+                        />
+                      </span>
+                    </CardTitle>
+                    <CardTitle tag="h4" className="m-0">
+                      <strong>{ordersInFulfillment.length}</strong>
+                    </CardTitle>
+                    <small className="text-muted">orders in fulfillment</small>
                   </CardBody>
                 </Card>
               </Col>
@@ -78,73 +137,23 @@ const Dashboard = () => {
                           transform="left-3"
                         />
                         <FontAwesomeIcon
-                          icon={faStore}
+                          icon={faCheckCircle}
                           inverse
                           transform="shrink-2"
                         />
                       </span>
                     </CardTitle>
                     <CardTitle tag="h4" className="m-0">
-                      <strong>{data.sites.data.totalResults}</strong>
+                      <strong>{ordersFilled.length}</strong>
                     </CardTitle>
-                    <small className="text-muted">operating sites</small>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col md="3">
-                <Card>
-                  <CardBody>
-                    <CardTitle tag="h5">
-                      <span className="fa-layers fa-fw pb-2">
-                        <FontAwesomeIcon
-                          className="text-success"
-                          icon={faCircle}
-                          size="2x"
-                          transform="left-3"
-                        />
-                        <FontAwesomeIcon
-                          icon={faThList}
-                          inverse
-                          transform="shrink-2"
-                        />
-                      </span>
-                    </CardTitle>
-                    <CardTitle tag="h4" className="m-0">
-                      <strong>{data.categoryNodes.length}</strong>
-                    </CardTitle>
-                    <small className="text-muted">total categories</small>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col md="3">
-                <Card>
-                  <CardBody>
-                    <CardTitle tag="h5">
-                      <span className="fa-layers fa-fw pb-2">
-                        <FontAwesomeIcon
-                          className="text-success"
-                          icon={faCircle}
-                          size="2x"
-                          transform="left-3"
-                        />
-                        <FontAwesomeIcon
-                          icon={faBox}
-                          inverse
-                          transform="shrink-2"
-                        />
-                      </span>
-                    </CardTitle>
-                    <CardTitle tag="h4" className="m-0">
-                      <strong>{data.catalog.data.totalResults}</strong>
-                    </CardTitle>
-                    <small className="text-muted">available items</small>
+                    <small className="text-muted">orders fulfilled</small>
                   </CardBody>
                 </Card>
               </Col>
             </Row>
             <div className="my-4">
               <h4 className="mb-1">Recent Orders</h4>
-              <Orders />
+              <Orders orders={data.orders.data.pageContent} />
             </div>
           </div>
         )}
