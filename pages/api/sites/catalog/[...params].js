@@ -8,6 +8,7 @@ export default async function handler(req, res) {
   let siteId = req.query.params[0];
   let itemId = req.query.params[1];
   let body = JSON.parse(req.body);
+  console.log('the body', body);
 
   let itemAttributes = {
     version: body.version,
@@ -30,6 +31,14 @@ export default async function handler(req, res) {
     },
     status: body.status,
   };
+
+  if (body.groups) {
+    itemAttributes['groups'] = [
+      {
+        groupCode: body.groups,
+      },
+    ];
+  }
 
   let itemPrices = {
     version: body.version,

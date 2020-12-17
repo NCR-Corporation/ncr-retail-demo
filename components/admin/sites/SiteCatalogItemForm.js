@@ -34,6 +34,7 @@ const createItemSchema = Yup.object().shape({
   }),
   currency: Yup.mixed().required().oneOf(['USD']),
   version: Yup.number().required('Version is required when updating category.'),
+  groups: Yup.string(),
 });
 
 const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {
@@ -61,6 +62,10 @@ const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {
         : itemAttributes.version
       : item.version,
     priceId: itemPrices.length > 0 ? itemPrices[0].priceId.priceCode : '',
+    groups:
+      itemAttributes.groups.length > 0
+        ? itemAttributes.groups[0].groupCode
+        : '',
   };
 
   const handleSubmit = async (values) => {
@@ -192,6 +197,21 @@ const SiteCatalogItemForm = ({ toggle, itemObject, siteId, setShowAlert }) => {
                     />
                     <ErrorMessage
                       name="imageUrl"
+                      component="div"
+                      className="invalid-feedback"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="groups">Group</label>
+                    <Field
+                      name="groups"
+                      id="groups"
+                      className={`${
+                        errors.groups && touched.groups ? 'is-invalid' : null
+                      } form-control`}
+                    />
+                    <ErrorMessage
+                      name="groups"
                       component="div"
                       className="invalid-feedback"
                     />

@@ -6,7 +6,6 @@ import {
   Col,
   Spinner,
   CardImgOverlay,
-  CardImg,
   CardTitle,
 } from 'reactstrap';
 import Footer from '~/components/public/Footer';
@@ -19,17 +18,10 @@ import Image from 'next/image';
 function Home() {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useHomepage(userStore.id);
-  console.log(data);
   return (
     <div className="d-flex flex-column main-container">
       <Header />
       <main className="container my-4 flex-grow-1">
-        {/* {setup && <WelcomeModal />} */}
-        {isLoading && (
-          <div className="text-center">
-            <Spinner />
-          </div>
-        )}
         <div>
           <Card className="mb-4 border-0 shadow-sm">
             <CardBody>
@@ -48,6 +40,11 @@ function Home() {
               </Row>
             </CardBody>
           </Card>
+          {isLoading && (
+            <div className="text-center">
+              <Spinner />
+            </div>
+          )}
           {isError && (
             <small className="text-muted center">
               Uhoh, we've hit an error.
@@ -56,11 +53,15 @@ function Home() {
           {!isLoading && !isError && data && data.homepageContent && (
             <div>
               {Object.keys(data.homepageContent).map((key) => (
-                <div>
-                  <Card inverse style={{ height: '250px' }}>
+                <div key={key}>
+                  <Card
+                    inverse
+                    style={{ height: '250px' }}
+                    className="mb-4 shadow-sm"
+                  >
                     <Image
-                      src={`${data.homepageContent[key].category.tag}`}
-                      alt={`${data.homepageContent[key].category.title.value}`}
+                      src={`${data.homepageContent[key].group.data.tag}`}
+                      alt={`${data.homepageContent[key].group.data.title.values[0].value}`}
                       objectFit="none"
                       layout="fill"
                       objectPosition="center"
@@ -68,7 +69,10 @@ function Home() {
                     />
                     <CardImgOverlay className="card-img-overlay d-flex align-content-center justify-content-center flex-wrap">
                       <CardTitle tag="h2" className="image-overlay-title">
-                        {data.homepageContent[key].category.title.value}
+                        {
+                          data.homepageContent[key].group.data.title.values[0]
+                            .value
+                        }
                       </CardTitle>
                     </CardImgOverlay>
                   </Card>

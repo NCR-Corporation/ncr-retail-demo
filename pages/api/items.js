@@ -52,6 +52,7 @@ export default async function handler(req, res) {
       itemCode: itemCopy.itemId.itemCode,
       enterpriseUnitId: site.id,
     };
+    itemAttributes['groups'] = itemCopy.groups;
     delete itemAttributes['imageUrl'];
     delete itemAttributes['departmentId'];
     delete itemAttributes['nonMerchandise'];
@@ -59,6 +60,7 @@ export default async function handler(req, res) {
     delete itemAttributes['packageIdentifiers'];
 
     delete itemCopy['imageUrl'];
+    delete itemCopy['groups'];
 
     delete itemCopy['imageUrl'];
     items.push(itemCopy);

@@ -36,6 +36,13 @@ const NavigationTabs = ({ activeTab, tabs = true }) => {
         </Link>
       </NavItem>
       <NavItem>
+        <Link href="/admin/groups">
+          <a className={`nav-link ${activeTab === 'groups' && 'active'}`}>
+            Groups
+          </a>
+        </Link>
+      </NavItem>
+      <NavItem>
         <Link href="/admin/catalog">
           <a className={`nav-link ${activeTab === 'catalog' && 'active'}`}>
             Global Catalog

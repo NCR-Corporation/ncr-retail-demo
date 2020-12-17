@@ -23,7 +23,7 @@ const init = {
   endDate: '',
   imageUrl: '',
   version: 1,
-  // alternateCategories: '',
+  groups: '',
 };
 
 const createItemSchema = Yup.object().shape({
@@ -59,7 +59,7 @@ const createItemSchema = Yup.object().shape({
   unitOfMeasure: Yup.mixed()
     .required('Unit of Measure is required')
     .oneOf(['EA']),
-  alternateCategories: Yup.string(),
+  groups: Yup.string(),
 });
 
 const CatalogForm = ({ id, categories }) => {
@@ -81,7 +81,7 @@ const CatalogForm = ({ id, categories }) => {
       shortDescription,
       status,
       version,
-      // alternateCategories,
+      groups,
     } = catalogItem;
     let catalogValues = {
       version: version + 1,
@@ -94,7 +94,7 @@ const CatalogForm = ({ id, categories }) => {
       merchandiseCategory: 'Drinks',
       nonMerchandise: nonMerchandise ?? false,
       status,
-      alternateCategories,
+      groups,
     };
     setInitialValues(catalogValues);
   }
@@ -149,7 +149,6 @@ const CatalogForm = ({ id, categories }) => {
         },
       ],
     };
-    data['alternateCategories'] = [{ nodeId: data['alternateCategories'] }];
 
     delete data['longDescription'];
     data['longDescription'] = {
@@ -509,30 +508,28 @@ const CatalogForm = ({ id, categories }) => {
                         />
                       </CardBody>
                     </Card>
-                    {/* <Card className="mb-3">
+                    <Card className="mb-3">
                       <CardBody>
                         <div className="form-group">
-                          <label htmlFor="alternateCategories">
-                            Alternate Categories
-                          </label>
+                          <label htmlFor="groups">Group</label>
                           <Field
-                            name="alternateCategories"
-                            id="alternateCategories"
+                            name="groups"
+                            id="groups"
                             className={`${
-                              errors.alternateCategories &&
-                              touched.alternateCategories
+                              errors.groups && touched.groups
                                 ? 'is-invalid'
                                 : null
                             } form-control`}
+                            disabled={id ? 'disabled' : ''}
                           />
                           <ErrorMessage
-                            name="alternateCategories"
+                            name="groups"
                             component="div"
                             className="invalid-feedback"
                           />
                         </div>
                       </CardBody>
-                    </Card> */}
+                    </Card>
                   </Col>
                 </Row>
               </Form>
