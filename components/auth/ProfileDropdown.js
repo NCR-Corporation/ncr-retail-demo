@@ -57,7 +57,7 @@ function ProfileDropdown({ toggleModalLogin }) {
               >
                 Orders
               </DropdownItem>
-              <DropdownItem
+              {/* <DropdownItem
                 onClick={() =>
                   router.push({
                     pathname: '/user/payments',
@@ -65,7 +65,7 @@ function ProfileDropdown({ toggleModalLogin }) {
                 }
               >
                 Payments
-              </DropdownItem>
+              </DropdownItem> */}
               <DropdownItem divider />
               <DropdownItem onClick={() => signOut({ callbackUrl: '/' })}>
                 Logout

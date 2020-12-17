@@ -14,7 +14,7 @@ export default function Sidebar({ url }) {
           Orders
         </a>
       </Link>
-      <Link href="/user/payments">
+      {/* <Link href="/user/payments">
         <a
           className={`list-group-item ${
             url === 'payments' && 'active'
@@ -31,7 +31,7 @@ export default function Sidebar({ url }) {
         >
           Change Password
         </a>
-      </Link>
+      </Link> */}
     </ListGroup>
   );
 }

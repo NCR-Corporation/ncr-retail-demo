@@ -27,10 +27,11 @@ const Checkout = ({ session }) => {
 
   const { cart, isLoading, isError } = useCart(userStore.id, userCart.location);
   if (
-    userCart.totalQuantity == 0 ||
-    (!isLoading &&
-      !isError &&
-      (cart.cart.status == 404 || cart.cartItems.status == 404))
+    !isPurchasing &&
+    (userCart.totalQuantity == 0 ||
+      (!isLoading &&
+        !isError &&
+        (cart.cart.status == 404 || cart.cartItems.status == 404)))
   ) {
     router.push({
       pathname: '/',
@@ -54,8 +55,10 @@ const Checkout = ({ session }) => {
         if (data.status == 200) {
           setUserCart({ totalQuantity: 0, etag: null, location: null });
           router.push(`/order/${data.data.id}`);
+          setIsPurchasing(false);
+        } else {
+          setIsPurchasing(false);
         }
-        setIsPurchasing(false);
       });
   };
   return (
