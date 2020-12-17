@@ -30,11 +30,13 @@ const CatalogItem = ({ id }) => {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { catalogItem, isLoading, isError } = useCatalogItem(id, userStore.id);
   const [quantity, setItemQuantity] = useState(1);
+  const [addedToCart, setAddedToCart] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
 
   const handleAddToCart = (itemObj) => {
     itemObj['quantity'] = quantity;
-    setAddingToCart(false);
+    setAddingToCart(true);
+    setAddedToCart(false);
     fetch(`/api/cart`, {
       method: 'POST',
       body: JSON.stringify({
@@ -51,7 +53,8 @@ const CatalogItem = ({ id }) => {
         userCart.etag = data.etag;
         userCart.totalQuantity = userCart.totalQuantity + quantity;
         setUserCart(userCart);
-        setAddingToCart(true);
+        setAddingToCart(false);
+        setAddedToCart(true);
       });
   };
 
@@ -143,12 +146,13 @@ const CatalogItem = ({ id }) => {
                             block
                             color="primary"
                             onClick={() => handleAddToCart(catalogItem.item)}
-                            className={`${addingToCart && 'fade-btn'}`}
-                            color={addingToCart ? 'success' : 'primary'}
+                            className={`${addedToCart && 'fade-btn'}`}
+                            color={addedToCart ? 'success' : 'primary'}
                             outline
-                            onAnimationEnd={() => setAddingToCart(false)}
+                            onAnimationEnd={() => setAddedToCart(false)}
                           >
-                            {addingToCart ? (
+                            {addingToCart && <Spinner size="sm" />}
+                            {addedToCart ? (
                               <div>
                                 <FontAwesomeIcon
                                   icon={faCheckCircle}

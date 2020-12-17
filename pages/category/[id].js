@@ -82,7 +82,7 @@ export default function Category({ id }) {
               {categoryItems.length > 0 ? (
                 categoryItems.map((item) => (
                   <div
-                    className="col-md-6 col-lg-4 mb-4"
+                    className="col-sm-6 col-md-3 mb-4"
                     key={item.item.itemId.itemCode}
                   >
                     <ItemCard catalogItem={item} />
