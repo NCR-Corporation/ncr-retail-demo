@@ -51,10 +51,12 @@ const CatalogItem = ({ id }) => {
       .then((data) => {
         userCart.location = data.location;
         userCart.etag = data.etag;
-        userCart.totalQuantity = userCart.totalQuantity + quantity;
+        userCart.totalQuantity = userCart.totalQuantity
+          ? userCart.totalQuantity + quantity
+          : quantity;
         setUserCart(userCart);
-        setAddingToCart(false);
         setAddedToCart(true);
+        setAddingToCart(false);
       });
   };
 
