@@ -52,7 +52,11 @@ export default async function handler(req, res) {
       itemCode: itemCopy.itemId.itemCode,
       enterpriseUnitId: site.id,
     };
-    itemAttributes['groups'] = itemCopy.groups;
+    itemAttributes['groups'] = [
+      {
+        groupCode: itemCopy.groups,
+      },
+    ];
     delete itemAttributes['imageUrl'];
     delete itemAttributes['departmentId'];
     delete itemAttributes['nonMerchandise'];

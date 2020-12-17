@@ -33,7 +33,7 @@ const createGroupSchema = Yup.object().shape({
 const GroupForm = ({ id }) => {
   const [initialValues, setInitialValues] = useState(init);
   let { group, isLoading, isError } = useGroup(id);
-  if (!isLoading && !isError && initialValues.title == '') {
+  if (id && !isLoading && !isError && initialValues.title == '') {
     console.log('the group', group);
     let { data } = group;
     let newValues = {
@@ -87,7 +87,7 @@ const GroupForm = ({ id }) => {
           <Form>
             <Row className="mt-4">
               <Col>
-                <h4 className="mb-1">{id ? 'Edit' : 'Create'}Group</h4>
+                <h4 className="mb-1">{id ? 'Edit' : 'Create'} Group</h4>
               </Col>
               <Col>
                 <div className="form-group float-right">

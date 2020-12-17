@@ -18,6 +18,7 @@ import Image from 'next/image';
 function Home() {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useHomepage(userStore.id);
+  console.log('data', data);
   return (
     <div className="d-flex flex-column main-container">
       <Header />
@@ -32,9 +33,9 @@ function Home() {
                   </h3>
                   <p>
                     MART is an example application built on top of NCR's APIs.
-                    MART utilizies the Catalog, Sites, Orders, Provisioning, and
-                    Security APIs to create a one-stop-shop experience to manage
-                    everything for your company.
+                    MART utilizies the Catalog, Sites, Cart (Emerald), Orders,
+                    Provisioning, and Security APIs to create a one-stop-shop
+                    experience to manage everything for your company.
                   </p>
                 </Col>
               </Row>
@@ -50,55 +51,46 @@ function Home() {
               Uhoh, we've hit an error.
             </small>
           )}
-          {!isLoading &&
-            !isError &&
-            userStore.id &&
-            data &&
-            data.homepageContent && (
-              <div>
-                {Object.keys(data.homepageContent).length > 0 &&
-                  Object.keys(data.homepageContent).map((key) => (
-                    <div key={key}>
-                      <Card
-                        inverse
-                        style={{ height: '250px' }}
-                        className="mb-4 shadow-sm"
-                      >
-                        <Image
-                          src={`${data.homepageContent[key].group.data.tag}`}
-                          alt={`${data.homepageContent[key].group.data.title.values[0].value}`}
-                          objectFit="none"
-                          layout="fill"
-                          objectPosition="center"
-                          style={{ opacity: '0.75' }}
-                        />
-                        <CardImgOverlay className="card-img-overlay d-flex align-content-center justify-content-center flex-wrap">
-                          <CardTitle tag="h2" className="image-overlay-title">
-                            {
-                              data.homepageContent[key].group.data.title
-                                .values[0].value
-                            }
-                          </CardTitle>
-                        </CardImgOverlay>
-                      </Card>
-                      <Row>
-                        {data.homepageContent[key].catalog.data.pageContent.map(
-                          (item) => (
-                            <Col
-                              xs="4"
-                              sm="3"
-                              className="mb-4"
-                              key={item.item.itemId.itemCode}
-                            >
-                              <ItemCard catalogItem={item} />
-                            </Col>
-                          )
-                        )}
-                      </Row>
-                    </div>
-                  ))}
-              </div>
-            )}
+          {!isLoading && !isError && userStore.id && data && data.home && (
+            <div>
+              {data.home.length > 0 &&
+                data.home.map((element) => (
+                  <div key={element.group.data.groupId.groupCode}>
+                    <Card
+                      inverse
+                      style={{ height: '250px' }}
+                      className="mb-4 shadow-sm"
+                    >
+                      <Image
+                        src={`${element.group.data.tag}`}
+                        alt={`${element.group.data.title.values[0].value}`}
+                        objectFit="none"
+                        layout="fill"
+                        objectPosition="center"
+                        style={{ opacity: '0.75' }}
+                      />
+                      <CardImgOverlay className="card-img-overlay d-flex align-content-center justify-content-center flex-wrap">
+                        <CardTitle tag="h2" className="image-overlay-title">
+                          {element.group.data.title.values[0].value}
+                        </CardTitle>
+                      </CardImgOverlay>
+                    </Card>
+                    <Row>
+                      {element.catalog.data.pageContent.map((item) => (
+                        <Col
+                          xs="4"
+                          sm="3"
+                          className="mb-4"
+                          key={item.item.itemId.itemCode}
+                        >
+                          <ItemCard catalogItem={item} />
+                        </Col>
+                      ))}
+                    </Row>
+                  </div>
+                ))}
+            </div>
+          )}
         </div>
       </main>
       <Footer />

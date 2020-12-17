@@ -7,7 +7,7 @@ const NewCategory = ({ categoryNodes }) => {
     <div className="bg pb-4">
       <Header />
       <main className="container">
-        <CategoryForm categoryNodes={categoryNodes} />;
+        <CategoryForm categoryNodes={categoryNodes} />
       </main>
     </div>
   );
