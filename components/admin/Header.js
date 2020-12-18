@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import NavigationTabs from '~/components/admin/NavigationTabs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faWrench } from '@fortawesome/free-solid-svg-icons';
 import {
   Container,
   Nav,
@@ -96,9 +96,9 @@ const Header = ({ navigation = true, activeTab }) => {
                 {exporting ? (
                   <Spinner color="light" size="sm" />
                 ) : (
-                  <FontAwesomeIcon icon={faDownload} size="1x" />
+                  <FontAwesomeIcon icon={faWrench} size="1x" />
                 )}{' '}
-                Export All Data
+                Build Sample Database
               </Button>
             </Col>
           </Row>
