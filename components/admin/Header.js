@@ -55,7 +55,8 @@ const Header = ({ navigation = true, activeTab }) => {
             download="Sample Retail APIs.postman_collection.json"
             className="btn btn-primary"
           >
-            <FontAwesomeIcon icon={faDownload} /> Download Postman Collection
+            <FontAwesomeIcon icon={faWrench} />
+            Build Sample Database
           </a>
         </ModalBody>
       </Modal>
