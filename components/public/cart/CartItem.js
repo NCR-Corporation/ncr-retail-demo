@@ -54,6 +54,7 @@ export default function CartItem({ location, item, itemKey }) {
         setUserCart(userCart);
       });
   };
+  console.log(item);
   return (
     <Row className="d-flex align-items-center">
       <Col sm="12" md="10">
@@ -62,7 +63,9 @@ export default function CartItem({ location, item, itemKey }) {
             <Link href={`/catalog/${item.itemId.value}`}>
               <a className="h5 card-title mb-2">{item.description}</a>
             </Link>
-            <h6 className="text-muted">${item.extendedAmount}</h6>
+            <h6 className="text-muted">
+              ${item.price.unitPrice} {item.quantity.unitOfMeasure}
+            </h6>
           </Col>
           <Col sm="4" md="2">
             <FormGroup>
