@@ -50,7 +50,7 @@ export default function Header({ logs }) {
       <header className="section-header shadow-sm">
         <section className="header-top-light border-bottom">
           <Container>
-            <Nav className="d-flex justify-content-end row">
+            <Nav className="d-flex justify-content-between row">
               <NavItem>
                 <Logger logs={allLogs} />
               </NavItem>
