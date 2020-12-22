@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
+import Logger from '~/components/api-logger/Logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
@@ -13,8 +14,12 @@ import SearchBar from './SearchBar';
 import { UserCartContext } from '~/context/userCart';
 import ProfileDropdown from '../auth/ProfileDropdown';
 
-export default function Header() {
+export default function Header({ logs }) {
+  let allLogs = logs;
   const { categories } = useHeader();
+  if (categories && categories.logs) {
+    allLogs.push(categories.logs);
+  }
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,6 +51,9 @@ export default function Header() {
         <section className="header-top-light border-bottom">
           <Container>
             <Nav className="d-flex justify-content-end row">
+              <NavItem>
+                <Logger logs={allLogs} />
+              </NavItem>
               <NavItem>
                 <a href="/admin/dashboard" className="nav-link">
                   <FontAwesomeIcon icon={faCog} size="1x" /> Manage

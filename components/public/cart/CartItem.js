@@ -54,7 +54,6 @@ export default function CartItem({ location, item, itemKey }) {
         setUserCart(userCart);
       });
   };
-  console.log(item);
   return (
     <Row className="d-flex align-items-center">
       <Col sm="12" md="10">

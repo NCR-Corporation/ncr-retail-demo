@@ -8,7 +8,6 @@ export default async function handler(req, res) {
   let siteId = req.query.params[0];
   let itemId = req.query.params[1];
   let body = JSON.parse(req.body);
-  console.log('the body', body);
 
   let itemAttributes = {
     version: body.version,

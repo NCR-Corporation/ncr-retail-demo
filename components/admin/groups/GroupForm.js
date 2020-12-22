@@ -34,7 +34,6 @@ const GroupForm = ({ id }) => {
   const [initialValues, setInitialValues] = useState(init);
   let { group, isLoading, isError } = useGroup(id);
   if (id && !isLoading && !isError && initialValues.title == '') {
-    console.log('the group', group);
     let { data } = group;
     let newValues = {
       version: data.version + 1,

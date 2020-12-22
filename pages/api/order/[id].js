@@ -13,7 +13,6 @@ export default async function handler(req, res) {
   } else {
     // Post request.
     let body = JSON.parse(req.body);
-    console.log('body', body);
     let data = await updateOrderById(body.siteId, body.orderId, body.values);
     res.json(data);
   }

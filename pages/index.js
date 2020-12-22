@@ -18,10 +18,9 @@ import Image from 'next/image';
 function Home() {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useHomepage(userStore.id);
-  console.log('data', data);
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
+      <Header logs={data && data.logs ? data.logs : []} />
       <main className="container my-4 flex-grow-1">
         <div>
           <Card className="mb-4 border-0 shadow-sm">
@@ -98,16 +97,16 @@ function Home() {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   let setup = true;
-//   if (process.env.REACT_APP_BSP_SECRET_KEY != '') {
-//     setup = false;
-//   }
-//   return {
-//     props: {
-//       setup,
-//     },
-//   };
-// }
+export async function getServerSideProps(context) {
+  let setup = true;
+  if (process.env.REACT_APP_BSP_SECRET_KEY != '') {
+    setup = false;
+  }
+  return {
+    props: {
+      setup,
+    },
+  };
+}
 
 export default Home;

@@ -7,7 +7,6 @@ import { Col, Row, Button } from 'reactstrap';
 
 function Groups({ data }) {
   const groups = data.data.pageContent;
-  console.log(groups);
 
   const selectOptions = {
     ACTIVE: 'ACTIVE',

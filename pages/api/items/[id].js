@@ -5,7 +5,6 @@ import {
 
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
-  console.log('the body', body);
   // let groups = body.groups;
   delete body.groups;
   // let itemAttributes = {

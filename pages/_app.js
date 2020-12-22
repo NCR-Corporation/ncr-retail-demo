@@ -17,7 +17,7 @@ export function reportWebVitals(metric) {
   }
 }
 
-function MyApp({ Component, pageProps, categories }) {
+function MyApp({ Component, pageProps }) {
   return (
     <Provider session={pageProps.session}>
       <UserStoreProvider>
@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps, categories }) {
           <Head>
             <title>MART | Sample Retail Demo</title>
           </Head>
-          <Component {...pageProps} categories={categories} />
+          <Component {...pageProps} />
         </UserCartProvider>
       </UserStoreProvider>
     </Provider>
