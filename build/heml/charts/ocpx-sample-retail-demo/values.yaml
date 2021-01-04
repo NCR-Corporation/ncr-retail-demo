@@ -1,0 +1,45 @@
+Master:
+  App:
+    Name: ocpx-sample-retail-demo
+    Prefix: ocpx
+    ReleaseVersion:
+  ImagePullPolicy: Always
+Image:
+  Domain: us.gcr.io
+  Project:
+  PullPolicy: Always
+Scaling:
+  Frontend:
+    Enabled:
+    DefaultReplicas:
+    MinReplicas:
+    MaxReplicas:
+    TargetCpuUtilization:
+    TargetMemoryUtilization:
+  Backend:
+    Enabled:
+    DefaultReplicas:
+    MinReplicas:
+    MaxReplicas:
+    TargetCpuUtilization:
+    TargetMemoryUtilization:
+Resources:
+  Frontend:
+    MinCpu:
+    MaxCpu:
+    MinMemory:
+    MaxMemory:
+  Backend:
+    MinCpu:
+    MaxCpu:
+    MinMemory:
+    MaxMemory:
+Backend:
+  AdminUsername:
+  AdminPassword:
+  DxUri:
+  RandomToken:
+  RandomTokenExpirationDate:
+Ingress:
+  Annotations: {}
+  SelfCheckin: {}

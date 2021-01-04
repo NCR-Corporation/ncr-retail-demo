@@ -1,0 +1,31 @@
+{{- if .Values.Ingress.SelfCheckin }}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $.Release.Name }}-srd-ingress
+  annotations:
+    {{- if .Values.Ingress.Annotations }}
+    {{- .Values.Ingress.Annotations | include "all-keys" | indent 4 }}
+    {{- end}}
+    {{- if .Values.Ingress.SelfCheckin.Annotations }}
+    {{- .Values.Ingress.SelfCheckin.Annotations | include "all-keys" | indent 4 }}
+    {{- end}}
+spec:
+  {{- if .Values.Ingress.SelfCheckin.TlsSecret }}
+  tls:
+    - hosts:
+        - {{ .Values.Ingress.SelfCheckin.Host }}
+      secretName: {{ .Values.Ingress.SelfCheckin.TlsSecret }}
+  {{- end}}
+  rules:
+    - host: {{ .Values.Ingress.SelfCheckin.Host }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-srd-frontend
+              servicePort: 80
+          - path: /api
+            backend:
+              serviceName: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-srd-backend
+              servicePort: 80
+{{- end}}

@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-srd-frontend
+  labels:
+    app: {{ .Values.Master.App.Prefix }}-srd-frontend
+    version: {{ $.Chart.Version }}
+    release: {{ $.Release.Name }}
+spec:
+  {{- if .Values.Scaling.Enabled }}
+  replicas: {{ .Values.Scaling.DefaultReplicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.Master.App.Prefix }}-srd-frontend
+      version: {{ $.Chart.Version }}
+      release: {{ $.Release.Name }}
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.Master.App.Prefix }}-srd-frontend
+        version: {{ $.Chart.Version }}
+        release: {{ $.Release.Name }}
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: {{ $.Release.Name }}-srd-frontend
+          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}-srd-frontend:{{ $.Chart.Version }}
+          imagePullPolicy: {{ .Values.Master.ImagePullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+          {{- if .Values.Scaling.Frontend.Enabled }}
+          resources:
+            requests:
+              cpu: {{ .Values.Resources.Frontend.MinCpu | quote }}
+              memory: {{ .Values.Resources.Frontend.MinMemory | quote }}
+            limits:
+              cpu: {{ .Values.Resources.Frontend.MaxCpu | quote }}
+              memory: {{ .Values.Resources.Frontend.MaxMemory | quote }}
+          {{- end }}
+status: {}

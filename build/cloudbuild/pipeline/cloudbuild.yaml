@@ -1,0 +1,96 @@
+steps:
+  # Frontend
+
+  - id: 'frontend-build'
+    name: 'us.gcr.io/${PROJECT_ID}/ocpx-nodejs:${_NODEJS_VERSION}'
+    waitFor: ['-']
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        set -e
+
+        cd frontend
+
+        app_name="selfCheckin"
+        publish_path="publish/${app_name}"
+
+        rm -rf bin obj dist
+        npm install
+        npm run build -- --prod
+
+        mkdir -p "$publish_path"
+        mv "dist/${app_name}" "${publish_path}/wwwroot"
+
+        cp "../build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
+        cp "../build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
+        cp "../build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
+
+  - id: 'frontend-docker'
+    name: 'gcr.io/cloud-builders/docker'
+    waitFor: ['frontend-build']
+    args:
+      [
+        'build',
+        '--build-arg',
+        'NGINX_VERSION=${_NGINX_VERSION}',
+        '--build-arg',
+        'NGINX_VARIANT=alpine',
+        '--tag',
+        'us.gcr.io/${PROJECT_ID}/ocpx-sc-frontend:${TAG_NAME}',
+        '--label',
+        'ocpx-artifact=${TAG_NAME}',
+        'frontend/publish/selfCheckin',
+      ]
+
+  # Backend
+
+  - id: 'backend-docker'
+    name: 'gcr.io/cloud-builders/docker'
+    waitFor: ['-']
+    args:
+      [
+        'build',
+        '--tag',
+        'us.gcr.io/${PROJECT_ID}/ocpx-sc-backend:${TAG_NAME}',
+        '--label',
+        'ocpx-artifact=${TAG_NAME}',
+        'backend',
+      ]
+
+  # Helm Charts
+
+  - id: 'publish-helm'
+    name: 'us.gcr.io/${PROJECT_ID}/ocpx-helm:${_HELM_VERSION}-gcs${_HELM_GCS_VERSION}'
+    waitFor:
+      - frontend-docker
+      - backend-docker
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        cd build/helm/charts
+
+        helm gcs init "gs://${_HELM_STORAGE_BUCKET}"
+        helm repo add gs-repository "gs://${_HELM_STORAGE_BUCKET}"
+
+        for app_path in */; do
+          app="$( echo "$(basename "$app_path")" | awk '{print tolower($0)}' )"
+
+          echo "Publish Helm charts for ${app}"
+
+          helm lint "$app"
+          helm package "$app" --version "$TAG_NAME"
+          helm gcs push "${app}-${TAG_NAME}.tgz" gs-repository --retry --force
+        done
+
+images:
+  - 'us.gcr.io/${PROJECT_ID}/ocpx-sc-frontend:${TAG_NAME}'
+  - 'us.gcr.io/${PROJECT_ID}/ocpx-sc-backend:${TAG_NAME}'
+
+substitutions:
+  _HELM_GCS_VERSION: '0.2.0'
+  _HELM_STORAGE_BUCKET: ''
+  _HELM_VERSION: '2.11.0'
+  _NODEJS_VERSION: '10'
+  _NGINX_VERSION: '1.15'
