@@ -1,9 +1,11 @@
 import { exportAllData } from '~/lib/export';
+import fs from 'fs';
 import PostmanCollection from '~/public/Sample Retail APIs.postman_collection.json';
 import _ from 'lodash';
 
 export default async function handler(req, res) {
   let response = await exportAllData();
+  console.log('the resp', response);
   const { items, sites, categories, itemPrices, itemAttributes } = response;
   let itemsObject = {
     items: items,
@@ -39,5 +41,6 @@ export default async function handler(req, res) {
         break;
     }
   });
+  fs.writeFileSync('postman.json', JSON.stringify(PostmanCollection));
   res.json(PostmanCollection);
 }

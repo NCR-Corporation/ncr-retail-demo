@@ -27,6 +27,11 @@ function Categories({ categories }) {
       sort: true,
     },
     {
+      dataField: 'tag',
+      text: 'Tag',
+      sort: true,
+    },
+    {
       dataField: 'status',
       text: 'Status',
       sort: true,

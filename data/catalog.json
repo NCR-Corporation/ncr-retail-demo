@@ -1,0 +1,556 @@
+[
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "67ac8a52" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "67ac8a52"
+    },
+    "merchandiseCategory": { "nodeId": "6532adcd" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Avocado"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Great with Chips & Salsa"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "0.99",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_6d9d5f9f-7206-49c4-a381-6ba5a0c08504?wid=588&hei=588&qlt=80&fmt=webp",
+    "groups": "28ba8df5",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "06ffb782" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "06ffb782"
+    },
+    "merchandiseCategory": { "nodeId": "d78b0d8b" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Glass Bowl 16oz - White"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Perfect for soup, salad, and more."
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "2.99",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_d0d2719d-c19a-42df-aa3a-25ffdaffa88a?wid=700&hei=700&qlt=80&fmt=webp",
+    "groups": "626b2673",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "2cc60517" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "2cc60517"
+    },
+    "merchandiseCategory": { "nodeId": "6532adcd" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Yellow Onions"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "3lb Bag"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "1.99",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_2f39379e-da27-49f3-b13a-bb5864d214ca?wid=700&hei=700&qlt=80&fmt=webp",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "426def6c" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "426def6c"
+    },
+    "merchandiseCategory": { "nodeId": "109a29fb" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Serving Bowl - Plastic"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Great for dinner parties!"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "8.99",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_f7d82554-5cbf-4761-b8b6-4aaf04bd07a3?wid=700&hei=700&qlt=80&fmt=webp",
+    "groups": "626b2673",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "4ea6bc44" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "4ea6bc44"
+    },
+    "merchandiseCategory": { "nodeId": "b74ea410" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Tostitos Chunky Salsa - Milk"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Great with Scoops"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "3.49",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_83404955-e03c-4d49-a4c8-ddc9b066682e?wid=700&hei=700&qlt=80&fmt=webp",
+    "groups": "28ba8df5",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "4f09da20" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "4f09da20"
+    },
+    "merchandiseCategory": { "nodeId": "deca91c2" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Porcelain Dinner Plate"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Perfect for food"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "4.59",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_3494bbe1-3e24-4cc6-8ca1-c5b8f11874eb?wid=700&hei=700&qlt=80&fmt=webp",
+    "groups": "626b2673",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "61cd469b" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "61cd469b"
+    },
+    "merchandiseCategory": { "nodeId": "deca91c2" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Glass Dinner Plate"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "One glass plate"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "4.59",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_ae819d39-43d0-4927-a55d-ea36ade0e33d?wid=700&hei=700&qlt=80&fmt=webp",
+    "groups": "626b2673",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "8b660373" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "8b660373"
+    },
+    "merchandiseCategory": { "nodeId": "b74ea410" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Salsa Con Queso - Medium"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Combine with Chips and Salsa!"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "3.79",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_5da9bd36-5e1a-483f-af4e-a48a1aac37c7?wid=700&hei=700&qlt=80&fmt=webp",
+    "groups": "28ba8df5",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "8bf1f816" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "8bf1f816"
+    },
+    "merchandiseCategory": { "nodeId": "6532adcd" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Russet Potatoes"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "5lb bag"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "2.49",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_a1f7a423-ac95-46da-ad52-3ddb2c3873ab?wid=700&hei=700&qlt=80&fmt=webp",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "92a16247" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "92a16247"
+    },
+    "merchandiseCategory": { "nodeId": "abaaeea3" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Strawberries"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "1lb bag"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "3.49",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_ce4ac41d-c124-49db-8f0f-2f472ee51815?wid=700&hei=700&qlt=80&fmt=webp",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "bf786a66" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "bf786a66"
+    },
+    "merchandiseCategory": { "nodeId": "abaaeea3" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Blueberries"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "4.4oz package"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "1.35",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_31e44e71-4d8b-413c-b5bd-d5b36650098e?wid=700&hei=700&qlt=80&fmt=webp",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "eacd515c" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "eacd515c"
+    },
+    "merchandiseCategory": { "nodeId": "abaaeea3" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Bananas"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "2lbs of your favorite yellow fruit!"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "1.99",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_02227710-3cd3-43e8-8f46-af4c7f95bb8f?wid=700&hei=700&qlt=80&fmt=webp",
+    "nonMerchandise": false
+  },
+  {
+    "version": 100,
+    "dynamicAttributes": [
+      {
+        "type": "retail-item",
+        "attributes": [
+          {
+            "key": "ITEM_TYPE_CODE",
+            "value": "0"
+          }
+        ]
+      }
+    ],
+    "packageIdentifiers": [{ "type": "0", "value": "f4bbc05c" }],
+    "departmentId": "02",
+    "itemId": {
+      "itemCode": "f4bbc05c"
+    },
+    "merchandiseCategory": { "nodeId": "abaaeea3" },
+    "shortDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Tostito Scoops Tortilla Chips"
+        }
+      ]
+    },
+    "longDescription": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Scoops - great for salsa or dips!"
+        }
+      ]
+    },
+    "unitOfMeasure": "EA",
+    "price": "3.99",
+    "currency": "USD",
+    "effectiveDate": "2020-12-17T05:00:00Z",
+    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_4e98dacb-1ff2-423f-8ea8-da84f44d5b0b?wid=700&hei=700&qlt=80&fmt=webp",
+    "groups": "28ba8df5",
+    "nonMerchandise": false
+  }
+]

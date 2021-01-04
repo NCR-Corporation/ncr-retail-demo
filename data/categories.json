@@ -1,0 +1,125 @@
+[
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Grocery"
+        }
+      ]
+    },
+    "nodeCode": "ec8fff52",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "version": 100
+  },
+  {
+    "title": "Kitchen",
+    "nodeCode": "af452ca5",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "version": 100
+  },
+  {
+    "title": "Bowls",
+    "nodeId": {
+      "nodeId": "109a29fb"
+    },
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "d78b0d8b"
+    },
+    "version": 100
+  },
+  {
+    "title": "Produce",
+    "nodeId": {
+      "nodeId": "2940bbf7"
+    },
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "ec8fff52"
+    },
+    "version": 100
+  },
+  {
+    "title": "Vegetables",
+    "nodeId": {
+      "nodeId": "6532adcd"
+    },
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "2940bbf7"
+    },
+    "version": 100
+  },
+  {
+    "title": "Fruit",
+    "nodeId": {
+      "nodeId": "abaaeea3"
+    },
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "2940bbf7"
+    },
+    "version": 100
+  },
+  {
+    "title": "Chips & Dip",
+    "nodeId": {
+      "nodeId": "b74ea410"
+    },
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "ec8fff52"
+    },
+    "version": 100
+  },
+  {
+    "title": "Tableware",
+    "nodeId": {
+      "nodeId": "d78b0d8b"
+    },
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "af452ca5"
+    },
+    "version": 100
+  },
+  {
+    "title": "Plates",
+    "nodeId": {
+      "nodeId": "deca91c2"
+    },
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "d78b0d8b"
+    },
+    "version": 100
+  }
+]

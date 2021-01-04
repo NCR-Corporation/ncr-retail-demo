@@ -1,0 +1,72 @@
+[
+  {
+    "siteName": "Woodruff Park Market",
+    "timezone": "US/Eastern",
+    "description": "Market right in downtown Atlanta",
+    "currency": "USD",
+    "referenceId": "1-004",
+    "status": "ACTIVE",
+    "address": {
+      "city": "Atlanta",
+      "postalCode": "30303",
+      "state": "GA",
+      "street": "91 Peachtree Street",
+      "country": "USA"
+    },
+    "contact": {
+      "contactPerson": "George P. Burdell",
+      "phoneNumber": "1",
+      "phoneNumberCountryCode": "4048942000"
+    },
+    "coordinates": {
+      "latitude": "33.758461",
+      "longitude": "-84.3907724"
+    },
+    "enterpriseUnitName": "Woodruff Park Market"
+  },
+  {
+    "siteName": "West Midtown Market",
+    "timezone": "US/Eastern",
+    "description": "Right near Maddox Park",
+    "currency": "USD",
+    "referenceId": "1-002",
+    "status": "ACTIVE",
+    "address": {
+      "city": "Atlanta",
+      "postalCode": "30318",
+      "state": "GA",
+      "street": "1115 Donald Lee Hollowell Pkwy NW",
+      "country": "USA"
+    },
+    "contact": {
+      "contactPerson": "John Doe",
+      "phoneNumber": "1",
+      "phoneNumberCountryCode": "4048944200"
+    },
+    "coordinates": {
+      "latitude": "33.7715123",
+      "longitude": "-84.4251949"
+    },
+    "enterpriseUnitName": "West Midtown Market"
+  },
+  {
+    "siteName": "Vickery Creek Market",
+    "timezone": "US/Eastern",
+    "description": "Near the Chattahoochee River National Recreation Area - Vickery Creek Unit",
+    "currency": "USD",
+    "referenceId": "1-001",
+    "status": "ACTIVE",
+    "address": {
+      "city": "Roswell",
+      "postalCode": "30075",
+      "state": "GA",
+      "street": "259 Riverside Road",
+      "country": "USA"
+    },
+    "coordinates": {
+      "latitude": "34.0138885",
+      "longitude": "-84.35312"
+    },
+    "enterpriseUnitName": "Vickery Creek Market"
+  }
+]

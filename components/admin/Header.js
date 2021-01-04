@@ -35,6 +35,7 @@ const Header = ({ navigation = true, activeTab }) => {
     fetch(`/api/export`)
       .then((res) => res.json())
       .then((data) => {
+        console.log('the data', data);
         toggleModal();
         setIsExporting(false);
         setDownloadJSON(data);
