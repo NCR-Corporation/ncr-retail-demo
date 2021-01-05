@@ -3,18 +3,37 @@ ARG NGINX_VARIANT
 
 FROM nginx:${NGINX_VERSION}-${NGINX_VARIANT}
 
-RUN mkdir /app && \
-    chmod 777 /run
+FROM node:12
 
-COPY wwwroot/ /usr/share/nginx/html/
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY docker-startup.sh /app
+ENV PORT 3000
 
-RUN chown -R nginx:nginx /usr/share/nginx/html
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-WORKDIR /app
-USER nginx:nginx
-ENV HOME /app
+COPY package*.json /usr/src/app/
+RUN npm install
 
-EXPOSE 8080/tcp
-ENTRYPOINT /app/docker-startup.sh
+COPY . /usr/src/app
+
+# Building app
+RUN npm run build
+EXPOSE 3000
+
+# Running the app
+CMD "npm" "run" "start"
+
+# RUN mkdir /app && \
+#     chmod 777 /run
+
+# COPY wwwroot/ /usr/share/nginx/html/
+# COPY nginx.conf /etc/nginx/nginx.conf
+# COPY docker-startup.sh /app
+
+# RUN chown -R nginx:nginx /usr/share/nginx/html
+
+# WORKDIR /app
+# USER nginx:nginx
+# ENV HOME /app
+
+# EXPOSE 8080/tcp
+# ENTRYPOINT /app/docker-startup.sh
