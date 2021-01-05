@@ -10,7 +10,7 @@ steps:
       - |
         set -e
 
-        app_name="ncr-retail-demo"
+        app_name="ocpx-ncr-retail-demo"
         publish_path="publish/${app_name}"
         mkdir app
 
