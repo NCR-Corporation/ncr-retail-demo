@@ -28,6 +28,17 @@ spec:
         - name: {{ $.Release.Name }}
           image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}:{{ $.Chart.Version }}
           imagePullPolicy: {{ .Values.Master.ImagePullPolicy }}
+          env:
+            - name: REACT_APP_BSP_SECRET_KEY
+              value: {{ quote .Values.Ingress.RetailDemo.BSPSecretKey }}
+            - name: REACT_APP_BSP_ORGANIZATION
+              value: {{ quote .Values.Ingress.RetailDemo.BSPOrganization }}
+            - name: REACT_APP_BSP_SHARED_KEY
+              value: {{ quote .Values.Ingress.RetailDemo.BSPSharedKey }}
+            - name: NEXTAUTH_URL
+              value: {{ quote .Values.Ingress.RetailDemo.NextAuthURL }}
+            - name: REACT_APP_GOOGLE_MAPS_API_KEY
+              value: {{ quote .Values.Ingress.RetailDemo.GoogleMapsAPIKey }}
           ports:
             - name: http
               containerPort: 8080
@@ -50,13 +61,13 @@ spec:
             timeoutSeconds: 1
             successThreshold: 1
             failureThreshold: 3
-          {{- if .Values.Scaling.Frontend.Enabled }}
+          {{- if .Values.Scaling.RetailDemo.Enabled }}
           resources:
             requests:
-              cpu: {{ .Values.Resources.Frontend.MinCpu | quote }}
-              memory: {{ .Values.Resources.Frontend.MinMemory | quote }}
+              cpu: {{ .Values.Resources.RetailDemo.MinCpu | quote }}
+              memory: {{ .Values.Resources.RetailDemo.MinMemory | quote }}
             limits:
-              cpu: {{ .Values.Resources.Frontend.MaxCpu | quote }}
-              memory: {{ .Values.Resources.Frontend.MaxMemory | quote }}
+              cpu: {{ .Values.Resources.RetailDemo.MaxCpu | quote }}
+              memory: {{ .Values.Resources.RetailDemo.MaxMemory | quote }}
           {{- end }}
 status: {}
