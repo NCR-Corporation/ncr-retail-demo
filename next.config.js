@@ -1,4 +1,5 @@
 module.exports = {
+  distDir: 'publish',
   images: {
     domains: [
       'www.kroger.com',
