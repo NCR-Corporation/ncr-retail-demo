@@ -11,19 +11,14 @@ steps:
         set -e
 
         app_name="ocpx-ncr-retail-demo"
-        publish_path="publish/${app_name}"
-        mkdir app
 
         rm -rf bin obj dist
         npm install
         npm run build
 
-        mkdir -p "$publish_path"
-        mv "app/" "${publish_path}/wwwroot"
-
-        cp "build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
-        cp "build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
-        cp "build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
+        cp "build/cloudbuild/app-web-static/docker-startup.sh" .
+        cp "build/cloudbuild/app-web-static/nginx.conf" .
+        cp "build/cloudbuild/app-web-static/Dockerfile" .
 
         echo "--ls--"
         ls "$publish_path"
@@ -45,7 +40,7 @@ steps:
         'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}',
         '--label',
         'ocpx-artifact=${TAG_NAME}',
-        'publish/ocpx-ncr-retail-demo',
+        'ocpx-ncr-retail-demo',
       ]
 
   # Helm Charts
