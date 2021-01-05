@@ -12,14 +12,14 @@ steps:
 
         app_name="ncr-retail-demo"
         publish_path="publish/${app_name}"
-        mkdir publish
+        mkdir dist
 
         rm -rf bin obj dist
         npm install
         npm run build
 
         mkdir -p "$publish_path"
-        mv "dist/${app_name}" "${publish_path}/wwwroot"
+        mv "dist/" "${publish_path}/wwwroot"
 
         cp "../build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
         cp "../build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
