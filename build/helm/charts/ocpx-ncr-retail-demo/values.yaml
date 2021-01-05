@@ -35,11 +35,11 @@ Resources:
     MinMemory:
     MaxMemory:
 Backend:
-  AdminUsername:
-  AdminPassword:
-  DxUri:
-  RandomToken:
-  RandomTokenExpirationDate:
+  BSPSecretKey:
+  BSPOrganization:
+  BSPSharedKey:
+  NextAuthURL:
+  GoogleMapsAPIKey:
 Ingress:
   Annotations: {}
   RetailDemo: {}
