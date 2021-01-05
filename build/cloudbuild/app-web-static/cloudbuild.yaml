@@ -9,12 +9,12 @@ steps:
         '--build-arg',
         'NGINX_VARIANT=alpine',
         '--tag',
-        'us.gcr.io/$PROJECT_ID/ocpx-${_APP_NAME}:${_APP_TAG}',
+        'us.gcr.io/$PROJECT_ID/${_APP_NAME}:${_APP_TAG}',
         '--label',
-        'ocpx-artifact=${_APP_TAG}',
+        'artifact=${_APP_TAG}',
         '.',
       ]
-images: ['us.gcr.io/$PROJECT_ID/ocpx-${_APP_NAME}:${_APP_TAG}']
+images: ['us.gcr.io/$PROJECT_ID/${_APP_NAME}:${_APP_TAG}']
 substitutions:
   _NGINX_VERSION: '1.15'
   _APP_NAME:

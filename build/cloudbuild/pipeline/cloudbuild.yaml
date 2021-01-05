@@ -36,7 +36,7 @@ steps:
         '--build-arg',
         'NGINX_VARIANT=alpine',
         '--tag',
-        'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}',
+        'us.gcr.io/${PROJECT_ID}/ncr-retail-demo:${TAG_NAME}',
         '--label',
         'ocpx-artifact=${TAG_NAME}',
         'publish/ncr-retail-demo',
@@ -68,7 +68,7 @@ steps:
         done
 
 images:
-  - 'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}'
+  - 'us.gcr.io/${PROJECT_ID}/ncr-retail-demo:${TAG_NAME}'
 
 substitutions:
   _HELM_GCS_VERSION: '0.2.0'
