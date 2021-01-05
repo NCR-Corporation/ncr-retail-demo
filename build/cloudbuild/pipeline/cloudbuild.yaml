@@ -60,8 +60,6 @@ steps:
       - |
         echo "ls"
         ls -la
-        cd ..
-        ls -la
         cd build/helm/charts
 
         helm gcs init "gs://${_HELM_STORAGE_BUCKET}"
