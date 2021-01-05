@@ -9,14 +9,7 @@ Image:
   Project:
   PullPolicy: Always
 Scaling:
-  Frontend:
-    Enabled:
-    DefaultReplicas:
-    MinReplicas:
-    MaxReplicas:
-    TargetCpuUtilization:
-    TargetMemoryUtilization:
-  Backend:
+  RetailDemo:
     Enabled:
     DefaultReplicas:
     MinReplicas:
@@ -24,12 +17,7 @@ Scaling:
     TargetCpuUtilization:
     TargetMemoryUtilization:
 Resources:
-  Frontend:
-    MinCpu:
-    MaxCpu:
-    MinMemory:
-    MaxMemory:
-  Backend:
+  RetailDemo:
     MinCpu:
     MaxCpu:
     MinMemory:
