@@ -34,7 +34,7 @@ Resources:
     MaxCpu:
     MinMemory:
     MaxMemory:
-Backend:
+RetailDemo:
   BSPSecretKey:
   BSPOrganization:
   BSPSharedKey:
