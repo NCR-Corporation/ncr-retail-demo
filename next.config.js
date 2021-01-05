@@ -1,5 +1,4 @@
 module.exports = {
-  distDir: 'app',
   images: {
     domains: [
       'www.kroger.com',
