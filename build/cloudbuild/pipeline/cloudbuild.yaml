@@ -52,7 +52,7 @@ steps:
       [
         'build',
         '--tag',
-        'us.gcr.io/${PROJECT_ID}/ocpx-sc-backend:${TAG_NAME}',
+        'us.gcr.io/${PROJECT_ID}/ocpx-ncrrd-backend:${TAG_NAME}',
         '--label',
         'ocpx-artifact=${TAG_NAME}',
         'backend',
@@ -86,7 +86,7 @@ steps:
 
 images:
   - 'us.gcr.io/${PROJECT_ID}/ocpx-sc-frontend:${TAG_NAME}'
-  - 'us.gcr.io/${PROJECT_ID}/ocpx-sc-backend:${TAG_NAME}'
+  - 'us.gcr.io/${PROJECT_ID}/ocpx-ncrrd-backend:${TAG_NAME}'
 
 substitutions:
   _HELM_GCS_VERSION: '0.2.0'
