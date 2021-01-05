@@ -15,6 +15,7 @@
 # production
 # ruhroh.
 # /build
+/publish
 
 # misc
 .DS_Store

@@ -37,7 +37,7 @@ steps:
         '--build-arg',
         'NGINX_VARIANT=alpine',
         '--tag',
-        'us.gcr.io/${PROJECT_ID}/ocpx-sc-frontend:${TAG_NAME}',
+        'us.gcr.io/${PROJECT_ID}/ocpx-ncrrd-frontend:${TAG_NAME}',
         '--label',
         'ocpx-artifact=${TAG_NAME}',
         'frontend/publish/selfCheckin',
@@ -85,7 +85,7 @@ steps:
         done
 
 images:
-  - 'us.gcr.io/${PROJECT_ID}/ocpx-sc-frontend:${TAG_NAME}'
+  - 'us.gcr.io/${PROJECT_ID}/ocpx-ncrrd-frontend:${TAG_NAME}'
   - 'us.gcr.io/${PROJECT_ID}/ocpx-ncrrd-backend:${TAG_NAME}'
 
 substitutions:
