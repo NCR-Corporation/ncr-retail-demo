@@ -21,7 +21,7 @@ steps:
         cp "build/cloudbuild/app-web-static/Dockerfile" .
 
         echo "--ls--"
-        ls "$publish_path"
+        ls
 
         echo "-----------------------"
         echo "frontend-build complete"
