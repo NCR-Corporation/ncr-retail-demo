@@ -42,4 +42,4 @@ Backend:
   RandomTokenExpirationDate:
 Ingress:
   Annotations: {}
-  SelfCheckin: {}
+  RetailDemo: {}
