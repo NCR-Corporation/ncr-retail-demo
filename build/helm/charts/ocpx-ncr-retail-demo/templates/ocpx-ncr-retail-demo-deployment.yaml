@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncr-retail-demo
+  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}
   labels:
-    app: {{ .Values.Master.App.Prefix }}-ncr-retail-demo
+    app: {{ .Values.Master.App.Prefix }}
     version: {{ $.Chart.Version }}
     release: {{ $.Release.Name }}
 spec:
@@ -12,21 +12,21 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      app: {{ .Values.Master.App.Prefix }}-ncr-retail-demo
+      app: {{ .Values.Master.App.Prefix }}
       version: {{ $.Chart.Version }}
       release: {{ $.Release.Name }}
   strategy: {}
   template:
     metadata:
       labels:
-        app: {{ .Values.Master.App.Prefix }}-ncr-retail-demo
+        app: {{ .Values.Master.App.Prefix }}
         version: {{ $.Chart.Version }}
         release: {{ $.Release.Name }}
     spec:
       restartPolicy: Always
       containers:
-        - name: {{ $.Release.Name }}-ncr-retail-demo
-          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}-ncr-retail-demo:{{ $.Chart.Version }}
+        - name: {{ $.Release.Name }}
+          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}:{{ $.Chart.Version }}
           imagePullPolicy: {{ .Values.Master.ImagePullPolicy }}
           ports:
             - name: http
