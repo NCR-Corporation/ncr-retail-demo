@@ -10,21 +10,20 @@ steps:
       - |
         set -e
 
-        cd frontend
-
-        app_name="selfCheckin"
+        app_name="ncr-retail-demo"
         publish_path="publish/${app_name}"
+        mkdir dist
 
         rm -rf bin obj dist
         npm install
-        npm run build -- --prod
+        npm run build
 
         mkdir -p "$publish_path"
-        mv "dist/${app_name}" "${publish_path}/wwwroot"
+        mv "dist/" "${publish_path}/wwwroot"
 
-        cp "../build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
-        cp "../build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
-        cp "../build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
+        cp "build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
+        cp "build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
+        cp "build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
 
   - id: 'frontend-docker'
     name: 'gcr.io/cloud-builders/docker'
@@ -40,22 +39,7 @@ steps:
         'us.gcr.io/${PROJECT_ID}/ocpx-ncrrd-frontend:${TAG_NAME}',
         '--label',
         'ocpx-artifact=${TAG_NAME}',
-        'frontend/publish/selfCheckin',
-      ]
-
-  # Backend
-
-  - id: 'backend-docker'
-    name: 'gcr.io/cloud-builders/docker'
-    waitFor: ['-']
-    args:
-      [
-        'build',
-        '--tag',
-        'us.gcr.io/${PROJECT_ID}/ocpx-ncrrd-backend:${TAG_NAME}',
-        '--label',
-        'ocpx-artifact=${TAG_NAME}',
-        'backend',
+        'publish/ncr-retail-demo',
       ]
 
   # Helm Charts
@@ -64,7 +48,6 @@ steps:
     name: 'us.gcr.io/${PROJECT_ID}/ocpx-helm:${_HELM_VERSION}-gcs${_HELM_GCS_VERSION}'
     waitFor:
       - frontend-docker
-      - backend-docker
     entrypoint: 'sh'
     args:
       - '-c'
@@ -86,7 +69,6 @@ steps:
 
 images:
   - 'us.gcr.io/${PROJECT_ID}/ocpx-ncrrd-frontend:${TAG_NAME}'
-  - 'us.gcr.io/${PROJECT_ID}/ocpx-ncrrd-backend:${TAG_NAME}'
 
 substitutions:
   _HELM_GCS_VERSION: '0.2.0'
