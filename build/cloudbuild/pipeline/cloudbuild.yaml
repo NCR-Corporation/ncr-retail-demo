@@ -25,6 +25,9 @@ steps:
         cp "build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
         cp "build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
         
+        echo "--ls--"
+        ls "$publish_path"
+        
         echo "-----------------------"
         echo "frontend-build complete"
         echo "-----------------------"
