@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-srd-frontend
+  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncrrd-frontend
   labels:
-    app: {{ .Values.Master.App.Prefix }}-srd-frontend
+    app: {{ .Values.Master.App.Prefix }}-ncrrd-frontend
     version: {{ $.Chart.Version }}
     release: {{ $.Release.Name }}
 spec:
@@ -12,21 +12,21 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      app: {{ .Values.Master.App.Prefix }}-srd-frontend
+      app: {{ .Values.Master.App.Prefix }}-ncrrd-frontend
       version: {{ $.Chart.Version }}
       release: {{ $.Release.Name }}
   strategy: {}
   template:
     metadata:
       labels:
-        app: {{ .Values.Master.App.Prefix }}-srd-frontend
+        app: {{ .Values.Master.App.Prefix }}-ncrrd-frontend
         version: {{ $.Chart.Version }}
         release: {{ $.Release.Name }}
     spec:
       restartPolicy: Always
       containers:
-        - name: {{ $.Release.Name }}-srd-frontend
-          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}-srd-frontend:{{ $.Chart.Version }}
+        - name: {{ $.Release.Name }}-ncrrd-frontend
+          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}-ncrrd-frontend:{{ $.Chart.Version }}
           imagePullPolicy: {{ .Values.Master.ImagePullPolicy }}
           ports:
             - name: http
