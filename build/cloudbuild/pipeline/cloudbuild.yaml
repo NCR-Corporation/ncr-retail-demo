@@ -10,8 +10,6 @@ steps:
       - |
         set -e
 
-        cd frontend
-
         app_name="ncr-retail-demo"
         publish_path="publish/${app_name}"
         mkdir publish
@@ -41,7 +39,7 @@ steps:
         'us.gcr.io/${PROJECT_ID}/ocpx-sc-frontend:${TAG_NAME}',
         '--label',
         'ocpx-artifact=${TAG_NAME}',
-        'frontend/publish/ncr-retail-demo',
+        'publish/ncr-retail-demo',
       ]
       
   # Helm Charts
