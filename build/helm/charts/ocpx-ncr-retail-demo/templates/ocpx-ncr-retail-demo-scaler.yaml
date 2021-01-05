@@ -2,7 +2,7 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-scaler
+  name: {{ $.Release.Name }}-scaler
   labels:
       app: {{ .Values.Master.App.Prefix }}
       version: {{ $.Chart.Version }}
