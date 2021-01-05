@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{ $.Release.Name }}-ncrrd-ingress
+  name: {{ $.Release.Name }}-ncr-retail-demo-ingress
   annotations:
     {{- if .Values.Ingress.Annotations }}
     {{- .Values.Ingress.Annotations | include "all-keys" | indent 4 }}
@@ -22,10 +22,10 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncrrd-frontend
+              serviceName: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncr-retail-demo-frontend
               servicePort: 80
           - path: /api
             backend:
-              serviceName: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncrrd-backend
+              serviceName: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncr-retail-demo-backend
               servicePort: 80
 {{- end}}

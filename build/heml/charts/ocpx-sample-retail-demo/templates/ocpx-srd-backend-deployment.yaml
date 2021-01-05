@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncrrd-backend
+  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncr-retail-demo-backend
   labels:
-    app: {{ .Values.Master.App.Prefix }}-ncrrd-backend
+    app: {{ .Values.Master.App.Prefix }}-ncr-retail-demo-backend
     version: {{ $.Chart.Version }}
     release: {{ $.Release.Name }}
 spec:
@@ -12,21 +12,21 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      app: {{ .Values.Master.App.Prefix }}-ncrrd-backend
+      app: {{ .Values.Master.App.Prefix }}-ncr-retail-demo-backend
       version: {{ $.Chart.Version }}
       release: {{ $.Release.Name }}
   strategy: {}
   template:
     metadata:
       labels:
-        app: {{ .Values.Master.App.Prefix }}-ncrrd-backend
+        app: {{ .Values.Master.App.Prefix }}-ncr-retail-demo-backend
         version: {{ $.Chart.Version }}
         release: {{ $.Release.Name }}
     spec:
       restartPolicy: Always
       containers:
-        - name: {{ $.Release.Name }}-ncrrd-backend
-          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}-ncrrd-backend:{{ $.Chart.Version }}
+        - name: {{ $.Release.Name }}-ncr-retail-demo-backend
+          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}-ncr-retail-demo-backend:{{ $.Chart.Version }}
           imagePullPolicy: {{ .Values.Master.ImagePullPolicy }}
           ports:
             - name: http

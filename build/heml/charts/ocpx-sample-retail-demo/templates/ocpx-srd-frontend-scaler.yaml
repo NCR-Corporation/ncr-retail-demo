@@ -2,16 +2,16 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncrrd-frontend
+  name: {{ $.Release.Name }}-{{ .Values.Master.App.ReleaseVersion }}-ncr-retail-demo-frontend
   labels:
-      app: {{ .Values.Master.App.Prefix }}-ncrrd-frontend
+      app: {{ .Values.Master.App.Prefix }}-ncr-retail-demo-frontend
       version: {{ $.Chart.Version }}
       release: {{ $.Release.Name }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1beta1
     kind: Deployment
-    name: {{ $.Release.Name }}-ncrrd-frontend
+    name: {{ $.Release.Name }}-ncr-retail-demo-frontend
   minReplicas: {{ .Values.Scaling.Frontend.MinReplicas }}
   maxReplicas: {{ .Values.Scaling.Frontend.MaxReplicas }}
   metrics:
