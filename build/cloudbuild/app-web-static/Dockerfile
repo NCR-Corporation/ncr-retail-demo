@@ -1,20 +1,13 @@
-ARG NGINX_VERSION
-ARG NGINX_VARIANT
-
-FROM nginx:${NGINX_VERSION}-${NGINX_VARIANT}
-
 FROM node:12
 
 ENV PORT 3000
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir /app && \
+    chmod 777 /run
+    
+WORKDIR /app
 
-COPY wwwroot/package.json /usr/src/app/
-COPY wwwroot/package-lock.json /usr/src/app/
 RUN npm install
-
-COPY wwwroot/ /usr/src/app
 
 # Building app
 RUN npm run build
@@ -23,8 +16,6 @@ EXPOSE 3000
 # Running the app
 CMD "npm" "run" "start"
 
-# RUN mkdir /app && \
-#     chmod 777 /run
 
 # COPY wwwroot/ /usr/share/nginx/html/
 # COPY nginx.conf /etc/nginx/nginx.conf
@@ -32,7 +23,7 @@ CMD "npm" "run" "start"
 
 # RUN chown -R nginx:nginx /usr/share/nginx/html
 
-# WORKDIR /app
+
 # USER nginx:nginx
 # ENV HOME /app
 
