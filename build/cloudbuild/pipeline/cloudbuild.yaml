@@ -24,7 +24,10 @@ steps:
         cp "build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
         cp "build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
         cp "build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
-
+        
+        echo "-----------------------"
+        echo "frontend-build complete"
+        echo "-----------------------"
   - id: 'frontend-docker'
     name: 'gcr.io/cloud-builders/docker'
     waitFor: ['frontend-build']
