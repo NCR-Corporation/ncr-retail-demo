@@ -7,11 +7,15 @@ ENV PORT 3000
 
 # RUN echo $(ls -la)
 
-RUN echo $(ls -1 /run)
+RUN echo $(ls -1 /usr/src/app)
     
-WORKDIR /run/dist
+WORKDIR /usr/src/app
+
+COPY package*.json ./
 
 RUN npm install
+
+COPY . .
 
 # Building app
 RUN npm run build
