@@ -5,11 +5,11 @@ ENV PORT 3000
 # RUN mkdir /app && \
 #     chmod 777 /run
 
-RUN echo $(ls -la)
+# RUN echo $(ls -la)
 
-RUN echo $(ls -1 /app)
+RUN echo $(ls -1 /run)
     
-WORKDIR /dist
+WORKDIR /run/dist
 
 RUN npm install
 
