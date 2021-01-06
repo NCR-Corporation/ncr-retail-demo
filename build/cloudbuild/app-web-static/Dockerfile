@@ -2,12 +2,13 @@ FROM node:12
 
 ENV PORT 3000
 
-RUN echo $(ls -la)
+RUN echo $(ls -1 /home)
 
-RUN mkdir /app && \
-    chmod 777 /run
-    
-WORKDIR /app
+WORKDIR /home
+
+RUN mkdir /app
+
+WORKDIR app
 
 RUN echo $(ls -la)
 
