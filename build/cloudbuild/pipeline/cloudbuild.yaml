@@ -13,7 +13,7 @@ steps:
         'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}',
         '--label',
         'ocpx-artifact=${TAG_NAME}',
-        'ncr-retail-demo',
+        '.',
       ]
 
   # Helm Charts
