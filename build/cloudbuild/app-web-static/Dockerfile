@@ -2,10 +2,14 @@ FROM node:12
 
 ENV PORT 3000
 
-RUN mkdir /app && \
-    chmod 777 /run
+# RUN mkdir /app && \
+#     chmod 777 /run
+
+RUN echo $(ls -la)
+
+RUN echo $(ls -1 /app)
     
-WORKDIR /app
+WORKDIR /dist
 
 RUN npm install
 
