@@ -20,9 +20,9 @@ steps:
         mkdir -p "$publish_path"
         mv "dist/" "$publish_path/wwwroot"
 
-        cp "../build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
-        cp "../build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
-        cp "../build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
+        cp "build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
+        cp "build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
+        cp "build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
 
         echo "--ls--"
         ls
