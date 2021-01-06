@@ -1,0 +1,33 @@
+Master:
+  App:
+    Name: ocpx-ncr-retail-demo
+    Prefix: ocpx-ncr-retail-demo
+    ReleaseVersion:
+  ImagePullPolicy: Always
+Image:
+  Domain: us.gcr.io
+  Project:
+  PullPolicy: Always
+Scaling:
+  RetailDemo:
+    Enabled:
+    DefaultReplicas:
+    MinReplicas:
+    MaxReplicas:
+    TargetCpuUtilization:
+    TargetMemoryUtilization:
+Resources:
+  RetailDemo:
+    MinCpu:
+    MaxCpu:
+    MinMemory:
+    MaxMemory:
+RetailDemo:
+  BSPSecretKey:
+  BSPOrganization:
+  BSPSharedKey:
+  NextAuthURL:
+  GoogleMapsAPIKey:
+Ingress:
+  Annotations: {}
+  RetailDemo: {}

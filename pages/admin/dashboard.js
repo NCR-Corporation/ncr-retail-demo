@@ -24,8 +24,17 @@ import Orders from '~/components/admin/orders/Orders';
 
 const Dashboard = () => {
   let { data, isLoading, isError } = useDashboard();
-  let ordersPlaced, ordersReceived, ordersInFulfillment, ordersFilled;
-  if (!isLoading && !isError) {
+  let ordersPlaced = [];
+  let ordersReceived = [];
+  let ordersInFulfillment = [];
+  let ordersFilled = [];
+  if (
+    !isLoading &&
+    !isError &&
+    data.orders &&
+    data.orders.data &&
+    data.orders.data.pageContent
+  ) {
     let orders = data.orders.data.pageContent;
     ordersPlaced = orders.filter((el) => el.status == 'OrderPlaced');
     ordersReceived = orders.filter(
@@ -153,7 +162,13 @@ const Dashboard = () => {
             </Row>
             <div className="my-4">
               <h4 className="mb-1">Recent Orders</h4>
-              <Orders orders={data.orders.data.pageContent} />
+              <Orders
+                orders={
+                  data.orders.data && data.orders.data.pageContent
+                    ? data.orders.data.pageContent
+                    : []
+                }
+              />
             </div>
           </div>
         )}

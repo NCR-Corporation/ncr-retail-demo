@@ -13,7 +13,9 @@
 /out/
 
 # production
-/build
+# ruhroh.
+# /build
+/app
 
 # misc
 .DS_Store

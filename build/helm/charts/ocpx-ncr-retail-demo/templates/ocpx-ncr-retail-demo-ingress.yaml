@@ -1,0 +1,27 @@
+{{- if .Values.Ingress.RetailDemo }}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $.Release.Name }}-ingress
+  annotations:
+    {{- if .Values.Ingress.Annotations }}
+    {{- .Values.Ingress.Annotations | include "all-keys" | indent 4 }}
+    {{- end}}
+    {{- if .Values.Ingress.RetailDemo.Annotations }}
+    {{- .Values.Ingress.RetailDemo.Annotations | include "all-keys" | indent 4 }}
+    {{- end}}
+spec:
+  {{- if .Values.Ingress.RetailDemo.TlsSecret }}
+  tls:
+    - hosts:
+        - {{ .Values.Ingress.RetailDemo.Host }}
+      secretName: {{ .Values.Ingress.RetailDemo.TlsSecret }}
+  {{- end}}
+  rules:
+    - host: {{ .Values.Ingress.RetailDemo.Host }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ $.Release.Name }}-service
+              servicePort: 80
+{{- end}}

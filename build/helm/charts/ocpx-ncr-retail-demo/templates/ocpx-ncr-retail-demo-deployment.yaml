@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}
+  labels:
+    app: {{ .Values.Master.App.Prefix }}
+    version: {{ $.Chart.Version }}
+    release: {{ $.Release.Name }}
+spec:
+  {{- if .Values.Scaling.Enabled }}
+  replicas: {{ .Values.Scaling.DefaultReplicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.Master.App.Prefix }}
+      version: {{ $.Chart.Version }}
+      release: {{ $.Release.Name }}
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.Master.App.Prefix }}
+        version: {{ $.Chart.Version }}
+        release: {{ $.Release.Name }}
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: {{ $.Release.Name }}
+          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}:{{ $.Chart.Version }}
+          imagePullPolicy: {{ .Values.Master.ImagePullPolicy }}
+          env:
+            - name: REACT_APP_BSP_SECRET_KEY
+              value: {{ quote .Values.Ingress.RetailDemo.BSPSecretKey }}
+            - name: REACT_APP_BSP_ORGANIZATION
+              value: {{ quote .Values.Ingress.RetailDemo.BSPOrganization }}
+            - name: REACT_APP_BSP_SHARED_KEY
+              value: {{ quote .Values.Ingress.RetailDemo.BSPSharedKey }}
+            - name: NEXTAUTH_URL
+              value: {{ quote .Values.Ingress.RetailDemo.NextAuthURL }}
+            - name: REACT_APP_GOOGLE_MAPS_API_KEY
+              value: {{ quote .Values.Ingress.RetailDemo.GoogleMapsAPIKey }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+          {{- if .Values.Scaling.RetailDemo.Enabled }}
+          resources:
+            requests:
+              cpu: {{ .Values.Resources.RetailDemo.MinCpu | quote }}
+              memory: {{ .Values.Resources.RetailDemo.MinMemory | quote }}
+            limits:
+              cpu: {{ .Values.Resources.RetailDemo.MaxCpu | quote }}
+              memory: {{ .Values.Resources.RetailDemo.MaxMemory | quote }}
+          {{- end }}
+status: {}

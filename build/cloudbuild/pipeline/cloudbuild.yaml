@@ -1,0 +1,54 @@
+steps:
+  - id: 'docker'
+    name: 'gcr.io/cloud-builders/docker'
+    waitFor: ['-']
+    args:
+      [
+        'build',
+        '--build-arg',
+        'NGINX_VERSION=${_NGINX_VERSION}',
+        '--build-arg',
+        'NGINX_VARIANT=alpine',
+        '--tag',
+        'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}',
+        '--label',
+        'ocpx-artifact=${TAG_NAME}',
+        '.',
+      ]
+
+  # Helm Charts
+
+  - id: 'publish-helm'
+    name: 'us.gcr.io/${PROJECT_ID}/ocpx-helm:${_HELM_VERSION}-gcs${_HELM_GCS_VERSION}'
+    waitFor:
+      - docker
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        echo "ls"
+        ls -la
+        cd build/helm/charts
+
+        helm gcs init "gs://${_HELM_STORAGE_BUCKET}"
+        helm repo add gs-repository "gs://${_HELM_STORAGE_BUCKET}"
+
+        for app_path in */; do
+          app="$( echo "$(basename "$app_path")" | awk '{print tolower($0)}' )"
+
+          echo "Publish Helm charts for ${app}"
+
+          helm lint "$app"
+          helm package "$app" --version "$TAG_NAME"
+          helm gcs push "${app}-${TAG_NAME}.tgz" gs-repository --retry --force
+        done
+
+images:
+  - 'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}'
+
+substitutions:
+  _HELM_GCS_VERSION: '0.2.0'
+  _HELM_STORAGE_BUCKET: ''
+  _HELM_VERSION: '2.11.0'
+  _NODEJS_VERSION: '12'
+  _NGINX_VERSION: '1.15'
