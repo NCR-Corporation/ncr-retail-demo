@@ -2,16 +2,14 @@ FROM node:12
 
 ENV PORT 3000
 
-# RUN mkdir /app && \
-#     chmod 777 /run
-
-# RUN echo $(ls -la)
-
-RUN echo $(ls -1 /usr/src/app)
+RUN mkdir /app && \
+    chmod 777 /run
     
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
+
+COPY ["package.json", "package-lock.json*", "./"]
 
 RUN npm install
 
