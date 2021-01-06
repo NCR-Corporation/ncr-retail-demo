@@ -26,6 +26,9 @@ steps:
 
         echo "--ls--"
         ls
+        
+        echo "-----------------------"
+        pwd
 
         echo "-----------------------"
         echo "frontend-build complete"
