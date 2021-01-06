@@ -11,14 +11,18 @@ steps:
         set -e
 
         app_name="ocpx-ncr-retail-demo"
+        publish_path="${app_name}"
 
         rm -rf bin obj dist
         npm install
         npm run build
+        
+        mkdir -p "$publish_path"
+        mv "app/" "$publish_path"
 
-        cp "build/cloudbuild/app-web-static/docker-startup.sh" .
-        cp "build/cloudbuild/app-web-static/nginx.conf" .
-        cp "build/cloudbuild/app-web-static/Dockerfile" .
+        cp "build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
+        cp "build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
+        cp "build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
 
         echo "--ls--"
         ls
