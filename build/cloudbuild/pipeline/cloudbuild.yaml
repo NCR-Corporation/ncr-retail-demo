@@ -18,7 +18,7 @@ steps:
         npm run build
         
         mkdir -p "$publish_path"
-        mv "app/" "$publish_path"
+        mv "app/" "$publish_path/wwwroot"
 
         cp "build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
         cp "build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
