@@ -2,10 +2,14 @@ FROM node:12
 
 ENV PORT 3000
 
+RUN echo $(ls -la)
+
 RUN mkdir /app && \
     chmod 777 /run
     
 WORKDIR /app
+
+RUN echo $(ls -la)
 
 COPY package*.json ./
 
