@@ -21,7 +21,7 @@ steps:
   - id: 'publish-helm'
     name: 'us.gcr.io/${PROJECT_ID}/ocpx-helm:${_HELM_VERSION}-gcs${_HELM_GCS_VERSION}'
     waitFor:
-      - frontend-docker
+      - docker
     entrypoint: 'sh'
     args:
       - '-c'
