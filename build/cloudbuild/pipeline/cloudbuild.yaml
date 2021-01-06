@@ -1,41 +1,7 @@
 steps:
-  # Frontend
-
-  - id: 'frontend-build'
-    name: 'us.gcr.io/${PROJECT_ID}/ocpx-nodejs:${_NODEJS_VERSION}'
-    waitFor: ['-']
-    entrypoint: 'sh'
-    args:
-      - '-c'
-      - |
-        set -e
-
-        app_name="ocpx-ncr-retail-demo"
-        publish_path="publish/${app_name}"
-
-        rm -rf bin obj dist
-        npm install
-        npm run build
-        
-        mkdir -p "$publish_path"
-        mv "dist/" "$publish_path/wwwroot"
-
-        cp "build/cloudbuild/app-web-static/docker-startup.sh" "$publish_path"
-        cp "build/cloudbuild/app-web-static/nginx.conf" "$publish_path"
-        cp "build/cloudbuild/app-web-static/Dockerfile" "$publish_path"
-
-        echo "--ls--"
-        ls
-        
-        echo "-----------------------"
-        pwd
-
-        echo "-----------------------"
-        echo "frontend-build complete"
-        echo "-----------------------"
-  - id: 'frontend-docker'
+  - id: 'docker'
     name: 'gcr.io/cloud-builders/docker'
-    waitFor: ['frontend-build']
+    waitFor: ['-']
     args:
       [
         'build',
@@ -47,7 +13,7 @@ steps:
         'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}',
         '--label',
         'ocpx-artifact=${TAG_NAME}',
-        'publish/ocpx-ncr-retail-demo'
+        'publish/ocpx-ncr-retail-demo',
       ]
 
   # Helm Charts
