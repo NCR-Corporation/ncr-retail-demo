@@ -3,7 +3,6 @@ import Sites from '~/components/admin/sites/Sites';
 
 import { Spinner, Container } from 'reactstrap';
 import useDashboard from '~/lib/hooks/useDashboard';
-import NavigationTabs from '~/components/admin/NavigationTabs';
 
 const SitesTab = () => {
   let { data, isLoading, isError } = useDashboard('sites');
@@ -20,7 +19,7 @@ const SitesTab = () => {
         {isError && (
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
-        {!isLoading && !isError && <Sites data={data} />}
+        {!isLoading && !isError && <Sites data={data ?? []} />}
       </Container>
     </div>
   );

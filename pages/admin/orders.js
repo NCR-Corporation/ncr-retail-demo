@@ -20,7 +20,13 @@ const OrdersTab = () => {
         {isError && (
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
-        {!isLoading && !isError && <Orders orders={data.data.pageContent} />}
+        {!isLoading && !isError && (
+          <Orders
+            orders={
+              data.data && data.data.pageContent ? data.data.pageContent : []
+            }
+          />
+        )}
       </Container>
     </div>
   );
