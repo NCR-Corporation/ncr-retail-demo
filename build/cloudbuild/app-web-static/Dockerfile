@@ -4,6 +4,10 @@ ENV PORT 3000
 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 
+RUN echo $(ls -1 wwwroot)
+
+COPY wwwroot/ /home/node/
+
 RUN echo $(ls -1 /home/node)
 
 WORKDIR /home/node/app
