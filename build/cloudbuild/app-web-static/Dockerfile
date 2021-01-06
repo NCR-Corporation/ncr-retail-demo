@@ -8,9 +8,9 @@ RUN echo $(ls -la)
 RUN echo "----"
 RUN echo $(ls /home)
 RUN echo "----"
-RUN echo $(ls /home/node)
+RUN echo $(ls /home/node/app)
 RUN echo "----"
-RUN echo $(ls /usr/src/app)
+RUN echo $(ls /usr/src)
 RUN echo "----"
 
 
