@@ -10,7 +10,7 @@ WORKDIR /home/node/app
 
 RUN echo $(ls -la)
 
-COPY package*.json ./
+COPY ["package.json", "package-lock.json*", "./"]
 
 USER node
 
