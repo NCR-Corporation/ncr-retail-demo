@@ -2,9 +2,9 @@ FROM node:12
 
 ENV PORT 3000
 
-RUN echo $(ls -1 /home)
+RUN echo $(ls -1 /home/node)
 
-WORKDIR /home
+WORKDIR /home/node
 
 RUN mkdir /app
 
