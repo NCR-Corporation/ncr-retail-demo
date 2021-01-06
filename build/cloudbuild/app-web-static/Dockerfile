@@ -10,6 +10,8 @@ RUN echo $(ls /home)
 RUN echo "----"
 RUN echo $(ls /home/node)
 RUN echo "----"
+RUN echo $(ls /usr/src/app)
+RUN echo "----"
 
 
 COPY wwwroot/ /home/node/
