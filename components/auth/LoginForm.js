@@ -143,6 +143,10 @@ export default function Login({ toggle, showRegisterModal }) {
                     </Row>
                   </CardBody>
                   <CardFooter className="bg">
+                    <small className="text-muted">
+                      Username: <strong>tester00</strong> Password:
+                      <strong>testing!12</strong>
+                    </small>
                     <p className="text-muted mb-0">
                       Need have an account?{' '}
                       {!showRegisterModal ? (
