@@ -5,7 +5,6 @@ import _ from 'lodash';
 
 export default async function handler(req, res) {
   let response = await exportAllData();
-  console.log('the resp', response);
   const { items, sites, categories, itemPrices, itemAttributes } = response;
   let itemsObject = {
     items: items,

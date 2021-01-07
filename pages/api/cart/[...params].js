@@ -1,14 +1,18 @@
 import { getCartById, getCartItemsById, deleteCart } from '~/lib/cart';
+let logs = [];
 
 export default async function handler(req, res) {
   let siteId = req.query.params[0];
   let cartId = req.query.params[1];
   if (req.method == 'DELETE') {
     const result = await deleteCart(siteId, cartId);
-    res.json(result);
+    logs.push(result.log);
+    res.json({ result, logs });
   } else {
     const cart = await getCartById(siteId, cartId);
+    logs.push(cart.log);
     const cartItems = await getCartItemsById(siteId, cartId);
-    res.json({ cart, cartItems });
+    logs.push(cartItems.log);
+    res.json({ cart, cartItems, logs });
   }
 }

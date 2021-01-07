@@ -1,8 +1,11 @@
 import { getOrdersByUser } from '~/lib/order';
 import { getSession } from 'next-auth/client';
 
+let logs = [];
+
 export default async function handler(req, res) {
   const session = await getSession({ req });
   let data = await getOrdersByUser(session.user.username);
-  res.json(data);
+  logs.push(data.logs);
+  res.json({ data, logs });
 }

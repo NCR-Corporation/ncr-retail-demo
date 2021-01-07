@@ -4,10 +4,12 @@ import {
   getCartItemsById,
   updateItemInCartById,
 } from '~/lib/cart';
+let logs = [];
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
   if (body.etag == false || body.location == false) {
     let cart = await createCart(body.siteId);
+    logs.push(cart.log);
     let location = cart.headers.get('location');
     let etag = cart.headers.get('ETag');
     let cartId = location.split('/')[2];
@@ -21,12 +23,14 @@ export default async function handler(req, res) {
         value: item.quantity,
       },
     };
-    await addItemToCart(body.siteId, cartId, etag, obj);
-    res.json({ etag, location: cartId });
+    let addToCart = await addItemToCart(body.siteId, cartId, etag, obj);
+    logs.push(addToCart.log);
+    res.json({ etag, location: cartId, logs });
   } else {
     let cartId = body.location;
     let etag = body.etag;
     let cartItems = await getCartItemsById(body.siteId, cartId);
+    logs.push(cartItems.log);
 
     let item = body.item;
     let itemId = body.item.itemId.itemCode;
@@ -49,7 +53,8 @@ export default async function handler(req, res) {
           value: item.quantity,
         },
       };
-      await addItemToCart(body.siteId, cartId, etag, obj);
+      let addItemToCart = await addItemToCart(body.siteId, cartId, etag, obj);
+      logs.push(addItemToCart.log);
     } else {
       let updateObj = {
         quantity: {
@@ -60,8 +65,15 @@ export default async function handler(req, res) {
         },
       };
       let lineId = update.lineId;
-      await updateItemInCartById(body.siteId, cartId, etag, lineId, updateObj);
+      let addItemToCart = await updateItemInCartById(
+        body.siteId,
+        cartId,
+        etag,
+        lineId,
+        updateObj
+      );
+      logs.push(addItemToCart.log);
     }
-    res.json({ etag, location: cartId });
+    res.json({ etag, location: cartId, logs });
   }
 }

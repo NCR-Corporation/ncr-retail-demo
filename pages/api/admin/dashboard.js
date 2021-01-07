@@ -1,12 +1,9 @@
 import { getAllOrders } from '~/lib/order';
-import Logger from '~/lib/logger';
+let logs = [];
 
 export default async function handler(req, res) {
-  let logger = new Logger();
   const orders = await getAllOrders();
-  logger.add(orders.log);
-  let logs = logger.log;
-  logger.reset();
+  logs.add(orders.log);
   res.json({
     orders,
     logs,

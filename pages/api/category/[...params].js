@@ -2,6 +2,8 @@ import { getCategoriesByParentId, getCategoryById } from '~/lib/category';
 import { getSiteCatelogItemsByMerchandiseCategoryId } from '~/lib/catalog';
 import _ from 'lodash';
 
+let logs = [];
+
 export default async function handler(req, res) {
   let siteId = req.query.params[0];
   let categoryId = req.query.params[1];
@@ -9,8 +11,11 @@ export default async function handler(req, res) {
     siteId,
     categoryId
   );
+  logs.push(categoryItems.log);
   let category = await getCategoryById(categoryId);
+  logs.push(category.log);
   let childrenCategories = await getCategoriesByParentId(categoryId);
+  logs.push(childrenCategories.log);
   if (
     categoryItems.data &&
     categoryItems.data.pageContent.length == 0 &&
@@ -23,6 +28,7 @@ export default async function handler(req, res) {
           siteId,
           category.nodeCode
         );
+        logs.push(childCategoryItem.log);
         if (childCategoryItem.data) {
           childCategoryItems = childCategoryItems.concat(
             childCategoryItem.data.pageContent
@@ -39,5 +45,5 @@ export default async function handler(req, res) {
     return obj.item.itemId.itemCode;
   };
   categoryItems = _.sortBy(categoryItems, sortByItemCode);
-  res.json({ category, childrenCategories, categoryItems });
+  res.json({ category, childrenCategories, categoryItems, logs });
 }

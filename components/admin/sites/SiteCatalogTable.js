@@ -21,7 +21,6 @@ export default function SiteCatalogTable({
     setItem(item);
     setModal(!modal);
   };
-  console.log(catalog);
 
   const columns = [
     {

@@ -1,4 +1,5 @@
 import { addItemToCart, removeItemInCartById } from '~/lib/cart';
+let logs = [];
 
 export default async function handler(req, res) {
   if (req.method == 'DELETE') {
@@ -8,7 +9,8 @@ export default async function handler(req, res) {
       body.cartId,
       body.lineItemId
     );
-    res.json(result);
+    logs.push(result.log);
+    res.json({ result, logs });
   } else {
     let body = JSON.parse(req.body);
     const result = await addItemToCart(
@@ -17,6 +19,7 @@ export default async function handler(req, res) {
       body.etag,
       body.item
     );
-    res.json(result);
+    logs.push(result.log);
+    res.json({ result, logs });
   }
 }

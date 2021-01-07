@@ -1,12 +1,10 @@
 import { getAllCategoryNodes } from '~/lib/category';
-import Logger from '~/lib/logger';
+
+let logs = [];
 
 export default async function handler(req, res) {
-  let logger = new Logger();
   const categoryNodes = await getAllCategoryNodes(true);
-  logger.add(categoryNodes.log);
-  let logs = logger.log;
-  logger.reset();
+  logs.push(categoryNodes.log);
 
   res.json({ categoryNodes, logs });
 }

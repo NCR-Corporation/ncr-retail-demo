@@ -15,10 +15,12 @@ import { UserCartContext } from '~/context/userCart';
 import ProfileDropdown from '../auth/ProfileDropdown';
 
 export default function Header({ logs }) {
-  let allLogs = logs;
-  const { categories } = useHeader();
+  let allLogs = logs ?? [];
+  console.log('all logs', allLogs);
+  let { categories } = useHeader();
   if (categories && categories.logs) {
-    allLogs.push(categories.logs);
+    allLogs = allLogs.concat(categories.logs);
+    categories = categories.categories;
   }
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);

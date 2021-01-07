@@ -37,39 +37,44 @@ const Logger = ({ logs }) => {
             {logs &&
               logs.length > 0 &&
               logs.map((log, key) => (
-                <div>
-                  <Card className="mb-2" style={{ fontFamily: 'monospace' }}>
-                    <CardBody>
-                      <CardTitle>
-                        <strong>
-                          {log.req.request.method} {log.req.url}
-                        </strong>
-                      </CardTitle>
-                      <p className="text-muted">
-                        {log.req.request.headers['Date']}
-                      </p>
-                      <a className="btn btn-link pl-0" id={`req-toggler${key}`}>
-                        View Request
-                      </a>
-                      <a className="btn btn-link" id={`res-toggler${key}`}>
-                        View Response
-                      </a>
-                      <UncontrolledCollapse toggler={`#req-toggler${key}`}>
-                        <Card>
-                          <CardBody>
-                            <ReactJson src={log.req} />
-                          </CardBody>
-                        </Card>
-                      </UncontrolledCollapse>
-                      <UncontrolledCollapse toggler={`#res-toggler${key}`}>
-                        <Card>
-                          <CardBody>
-                            <ReactJson src={log.res} />
-                          </CardBody>
-                        </Card>
-                      </UncontrolledCollapse>
-                    </CardBody>
-                  </Card>
+                <div key={key}>
+                  {log.req && log.res && (
+                    <Card className="mb-2" style={{ fontFamily: 'monospace' }}>
+                      <CardBody>
+                        <CardTitle>
+                          <strong>
+                            {log.req.request.method} {log.req.url}
+                          </strong>
+                        </CardTitle>
+                        <p className="text-muted">
+                          {log.req.request.headers['Date']}
+                        </p>
+                        <a
+                          className="btn btn-link pl-0"
+                          id={`req-toggler${key}`}
+                        >
+                          View Request
+                        </a>
+                        <a className="btn btn-link" id={`res-toggler${key}`}>
+                          View Response
+                        </a>
+                        <UncontrolledCollapse toggler={`#req-toggler${key}`}>
+                          <Card>
+                            <CardBody>
+                              <ReactJson src={log.req} />
+                            </CardBody>
+                          </Card>
+                        </UncontrolledCollapse>
+                        <UncontrolledCollapse toggler={`#res-toggler${key}`}>
+                          <Card>
+                            <CardBody>
+                              <ReactJson src={log.res} />
+                            </CardBody>
+                          </Card>
+                        </UncontrolledCollapse>
+                      </CardBody>
+                    </Card>
+                  )}
                 </div>
               ))}
           </div>
