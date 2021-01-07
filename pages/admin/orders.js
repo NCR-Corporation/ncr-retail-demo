@@ -2,7 +2,6 @@ import React from 'react';
 import Header from '~/components/admin/Header';
 import { Spinner, Container } from 'reactstrap';
 import useDashboard from '~/lib/hooks/useDashboard';
-import NavigationTabs from '~/components/admin/NavigationTabs';
 import Orders from '~/components/admin/orders/Orders';
 
 const OrdersTab = () => {
