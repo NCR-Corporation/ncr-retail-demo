@@ -27,7 +27,6 @@ export default async function handler(req, res) {
       console.log('or', orderedSites);
       if (orderedSites.length == 0) {
         let response = await findNearby();
-        console.log('res', response);
         res.json(response);
       } else {
         response.data.pageContent = orderedSites;
