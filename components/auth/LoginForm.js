@@ -84,7 +84,9 @@ export default function Login({ toggle, showRegisterModal }) {
                     <Row>
                       <Col>
                         <div className="form-group">
-                          <label htmlFor="username">Username*</label>
+                          <label htmlFor="username">
+                            Username* <small>[tester00]</small>
+                          </label>
                           <Field
                             name="username"
                             id="username"
@@ -105,7 +107,9 @@ export default function Login({ toggle, showRegisterModal }) {
                     <Row>
                       <Col>
                         <div className="form-group">
-                          <label htmlFor="password">Password*</label>
+                          <label htmlFor="password">
+                            Password* <small>[testing!12]</small>
+                          </label>
                           <Field
                             name="password"
                             type="password"
@@ -143,10 +147,6 @@ export default function Login({ toggle, showRegisterModal }) {
                     </Row>
                   </CardBody>
                   <CardFooter className="bg">
-                    <small className="text-muted">
-                      Username: <strong>tester00</strong> Password:
-                      <strong>testing!12</strong>
-                    </small>
                     <p className="text-muted mb-0">
                       Need have an account?{' '}
                       {!showRegisterModal ? (
