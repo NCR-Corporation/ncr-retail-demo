@@ -15,29 +15,24 @@ import {
 export default async function handler(req, res) {
   let sitesPromise = sites.forEach(async (site) => {
     let created = await createSite(site);
-    console.log('created', created);
   });
 
   await Promise.all(sitesPromise);
 
   let groupsPromise = groups.forEach(async (group) => {
     let created = await createGroup(group);
-    console.log('created', created);
   });
 
   await Promise.all(groupsPromise);
 
   let categoryObject = { nodes: categories };
   let categoriesPromise = await createCategory(categoryObject);
-  console.log(categoriesPromise);
 
   let catalogPromise = catalog.map(async (item) => {
-    console.log(item);
     let { data } = await getSites();
     let items = [];
     let prices = [];
     let attributes = [];
-    console.log('the data', data);
     data.pageContent.forEach((site) => {
       let itemCopy = JSON.parse(JSON.stringify(item));
       let itemPrice = {
@@ -107,7 +102,6 @@ export default async function handler(req, res) {
     let itemsResponse = await createCatalogItems(itemsBody);
     let pricesResponse = await createCatalogPricesItem(pricesBody);
     let attributesResponse = await createCatalogAttributesItem(attributesBody);
-    console.log([itemsResponse, pricesResponse, attributesResponse]);
   });
 
   await Promise.all(catalogPromise);

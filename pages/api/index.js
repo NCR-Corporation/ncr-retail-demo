@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 export default async function handler(req, res) {
   let homepageGroup = await getHomepageGroups('Homepage');
-  console.log('homepagegroup', homepageGroup);
   if (homepageGroup.data && homepageGroup.data.pageContent.length > 0) {
     let homepageGroups = homepageGroup.data.pageContent[0].tag;
     let homepageGroupsArray = homepageGroups.split(', ');
@@ -31,7 +30,6 @@ export default async function handler(req, res) {
     let home = _.sortBy(homepageContent, function (e) {
       return e.group.data.groupId.groupCode;
     });
-    console.log(home);
     res.json({ status: 200, home });
   } else {
     res.json({ status: 200 });

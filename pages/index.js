@@ -18,7 +18,6 @@ import Image from 'next/image';
 function Home() {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useHomepage(userStore.id);
-  console.log('data', data);
   return (
     <div className="d-flex flex-column main-container">
       <Header />

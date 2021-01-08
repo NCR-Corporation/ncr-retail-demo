@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Router from 'next/router';
 import React from 'react';
 import Link from 'next/link';
 import NavigationTabs from '~/components/admin/NavigationTabs';
@@ -13,30 +14,22 @@ import {
   Row,
   Col,
   Button,
-  Modal,
   Tooltip,
   Spinner,
-  ModalHeader,
-  ModalBody,
 } from 'reactstrap';
 
 const Header = ({ navigation = true, activeTab }) => {
   const [exporting, setIsExporting] = useState(false);
-  const [modal, setModal] = useState(false);
 
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const toggleTooltip = () => setTooltipOpen(!tooltipOpen);
 
   const buildSampleDatabase = () => {
-    // setIsExporting(true);
     fetch(`/api/export`)
       .then((res) => res.json())
       .then((data) => {
-        console.log('the data', data);
-        // toggleModal();
-        // setIsExporting(false);
-        // setDownloadJSON(data);
+        Router.reload(window.location.pathname);
       });
   };
 
