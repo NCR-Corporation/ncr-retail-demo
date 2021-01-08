@@ -23,12 +23,14 @@ const FindStoreModal = (props) => {
         )
           .then((res) => res.json())
           .then((data) => {
-            setSites(data.data.sites);
+            console.log('here', data.data.sites);
+            setSites(data.data.pageContent);
           });
       } else {
         fetch(`/api/findSites`)
           .then((res) => res.json())
           .then((data) => {
+            console.log('hee', data);
             setSites(data.data.pageContent);
           });
       }

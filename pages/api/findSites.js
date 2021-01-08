@@ -1,7 +1,7 @@
 // This probably can be under sites.js...but this was quicker.
 import haversine from 'haversine';
 import _ from 'lodash';
-import { findNearby } from '~/lib/sites';
+import { findNearby, getSites } from '~/lib/sites';
 
 export default async function handler(req, res) {
   if (req.query.latitude && req.query.longitude) {
@@ -24,8 +24,15 @@ export default async function handler(req, res) {
         }
       });
       let orderedSites = _.orderBy(activeSites, ['distanceTo'], ['asc']);
-      response.data.sites = orderedSites;
-      res.json(response);
+      console.log('or', orderedSites);
+      if (orderedSites.length == 0) {
+        let response = await findNearby();
+        console.log('res', response);
+        res.json(response);
+      } else {
+        response.data.pageContent = orderedSites;
+        res.json(response);
+      }
     } else {
       res.json(response);
     }
