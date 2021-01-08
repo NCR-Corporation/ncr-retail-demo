@@ -7,15 +7,15 @@ MART
 <h4 align="center">A sample retail demo application built on top of <a href="https://developer.ncrcloud.com" target="_blank">NCR's APIs.</a></h4>
 
 <p align="center">
-<a href="https://sample-app-retail-demo.vercel.app/"><img src="https://img.shields.io/badge/-Visit%20Demo-blue" alt="Demo" /></a>
+<a href="https://retaildemo.ncrcloud.com/"><img src="https://img.shields.io/badge/-Visit%20Demo-blue" alt="Demo" /></a>
 <img src="https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg" alt="Dependencies" />
-<a href="https://github.com/kg185155/sample-app-retail-demo/issues"><img src="https://img.shields.io/github/issues/kg185155/sample-app-retail-demo" alt="Github Issues" /></a>
+<a href="https://github.com/NCR-Corporation/ncr-retail-demo/issues"><img src="https://img.shields.io/github/issues/NCR-Corporation/ncr-retail-demo" alt="Github Issues" /></a>
 <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions Welcome" />
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-Apache 2.0-brightgreen" alt="License" /></a>
 </p>
 
 <p align="center">
-<a href="https://sample-app-retail-demo.vercel.app/" target="_blank">Demo</a> //
+<a href="https://retaildemo.ncrcloud.com/" target="_blank">Demo</a> //
 <a href="#features">Features</a> //
 <a href="#overview">Overview</a> //
 <a href="#how-to-use">How to Use</a> //
