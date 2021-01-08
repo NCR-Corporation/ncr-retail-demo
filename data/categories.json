@@ -1,0 +1,216 @@
+[
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Grocery"
+        }
+      ]
+    },
+    "nodeCode": "ec8fff52",
+    "nodeId": {
+      "nodeId": "ec8fff52"
+    },
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "version": 100
+  },
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Kitchen"
+        }
+      ]
+    },
+    "nodeCode": "af452ca5",
+    "nodeId": {
+      "nodeId": "af452ca5"
+    },
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "version": 100
+  },
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Bowls"
+        }
+      ]
+    },
+    "nodeId": {
+      "nodeId": "109a29fb"
+    },
+    "nodeCode": "109a29fb",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "d78b0d8b"
+    },
+    "version": 100
+  },
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Produce"
+        }
+      ]
+    },
+    "nodeId": {
+      "nodeId": "2940bbf7"
+    },
+    "nodeCode": "2940bbf7",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "ec8fff52"
+    },
+    "version": 100
+  },
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Vegetables"
+        }
+      ]
+    },
+    "nodeId": {
+      "nodeId": "6532adcd"
+    },
+    "nodeCode": "6532adcd",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "2940bbf7"
+    },
+    "version": 100
+  },
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Fruit"
+        }
+      ]
+    },
+    "nodeId": {
+      "nodeId": "abaaeea3"
+    },
+    "nodeCode": "abaaeea3",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "2940bbf7"
+    },
+    "version": 100
+  },
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Chips & Dip"
+        }
+      ]
+    },
+    "nodeId": {
+      "nodeId": "b74ea410"
+    },
+    "nodeCode": "b74ea410",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "ec8fff52"
+    },
+    "version": 100
+  },
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Tableware"
+        }
+      ]
+    },
+    "nodeId": {
+      "nodeId": "d78b0d8b"
+    },
+    "nodeCode": "d78b0d8b",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "af452ca5"
+    },
+    "version": 100
+  },
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Plates"
+        }
+      ]
+    },
+    "nodeId": {
+      "nodeId": "deca91c2"
+    },
+    "nodeCode": "deca91c2",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "d78b0d8b"
+    },
+    "version": 100
+  },
+  {
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Forks"
+        }
+      ]
+    },
+    "nodeId": {
+      "nodeId": "dbca91c2"
+    },
+    "nodeCode": "dbca91c2",
+    "tag": "Merchandise",
+    "departmentNode": false,
+    "departmentSale": false,
+    "status": "ACTIVE",
+    "parentId": {
+      "nodeId": "d78b0d8b"
+    },
+    "version": 100
+  }
+]

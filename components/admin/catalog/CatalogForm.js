@@ -71,7 +71,6 @@ const CatalogForm = ({ id, categories }) => {
   let { catalogItem, isLoading, isError } = useCatalogItem(id);
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.itemId == '') {
-    console.log('cata', catalogItem);
     const {
       departmentId,
       itemId,

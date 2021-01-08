@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Router from 'next/router';
 import React from 'react';
 import Link from 'next/link';
 import NavigationTabs from '~/components/admin/NavigationTabs';
@@ -13,53 +14,27 @@ import {
   Row,
   Col,
   Button,
-  Modal,
   Tooltip,
   Spinner,
-  ModalHeader,
-  ModalBody,
 } from 'reactstrap';
 
 const Header = ({ navigation = true, activeTab }) => {
   const [exporting, setIsExporting] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [downloadJSON, setDownloadJSON] = useState();
-  const toggleModal = () => setModal(!modal);
 
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const toggleTooltip = () => setTooltipOpen(!tooltipOpen);
 
-  const exportPostman = () => {
-    setIsExporting(true);
+  const buildSampleDatabase = () => {
     fetch(`/api/export`)
       .then((res) => res.json())
       .then((data) => {
-        toggleModal();
-        setIsExporting(false);
-        setDownloadJSON(data);
+        Router.reload(window.location.pathname);
       });
   };
 
   return (
     <header className="section-header bg-white shadow-sm">
-      <Modal isOpen={modal} toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>Postman Collection</ModalHeader>
-        <ModalBody>
-          <p>
-            Follow the numbering of the requests to make sure the sites,
-            categories, and items are all set up correctly.
-          </p>
-          <a
-            href={`data:${downloadJSON}`}
-            download="Sample Retail APIs.postman_collection.json"
-            className="btn btn-primary"
-          >
-            <FontAwesomeIcon icon={faWrench} />
-            Build Sample Database
-          </a>
-        </ModalBody>
-      </Modal>
       <section className="header-top-light border-bottom">
         <Container>
           <Nav className="d-flex justify-content-end row">
@@ -92,8 +67,7 @@ const Header = ({ navigation = true, activeTab }) => {
                 color="primary"
                 className="float-right"
                 id="TooltipExample"
-                onClick={() => exportPostman()}
-                disabled
+                onClick={() => buildSampleDatabase()}
               >
                 {exporting ? (
                   <Spinner color="light" size="sm" />

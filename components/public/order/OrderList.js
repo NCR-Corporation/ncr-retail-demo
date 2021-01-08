@@ -3,7 +3,6 @@ import { Card, CardTitle, CardBody, Col, Row } from 'reactstrap';
 
 export default function OrderList({ order }) {
   const convertStatusText = (text) => {
-    console.log('text', text);
     if (text === 'OrderPlaced') {
       return 'Order Placed';
     }

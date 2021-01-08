@@ -4,7 +4,6 @@ import Categories from '~/components/admin/categories/Categories';
 
 import { Container, Spinner } from 'reactstrap';
 import useDashboard from '~/lib/hooks/useDashboard';
-import NavigationTabs from '~/components/admin/NavigationTabs';
 
 const CategoriesTab = () => {
   let { data, isLoading, isError } = useDashboard('category');
@@ -21,7 +20,9 @@ const CategoriesTab = () => {
         {isError && (
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
-        {!isLoading && !isError && <Categories categories={data} />}
+        {!isLoading && !isError && (
+          <Categories categories={data.categoryNodes} />
+        )}
       </Container>
     </div>
   );

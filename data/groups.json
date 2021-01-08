@@ -1,0 +1,66 @@
+[
+  {
+    "version": 100,
+    "tag": "/images/family-dinner-wide.jpg",
+    "status": "ACTIVE",
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Family Night Favorites"
+        }
+      ]
+    },
+    "groupId": {
+      "groupCode": "28ba8df5"
+    }
+  },
+  {
+    "version": 100,
+    "tag": "/images/kitchen-essentials.jpg",
+    "status": "ACTIVE",
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Kitchen Essentials"
+        }
+      ]
+    },
+    "groupId": {
+      "groupCode": "626b2673"
+    }
+  },
+  {
+    "version": 100,
+    "tag": "28ba8df5, 626b2673",
+    "status": "ACTIVE",
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Homepage"
+        }
+      ]
+    },
+    "groupId": {
+      "groupCode": "Homepage"
+    }
+  },
+  {
+    "version": 100,
+    "tag": "holiday",
+    "status": "ACTIVE",
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Holiday Deals"
+        }
+      ]
+    },
+    "groupId": {
+      "groupCode": "656daxa"
+    }
+  }
+]
