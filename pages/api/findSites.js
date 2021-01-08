@@ -24,7 +24,6 @@ export default async function handler(req, res) {
         }
       });
       let orderedSites = _.orderBy(activeSites, ['distanceTo'], ['asc']);
-      console.log('or', orderedSites);
       if (orderedSites.length == 0) {
         let response = await findNearby();
         res.json(response);
