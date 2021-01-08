@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 export default async function handler(req, res) {
   let homepageGroup = await getHomepageGroups('Homepage');
+  console.log('homepagegroup', homepageGroup);
   if (homepageGroup.data && homepageGroup.data.pageContent.length > 0) {
     let homepageGroups = homepageGroup.data.pageContent[0].tag;
     let homepageGroupsArray = homepageGroups.split(', ');
@@ -16,7 +17,6 @@ export default async function handler(req, res) {
       let catalog = [];
       for (let index = 0; index < homepage.data.pageContent.length; index++) {
         const element = homepage.data.pageContent[index];
-        console.log('e', element);
         if (element.item.status == 'ACTIVE') catalog.push(element);
       }
       homepage.data.pageContent = catalog;
@@ -29,12 +29,11 @@ export default async function handler(req, res) {
     });
     await Promise.all(promises);
     let home = _.sortBy(homepageContent, function (e) {
-      console.log('e', e);
       return e.group.data.groupId.groupCode;
     });
     console.log(home);
-    res.json({ home });
+    res.json({ status: 200, home });
   } else {
-    res.json({});
+    res.json({ status: 200 });
   }
 }
