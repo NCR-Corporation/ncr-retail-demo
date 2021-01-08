@@ -93,6 +93,7 @@ const Header = ({ navigation = true, activeTab }) => {
                 className="float-right"
                 id="TooltipExample"
                 onClick={() => exportPostman()}
+                disabled
               >
                 {exporting ? (
                   <Spinner color="light" size="sm" />
