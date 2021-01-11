@@ -110,13 +110,8 @@ export default async function handler(req, res) {
     let pricesResponse = await createCatalogPricesItem(pricesBody);
     let attributesResponse = await createCatalogAttributesItem(attributesBody);
   });
-<<<<<<< HEAD
-  fs.writeFileSync('postman.json', JSON.stringify(PostmanCollection));
-  res.json(PostmanCollection);
-=======
 
   await Promise.all(catalogPromise);
 
   res.status(200).json({});
->>>>>>> main
 }

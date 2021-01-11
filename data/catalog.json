@@ -1,11 +1,7 @@
 [
   {
-<<<<<<< HEAD
-    "version": 100,
-=======
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -43,21 +39,13 @@
     "price": "0.99",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_6d9d5f9f-7206-49c4-a381-6ba5a0c08504?wid=588&hei=588&qlt=80&fmt=webp",
-=======
     "imageUrl": "/images/catalog/avocado.jpg",
->>>>>>> main
     "groups": "28ba8df5",
     "nonMerchandise": false
   },
   {
-<<<<<<< HEAD
-    "version": 100,
-=======
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -95,21 +83,13 @@
     "price": "2.99",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_d0d2719d-c19a-42df-aa3a-25ffdaffa88a?wid=700&hei=700&qlt=80&fmt=webp",
-=======
     "imageUrl": "/images/catalog/glass-bowl.jpg",
->>>>>>> main
     "groups": "626b2673",
     "nonMerchandise": false
   },
   {
-<<<<<<< HEAD
-    "version": 100,
-=======
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -147,20 +127,12 @@
     "price": "1.99",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_2f39379e-da27-49f3-b13a-bb5864d214ca?wid=700&hei=700&qlt=80&fmt=webp",
-    "nonMerchandise": false
-  },
-  {
-    "version": 100,
-=======
     "imageUrl": "/images/catalog/yellow-onions.jpg",
     "nonMerchandise": false
   },
   {
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -198,21 +170,13 @@
     "price": "8.99",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_f7d82554-5cbf-4761-b8b6-4aaf04bd07a3?wid=700&hei=700&qlt=80&fmt=webp",
-=======
     "imageUrl": "/images/catalog/plastic-serving-bowl.jpg",
->>>>>>> main
     "groups": "626b2673",
     "nonMerchandise": false
   },
   {
-<<<<<<< HEAD
-    "version": 100,
-=======
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -234,11 +198,7 @@
       "values": [
         {
           "locale": "en-US",
-<<<<<<< HEAD
-          "value": "Tostitos Chunky Salsa - Milk"
-=======
           "value": "Tostitos Chunky Salsa - Mild"
->>>>>>> main
         }
       ]
     },
@@ -254,21 +214,13 @@
     "price": "3.49",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_83404955-e03c-4d49-a4c8-ddc9b066682e?wid=700&hei=700&qlt=80&fmt=webp",
-=======
     "imageUrl": "/images/catalog/tostitos-mild-salsa",
->>>>>>> main
     "groups": "28ba8df5",
     "nonMerchandise": false
   },
   {
-<<<<<<< HEAD
-    "version": 100,
-=======
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -306,21 +258,13 @@
     "price": "4.59",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_3494bbe1-3e24-4cc6-8ca1-c5b8f11874eb?wid=700&hei=700&qlt=80&fmt=webp",
-=======
     "imageUrl": "/images/catalog/porcelain-dinner-plate.jpg",
->>>>>>> main
     "groups": "626b2673",
     "nonMerchandise": false
   },
   {
-<<<<<<< HEAD
-    "version": 100,
-=======
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -358,21 +302,13 @@
     "price": "4.59",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_ae819d39-43d0-4927-a55d-ea36ade0e33d?wid=700&hei=700&qlt=80&fmt=webp",
-=======
     "imageUrl": "/images/catalog/glass-dinner-plate.jpg",
->>>>>>> main
     "groups": "626b2673",
     "nonMerchandise": false
   },
   {
-<<<<<<< HEAD
-    "version": 100,
-=======
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -410,21 +346,13 @@
     "price": "3.79",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_5da9bd36-5e1a-483f-af4e-a48a1aac37c7?wid=700&hei=700&qlt=80&fmt=webp",
-=======
     "imageUrl": "/images/catalog/salsa-con-queso.jpg",
->>>>>>> main
     "groups": "28ba8df5",
     "nonMerchandise": false
   },
   {
-<<<<<<< HEAD
-    "version": 100,
-=======
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -462,20 +390,12 @@
     "price": "2.49",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_a1f7a423-ac95-46da-ad52-3ddb2c3873ab?wid=700&hei=700&qlt=80&fmt=webp",
-    "nonMerchandise": false
-  },
-  {
-    "version": 100,
-=======
     "imageUrl": "/images/catalog/russett-potato.jpg",
     "nonMerchandise": false
   },
   {
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -513,20 +433,12 @@
     "price": "3.49",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_ce4ac41d-c124-49db-8f0f-2f472ee51815?wid=700&hei=700&qlt=80&fmt=webp",
-    "nonMerchandise": false
-  },
-  {
-    "version": 100,
-=======
     "imageUrl": "/images/catalog/strawberries.jpg",
     "nonMerchandise": false
   },
   {
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -564,20 +476,12 @@
     "price": "1.35",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_31e44e71-4d8b-413c-b5bd-d5b36650098e?wid=700&hei=700&qlt=80&fmt=webp",
-    "nonMerchandise": false
-  },
-  {
-    "version": 100,
-=======
     "imageUrl": "/images/catalog/blueberries.jpg",
     "nonMerchandise": false
   },
   {
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -615,20 +519,12 @@
     "price": "1.99",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_02227710-3cd3-43e8-8f46-af4c7f95bb8f?wid=700&hei=700&qlt=80&fmt=webp",
-    "nonMerchandise": false
-  },
-  {
-    "version": 100,
-=======
     "imageUrl": "/images/catalog/bananas.jpg",
     "nonMerchandise": false
   },
   {
     "version": 101,
     "status": "ACTIVE",
->>>>>>> main
     "dynamicAttributes": [
       {
         "type": "retail-item",
@@ -666,11 +562,6 @@
     "price": "3.99",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-<<<<<<< HEAD
-    "imageUrl": "https://target.scene7.com/is/image/Target/GUEST_4e98dacb-1ff2-423f-8ea8-da84f44d5b0b?wid=700&hei=700&qlt=80&fmt=webp",
-    "groups": "28ba8df5",
-    "nonMerchandise": false
-=======
     "imageUrl": "/images/catalog/scoops-chips.jpg",
     "groups": "28ba8df5",
     "nonMerchandise": false
@@ -717,6 +608,5 @@
     "effectiveDate": "2020-12-17T05:00:00Z",
     "imageUrl": "",
     "nonMerchandise": false
->>>>>>> main
   }
 ]

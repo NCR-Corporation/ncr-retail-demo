@@ -21,11 +21,7 @@ const CategoriesTab = () => {
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
         {!isLoading && !isError && (
-<<<<<<< HEAD
-          <Categories categories={data.categoryNodes ?? []} />
-=======
           <Categories categories={data.categoryNodes} />
->>>>>>> main
         )}
       </Container>
     </div>

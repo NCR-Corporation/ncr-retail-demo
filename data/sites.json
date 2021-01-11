@@ -15,13 +15,8 @@
     },
     "contact": {
       "contactPerson": "George P. Burdell",
-<<<<<<< HEAD
-      "phoneNumber": "1",
-      "phoneNumberCountryCode": "4048942000"
-=======
       "phoneNumberCountryCode": "1",
       "phoneNumber": "4048942000"
->>>>>>> main
     },
     "coordinates": {
       "latitude": "33.758461",
@@ -45,13 +40,8 @@
     },
     "contact": {
       "contactPerson": "John Doe",
-<<<<<<< HEAD
-      "phoneNumber": "1",
-      "phoneNumberCountryCode": "4048944200"
-=======
       "phoneNumberCountryCode": "1",
       "phoneNumber": "4048944200"
->>>>>>> main
     },
     "coordinates": {
       "latitude": "33.7715123",
@@ -78,8 +68,6 @@
       "longitude": "-84.35312"
     },
     "enterpriseUnitName": "Vickery Creek Market"
-<<<<<<< HEAD
-=======
   },
   {
     "siteName": "Big Creek Market",
@@ -100,6 +88,5 @@
       "longitude": "-84.3107345"
     },
     "enterpriseUnitName": "Big Creek Market"
->>>>>>> main
   }
 ]

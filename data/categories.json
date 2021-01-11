@@ -9,12 +9,9 @@
       ]
     },
     "nodeCode": "ec8fff52",
-<<<<<<< HEAD
-=======
     "nodeId": {
       "nodeId": "ec8fff52"
     },
->>>>>>> main
     "tag": "Merchandise",
     "departmentNode": false,
     "departmentSale": false,
@@ -22,10 +19,6 @@
     "version": 100
   },
   {
-<<<<<<< HEAD
-    "title": "Kitchen",
-    "nodeCode": "af452ca5",
-=======
     "title": {
       "values": [
         {
@@ -38,7 +31,6 @@
     "nodeId": {
       "nodeId": "af452ca5"
     },
->>>>>>> main
     "tag": "Merchandise",
     "departmentNode": false,
     "departmentSale": false,
@@ -46,12 +38,6 @@
     "version": 100
   },
   {
-<<<<<<< HEAD
-    "title": "Bowls",
-    "nodeId": {
-      "nodeId": "109a29fb"
-    },
-=======
     "title": {
       "values": [
         {
@@ -64,7 +50,6 @@
       "nodeId": "109a29fb"
     },
     "nodeCode": "109a29fb",
->>>>>>> main
     "tag": "Merchandise",
     "departmentNode": false,
     "departmentSale": false,
@@ -75,12 +60,6 @@
     "version": 100
   },
   {
-<<<<<<< HEAD
-    "title": "Produce",
-    "nodeId": {
-      "nodeId": "2940bbf7"
-    },
-=======
     "title": {
       "values": [
         {
@@ -93,7 +72,6 @@
       "nodeId": "2940bbf7"
     },
     "nodeCode": "2940bbf7",
->>>>>>> main
     "tag": "Merchandise",
     "departmentNode": false,
     "departmentSale": false,
@@ -104,12 +82,6 @@
     "version": 100
   },
   {
-<<<<<<< HEAD
-    "title": "Vegetables",
-    "nodeId": {
-      "nodeId": "6532adcd"
-    },
-=======
     "title": {
       "values": [
         {
@@ -122,7 +94,6 @@
       "nodeId": "6532adcd"
     },
     "nodeCode": "6532adcd",
->>>>>>> main
     "tag": "Merchandise",
     "departmentNode": false,
     "departmentSale": false,
@@ -133,12 +104,6 @@
     "version": 100
   },
   {
-<<<<<<< HEAD
-    "title": "Fruit",
-    "nodeId": {
-      "nodeId": "abaaeea3"
-    },
-=======
     "title": {
       "values": [
         {
@@ -151,7 +116,6 @@
       "nodeId": "abaaeea3"
     },
     "nodeCode": "abaaeea3",
->>>>>>> main
     "tag": "Merchandise",
     "departmentNode": false,
     "departmentSale": false,
@@ -162,12 +126,6 @@
     "version": 100
   },
   {
-<<<<<<< HEAD
-    "title": "Chips & Dip",
-    "nodeId": {
-      "nodeId": "b74ea410"
-    },
-=======
     "title": {
       "values": [
         {
@@ -180,7 +138,6 @@
       "nodeId": "b74ea410"
     },
     "nodeCode": "b74ea410",
->>>>>>> main
     "tag": "Merchandise",
     "departmentNode": false,
     "departmentSale": false,
@@ -191,12 +148,6 @@
     "version": 100
   },
   {
-<<<<<<< HEAD
-    "title": "Tableware",
-    "nodeId": {
-      "nodeId": "d78b0d8b"
-    },
-=======
     "title": {
       "values": [
         {
@@ -209,7 +160,6 @@
       "nodeId": "d78b0d8b"
     },
     "nodeCode": "d78b0d8b",
->>>>>>> main
     "tag": "Merchandise",
     "departmentNode": false,
     "departmentSale": false,
@@ -220,12 +170,6 @@
     "version": 100
   },
   {
-<<<<<<< HEAD
-    "title": "Plates",
-    "nodeId": {
-      "nodeId": "deca91c2"
-    },
-=======
     "title": {
       "values": [
         {
@@ -260,7 +204,6 @@
       "nodeId": "dbca91c2"
     },
     "nodeCode": "dbca91c2",
->>>>>>> main
     "tag": "Merchandise",
     "departmentNode": false,
     "departmentSale": false,

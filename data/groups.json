@@ -46,8 +46,6 @@
     "groupId": {
       "groupCode": "Homepage"
     }
-<<<<<<< HEAD
-=======
   },
   {
     "version": 100,
@@ -64,6 +62,5 @@
     "groupId": {
       "groupCode": "656daxa"
     }
->>>>>>> main
   }
 ]

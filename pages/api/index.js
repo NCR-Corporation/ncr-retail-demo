@@ -34,8 +34,8 @@ export default async function handler(req, res) {
     let home = _.sortBy(homepageContent, function (e) {
       return e.group.data.groupId.groupCode;
     });
-    res.json({ status: 200, home });
+    res.json({ status: 200, home, logs });
   } else {
-    res.json({ status: 200 });
+    res.json({ status: 200, logs });
   }
 }
