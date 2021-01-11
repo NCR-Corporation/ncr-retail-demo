@@ -35,10 +35,10 @@ export default async function handler(req, res) {
         return c.nodeCode;
       });
     }
-    res.json({ categories, logs });
+    res.json({ categories, logs, status: 200 });
   } else if (req.method === 'PUT') {
     let response = await createCategory(JSON.parse(req.body));
     logs.push(response.log);
-    res.json({ response, logs });
+    res.json({ response, logs, status: 200 });
   }
 }

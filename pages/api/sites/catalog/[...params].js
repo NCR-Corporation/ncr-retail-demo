@@ -79,5 +79,5 @@ export default async function handler(req, res) {
   );
   logs.push(updateAttributes.log);
 
-  res.json({ updatePrice, updateAttributes, logs });
+  res.json({ updatePrice, updateAttributes, logs, status: 200 });
 }

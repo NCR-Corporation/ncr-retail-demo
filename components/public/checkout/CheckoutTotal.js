@@ -1,7 +1,7 @@
 import { Button, CardBody, Spinner } from 'reactstrap';
 
-export default function CheckoutTotal({ userAPICart, purchase, isPuchasing }) {
-  const cartTotals = userAPICart.cart.data;
+export default function CheckoutTotal({ data, purchase, isPuchasing }) {
+  const cartTotals = data.cart.data;
   return (
     <CardBody>
       <h4 className="font-weight-bold mb-4">Review Cart</h4>

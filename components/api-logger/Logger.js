@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import _ from 'lodash';
 import {
   Button,
   UncontrolledCollapse,
@@ -13,7 +14,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 const Logger = ({ logs }) => {
+  console.log('logger', logs);
   const [isActive, setIsActive] = useState(false);
+  let sortedLogs = _.sortBy(logs, (l) => l.req.request.headers['Date']);
 
   const toggleActive = () => {
     setIsActive(!isActive);

@@ -18,18 +18,25 @@ import {
   Row,
   Spinner,
 } from 'reactstrap';
-import NavigationTabs from '~/components/admin/NavigationTabs';
 import useDashboard from '~/lib/hooks/useDashboard';
 import Orders from '~/components/admin/orders/Orders';
 
 const Dashboard = () => {
   let { data, isLoading, isError } = useDashboard();
+  console.log('data', data);
   let ordersPlaced = [];
   let ordersReceived = [];
   let ordersInFulfillment = [];
   let ordersFilled = [];
-  if (!isLoading && !isError && data && data.data && data.data.pageContent) {
-    let orders = data.data.pageContent;
+  if (
+    !isLoading &&
+    !isError &&
+    data &&
+    data.orders &&
+    data.orders.data.pageContent
+  ) {
+    let orders = data.orders.data.pageContent;
+    console.log('orders', orders);
     ordersPlaced = orders.filter((el) => el.status == 'OrderPlaced');
     ordersReceived = orders.filter(
       (el) => el.status == 'ReceivedForFulfillment'
@@ -158,8 +165,8 @@ const Dashboard = () => {
               <h4 className="mb-1">Recent Orders</h4>
               <Orders
                 orders={
-                  data.data && data.data.pageContent
-                    ? data.data.pageContent
+                  data.orders && data.orders.data.pageContent
+                    ? data.orders.data.pageContent
                     : []
                 }
               />

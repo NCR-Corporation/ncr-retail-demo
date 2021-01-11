@@ -7,5 +7,5 @@ export default async function handler(req, res) {
   logs.push(site.log);
   const catalog = await getSiteCatalogItemDetails(req.query.params[0]);
   logs.push(catalog.log);
-  res.json({ site: site.data, catalog: catalog, logs });
+  res.json({ site: site.data, catalog: catalog, logs, status: 200 });
 }

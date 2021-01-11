@@ -16,5 +16,5 @@ export default async function handler(req, res) {
   logs.push(ancestors.log);
   catalogItem.data['categories'] = ancestors.data.nodes;
 
-  res.json({ catalogItem, logs });
+  res.json({ catalogItem, logs, status: 200 });
 }

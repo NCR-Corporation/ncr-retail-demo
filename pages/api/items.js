@@ -86,5 +86,11 @@ export default async function handler(req, res) {
   let attributesResponse = await createCatalogAttributesItem(attributesBody);
   logs.push(attributesResponse.log);
 
-  res.json({ itemsResponse, pricesResponse, attributesResponse, logs });
+  res.json({
+    itemsResponse,
+    pricesResponse,
+    attributesResponse,
+    logs,
+    status: 200,
+  });
 }

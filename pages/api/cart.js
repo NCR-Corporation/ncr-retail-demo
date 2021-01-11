@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     };
     let addToCart = await addItemToCart(body.siteId, cartId, etag, obj);
     logs.push(addToCart.log);
-    res.json({ etag, location: cartId, logs });
+    res.json({ status: 200, etag, location: cartId, logs });
   } else {
     let cartId = body.location;
     let etag = body.etag;
@@ -74,6 +74,6 @@ export default async function handler(req, res) {
       );
       logs.push(addItemToCart.log);
     }
-    res.json({ etag, location: cartId, logs });
+    res.json({ status: 200, etag, location: cartId, logs });
   }
 }

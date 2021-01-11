@@ -25,14 +25,14 @@ const Checkout = ({ session }) => {
   const userSession = useUser(session);
   const [order, setOrder] = useState({});
 
-  const { cart, isLoading, isError } = useCart(userStore.id, userCart.location);
+  const { data, isLoading, isError } = useCart(userStore.id, userCart.location);
   const [isPurchasing, setIsPurchasing] = useState(false);
   if (
     !isPurchasing &&
     (userCart.totalQuantity == 0 ||
       (!isLoading &&
         !isError &&
-        (cart.cart.status == 404 || cart.cartItems.status == 404)))
+        (data.cart.status == 404 || data.cartItems.status == 404)))
   ) {
     router.push({
       pathname: '/',
@@ -42,18 +42,19 @@ const Checkout = ({ session }) => {
   const purchase = async () => {
     setIsPurchasing(true);
     let userOrder = order;
-    userOrder['cart'] = cart.cart.data;
-    userOrder['lineItems'] = cart.cartItems.data.pageContent;
-    userOrder['user'] = userSession.user.data;
+    userOrder['cart'] = data.cart.data;
+    userOrder['lineItems'] = data.cartItems.data.pageContent;
+    userOrder['user'] = userSession.data.data;
     userOrder['store'] = userStore;
     userOrder['userCart'] = userCart;
     fetch(`/api/order`, { method: 'POST', body: JSON.stringify(userOrder) })
       .then((res) => res.json())
       .then((data) => {
+        console.log('status', data);
         // Reset the cart.
-        if (data.status == 200) {
+        if (data.response.status == 200) {
           setUserCart({ totalQuantity: 0, etag: null, location: null });
-          router.push(`/order/${data.data.id}`);
+          router.push(`/order/${data.response.data.id}`);
           setIsPurchasing(false);
         } else {
           setIsPurchasing(false);
@@ -102,11 +103,11 @@ const Checkout = ({ session }) => {
               </Col>
             </Row>
           )}
-          {!isLoading && !isError && cart && cart.cartItems.status == 200 && (
+          {!isLoading && !isError && data && data.cartItems.status == 200 && (
             <Row>
               <Col md="8">
                 <Card className="mb-2 cart-card">
-                  <CheckoutList cartItems={cart.cartItems.data.pageContent} />
+                  <CheckoutList cartItems={data.cartItems.data.pageContent} />
                 </Card>
                 <CheckoutUser
                   session={session}
@@ -123,7 +124,7 @@ const Checkout = ({ session }) => {
                 <Card className="mb-2 cart-card">
                   <CheckoutTotal
                     purchase={purchase}
-                    userAPICart={cart}
+                    data={data}
                     isPurchasing={isPurchasing}
                   />
                 </Card>

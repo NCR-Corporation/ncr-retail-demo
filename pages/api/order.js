@@ -78,5 +78,5 @@ export default async function handler(req, res) {
     'Closed'
   );
   logs.push(userCartStatus.log);
-  res.json({ result, logs });
+  res.json({ response: result, logs, status: 200 });
 }

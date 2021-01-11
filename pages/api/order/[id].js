@@ -6,18 +6,18 @@ let logs = [];
 export default async function handler(req, res) {
   if (req.method == 'GET') {
     const session = await getSession({ req });
-    let data = await getOrderById(req.query.id);
-    logs.push(data.log);
-    if (data.data.customer.id != session.user.username) {
-      res.json({ error: 403, logs });
+    let order = await getOrderById(req.query.id);
+    logs.push(order.log);
+    if (order.data.customer.id != session.user.username) {
+      res.json({ status: 403, logs });
     } else {
-      res.json({ data, logs });
+      res.json({ order, logs, status: 200 });
     }
   } else {
     // Post request.
     let body = JSON.parse(req.body);
     let data = await updateOrderById(body.siteId, body.orderId, body.values);
     logs.push(data);
-    res.json({ data, logs });
+    res.json({ data, logs, status: 200 });
   }
 }

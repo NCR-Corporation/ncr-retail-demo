@@ -14,5 +14,5 @@ export default async function handler(req, res) {
   };
   let items = _.sortBy(data, sortByItemCode);
   catalogItems.data.pageContent = items;
-  res.json({ catalogItems, logs });
+  res.json({ catalogItems, logs, status: 200 });
 }

@@ -10,7 +10,7 @@ export default async function handler(req, res) {
       body.lineItemId
     );
     logs.push(result.log);
-    res.json({ result, logs });
+    res.json({ result, logs, status: 200 });
   } else {
     let body = JSON.parse(req.body);
     const result = await addItemToCart(
@@ -20,6 +20,6 @@ export default async function handler(req, res) {
       body.item
     );
     logs.push(result.log);
-    res.json({ result, logs });
+    res.json({ result, logs, status: 200 });
   }
 }

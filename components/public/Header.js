@@ -16,7 +16,6 @@ import ProfileDropdown from '../auth/ProfileDropdown';
 
 export default function Header({ logs }) {
   let allLogs = logs ?? [];
-  console.log('all logs', allLogs);
   let { categories } = useHeader();
   if (categories && categories.logs) {
     allLogs = allLogs.concat(categories.logs);

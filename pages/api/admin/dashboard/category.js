@@ -6,5 +6,5 @@ export default async function handler(req, res) {
   const categoryNodes = await getAllCategoryNodes(true);
   logs.push(categoryNodes.log);
 
-  res.json({ categoryNodes, logs });
+  res.json({ categoryNodes, logs, status: 200 });
 }

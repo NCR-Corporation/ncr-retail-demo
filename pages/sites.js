@@ -20,18 +20,21 @@ const Sites = (props) => {
   useEffect(async () => {
     // Get locations near user.
     const fetchData = async () => {
+      console.log(props);
       if (props.coords && coordinates.latitude) {
         fetch(
           `/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`
         )
           .then((res) => res.json())
           .then((data) => {
+            setLogs([data.log]);
             setSites(data.data.sites);
           });
       } else {
         fetch(`/api/findSites`)
           .then((res) => res.json())
           .then((data) => {
+            setLogs([data.log]);
             setSites(data.data.pageContent);
           });
       }
@@ -41,7 +44,6 @@ const Sites = (props) => {
 
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
       <Header logs={logs} />
       <Container className="my-4 flex-grow-1">
         <h1>Stores</h1>

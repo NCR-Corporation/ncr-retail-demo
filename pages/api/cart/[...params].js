@@ -7,12 +7,12 @@ export default async function handler(req, res) {
   if (req.method == 'DELETE') {
     const result = await deleteCart(siteId, cartId);
     logs.push(result.log);
-    res.json({ result, logs });
+    res.json({ status: 200, result, logs });
   } else {
     const cart = await getCartById(siteId, cartId);
     logs.push(cart.log);
     const cartItems = await getCartItemsById(siteId, cartId);
     logs.push(cartItems.log);
-    res.json({ cart, cartItems, logs });
+    res.json({ status: 200, cart, cartItems, logs });
   }
 }
