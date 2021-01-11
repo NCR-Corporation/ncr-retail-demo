@@ -7,15 +7,15 @@ MART
 <h4 align="center">A sample retail demo application built on top of <a href="https://developer.ncrcloud.com" target="_blank">NCR's APIs.</a></h4>
 
 <p align="center">
-<a href="https://sample-app-retail-demo.vercel.app/"><img src="https://img.shields.io/badge/-Visit%20Demo-blue" alt="Demo" /></a>
+<a href="https://retaildemo.ncrcloud.com/"><img src="https://img.shields.io/badge/-Visit%20Demo-blue" alt="Demo" /></a>
 <img src="https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg" alt="Dependencies" />
-<a href="https://github.com/kg185155/sample-app-retail-demo/issues"><img src="https://img.shields.io/github/issues/kg185155/sample-app-retail-demo" alt="Github Issues" /></a>
+<a href="https://github.com/NCR-Corporation/ncr-retail-demo/issues"><img src="https://img.shields.io/github/issues/NCR-Corporation/ncr-retail-demo" alt="Github Issues" /></a>
 <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions Welcome" />
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-Apache 2.0-brightgreen" alt="License" /></a>
 </p>
 
 <p align="center">
-<a href="https://sample-app-retail-demo.vercel.app/" target="_blank">Demo</a> //
+<a href="https://retaildemo.ncrcloud.com/" target="_blank">Demo</a> //
 <a href="#features">Features</a> //
 <a href="#overview">Overview</a> //
 <a href="#how-to-use">How to Use</a> //
@@ -77,12 +77,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Every new application built with NCR is a blank installation with no data. If you are looking to become familiar with the APIs and see the application in action locally, you will need to either:
 
-1. Create your own Sites, Categories, and Items
+1. Create your own Sites, Categories, Groups, and Catalog
 2. Seed the database.
 
-To seed the database, visit the [Admin Dashboard](http://localhost:3000/admin/dashboard) by clicking "⚙ Manage" in the top of the homepage or visiting `/admin/dashboard`. From there, near the top is a blue button "⬇ Export All Data". Click on this button and a modal will appear.
-
-From there, either download the corresponding Postman collection or click "Seed Database". Seeding the database will take some time but once it is complete, a copy sample application will be returned.
+To seed the database, visit the [Admin Dashboard](http://localhost:3000/admin/dashboard) by clicking "⚙ Manage" in the top of the homepage or visiting `/admin/dashboard`. From there, near the top is a blue button "⬇ Build Sample Database". Note, you will still have to have a valid Organization, Secret, and Shared key in your `.env.local`.
 
 ## Support
 

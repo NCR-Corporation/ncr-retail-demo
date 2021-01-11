@@ -30,15 +30,15 @@ spec:
           imagePullPolicy: {{ .Values.Master.ImagePullPolicy }}
           env:
             - name: REACT_APP_BSP_SECRET_KEY
-              value: {{ quote .Values.Ingress.RetailDemo.BSPSecretKey }}
+              value: {{ quote .Values.RetailDemo.BSPSecretKey }}
             - name: REACT_APP_BSP_ORGANIZATION
-              value: {{ quote .Values.Ingress.RetailDemo.BSPOrganization }}
+              value: {{ quote .Values.RetailDemo.BSPOrganization }}
             - name: REACT_APP_BSP_SHARED_KEY
-              value: {{ quote .Values.Ingress.RetailDemo.BSPSharedKey }}
+              value: {{ quote .Values.RetailDemo.BSPSharedKey }}
             - name: NEXTAUTH_URL
-              value: {{ quote .Values.Ingress.RetailDemo.NextAuthURL }}
+              value: {{ quote .Values.RetailDemo.NextAuthURL }}
             - name: REACT_APP_GOOGLE_MAPS_API_KEY
-              value: {{ quote .Values.Ingress.RetailDemo.GoogleMapsAPIKey }}
+              value: {{ quote .Values.RetailDemo.GoogleMapsAPIKey }}
           ports:
             - name: http
               containerPort: 8080

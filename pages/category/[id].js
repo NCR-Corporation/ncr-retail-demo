@@ -12,7 +12,8 @@ export default function Category({ id }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCategory(id, userStore.id);
   let category, childrenCategories, categoryItems;
-  if (!isLoading && !isError) {
+  console.log(data);
+  if (!isLoading && !isError && data && data.category) {
     category = data.category;
     childrenCategories = data.childrenCategories;
     if (data.categoryItems.data && data.categoryItems.data.pageContent) {
@@ -53,7 +54,7 @@ export default function Category({ id }) {
           </div>
         )}
         {isError && <p>Error</p>}
-        {!isLoading && !isError && (
+        {!isLoading && !isError && data && data.category && (
           <div>
             {childrenCategories.data.pageContent.length > 0 && (
               <Row>

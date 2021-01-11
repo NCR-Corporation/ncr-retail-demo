@@ -46,5 +46,24 @@
     "groupId": {
       "groupCode": "Homepage"
     }
+<<<<<<< HEAD
+=======
+  },
+  {
+    "version": 100,
+    "tag": "holiday",
+    "status": "ACTIVE",
+    "title": {
+      "values": [
+        {
+          "locale": "en-US",
+          "value": "Holiday Deals"
+        }
+      ]
+    },
+    "groupId": {
+      "groupCode": "656daxa"
+    }
+>>>>>>> main
   }
 ]

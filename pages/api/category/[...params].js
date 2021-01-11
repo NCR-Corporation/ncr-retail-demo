@@ -45,5 +45,5 @@ export default async function handler(req, res) {
     return obj.item.itemId.itemCode;
   };
   categoryItems = _.sortBy(categoryItems, sortByItemCode);
-  res.json({ category, childrenCategories, categoryItems, logs });
+  res.json({ status: 200, category, childrenCategories, categoryItems, logs });
 }

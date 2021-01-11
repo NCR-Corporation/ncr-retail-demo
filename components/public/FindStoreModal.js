@@ -23,7 +23,7 @@ const FindStoreModal = (props) => {
         )
           .then((res) => res.json())
           .then((data) => {
-            setSites(data.data.sites);
+            setSites(data.data.pageContent);
           });
       } else {
         fetch(`/api/findSites`)

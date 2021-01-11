@@ -26,6 +26,7 @@ const Checkout = ({ session }) => {
   const [order, setOrder] = useState({});
 
   const { cart, isLoading, isError } = useCart(userStore.id, userCart.location);
+  const [isPurchasing, setIsPurchasing] = useState(false);
   if (
     !isPurchasing &&
     (userCart.totalQuantity == 0 ||
@@ -37,8 +38,6 @@ const Checkout = ({ session }) => {
       pathname: '/',
     });
   }
-
-  const [isPurchasing, setIsPurchasing] = useState(false);
 
   const purchase = async () => {
     setIsPurchasing(true);
@@ -128,6 +127,10 @@ const Checkout = ({ session }) => {
                     isPurchasing={isPurchasing}
                   />
                 </Card>
+                <small className="text-muted">
+                  *Be sure to fill out and click "Set Shipping Address" and "Use
+                  Payment Method"
+                </small>
               </Col>
             </Row>
           )}

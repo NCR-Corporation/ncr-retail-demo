@@ -28,14 +28,8 @@ const Dashboard = () => {
   let ordersReceived = [];
   let ordersInFulfillment = [];
   let ordersFilled = [];
-  if (
-    !isLoading &&
-    !isError &&
-    data.orders &&
-    data.orders.data &&
-    data.orders.data.pageContent
-  ) {
-    let orders = data.orders.data.pageContent;
+  if (!isLoading && !isError && data && data.data && data.data.pageContent) {
+    let orders = data.data.pageContent;
     ordersPlaced = orders.filter((el) => el.status == 'OrderPlaced');
     ordersReceived = orders.filter(
       (el) => el.status == 'ReceivedForFulfillment'
@@ -164,8 +158,8 @@ const Dashboard = () => {
               <h4 className="mb-1">Recent Orders</h4>
               <Orders
                 orders={
-                  data.orders.data && data.orders.data.pageContent
-                    ? data.orders.data.pageContent
+                  data.data && data.data.pageContent
+                    ? data.data.pageContent
                     : []
                 }
               />

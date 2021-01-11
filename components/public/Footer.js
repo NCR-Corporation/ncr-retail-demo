@@ -1,7 +1,14 @@
 import Link from 'next/link';
-import { Row, Col, Container } from 'reactstrap';
+import Router from 'next/router';
+import { useSession } from 'next-auth/client';
+import { Row, Col, Container, Button } from 'reactstrap';
 
 const Footer = () => {
+  const [session, loading] = useSession();
+  const startDemo = () => {
+    localStorage.clear();
+    Router.reload(window.location.pathname);
+  };
   return (
     <footer>
       <Container className="py-5">
@@ -21,11 +28,13 @@ const Footer = () => {
                   <a className="text-darker">Find a Store</a>
                 </Link>
               </li>
-              <li>
-                <Link href="/user/profile">
-                  <a className="text-darker">Manage Account</a>
-                </Link>
-              </li>
+              {!loading && session && (
+                <li>
+                  <Link href="/user/profile">
+                    <a className="text-darker">Manage Account</a>
+                  </Link>
+                </li>
+              )}
             </ul>
           </Col>
           <Col sm="12" md="4">
@@ -42,6 +51,15 @@ const Footer = () => {
                 <Link href="https://github.com">
                   <a className="text-darker">Github</a>
                 </Link>
+              </li>
+              <li>
+                <Button
+                  color="light"
+                  onClick={startDemo}
+                  className="text-darker float-right"
+                >
+                  Start Demo
+                </Button>
               </li>
             </ul>
           </Col>
