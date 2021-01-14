@@ -49,7 +49,7 @@ If this is the **first time** using a project with the generated keys, you will 
 First, clone the repository for local development.
 
 ```bash
-git clone https://github.com/kg185155/sample-app-retail-demo.git
+git clone https://github.com/NCR-Corporation/ncr-retail-demo.git
 ```
 
 Secondly, open the repository in an editor and rename `.env copy.local` to `.env.local`.
