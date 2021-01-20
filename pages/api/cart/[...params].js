@@ -9,6 +9,6 @@ export default async function handler(req, res) {
   } else {
     const cart = await getCartById(siteId, cartId);
     const cartItems = await getCartItemsById(siteId, cartId);
-    res.json({ cart, cartItems });
+    res.json({ cart, cartItems, status: 200 });
   }
 }

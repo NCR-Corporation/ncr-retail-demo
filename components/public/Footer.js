@@ -48,7 +48,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="https://github.com">
+                <Link href="https://github.com/NCR-Corporation/ncr-retail-demo">
                   <a className="text-darker">Github</a>
                 </Link>
               </li>

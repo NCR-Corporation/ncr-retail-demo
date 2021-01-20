@@ -8,10 +8,11 @@ export default async function handler(req, res) {
     siteId,
     itemCode
   );
+  console.log(catalogItem.data.item.merchandiseCategory.nodeId);
   const ancestors = await getCatalogItemCategoryAncestorsByMerchandiseCategory(
     catalogItem.data.item.merchandiseCategory.nodeId
   );
-  catalogItem.data['categories'] = ancestors.data.nodes;
+  catalogItem.data['categories'] = ancestors.data ? ancestors.data.nodes : [];
 
   res.json(catalogItem);
 }
