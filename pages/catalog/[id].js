@@ -80,17 +80,20 @@ const CatalogItem = ({ id }) => {
             <Spinner color="dark" />
           </div>
         )}
-        {!isLoading && !isError && data.catalogItem && (
-          <Breadcrumb className="bg-white shadow-sm">
-            {data.catalogItem.data['categories'].map((ancestor) => (
-              <BreadcrumbItem key={ancestor.nodeCode}>
-                <Link href={`/category/${ancestor.nodeCode}`}>
-                  {ancestor.title.value}
-                </Link>
-              </BreadcrumbItem>
-            ))}
-          </Breadcrumb>
-        )}
+        {!isLoading &&
+          !isError &&
+          data.catalogItem &&
+          data.catalogItem.data['categories'].length > 0 && (
+            <Breadcrumb className="bg-white shadow-sm">
+              {data.catalogItem.data['categories'].map((ancestor) => (
+                <BreadcrumbItem key={ancestor.nodeCode}>
+                  <Link href={`/category/${ancestor.nodeCode}`}>
+                    {ancestor.title.value}
+                  </Link>
+                </BreadcrumbItem>
+              ))}
+            </Breadcrumb>
+          )}
         {isError && <p className="text-muted">Uhoh, we've hit an error.</p>}
         {!isLoading && !isError && data.catalogItem && (
           <Card className="mb-3 border-0 shadow-sm">

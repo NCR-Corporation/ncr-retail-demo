@@ -16,7 +16,12 @@ import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 const Logger = ({ logs }) => {
   console.log('logger', logs);
   const [isActive, setIsActive] = useState(false);
-  let sortedLogs = _.sortBy(logs, (l) => l.req.request.headers['Date']);
+  console.log;
+  let sortedLogs = _.sortBy(logs, (l) => {
+    if (l != null && l.req) {
+      return l.req.request.headers['Date'];
+    }
+  });
 
   const toggleActive = () => {
     setIsActive(!isActive);
@@ -37,11 +42,11 @@ const Logger = ({ logs }) => {
         <Container className={styles.container}>
           <div className={styles.scroll}>
             <h4>HTTP Requests</h4>
-            {logs &&
-              logs.length > 0 &&
-              logs.map((log, key) => (
+            {sortedLogs &&
+              sortedLogs.length > 0 &&
+              sortedLogs.map((log, key) => (
                 <div key={key}>
-                  {log.req && log.res && (
+                  {log && log.req && log.res && (
                     <Card className="mb-2" style={{ fontFamily: 'monospace' }}>
                       <CardBody>
                         <CardTitle>
