@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
+import Logger from '~/components/api-logger/Logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
@@ -13,8 +14,13 @@ import SearchBar from './SearchBar';
 import { UserCartContext } from '~/context/userCart';
 import ProfileDropdown from '../auth/ProfileDropdown';
 
-export default function Header() {
-  const { categories } = useHeader();
+export default function Header({ logs }) {
+  let allLogs = logs ?? [];
+  let { categories } = useHeader();
+  if (categories && categories.logs) {
+    allLogs = allLogs.concat(categories.logs);
+    categories = categories.categories;
+  }
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,7 +51,10 @@ export default function Header() {
       <header className="section-header shadow-sm">
         <section className="header-top-light border-bottom">
           <Container>
-            <Nav className="d-flex justify-content-end row">
+            <Nav className="d-flex justify-content-between row">
+              <NavItem>
+                <Logger logs={allLogs} />
+              </NavItem>
               <NavItem>
                 <a href="/admin/dashboard" className="nav-link">
                   <FontAwesomeIcon icon={faCog} size="1x" /> Manage

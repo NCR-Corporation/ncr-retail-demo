@@ -4,7 +4,6 @@ import Catalog from '~/components/admin/catalog/Catalog';
 
 import { Container, Spinner } from 'reactstrap';
 import useDashboard from '~/lib/hooks/useDashboard';
-import NavigationTabs from '~/components/admin/NavigationTabs';
 
 const CatalogTab = () => {
   let { data, isLoading, isError } = useDashboard('catalog');
@@ -21,7 +20,7 @@ const CatalogTab = () => {
         {isError && (
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
-        {!isLoading && !isError && <Catalog data={data} />}
+        {!isLoading && !isError && <Catalog data={data.catalog ?? []} />}
       </Container>
     </div>
   );

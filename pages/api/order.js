@@ -1,5 +1,6 @@
 import { createOrder } from '~/lib/order';
 import { updateUserCartStatus } from '~/lib/cart';
+let logs = [];
 // Create order.
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
@@ -67,9 +68,15 @@ export default async function handler(req, res) {
   });
 
   let result = await createOrder(store.id, order);
+  logs.push(result.log);
 
   let userCart = body.userCart;
   // Close out the cart.
-  await updateUserCartStatus(store.id, userCart.location, 'Closed');
-  res.json(result);
+  let userCartStatus = await updateUserCartStatus(
+    store.id,
+    userCart.location,
+    'Closed'
+  );
+  logs.push(userCartStatus.log);
+  res.json({ response: result, logs, status: 200 });
 }

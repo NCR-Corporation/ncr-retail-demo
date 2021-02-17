@@ -1,0 +1,51 @@
+.logger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px; /* Height of navbar */
+  background: #f8f9fa;
+  min-height: 100%;
+  z-index: 100;
+  box-shadow: 0 0.125rem 1rem rgba(0, 0, 0, 0.075);
+  width: 100%;
+  display: none;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+}
+
+.scroll {
+  height: 100%;
+  overflow: auto;
+  display: block;
+}
+
+.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .logger {
+    display: none;
+  }
+}
+
+.activateBtn {
+  z-index: 101;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.closeBtn {
+  z-index: 101;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

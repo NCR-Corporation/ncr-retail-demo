@@ -46,7 +46,7 @@ export default function Category({ id }) {
   }
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
+      <Header logs={data && data.logs ? data.logs : []} />
       <Container className="my-4 flex-grow-1">
         {isLoading && (
           <div className="d-flex justify-content-center h-100">

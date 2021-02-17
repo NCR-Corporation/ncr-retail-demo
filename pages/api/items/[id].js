@@ -1,18 +1,12 @@
-import {
-  createCatalogItems,
-  updateSiteCatalogItemAttributesByItemCode,
-} from '~/lib/catalog';
+import { createCatalogItems } from '~/lib/catalog';
+let logs = [];
 
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
   // let groups = body.groups;
   delete body.groups;
-  // let itemAttributes = {
-  //   version: body.version,
-  //   groups
-  // }
-  // let updateItemAttributes = await updateSiteCatalogItemAttributesByItemCode(body.itemId.itemCode)
   let itemsBody = { items: [body] };
   let response = await createCatalogItems(itemsBody);
-  res.json(response);
+  logs.push(response.log);
+  res.json({ response, logs, status: 200 });
 }

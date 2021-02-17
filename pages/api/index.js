@@ -3,8 +3,10 @@ import { getHomepageCatalogItemsByGroup } from '~/lib/catalog';
 import _ from 'lodash';
 
 export default async function handler(req, res) {
+  let logs = [];
   let homepageGroup = await getHomepageGroups('Homepage');
   if (homepageGroup.data && homepageGroup.data.pageContent.length > 0) {
+    logs.push(homepageGroup.log);
     let homepageGroups = homepageGroup.data.pageContent[0].tag;
     let homepageGroupsArray = homepageGroups.split(', ');
     let homepageContent = [];
@@ -13,6 +15,7 @@ export default async function handler(req, res) {
         req.query.site,
         group
       );
+      logs.push(homepage.log);
       let catalog = [];
       for (let index = 0; index < homepage.data.pageContent.length; index++) {
         const element = homepage.data.pageContent[index];
@@ -21,6 +24,7 @@ export default async function handler(req, res) {
       homepage.data.pageContent = catalog;
       homepage.data.totalResults = catalog.length;
       let currentGroup = await getGroupById(group);
+      logs.push(currentGroup.log);
       homepageContent.push({
         group: currentGroup,
         catalog: homepage,
@@ -30,8 +34,8 @@ export default async function handler(req, res) {
     let home = _.sortBy(homepageContent, function (e) {
       return e.group.data.groupId.groupCode;
     });
-    res.json({ status: 200, home });
+    res.json({ status: 200, home, logs });
   } else {
-    res.json({ status: 200 });
+    res.json({ status: 200, logs });
   }
 }

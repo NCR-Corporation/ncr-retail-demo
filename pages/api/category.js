@@ -2,8 +2,10 @@ import { getAllCategoryNodes, createCategory } from '~/lib/category';
 import _ from 'lodash';
 
 export default async function handler(req, res) {
+  let logs = [];
   if (req.method === 'GET') {
-    let categories = await getAllCategoryNodes(false, false);
+    let { categories, log } = await getAllCategoryNodes(false, false);
+    logs = log;
     if (categories.length > 0) {
       categories.forEach((element) => {
         if (element.children.array.length > 0) {
@@ -33,9 +35,10 @@ export default async function handler(req, res) {
         return c.nodeCode;
       });
     }
-    res.json(categories);
+    res.json({ categories, logs, status: 200 });
   } else if (req.method === 'PUT') {
     let response = await createCategory(JSON.parse(req.body));
-    res.json(response);
+    logs.push(response.log);
+    res.json({ response, logs, status: 200 });
   }
 }

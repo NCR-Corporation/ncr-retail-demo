@@ -1,6 +1,9 @@
 import { getAllGroups } from '~/lib/groups';
 
+let logs = [];
+
 export default async function handler(req, res) {
   let result = await getAllGroups();
-  res.json(result);
+  logs.push(result.log);
+  res.json({ result, logs, status: 200 });
 }

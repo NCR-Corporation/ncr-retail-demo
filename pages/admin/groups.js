@@ -4,7 +4,6 @@ import Groups from '~/components/admin/groups/Groups';
 
 import { Container, Spinner } from 'reactstrap';
 import useDashboard from '~/lib/hooks/useDashboard';
-import NavigationTabs from '~/components/admin/NavigationTabs';
 
 const GroupsTab = () => {
   let { data, isLoading, isError } = useDashboard('groups');
@@ -21,7 +20,7 @@ const GroupsTab = () => {
         {isError && (
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
-        {!isLoading && !isError && <Groups data={data} />}
+        {!isLoading && !isError && <Groups data={data.result ?? []} />}
       </Container>
     </div>
   );

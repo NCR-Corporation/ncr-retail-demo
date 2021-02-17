@@ -3,6 +3,7 @@ import {
   updateSiteCatalogItemPricesByItemCode,
   updateSiteCatalogItemAttributesByItemCode,
 } from '~/lib/catalog';
+let logs = [];
 
 export default async function handler(req, res) {
   let siteId = req.query.params[0];
@@ -70,11 +71,13 @@ export default async function handler(req, res) {
     priceId,
     itemPrices
   );
+  logs.push(updatePrice.log);
   let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(
     siteId,
     itemId,
     itemAttributes
   );
+  logs.push(updateAttributes.log);
 
-  res.json({ updatePrice, updateAttributes });
+  res.json({ updatePrice, updateAttributes, logs, status: 200 });
 }

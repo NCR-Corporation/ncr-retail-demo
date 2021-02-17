@@ -68,9 +68,10 @@ const CatalogForm = ({ id, categories }) => {
 
   const onDismiss = () => setVisible(false);
 
-  let { catalogItem, isLoading, isError } = useCatalogItem(id);
+  let { data, isLoading, isError } = useCatalogItem(id);
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.itemId == '') {
+    console.log('d', data);
     const {
       departmentId,
       itemId,
@@ -81,7 +82,7 @@ const CatalogForm = ({ id, categories }) => {
       status,
       version,
       groups,
-    } = catalogItem;
+    } = data.catalogItem.data;
     let catalogValues = {
       version: version + 1,
       departmentId: departmentId ?? 'NA',
@@ -164,8 +165,12 @@ const CatalogForm = ({ id, categories }) => {
       fetch(`/api/items/${id}`, { method: 'POST', body: JSON.stringify(data) })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status != 204) {
-            setShowAlert({ status: data.status, message: data.data.message });
+          console.log('ddd', data);
+          if (data.response.status != 204) {
+            setShowAlert({
+              status: data.response.status,
+              message: data.response.data.message,
+            });
           } else {
             setShowAlert({
               status: 200,

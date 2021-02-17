@@ -34,9 +34,19 @@ export default function SiteCatalogTable({
       text: 'Name',
     },
     {
-      dataField: 'itemAttributes.status',
+      dataField: 'item.longDescription.values[0].value',
       sort: true,
-      text: 'Status',
+      text: 'Long',
+    },
+    {
+      dataField: 'item.merchandiseCategory.nodeId',
+      sort: true,
+      text: 'Merchandise',
+    },
+    {
+      dataField: 'itemAttributes.groups[0].groupCode',
+      sort: true,
+      text: 'Groups',
     },
     {
       dataField: 'itemPrices[0].price',
@@ -46,6 +56,16 @@ export default function SiteCatalogTable({
         width: '80px',
       },
     },
+    {
+      dataField: 'itemAttributes.imageUrls[0]',
+      sort: true,
+      text: 'Image',
+    },
+    // {
+    //   dataField: 'itemAttributes.status',
+    //   sort: true,
+    //   text: 'Status',
+    // },
     {
       dataField: '',
       text: '',

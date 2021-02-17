@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+import { exportAllData } from '~/lib/export';
+import fs from 'fs';
+import PostmanCollection from '~/public/Sample Retail APIs.postman_collection.json';
+import _ from 'lodash';
+=======
 import catalog from '~/data/catalog.json';
 import categories from '~/data/categories.json';
 import groups from '~/data/groups.json';
@@ -11,6 +17,7 @@ import {
   createCatalogPricesItem,
   createCatalogAttributesItem,
 } from '~/lib/catalog';
+>>>>>>> main
 
 export default async function handler(req, res) {
   let sitesPromise = sites.forEach(async (site) => {

@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from 'react';
-import Link from 'next/link';
 import Header from '~/components/public/Header';
 import { geolocated } from 'react-geolocated';
 import { Col, Container, Row } from 'reactstrap';
@@ -13,6 +12,7 @@ const Sites = (props) => {
   const { setUserStore } = useContext(UserStoreContext);
   const [coordinates, setCoordinates] = useState(coords);
   const [sites, setSites] = useState();
+  const [logs, setLogs] = useState([]);
   if (props.coords && !coordinates) {
     setCoordinates(props.coords);
   }
@@ -20,18 +20,21 @@ const Sites = (props) => {
   useEffect(async () => {
     // Get locations near user.
     const fetchData = async () => {
+      console.log(props);
       if (props.coords && coordinates.latitude) {
         fetch(
           `/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`
         )
           .then((res) => res.json())
           .then((data) => {
+            setLogs([data.log]);
             setSites(data.data.sites);
           });
       } else {
         fetch(`/api/findSites`)
           .then((res) => res.json())
           .then((data) => {
+            setLogs([data.log]);
             setSites(data.data.pageContent);
           });
       }
@@ -41,7 +44,7 @@ const Sites = (props) => {
 
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
+      <Header logs={logs} />
       <Container className="my-4 flex-grow-1">
         <h1>Stores</h1>
         <Row>

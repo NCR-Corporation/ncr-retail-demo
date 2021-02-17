@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,10 +28,11 @@ import useCatalogItem from '~/lib/hooks/useCatalogItem';
 const CatalogItem = ({ id }) => {
   const { userStore } = useContext(UserStoreContext);
   const { userCart, setUserCart } = useContext(UserCartContext);
-  const { catalogItem, isLoading, isError } = useCatalogItem(id, userStore.id);
+  const { data, isLoading, isError } = useCatalogItem(id, userStore.id);
   const [quantity, setItemQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
+  const [logs, setLogs] = useState([]);
 
   const handleAddToCart = (itemObj) => {
     itemObj['quantity'] = quantity;
@@ -48,15 +49,19 @@ const CatalogItem = ({ id }) => {
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        userCart.location = data.location;
-        userCart.etag = data.etag;
+      .then((res) => {
+        userCart.location = res.location;
+        userCart.etag = res.etag;
         userCart.totalQuantity = userCart.totalQuantity
           ? userCart.totalQuantity + quantity
           : quantity;
         setUserCart(userCart);
         setAddedToCart(true);
         setAddingToCart(false);
+        console.log('dddatatat', data);
+
+        let newLogs = data.logs.concat(res.logs);
+        setLogs(newLogs);
       });
   };
 
@@ -64,19 +69,20 @@ const CatalogItem = ({ id }) => {
     const qty = parseInt(event.target.value);
     setItemQuantity(qty);
   };
+  console.log('data', data);
 
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
+      <Header logs={logs.length == 0 && data && data.logs ? data.logs : logs} />
       <Container className="my-4 flex-grow-1">
         {isLoading && (
           <div className="d-flex justify-content-center h-100">
             <Spinner color="dark" />
           </div>
         )}
-        {!isLoading && !isError && (
+        {!isLoading && !isError && data.catalogItem && (
           <Breadcrumb className="bg-white shadow-sm">
-            {catalogItem['categories'].map((ancestor) => (
+            {data.catalogItem.data['categories'].map((ancestor) => (
               <BreadcrumbItem key={ancestor.nodeCode}>
                 <Link href={`/category/${ancestor.nodeCode}`}>
                   {ancestor.title.value}
@@ -86,41 +92,47 @@ const CatalogItem = ({ id }) => {
           </Breadcrumb>
         )}
         {isError && <p className="text-muted">Uhoh, we've hit an error.</p>}
-        {!isLoading && !isError && (
+        {!isLoading && !isError && data.catalogItem && (
           <Card className="mb-3 border-0 shadow-sm">
             <Row className="no-gutters">
               <Col sm="4">
                 <Image
                   src={
-                    catalogItem.itemAttributes &&
-                    catalogItem.itemAttributes.imageUrls.length > 0
-                      ? catalogItem.itemAttributes.imageUrls[0]
+                    data.catalogItem.data.itemAttributes &&
+                    data.catalogItem.data.itemAttributes.imageUrls.length > 0
+                      ? data.catalogItem.data.itemAttributes.imageUrls[0]
                       : 'https://via.placeholder.com/500'
                   }
                   layout="responsive"
                   width={500}
                   height={500}
-                  alt={catalogItem.item.shortDescription.values[0].value}
+                  alt={
+                    data.catalogItem.data.item.shortDescription.values[0].value
+                  }
                   className="p-4"
                 />
               </Col>
               <Col sm="8">
                 <CardBody className="h-100 d-flex flex-column pb-5">
                   <CardTitle tag="h2" className="bd-highlight">
-                    {catalogItem.item.shortDescription.values[0].value}
+                    {
+                      data.catalogItem.data.item.shortDescription.values[0]
+                        .value
+                    }
                   </CardTitle>
                   <CardSubtitle className="mb-2 text-muted">
-                    <strong>Item #:</strong> {catalogItem.item.itemId.itemCode}
+                    <strong>Item #:</strong>{' '}
+                    {data.catalogItem.data.item.itemId.itemCode}
                   </CardSubtitle>
                   <CardText>
-                    {catalogItem.item.longDescription.values[0].value}
+                    {data.catalogItem.data.item.longDescription.values[0].value}
                   </CardText>
                   <div className="mt-auto p-2">
                     <div className="d-flex justify-content-between mb-3">
                       <div className="flex-fill">
                         <h3 className="text-muted">
-                          {catalogItem.itemPrices
-                            ? `$${catalogItem.itemPrices[0].price}`
+                          {data.catalogItem.data.itemPrices
+                            ? `$${data.catalogItem.data.itemPrices[0].price}`
                             : 'Not available at this store'}
                         </h3>
                       </div>
@@ -147,7 +159,9 @@ const CatalogItem = ({ id }) => {
                           <Button
                             block
                             color="primary"
-                            onClick={() => handleAddToCart(catalogItem.item)}
+                            onClick={() =>
+                              handleAddToCart(data.catalogItem.data.item)
+                            }
                             className={`${addedToCart && 'fade-btn'}`}
                             color={addedToCart ? 'success' : 'primary'}
                             outline

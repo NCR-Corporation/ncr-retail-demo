@@ -19,7 +19,7 @@ const SitesTab = () => {
         {isError && (
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
-        {!isLoading && !isError && <Sites data={data ?? []} />}
+        {!isLoading && !isError && <Sites data={data.sites ?? []} />}
       </Container>
     </div>
   );

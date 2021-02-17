@@ -8,22 +8,24 @@ import { Row, Col, Spinner } from 'reactstrap';
 
 export default function Catalog({ query }) {
   const { userStore } = useContext(UserStoreContext);
-  const { catalogItems, isLoading, isError } = useCatalog(userStore.id, query);
+  const { data, isLoading, isError } = useCatalog(userStore.id, query);
+  console.log(data);
+  let catalogItems;
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
+      <Header logs={data && data.logs ? data.logs : []} />
       <div className="container my-4 flex-grow-1">
+        {isLoading && (
+          <div className="d-flex justify-content-center h-100">
+            <Spinner color="dark" />
+          </div>
+        )}
         <Row>
-          {isLoading && (
-            <div className="d-flex justify-content-center h-100">
-              <Spinner color="dark" />
-            </div>
-          )}
           {isError && <p className="text-muted">Uhoh, we've hit an error.</p>}
           {!isLoading &&
             !isError &&
-            catalogItems.data.pageContent.length > 0 &&
-            catalogItems.data.pageContent.map((item) => (
+            data.catalogItems.data.pageContent.length > 0 &&
+            data.catalogItems.data.pageContent.map((item) => (
               <Col
                 sm="6"
                 md="3"
