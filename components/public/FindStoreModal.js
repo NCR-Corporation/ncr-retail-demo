@@ -63,7 +63,7 @@ const FindStoreModal = (props) => {
               : ''}
           </small>
           {sites && sites.length > 0 && (
-            <div>
+            <div id="store-modal-list">
               {sites.map((site) => (
                 <FindStoreModalStore
                   site={site}

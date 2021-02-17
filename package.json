@@ -8,7 +8,8 @@
     "start": "next start -p 8080",
     "find:unused": "next-unused",
     "prettify": "npx prettier --write .",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "cy:open": "cypress open"
   },
   "next-unused": {
     "alias": {
@@ -77,6 +78,7 @@
     "yup": "^0.29.3"
   },
   "devDependencies": {
+    "cypress": "^6.5.0",
     "next-unused": "0.0.3",
     "patch-package": "^6.2.2",
     "prettier": "^2.2.1"

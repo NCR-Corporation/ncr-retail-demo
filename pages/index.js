@@ -51,7 +51,7 @@ function Home() {
             </small>
           )}
           {!isLoading && !isError && userStore.id && data && data.home && (
-            <div>
+            <div id="index-list">
               {data.home.length > 0 &&
                 data.home.map((element) => (
                   <div key={element.group.data.groupId.groupCode}>
