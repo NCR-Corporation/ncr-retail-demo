@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     catalogItem.data.item.merchandiseCategory.nodeId
   );
   logs.push(ancestors.log);
-  catalogItem.data['categories'] = ancestors.data.nodes;
+  catalogItem.data['categories'] = ancestors.data ? ancestors.data.nodes : [];
 
   res.json({ catalogItem, logs, status: 200 });
 }

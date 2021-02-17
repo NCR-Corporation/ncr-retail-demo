@@ -50,6 +50,7 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
       });
   };
 
+  console.log(item, itemAttributes);
   return (
     <Card className="border-0 shadow-sm item-card h-100">
       <Link href={`/catalog/${item.itemId.itemCode}`}>
@@ -63,7 +64,8 @@ const ItemCard = ({ catalogItem, showCartButton = true }) => {
             src={
               itemAttributes &&
               itemAttributes.imageUrls &&
-              itemAttributes.imageUrls.length > 0
+              itemAttributes.imageUrls.length > 0 &&
+              itemAttributes.imageUrls[0] !== ''
                 ? itemAttributes.imageUrls[0]
                 : 'https://via.placeholder.com/150'
             }
