@@ -9,7 +9,6 @@ import { Row, Col, Spinner } from 'reactstrap';
 export default function Catalog({ query }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCatalog(userStore.id, query);
-  console.log(data);
   let catalogItems;
   return (
     <div className="d-flex flex-column main-container">

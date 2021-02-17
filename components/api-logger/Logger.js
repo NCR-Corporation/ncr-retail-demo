@@ -14,9 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 const Logger = ({ logs }) => {
-  console.log('logger', logs);
   const [isActive, setIsActive] = useState(false);
-  console.log;
   let sortedLogs = _.sortBy(logs, (l) => {
     if (l != null && l.req) {
       return l.req.request.headers['Date'];

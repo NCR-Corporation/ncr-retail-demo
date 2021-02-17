@@ -23,7 +23,6 @@ import Orders from '~/components/admin/orders/Orders';
 
 const Dashboard = () => {
   let { data, isLoading, isError } = useDashboard();
-  console.log('data', data);
   let ordersPlaced = [];
   let ordersReceived = [];
   let ordersInFulfillment = [];
@@ -36,7 +35,6 @@ const Dashboard = () => {
     data.orders.data.pageContent
   ) {
     let orders = data.orders.data.pageContent;
-    console.log('orders', orders);
     ordersPlaced = orders.filter((el) => el.status == 'OrderPlaced');
     ordersReceived = orders.filter(
       (el) => el.status == 'ReceivedForFulfillment'

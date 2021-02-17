@@ -20,7 +20,6 @@ const Sites = (props) => {
   useEffect(async () => {
     // Get locations near user.
     const fetchData = async () => {
-      console.log(props);
       if (props.coords && coordinates.latitude) {
         fetch(
           `/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`

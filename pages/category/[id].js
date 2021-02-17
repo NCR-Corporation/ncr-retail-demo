@@ -12,7 +12,6 @@ export default function Category({ id }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCategory(id, userStore.id);
   let category, childrenCategories, categoryItems;
-  console.log(data);
   if (!isLoading && !isError && data && data.category) {
     category = data.category;
     childrenCategories = data.childrenCategories;

@@ -71,7 +71,6 @@ const CatalogForm = ({ id, categories }) => {
   let { data, isLoading, isError } = useCatalogItem(id);
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.itemId == '') {
-    console.log('d', data);
     const {
       departmentId,
       itemId,
@@ -165,7 +164,6 @@ const CatalogForm = ({ id, categories }) => {
       fetch(`/api/items/${id}`, { method: 'POST', body: JSON.stringify(data) })
         .then((response) => response.json())
         .then((data) => {
-          console.log('ddd', data);
           if (data.response.status != 204) {
             setShowAlert({
               status: data.response.status,

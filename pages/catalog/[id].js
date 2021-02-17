@@ -58,7 +58,6 @@ const CatalogItem = ({ id }) => {
         setUserCart(userCart);
         setAddedToCart(true);
         setAddingToCart(false);
-        console.log('dddatatat', data);
 
         let newLogs = data.logs.concat(res.logs);
         setLogs(newLogs);
@@ -69,7 +68,6 @@ const CatalogItem = ({ id }) => {
     const qty = parseInt(event.target.value);
     setItemQuantity(qty);
   };
-  console.log('data', data);
 
   return (
     <div className="d-flex flex-column main-container">
