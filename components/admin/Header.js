@@ -55,18 +55,9 @@ const Header = ({ navigation = true, activeTab }) => {
               </Link>
             </Col>
             <Col className="col text-md-right">
-              <Tooltip
-                placement="right"
-                isOpen={tooltipOpen}
-                target="TooltipExample"
-                toggle={toggleTooltip}
-              >
-                Returns all ACTIVE data in Postman collection.
-              </Tooltip>
               <Button
                 color="primary"
                 className="float-right"
-                id="TooltipExample"
                 onClick={() => buildSampleDatabase()}
               >
                 {exporting ? (
