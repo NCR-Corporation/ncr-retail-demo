@@ -61,7 +61,14 @@ function Home() {
                       className="mb-4 shadow-sm"
                     >
                       <Image
-                        src={`${element.group.data.tag}`}
+                        src={
+                          element &&
+                          element.group &&
+                          element.group.data &&
+                          element.group.data.tag
+                            ? element.group.data.tag
+                            : ''
+                        }
                         alt={`${element.group.data.title.values[0].value}`}
                         objectFit="none"
                         layout="fill"
