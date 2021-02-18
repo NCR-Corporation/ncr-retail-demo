@@ -96,7 +96,7 @@ const New = ({ siteId }) => {
   const onDismiss = () => setVisible(false);
   let { site, isLoading, isError } = useSite(siteId);
   const [initialValues, setInitialValues] = useState(init);
-  if (!isLoading && !isError && initialValues.siteName == '') {
+  if (!isLoading && !isError && siteId && initialValues.siteName == '') {
     const {
       coordinates,
       currency,

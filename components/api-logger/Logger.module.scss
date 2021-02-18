@@ -30,12 +30,6 @@
   display: block;
 }
 
-@media (max-width: 768px) {
-  .logger {
-    display: none;
-  }
-}
-
 .activateBtn {
   z-index: 101;
   position: absolute;

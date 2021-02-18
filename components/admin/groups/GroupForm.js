@@ -31,6 +31,10 @@ const createGroupSchema = Yup.object().shape({
 });
 
 const GroupForm = ({ id }) => {
+  const [showAlert, setShowAlert] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const onDismiss = () => setVisible(false);
+
   const [initialValues, setInitialValues] = useState(init);
   let { group, isLoading, isError } = useGroup(id);
   if (id && !isLoading && !isError && initialValues.title == '') {
@@ -70,7 +74,17 @@ const GroupForm = ({ id }) => {
     };
     fetch(`/api/groups`, { method: 'POST', body: JSON.stringify(data) })
       .then((response) => response.json())
-      .then((data) => console.log('the', data));
+      .then((data) => {
+        if (data.status != 200) {
+          setShowAlert({ status: data.status, message: data.data.message });
+        } else {
+          setShowAlert({
+            status: data.status,
+            message: 'Group successfully created',
+          });
+        }
+        setVisible(true);
+      });
   };
 
   return (
@@ -84,6 +98,14 @@ const GroupForm = ({ id }) => {
         const { errors, touched, isValid, dirty, setFieldValue } = formik;
         return (
           <Form>
+            <Alert
+              toggle={onDismiss}
+              isOpen={visible}
+              className="my-4"
+              color={showAlert.status == 200 ? 'success' : 'danger'}
+            >
+              {showAlert.message}
+            </Alert>
             <Row className="mt-4">
               <Col>
                 <h4 className="mb-1">{id ? 'Edit' : 'Create'} Group</h4>

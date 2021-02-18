@@ -58,7 +58,7 @@ function RecentOrders({ orders }) {
       text: 'Total Items',
       sort: true,
       formatter: (cell, row) => {
-        return <p>{cell.length}</p>;
+        return <p>{cell && cell.length}</p>;
       },
       headerStyle: {
         width: '150px',
