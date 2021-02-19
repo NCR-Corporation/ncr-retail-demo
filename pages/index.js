@@ -48,6 +48,7 @@ function Home() {
           {isError && (
             <small className="text-muted center">
               Uhoh, we've hit an error.
+              <code>{JSON.stringify(isError.info)}</code>
             </small>
           )}
           {!isLoading && !isError && userStore.id && data && data.home && (

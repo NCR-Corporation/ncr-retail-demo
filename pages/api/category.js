@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     let { categories, log } = await getAllCategoryNodes(false, false);
     logs = log;
-    if (categories.length > 0) {
+    if (categories && categories.length > 0) {
       categories.forEach((element) => {
         if (element.children.array.length > 0) {
           let children = element.children.array;
