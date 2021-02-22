@@ -24,8 +24,9 @@ import Footer from '~/components/public/Footer';
 import { UserStoreContext } from '~/context/userStore';
 import { UserCartContext } from '~/context/userCart';
 import useCatalogItem from '~/lib/hooks/useCatalogItem';
+import { getCategoryNodesForMenu } from '~/lib/category';
 
-const CatalogItem = ({ id }) => {
+const CatalogItem = ({ id, categories }) => {
   const { userStore } = useContext(UserStoreContext);
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { data, isLoading, isError } = useCatalogItem(id, userStore.id);
@@ -71,7 +72,10 @@ const CatalogItem = ({ id }) => {
 
   return (
     <div className="d-flex flex-column main-container">
-      <Header logs={logs.length == 0 && data && data.logs ? data.logs : logs} />
+      <Header
+        categories={categories}
+        logs={logs.length == 0 && data && data.logs ? data.logs : logs}
+      />
       <Container className="my-4 flex-grow-1">
         {isLoading && (
           <div className="d-flex justify-content-center h-100">
@@ -197,9 +201,12 @@ const CatalogItem = ({ id }) => {
 };
 
 export async function getServerSideProps(context) {
+  const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
       id: context.params.id,
+      categories,
+      logs,
     },
   };
 }

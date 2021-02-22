@@ -15,7 +15,9 @@ import Footer from '~/components/public/Footer';
 import CartCheckout from '~/components/public/cart/CartCheckout';
 import CartList from '~/components/public/cart/CartList';
 
-export default function Cart() {
+import { getCategoryNodesForMenu } from '~/lib/category';
+
+export default function Cart({ categories, logs }) {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
   const [userAPICart, setUserAPICart] = useState({ empty: true });
@@ -68,7 +70,7 @@ export default function Cart() {
 
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
+      <Header categories={categories} />
       <Container className="my-4 flex-grow-1">
         <Row className="mb-2">
           <Col>
@@ -150,4 +152,15 @@ export default function Cart() {
       <Footer />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const { categories, logs } = await getCategoryNodesForMenu();
+  return {
+    props: {
+      categories,
+      logs,
+    },
+    revalidate: 1800,
+  };
 }

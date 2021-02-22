@@ -53,8 +53,13 @@ export default async function handler(req, res) {
           value: item.quantity,
         },
       };
-      let addItemToCart = await addItemToCart(body.siteId, cartId, etag, obj);
-      logs.push(addItemToCart.log);
+      let addItemToExistingCart = await addItemToCart(
+        body.siteId,
+        cartId,
+        etag,
+        obj
+      );
+      logs.push(addItemToExistingCart.log);
     } else {
       let updateObj = {
         quantity: {
@@ -65,14 +70,14 @@ export default async function handler(req, res) {
         },
       };
       let lineId = update.lineId;
-      let addItemToCart = await updateItemInCartById(
+      let updateItemInCart = await updateItemInCartById(
         body.siteId,
         cartId,
         etag,
         lineId,
         updateObj
       );
-      logs.push(addItemToCart.log);
+      logs.push(updateItemInCart.log);
     }
     res.json({ status: 200, etag, location: cartId, logs });
   }

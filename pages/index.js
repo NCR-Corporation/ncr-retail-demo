@@ -15,12 +15,17 @@ import ItemCard from '~/components/public/ItemCard';
 import { UserStoreContext } from '~/context/userStore';
 import Image from 'next/image';
 
-function Home() {
+import { getCategoryNodesForMenu } from '~/lib/category';
+
+function Home({ categories, logs }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useHomepage(userStore.id);
   return (
     <div className="d-flex flex-column main-container">
-      <Header logs={data && data.logs ? data.logs : []} />
+      <Header
+        categories={categories}
+        logs={data && data.logs ? data.logs : []}
+      />
       <main className="container my-4 flex-grow-1">
         <div>
           <Card className="mb-4 border-0 shadow-sm">
@@ -105,15 +110,14 @@ function Home() {
   );
 }
 
-export async function getServerSideProps(context) {
-  let setup = true;
-  if (process.env.REACT_APP_BSP_SECRET_KEY != '') {
-    setup = false;
-  }
+export async function getStaticProps() {
+  const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
-      setup,
+      categories,
+      logs,
     },
+    revalidate: 1800,
   };
 }
 

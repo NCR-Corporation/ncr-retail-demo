@@ -14,13 +14,13 @@ import SearchBar from './SearchBar';
 import { UserCartContext } from '~/context/userCart';
 import ProfileDropdown from '../auth/ProfileDropdown';
 
-export default function Header({ logs }) {
+export default function Header({ categories, logs }) {
   let allLogs = logs ?? [];
-  let { categories } = useHeader();
-  if (categories && categories.logs) {
-    allLogs = allLogs.concat(categories.logs);
-    categories = categories.categories;
-  }
+  // let { categories } = useHeader();
+  // if (categories && categories.logs) {
+  //   allLogs = allLogs.concat(categories.logs);
+  //   categories = categories.categories;
+  // }
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);
   const [isModalOpen, setIsModalOpen] = useState(false);

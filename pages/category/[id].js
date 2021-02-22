@@ -7,8 +7,12 @@ import { Container, Card, Col, Row, CardBody, Spinner } from 'reactstrap';
 import useCategory from '~/lib/hooks/useCategory';
 import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
+import { useRouter } from 'next/router';
+import { getCategoryNodesForMenu } from '~/lib/category';
 
-export default function Category({ id }) {
+export default function Category({ categories }) {
+  const router = useRouter();
+  const { id } = router.query;
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCategory(id, userStore.id);
   let category, childrenCategories, categoryItems;
@@ -45,7 +49,10 @@ export default function Category({ id }) {
   }
   return (
     <div className="d-flex flex-column main-container">
-      <Header logs={data && data.logs ? data.logs : []} />
+      <Header
+        categories={categories}
+        logs={data && data.logs ? data.logs : []}
+      />
       <Container className="my-4 flex-grow-1">
         {isLoading && (
           <div className="d-flex justify-content-center h-100">
@@ -101,9 +108,11 @@ export default function Category({ id }) {
 }
 
 export async function getServerSideProps(context) {
+  const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
-      id: context.params.id,
+      categories,
+      logs,
     },
   };
 }

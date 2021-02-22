@@ -5,14 +5,18 @@ import { UserStoreContext } from '~/context/userStore';
 import ItemCard from '~/components/public/ItemCard';
 import useCatalog from '~/lib/hooks/useCatalog';
 import { Row, Col, Spinner } from 'reactstrap';
+import { getCategoryNodesForMenu } from '~/lib/category';
 
-export default function Catalog({ query }) {
+export default function Catalog({ query, categories }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCatalog(userStore.id, query);
   let catalogItems;
   return (
     <div className="d-flex flex-column main-container">
-      <Header logs={data && data.logs ? data.logs : []} />
+      <Header
+        categories={categories}
+        logs={data && data.logs ? data.logs : []}
+      />
       <div className="container my-4 flex-grow-1">
         {isLoading && (
           <div className="d-flex justify-content-center h-100">
@@ -42,9 +46,12 @@ export default function Catalog({ query }) {
 }
 
 export async function getServerSideProps(context) {
+  const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
       query: context.query.query ? context.query.query : '',
+      categories,
+      logs,
     },
   };
 }
