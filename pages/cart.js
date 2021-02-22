@@ -18,7 +18,6 @@ import CartList from '~/components/public/cart/CartList';
 import { getCategoryNodesForMenu } from '~/lib/category';
 
 export default function Cart({ categories, logs }) {
-  console.log('the categories', categories);
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
   const [userAPICart, setUserAPICart] = useState({ empty: true });
