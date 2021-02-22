@@ -118,7 +118,7 @@ export async function getStaticProps(context) {
       categories,
       logs,
     },
-    revalidate: 1800,
+    revalidate: 60,
   };
 }
 
