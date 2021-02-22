@@ -55,8 +55,14 @@ export default function Category({ categories }) {
       />
       <Container className="my-4 flex-grow-1">
         {isLoading && (
-          <div className="d-flex justify-content-center h-100">
-            <Spinner color="dark" />
+          <div>
+            <div className="row row-cols-md-3">
+              {[...Array(4).keys()].map((index) => (
+                <div className="col-sm-6 col-md-3 mb-4" key={index}>
+                  <ItemCard />
+                </div>
+              ))}
+            </div>
           </div>
         )}
         {isError && <p>Error</p>}

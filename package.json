@@ -70,6 +70,7 @@
     "react-dom": "17.0.1",
     "react-geolocated": "^3.1.0",
     "react-json-view": "git+https://github.com/thomasjm/react-json-view.git#e9baddc761536929f436e93baa5cebc5be519417",
+    "react-loading-skeleton": "^2.1.1",
     "react-payment-inputs": "^1.1.7",
     "reactstrap": "^8.8.1",
     "request": "^2.88.2",
