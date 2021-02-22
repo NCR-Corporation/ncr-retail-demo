@@ -18,6 +18,7 @@ import Image from 'next/image';
 import { getCategoryNodesForMenu } from '~/lib/category';
 
 function Home({ categories, logs }) {
+  console.log('the categories', categories);
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useHomepage(userStore.id);
   return (
@@ -110,7 +111,7 @@ function Home({ categories, logs }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
   const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {

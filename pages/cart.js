@@ -18,6 +18,7 @@ import CartList from '~/components/public/cart/CartList';
 import { getCategoryNodesForMenu } from '~/lib/category';
 
 export default function Cart({ categories, logs }) {
+  console.log('the categories', categories);
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
   const [userAPICart, setUserAPICart] = useState({ empty: true });
@@ -154,7 +155,7 @@ export default function Cart({ categories, logs }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
   const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
