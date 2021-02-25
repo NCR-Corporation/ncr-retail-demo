@@ -147,7 +147,8 @@ label {
 }
 
 .image-overlay-title {
-  color: #16181b;
+  color: #fff;
+  font-weight: 700;
   font-size: 2rem;
 }
 
@@ -327,4 +328,14 @@ label {
 
 .w-33 {
   width: 33% !important;
+}
+
+.card-group-header {
+  border: none !important;
+  height: 150px;
+  border-radius: 0px;
+}
+
+.card-img-overlay {
+  background: rgba(0, 0, 0, 0.44);
 }

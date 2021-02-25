@@ -36,15 +36,15 @@ const GroupForm = ({ id }) => {
   const onDismiss = () => setVisible(false);
 
   const [initialValues, setInitialValues] = useState(init);
-  let { group, isLoading, isError } = useGroup(id);
+  let { data, isLoading, isError } = useGroup(id);
   if (id && !isLoading && !isError && initialValues.title == '') {
-    let { data } = group;
+    let group = data.response.data;
     let newValues = {
-      version: data.version + 1,
-      title: data.title.values[0].value,
-      status: data.status,
-      groupId: data.groupId.groupCode,
-      tag: data.tag,
+      version: group.version + 1,
+      title: group.title.values[0].value,
+      status: group.status,
+      groupId: group.groupId.groupCode,
+      tag: group.tag,
     };
     setInitialValues(newValues);
   }

@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
 import { useRouter } from 'next/router';
 import { getCategoryNodesForMenu } from '~/lib/category';
+import Skeleton from 'react-loading-skeleton';
 
 export default function Category({ categories }) {
   const router = useRouter();
@@ -54,6 +55,21 @@ export default function Category({ categories }) {
         logs={data && data.logs ? data.logs : []}
       />
       <Container className="my-4 flex-grow-1">
+        {isLoading ? (
+          <Row className="pb-4">
+            <Col sm={12}>
+              <Skeleton width="33%" />
+            </Col>
+          </Row>
+        ) : (
+          <Row className="">
+            <Col sm={12}>
+              <h2 className="text-body" style={{ fontWeight: '600' }}>
+                {category.data.title.values[0].value}
+              </h2>
+            </Col>
+          </Row>
+        )}
         {isLoading && (
           <div>
             <div className="row row-cols-md-3">

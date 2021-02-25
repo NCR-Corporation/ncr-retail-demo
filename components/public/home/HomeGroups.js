@@ -1,4 +1,5 @@
 import { Row, Col, Card, CardBody, CardTitle, Button } from 'reactstrap';
+import Link from 'next/link';
 import Image from 'next/image';
 import Skeleton from 'react-loading-skeleton';
 const HomeGroups = ({ isError, isLoading, userStore, data }) => {
@@ -18,7 +19,11 @@ const HomeGroups = ({ isError, isLoading, userStore, data }) => {
                       <CardTitle tag="h2" className="text-white">
                         {element.group.data.title.values[0].value}
                       </CardTitle>
-                      <Button color="light">Shop Now</Button>
+                      <Link
+                        href={`/group/${element.group.data.groupId.groupCode}`}
+                      >
+                        <a className="btn btn-light">Shop Now</a>
+                      </Link>
                     </CardBody>
                     <Image
                       src={
