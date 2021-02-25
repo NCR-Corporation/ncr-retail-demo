@@ -10,7 +10,6 @@ import { getCategoryNodesForMenu } from '~/lib/category';
 export default function Catalog({ query, categories }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCatalog(userStore.id, query);
-  let catalogItems;
   return (
     <div className="d-flex flex-column main-container">
       <Header
@@ -19,8 +18,14 @@ export default function Catalog({ query, categories }) {
       />
       <div className="container my-4 flex-grow-1">
         {isLoading && (
-          <div className="d-flex justify-content-center h-100">
-            <Spinner color="dark" />
+          <div>
+            <div className="row row-cols-md-3">
+              {[...Array(8).keys()].map((index) => (
+                <div className="col-sm-6 col-md-3 mb-4" key={index}>
+                  <ItemCard />
+                </div>
+              ))}
+            </div>
           </div>
         )}
         <Row>

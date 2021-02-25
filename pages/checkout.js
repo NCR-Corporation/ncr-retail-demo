@@ -54,7 +54,6 @@ const Checkout = ({ session }) => {
         if (data.response.status == 200) {
           setUserCart({ totalQuantity: 0, etag: null, location: null });
           router.push(`/order/${data.response.data.id}`);
-          setIsPurchasing(false);
         } else {
           setIsPurchasing(false);
         }
@@ -84,7 +83,7 @@ const Checkout = ({ session }) => {
               <h4 className="mb-1">Checkout</h4>
             </Col>
           </Row>
-          {isLoading && (
+          {(isLoading || isPurchasing) && (
             <div className="d-flex justify-content-center">
               <Spinner color="primary" />
             </div>
@@ -102,38 +101,42 @@ const Checkout = ({ session }) => {
               </Col>
             </Row>
           )}
-          {!isLoading && !isError && data && data.cartItems.status == 200 && (
-            <Row>
-              <Col md="8">
-                <Card className="mb-2 cart-card">
-                  <CheckoutList cartItems={data.cartItems.data.pageContent} />
-                </Card>
-                <CheckoutUser
-                  session={session}
-                  order={order}
-                  setOrder={setOrder}
-                />
-                <CheckoutTender
-                  cartId={userCart.location}
-                  order={order}
-                  setOrder={setOrder}
-                />
-              </Col>
-              <Col md="4">
-                <Card className="mb-2 cart-card">
-                  <CheckoutTotal
-                    purchase={purchase}
-                    data={data}
-                    isPurchasing={isPurchasing}
+          {!isPurchasing &&
+            !isLoading &&
+            !isError &&
+            data &&
+            data.cartItems.status == 200 && (
+              <Row>
+                <Col md="8">
+                  <Card className="mb-2 cart-card">
+                    <CheckoutList cartItems={data.cartItems.data.pageContent} />
+                  </Card>
+                  <CheckoutUser
+                    session={session}
+                    order={order}
+                    setOrder={setOrder}
                   />
-                </Card>
-                <small className="text-muted">
-                  *Be sure to fill out and click "Set Shipping Address" and "Use
-                  Payment Method"
-                </small>
-              </Col>
-            </Row>
-          )}
+                  <CheckoutTender
+                    cartId={userCart.location}
+                    order={order}
+                    setOrder={setOrder}
+                  />
+                </Col>
+                <Col md="4">
+                  <Card className="mb-2 cart-card">
+                    <CheckoutTotal
+                      purchase={purchase}
+                      data={data}
+                      isPurchasing={isPurchasing}
+                    />
+                  </Card>
+                  <small className="text-muted">
+                    *Be sure to fill out and click "Set Shipping Address" and
+                    "Use Payment Method"
+                  </small>
+                </Col>
+              </Row>
+            )}
         </Container>
       )}
     </div>

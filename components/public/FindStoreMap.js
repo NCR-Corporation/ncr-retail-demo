@@ -5,7 +5,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 const SiteMarker = ({ onMarkerClick, showInfoWindow, site }) => (
   <div onClick={onMarkerClick}>
-    <FontAwesomeIcon icon={faMapMarkerAlt} size="2x" />
+    <FontAwesomeIcon icon={faMapMarkerAlt} size="3x" co />
     {showInfoWindow && <div>{site.siteName}</div>}
   </div>
 );
@@ -20,7 +20,7 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
           ? coordinates.longitude
           : -84.3917398,
     },
-    zoom: 11,
+    zoom: 10,
   };
 
   const [showInfoWindow, setShowInfoWindow] = useState(false);
@@ -31,7 +31,7 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
 
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: '75vh', width: '100%' }}>
+    <div style={{ height: '50vh', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{
           key: 'AIzaSyDOeae3mJn5fjVDyk6lW4cdYHdF0VVkrkE',

@@ -10,8 +10,8 @@ const Footer = () => {
     Router.reload(window.location.pathname);
   };
   return (
-    <footer>
-      <Container className="py-5">
+    <footer className="footer">
+      <Container className="py-5 text-white">
         <Row>
           <Col sm="12" md="4">
             <Link href="/">
@@ -19,37 +19,37 @@ const Footer = () => {
             </Link>
           </Col>
           <Col sm="12" md="4">
-            <h6 className="text-uppercase text-muted font-weight-bolder">
+            <h6 className="text-uppercase font-weight-bolder text-light">
               Resources
             </h6>
             <ul className="list-unstyled text-small">
               <li>
                 <Link href="/sites">
-                  <a className="text-darker">Find a Store</a>
+                  <a className="text-white">Find a Store</a>
                 </Link>
               </li>
               {!loading && session && (
                 <li>
                   <Link href="/user/profile">
-                    <a className="text-darker">Manage Account</a>
+                    <a className="text-white">Manage Account</a>
                   </Link>
                 </li>
               )}
             </ul>
           </Col>
           <Col sm="12" md="4">
-            <h6 className="text-uppercase text-muted font-weight-bolder">
+            <h6 className="text-uppercase font-weight-bolder text-light">
               Help
             </h6>
             <ul className="list-unstyled text-small">
               <li>
                 <Link href="https://developer.ncrcloud.com/">
-                  <a className="text-darker">Documentation</a>
+                  <a className="text-white">Documentation</a>
                 </Link>
               </li>
               <li>
                 <Link href="https://github.com/NCR-Corporation/ncr-retail-demo">
-                  <a className="text-darker">Github</a>
+                  <a className="text-white">Github</a>
                 </Link>
               </li>
               <li>

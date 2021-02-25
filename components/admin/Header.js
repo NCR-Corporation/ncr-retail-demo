@@ -35,7 +35,7 @@ const Header = ({ navigation = true, activeTab }) => {
 
   return (
     <header className="section-header bg-white shadow-sm">
-      <section className="header-top-light border-bottom">
+      <section className="header-top border-lighter">
         <Container>
           <Nav className="d-flex justify-content-end row">
             <NavItem>
