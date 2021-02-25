@@ -28,6 +28,7 @@ const HomeMap = () => {
               className="pl-0 text-darker text-left d-flex justify-content-between align-items-center text-decoration-none"
               tag="a"
               href={`/sites/${element.id}`}
+              key={element.id}
             >
               <div>
                 <p className="m-0">{element.siteName}</p>

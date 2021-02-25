@@ -25,6 +25,9 @@ header {
   background: #43973a;
 }
 
+.bg-brand-primary {
+  background: #66c15d;
+}
 .brand-primary {
   color: #66c15d;
 }

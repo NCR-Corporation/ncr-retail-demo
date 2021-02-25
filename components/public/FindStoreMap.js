@@ -5,7 +5,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 const SiteMarker = ({ onMarkerClick, showInfoWindow, site }) => (
   <div onClick={onMarkerClick}>
-    <FontAwesomeIcon icon={faMapMarkerAlt} size="3x" co />
+    <FontAwesomeIcon icon={faMapMarkerAlt} size="3x" />
     {showInfoWindow && <div>{site.siteName}</div>}
   </div>
 );

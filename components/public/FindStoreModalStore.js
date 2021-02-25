@@ -5,7 +5,7 @@ import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 const FindStoreModalStore = ({ toggle, setUserStore, site }) => {
   const [addingUserStore, setAddingUserStore] = useState(false);
   return (
-    <Row className="my-4 mb-4" key={site.id}>
+    <Row className="py-4 bg-light mb-2" key={site.id}>
       <Col sm="6">
         <p className="h5">{site.siteName}</p>
         <small className="muted">
