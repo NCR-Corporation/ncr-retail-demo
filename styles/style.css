@@ -1,7 +1,4 @@
-@font-face {
-  font-family: 'Rubik';
-  src: url('./fonts/Rubik-VariableFont_wght.ttf') format('truetype');
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap');
 
 html,
 body {
@@ -12,35 +9,57 @@ body {
 }
 
 body {
-  font-family: 'Rubik', Arial, 'Helvetica Neue', 'Segoe UI', sans-serif,
+  font-family: 'Inter', Arial, 'Helvetica Neue', 'Segoe UI', sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-.header {
-  background-color: #fff;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-footer {
+header {
   background-color: #fff;
 }
 
-.header-top-light .nav-link {
-  color: #969696;
+.footer {
+  background: #66c15d;
+}
+
+.brand-dark-primary {
+  background: #43973a;
+}
+
+.bg-brand-primary {
+  background: #66c15d;
+}
+.brand-primary {
+  color: #66c15d;
+}
+
+.header-top,
+.header-main {
+  background: #66c15d;
+}
+.header-top .nav-link {
+  color: #fff;
+}
+.header-main a {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.subheader-navbar .navbar-nav {
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .logo-text {
-  font-weight: 600;
-  font-size: 1.4rem;
+  font-weight: 800 !important;
+  font-size: 2rem !important;
   letter-spacing: 0.1rem;
-  color: #212529;
+  color: #fff;
   padding: 4px;
 }
 
 .logo-text:hover {
   text-decoration: none;
-  color: #212529a1;
+  color: rgba(255, 255, 255, 0.8);
   /* box-shadow: 0 2px 9px rgba(153, 153, 153, 0.3) !important; */
   transition: 0.3s;
 }
@@ -51,6 +70,14 @@ footer {
 
 .text-darker {
   color: #1c1c1c;
+}
+
+.border-lighter {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.bg-lighter {
+  background: rgba(229, 229, 232, 0.5);
 }
 
 .navbar-main .nav-link,
@@ -87,11 +114,23 @@ label {
   transition: 0.3s;
 }
 
+/* .dropdown {
+  position: static !important;
+}
+.dropdown-menu {
+  width: 50% !important;
+  left: 0;
+} */
+.dropdown-item {
+  font-size: 14px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
 .dropdown-item.active,
 .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #16181b;
+  background-color: #66c15d;
 }
 
 .fade-btn {
@@ -111,7 +150,8 @@ label {
 }
 
 .image-overlay-title {
-  color: #16181b;
+  color: #fff;
+  font-weight: 700;
   font-size: 2rem;
 }
 
@@ -250,4 +290,55 @@ label {
   position: absolute;
   transition-property: transform;
   transform-origin: center center;
+}
+
+.header-main .dropdown-menu.show {
+  top: 5px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.cart-btn {
+  border: none !important;
+}
+
+.carousel-caption {
+  width: 100%;
+  left: auto;
+  right: auto;
+  top: 20%;
+}
+
+.carousel-caption .inner-text {
+  font-size: 4rem;
+  font-weight: 800;
+  width: 40%;
+}
+
+.card-footer-loading {
+  border: none !important;
+}
+
+.index-list .card {
+  background: rgb(54, 134, 247, 0.5);
+  border: none;
+  color: #fff;
+}
+
+.vh-66 {
+  min-height: 66vh;
+}
+
+.w-33 {
+  width: 33% !important;
+}
+
+.card-group-header {
+  border: none !important;
+  height: 150px;
+  border-radius: 0px;
+}
+
+.card-img-overlay {
+  background: rgba(0, 0, 0, 0.44);
 }

@@ -32,7 +32,7 @@ const SearchBar = () => {
           aria-label="Search"
         />
         <div className="input-group-append">
-          <Button color="primary" type="submit">
+          <Button className="brand-dark-primary border-0" type="submit">
             <FontAwesomeIcon icon={faSearch} />
           </Button>
         </div>

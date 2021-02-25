@@ -2,7 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import Logger from '~/components/api-logger/Logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCog,
+  faShoppingCart,
+  faChevronDown,
+} from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
@@ -16,11 +20,6 @@ import ProfileDropdown from '../auth/ProfileDropdown';
 
 export default function Header({ categories, logs }) {
   let allLogs = logs ?? [];
-  // let { categories } = useHeader();
-  // if (categories && categories.logs) {
-  //   allLogs = allLogs.concat(categories.logs);
-  //   categories = categories.categories;
-  // }
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,7 +48,7 @@ export default function Header({ categories, logs }) {
         toggleLogin={toggleLoginModal}
       />
       <header className="section-header shadow-sm">
-        <section className="header-top-light border-bottom">
+        <section className="header-top border-lighter">
           <Container>
             <Nav className="d-flex justify-content-between row">
               <NavItem>
@@ -74,20 +73,37 @@ export default function Header({ categories, logs }) {
               <Col sm="8" md="5">
                 <SearchBar />
               </Col>
-              <Col sm="12" md="4" className="text-md-right">
-                {userCart && userCart.totalQuantity > 0 && (
-                  <Link href="/cart">
-                    <a>
-                      <Button color="dark" outline className="mr-1">
-                        My Cart
-                        <Badge color="warning" className="ml-1">
-                          {userCart.totalQuantity}
-                        </Badge>
-                      </Button>
-                    </a>
-                  </Link>
-                )}
-                <ProfileDropdown toggleModalLogin={toggleLoginModal} />
+              <Col sm="12" md="4" className="text-md-rightt text-white">
+                <div className="d-flex justify-content-end align-items-center">
+                  <div className="pr-4 d-flex flex-column justify-content-start">
+                    <ProfileDropdown toggleModalLogin={toggleLoginModal} />
+                  </div>
+                  <div className="pl-2 d-flex align-items-center justify-content-between text-white border-left border-white border-1">
+                    <Link href="/cart">
+                      <a style={{ border: 'none !important' }}>
+                        <Button
+                          color="light"
+                          outline
+                          className="border-none cart-btn"
+                        >
+                          <FontAwesomeIcon
+                            icon={faShoppingCart}
+                            size="1x"
+                            className="pr-1"
+                          />{' '}
+                          Cart
+                          {userCart &&
+                            userCart.totalQuantity != null &&
+                            userCart.totalQuantity > 0 && (
+                              <Badge color="warning" className="ml-1">
+                                {userCart.totalQuantity}
+                              </Badge>
+                            )}
+                        </Button>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
               </Col>
             </Row>
           </Container>

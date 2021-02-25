@@ -3,15 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Row,
-  Col,
-  Button,
-  Spinner,
-} from 'reactstrap';
+import { Card, CardBody, CardFooter, Row, Col, Button } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import { addToCart } from '~/lib/hooks/useCart';
@@ -77,7 +69,7 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
             />
           ) : (
             <div className="p-4">
-              <Skeleton height="207px" />
+              <Skeleton height="255px" />
             </div>
           )}
         </a>
@@ -95,7 +87,7 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
           </div>
         </CardBody>
       ) : (
-        <CardBody className="py-0">
+        <CardBody className="py-0 border-none">
           <Row>
             <Col md="12">
               <Skeleton />
@@ -103,7 +95,11 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
           </Row>
         </CardBody>
       )}
-      <CardFooter className="bg-white font-weight-bold h6">
+      <CardFooter
+        className={`bg-white font-weight-bold h6 ${
+          !item && 'card-footer-loading'
+        }`}
+      >
         <Row>
           <Col md="12" className="mb-2">
             {itemPrices ? (

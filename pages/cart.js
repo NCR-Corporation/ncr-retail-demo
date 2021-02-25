@@ -70,7 +70,7 @@ export default function Cart({ categories, logs }) {
 
   return (
     <div className="d-flex flex-column main-container">
-      <Header categories={categories} />
+      <Header categories={categories} logs={logs} />
       <Container className="my-4 flex-grow-1">
         <Row className="mb-2">
           <Col>
@@ -154,7 +154,7 @@ export default function Cart({ categories, logs }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {

@@ -13,6 +13,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Row,
+  Col,
 } from 'reactstrap';
 
 const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
@@ -20,17 +22,15 @@ const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Container className="py-2">
-      <Navbar expand="md" className="p-0" light color="faded">
+    <Container className="py-2 bg-white">
+      <Navbar expand="md" className="p-0 subheader-navbar" light color="faded">
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           {categories && categories.length > 0 && (
             <Nav navbar>
               <NavItem>
                 <Link href="/catalog">
-                  <a className="pl-0 nav-link">
-                    <strong>All Items</strong>
-                  </a>
+                  <a className="pl-0 nav-link">All Items</a>
                 </Link>
               </NavItem>
               {categories.map((category) => {
@@ -43,6 +43,8 @@ const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
                         {category.title.value}
                       </DropdownToggle>
                       <DropdownMenu right>
+                        {/* <Row>
+                          <Col sm={12} md={4}> */}
                         {Object.keys(children).map((child) => (
                           <Link
                             key={children[child].nodeCode}
@@ -53,6 +55,8 @@ const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
                             </DropdownItem>
                           </Link>
                         ))}
+                        {/* </Col>
+                        </Row> */}
                       </DropdownMenu>
                     </UncontrolledDropdown>
                   );
