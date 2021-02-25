@@ -42,10 +42,7 @@ const Logger = ({ logs }) => {
     setSizes({
       width: state.width != window.innerWidth ? window.innerWidth : 500,
       height: state.height != window.innerHeight ? window.innerHeight : 500,
-      position:
-        state.width != window.innerWidth && state.height != window.innerHeight
-          ? { x: 0, y: 0 }
-          : null,
+      position: state.position == null ? 0 : null,
     });
   };
 
@@ -74,11 +71,7 @@ const Logger = ({ logs }) => {
             height={state.height}
             width={state.width}
             onResize={onResize}
-            className={styles.resizable}
-            style={{
-              top: state.position ? state.position.x : null,
-              left: state.position ? state.position.y : null,
-            }}
+            className={state.position == 0 ? styles.full : styles.resizable}
           >
             <div
               style={{
@@ -107,6 +100,7 @@ const Logger = ({ logs }) => {
                         initial="hidden"
                         animate="visible"
                         variants={variants}
+                        key={key}
                       >
                         {log && log.req && log.res && (
                           <Card
