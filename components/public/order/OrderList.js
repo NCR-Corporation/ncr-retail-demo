@@ -30,7 +30,7 @@ export default function OrderList({ order }) {
               </strong>
             </span>
           )}
-          <p className={!order && 'w-50 text-right'}>
+          <p className={!order ? 'w-50 text-right' : ''}>
             Last Updated:{' '}
             {order ? (
               new Date(Date.parse(order.dateUpdated)).toLocaleString()
