@@ -2,17 +2,13 @@ import React, { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import Logger from '~/components/api-logger/Logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCog,
-  faShoppingCart,
-  faChevronDown,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
 import LoginModal from '~/components/auth/LoginModal';
+import ConfigurationModal from '~/components/public/ConfigurationModal';
 import { UserStoreContext } from '~/context/userStore';
-import useHeader from '~/lib/hooks/useHeader';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';
 import { UserCartContext } from '~/context/userCart';
@@ -29,13 +25,28 @@ export default function Header({ categories, logs }) {
   const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
   const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
   useEffect(() => {
-    if (Object.keys(userStore).length == 0) {
+    if (Object.keys(userStore).length == 0 && !showConfigModal) {
       setIsModalOpen(true);
     }
   }, [isModalOpen]);
 
+  let showConfigModal = false;
+  if (
+    !process.env.REACT_APP_BSP_ORGANIZATION ||
+    !process.env.REACT_APP_BSP_SHARED_KEY ||
+    !process.env.REACT_APP_BSP_SECRET_KEY
+  ) {
+    showConfigModal = true;
+  }
+  const [isConfigured, setIsConfigured] = useState(showConfigModal);
+  const toggleConfigurationModal = () => setIsConfigured(!isConfigured);
+
   return (
     <div className="bg-white">
+      <ConfigurationModal
+        modalProp={isConfigured}
+        toggle={toggleConfigurationModal}
+      />
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
       <LoginModal
         modalProp={isLoginModalOpen}

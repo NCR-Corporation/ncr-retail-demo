@@ -14,16 +14,18 @@ import {
   Row,
   Col,
   Button,
-  Tooltip,
+  Popover,
+  PopoverBody,
+  PopoverHeader,
   Spinner,
 } from 'reactstrap';
 
 const Header = ({ navigation = true, activeTab }) => {
   const [exporting, setIsExporting] = useState(false);
 
-  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
-  const toggleTooltip = () => setTooltipOpen(!tooltipOpen);
+  const toggle = () => setPopoverOpen(!popoverOpen);
 
   const buildSampleDatabase = () => {
     fetch(`/api/export`)
@@ -32,6 +34,14 @@ const Header = ({ navigation = true, activeTab }) => {
         Router.reload(window.location.pathname);
       });
   };
+  let isConfigured = true;
+  if (
+    !process.env.REACT_APP_BSP_ORGANIZATION ||
+    !process.env.REACT_APP_BSP_SHARED_KEY ||
+    !process.env.REACT_APP_BSP_SECRET_KEY
+  ) {
+    isConfigured = false;
+  }
 
   return (
     <header className="section-header bg-white shadow-sm">
@@ -55,18 +65,51 @@ const Header = ({ navigation = true, activeTab }) => {
               </Link>
             </Col>
             <Col className="col text-md-right">
-              <Button
-                color="primary"
-                className="float-right"
-                onClick={() => buildSampleDatabase()}
-              >
-                {exporting ? (
-                  <Spinner color="light" size="sm" />
-                ) : (
-                  <FontAwesomeIcon icon={faWrench} size="1x" />
-                )}{' '}
-                Build Sample Database
-              </Button>
+              {isConfigured ? (
+                <Button
+                  color="primary"
+                  className="float-right"
+                  onClick={() => buildSampleDatabase()}
+                >
+                  {exporting ? (
+                    <Spinner color="light" size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faWrench} size="1x" />
+                  )}{' '}
+                  Build Sample Database
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    id="Popover1"
+                    type="button"
+                    color="primary"
+                    className="float-right"
+                  >
+                    <FontAwesomeIcon icon={faWrench} size="1x" /> Build Sample
+                    Database
+                  </Button>
+                  <Popover
+                    placement="left"
+                    isOpen={popoverOpen}
+                    target="Popover1"
+                    toggle={toggle}
+                  >
+                    <PopoverHeader>Setup Required.</PopoverHeader>
+                    <PopoverBody>
+                      Application keys are required to build out the datbase.
+                      Check out the{' '}
+                      <a
+                        href="https://github.com/NCR-Corporation/ncr-retail-demo"
+                        target="_blank"
+                      >
+                        Github README
+                      </a>{' '}
+                      for more information.
+                    </PopoverBody>
+                  </Popover>
+                </>
+              )}
             </Col>
           </Row>
         </Container>

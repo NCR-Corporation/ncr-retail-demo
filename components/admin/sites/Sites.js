@@ -6,7 +6,15 @@ import Link from 'next/link';
 import { Col, Row, Button } from 'reactstrap';
 
 function Sites({ data }) {
-  const sites = data.data.pageContent;
+  let isConfigured = true;
+  if (
+    !process.env.REACT_APP_BSP_ORGANIZATION ||
+    !process.env.REACT_APP_BSP_SHARED_KEY ||
+    !process.env.REACT_APP_BSP_SECRET_KEY
+  ) {
+    isConfigured = false;
+  }
+  const sites = data.length == 0 ? data : data.data.pageContent;
 
   const selectOptions = {
     ACTIVE: 'ACTIVE',
@@ -91,11 +99,13 @@ function Sites({ data }) {
   ];
   return (
     <div>
-      <div className="text-right my-2">
-        <Link href="/admin/sites/new">
-          <a className="btn btn-primary">New Site</a>
-        </Link>
-      </div>
+      {isConfigured && (
+        <div className="text-right my-2">
+          <Link href="/admin/sites/new">
+            <a className="btn btn-primary">New Site</a>
+          </Link>
+        </div>
+      )}
 
       <div className="bg-white">
         <BootstrapTable

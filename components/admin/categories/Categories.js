@@ -3,10 +3,16 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { Button } from 'reactstrap';
 
 function Categories({ categories }) {
-  const router = useRouter();
+  let isConfigured = true;
+  if (
+    !process.env.REACT_APP_BSP_ORGANIZATION ||
+    !process.env.REACT_APP_BSP_SHARED_KEY ||
+    !process.env.REACT_APP_BSP_SECRET_KEY
+  ) {
+    isConfigured = false;
+  }
   const columns = [
     {
       dataField: 'nodeId.nodeId',
@@ -71,11 +77,13 @@ function Categories({ categories }) {
 
   return (
     <div className="pb-4">
-      <div className="text-right my-2">
-        <Link href="/admin/category/new">
-          <a className="btn btn-primary">New Category</a>
-        </Link>
-      </div>
+      {isConfigured && (
+        <div className="text-right my-2">
+          <Link href="/admin/category/new">
+            <a className="btn btn-primary">New Category</a>
+          </Link>
+        </div>
+      )}
       <div className="bg-white">
         <BootstrapTable
           bootstrap4

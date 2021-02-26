@@ -20,7 +20,13 @@ const CatalogTab = () => {
         {isError && (
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
-        {!isLoading && !isError && <Catalog data={data.catalog ?? []} />}
+        {!isLoading && !isError && (
+          <Catalog
+            data={
+              data.catalog && data.catalog.status == 200 ? data.catalog : []
+            }
+          />
+        )}
       </Container>
     </div>
   );

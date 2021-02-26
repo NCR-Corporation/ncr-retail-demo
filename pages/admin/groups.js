@@ -20,7 +20,11 @@ const GroupsTab = () => {
         {isError && (
           <small className="text-muted">Uhoh, we've hit an error.</small>
         )}
-        {!isLoading && !isError && <Groups data={data.result ?? []} />}
+        {!isLoading && !isError && (
+          <Groups
+            data={data.result && data.result.status == 200 ? data.result : []}
+          />
+        )}
       </Container>
     </div>
   );

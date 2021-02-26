@@ -6,7 +6,15 @@ import Link from 'next/link';
 import { Col, Row, Button } from 'reactstrap';
 
 function Groups({ data }) {
-  const groups = data.data.pageContent;
+  let isConfigured = true;
+  if (
+    !process.env.REACT_APP_BSP_ORGANIZATION ||
+    !process.env.REACT_APP_BSP_SHARED_KEY ||
+    !process.env.REACT_APP_BSP_SECRET_KEY
+  ) {
+    isConfigured = false;
+  }
+  const groups = data.length > 0 ? data.data.pageContent : data;
 
   const selectOptions = {
     ACTIVE: 'ACTIVE',
@@ -69,11 +77,13 @@ function Groups({ data }) {
   ];
   return (
     <div>
-      <div className="text-right my-2">
-        <Link href="/admin/groups/new">
-          <a className="btn btn-primary">New Group</a>
-        </Link>
-      </div>
+      {isConfigured && (
+        <div className="text-right my-2">
+          <Link href="/admin/groups/new">
+            <a className="btn btn-primary">New Group</a>
+          </Link>
+        </div>
+      )}
 
       <div className="bg-white">
         <BootstrapTable
