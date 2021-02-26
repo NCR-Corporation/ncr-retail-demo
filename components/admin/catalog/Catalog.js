@@ -6,11 +6,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 function Catalog({ data }) {
   let isConfigured = true;
-  if (
-    !process.env.REACT_APP_BSP_ORGANIZATION ||
-    !process.env.REACT_APP_BSP_SHARED_KEY ||
-    !process.env.REACT_APP_BSP_SECRET_KEY
-  ) {
+  if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
     isConfigured = false;
   }
   const catalog = data.length == 0 ? data : data.data.pageContent;

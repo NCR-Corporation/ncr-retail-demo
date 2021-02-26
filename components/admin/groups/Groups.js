@@ -7,11 +7,7 @@ import { Col, Row, Button } from 'reactstrap';
 
 function Groups({ data }) {
   let isConfigured = true;
-  if (
-    !process.env.REACT_APP_BSP_ORGANIZATION ||
-    !process.env.REACT_APP_BSP_SHARED_KEY ||
-    !process.env.REACT_APP_BSP_SECRET_KEY
-  ) {
+  if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
     isConfigured = false;
   }
   const groups = data.length > 0 ? data.data.pageContent : data;

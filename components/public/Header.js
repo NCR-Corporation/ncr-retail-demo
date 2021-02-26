@@ -31,13 +31,10 @@ export default function Header({ categories, logs }) {
   }, [isModalOpen]);
 
   let showConfigModal = false;
-  if (
-    !process.env.REACT_APP_BSP_ORGANIZATION ||
-    !process.env.REACT_APP_BSP_SHARED_KEY ||
-    !process.env.REACT_APP_BSP_SECRET_KEY
-  ) {
+  if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
     showConfigModal = true;
   }
+  console.log(showConfigModal);
   const [isConfigured, setIsConfigured] = useState(showConfigModal);
   const toggleConfigurationModal = () => setIsConfigured(!isConfigured);
 
