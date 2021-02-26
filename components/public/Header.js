@@ -84,7 +84,11 @@ export default function Header({ categories, logs }) {
               <Col sm="8" md="5">
                 <SearchBar />
               </Col>
-              <Col sm="12" md="4" className="text-md-rightt text-white">
+              <Col
+                sm="12"
+                md="4"
+                className="text-sm-left text-md-right text-white"
+              >
                 <div className="d-flex justify-content-end align-items-center">
                   <div className="pr-4 d-flex flex-column justify-content-start">
                     <ProfileDropdown toggleModalLogin={toggleLoginModal} />
