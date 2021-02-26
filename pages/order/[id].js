@@ -1,4 +1,5 @@
 import Header from '~/components/public/Header';
+import Head from 'next/head';
 import Footer from '~/components/public/Footer';
 import {
   Col,
@@ -33,6 +34,9 @@ export default function Order({ id, categories }) {
 
   return (
     <div className="d-flex flex-column main-container">
+      <Head>
+        <title>MART | Order</title>
+      </Head>
       <Header logs={data ? data.logs : []} categories={categories} />
       <Container className="my-4 flex-grow-1">
         {isLoading && (

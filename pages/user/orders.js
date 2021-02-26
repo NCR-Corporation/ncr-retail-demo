@@ -1,4 +1,5 @@
 import Header from '~/components/public/Header';
+import Head from 'next/head';
 import Footer from '~/components/public/Footer';
 import Sidebar from '~/components/public/user/Sidebar';
 import { Card, CardBody, Col, Row, Spinner } from 'reactstrap';
@@ -11,6 +12,9 @@ const Orders = ({ categories, logs }) => {
 
   return (
     <div className="d-flex flex-column main-container">
+      <Head>
+        <title>MART | Orders</title>
+      </Head>
       <Header categories={categories} logs={data && data.logs} />
       <main className="container my-4 flex-grow-1">
         <Row>

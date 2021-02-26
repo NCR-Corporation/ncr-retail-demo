@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -76,6 +77,13 @@ const CatalogItem = ({ id, categories }) => {
         categories={categories}
         logs={logs.length == 0 && data && data.logs ? data.logs : logs}
       />
+      {!isLoading && data.catalogItem && (
+        <Head>
+          <title>
+            MART | {data.catalogItem.data.item.shortDescription.values[0].value}
+          </title>
+        </Head>
+      )}
       <Container className="my-4 flex-grow-1">
         {!isError && (
           <Breadcrumb className="bg-white shadow-sm">

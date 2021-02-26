@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import Head from 'next/head';
 import {
   Card,
   CardBody,
@@ -70,6 +71,9 @@ export default function Cart({ categories, logs }) {
 
   return (
     <div className="d-flex flex-column main-container">
+      <Head>
+        <title>MART | Cart</title>
+      </Head>
       <Header categories={categories} logs={logs} />
       <Container className="my-4 flex-grow-1">
         <Row className="mb-2">

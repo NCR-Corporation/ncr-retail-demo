@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import Head from 'next/head';
 import { Card, Spinner, CardBody, Col, Container, Row } from 'reactstrap';
 import CheckoutTotal from '~/components/public/checkout/CheckoutTotal';
 import HeaderCheckout from '~/components/public/HeaderCheckout';
@@ -61,6 +62,9 @@ const Checkout = ({ session }) => {
   };
   return (
     <div className="d-flex flex-column main-container">
+      <Head>
+        <title>MART | Checkout</title>
+      </Head>
       <HeaderCheckout />
       {userSession.isError ? (
         <div>

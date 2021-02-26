@@ -1,4 +1,5 @@
 import Header from '~/components/public/Header';
+import Head from 'next/head';
 import Footer from '~/components/public/Footer';
 import { getById } from '~/lib/sites';
 import { getCategoryNodesForMenu } from '~/lib/category';
@@ -10,6 +11,9 @@ import FindStoreMap from '~/components/public/FindStoreMap';
 export default function Site({ site, categories }) {
   return (
     <div>
+      <Head>
+        <title>MART | {site.data.siteName}</title>
+      </Head>
       <Header categories={categories} logs={site.log} />
       <Container className="pb-4">
         <div className="py-4 d-flex align-items-center justify-content-between">

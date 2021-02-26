@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import Head from 'next/head';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import { UserStoreContext } from '~/context/userStore';
@@ -12,6 +13,9 @@ export default function Catalog({ query, categories }) {
   const { data, isLoading, isError } = useCatalog(userStore.id, query);
   return (
     <div className="d-flex flex-column main-container">
+      <Head>
+        <title>MART | Catalog</title>
+      </Head>
       <Header
         categories={categories}
         logs={data && data.logs ? data.logs : []}

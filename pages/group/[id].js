@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
-import Image from 'next/image';
+import Head from 'next/head';
 import ItemCard from '~/components/public/ItemCard';
 import {
   Container,
@@ -29,25 +29,30 @@ export default function Group({ categories }) {
         logs={data && data.logs ? data.logs : []}
       />
       {!isLoading ? (
-        <Card className="card-group-header" inverse>
-          <CardImg
-            src={data.group.data.tag}
-            className="w-100"
-            style={{
-              width: '100%',
-              height: '150px',
-              opacity: '0.75',
-              objectFit: 'cover',
-            }}
-          />
-          <CardImgOverlay className="card-img-overlay d-flex flex-wrap align-items-center">
-            <Container>
-              <CardTitle tag="h2" className="image-overlay-title">
-                {data.group.data.title.values[0].value}
-              </CardTitle>
-            </Container>
-          </CardImgOverlay>
-        </Card>
+        <>
+          <Head>
+            <title>MART | {data.group.data.title.values[0].value}</title>
+          </Head>
+          <Card className="card-group-header" inverse>
+            <CardImg
+              src={data.group.data.tag}
+              className="w-100"
+              style={{
+                width: '100%',
+                height: '150px',
+                opacity: '0.75',
+                objectFit: 'cover',
+              }}
+            />
+            <CardImgOverlay className="card-img-overlay d-flex flex-wrap align-items-center">
+              <Container>
+                <CardTitle tag="h2" className="image-overlay-title">
+                  {data.group.data.title.values[0].value}
+                </CardTitle>
+              </Container>
+            </CardImgOverlay>
+          </Card>
+        </>
       ) : (
         <Card inverse className="card-group-header">
           <CardImgOverlay className="card-img-overlay d-flex flex-wrap align-items-center">

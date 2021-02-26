@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import Link from 'next/link';
@@ -62,13 +63,18 @@ export default function Category({ categories }) {
             </Col>
           </Row>
         ) : (
-          <Row className="">
-            <Col sm={12}>
-              <h2 className="text-body" style={{ fontWeight: '600' }}>
-                {category.data.title.values[0].value}
-              </h2>
-            </Col>
-          </Row>
+          <>
+            <Head>
+              <title>MART | {category.data.title.values[0].value}</title>
+            </Head>
+            <Row className="">
+              <Col sm={12}>
+                <h2 className="text-body" style={{ fontWeight: '600' }}>
+                  {category.data.title.values[0].value}
+                </h2>
+              </Col>
+            </Row>
+          </>
         )}
         {isLoading && (
           <div>

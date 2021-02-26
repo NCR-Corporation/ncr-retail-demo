@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/client';
@@ -19,6 +20,9 @@ const Settings = ({ categories, logs, session }) => {
   if (isLoading) {
     return (
       <div className="d-flex flex-column main-container">
+        <Head>
+          <title>MART | Profile</title>
+        </Head>
         <Header categories={categories} />
         <main className="container my-4 flex-grow-1">
           <Row>
@@ -39,6 +43,9 @@ const Settings = ({ categories, logs, session }) => {
   if (isError) {
     return (
       <div className="d-flex flex-column main-container">
+        <Head>
+          <title>MART | Profile</title>
+        </Head>
         <Header categories={categories} />
         <LoginModal
           modalProp={isRegisterModalOpen ? false : true}
@@ -58,6 +65,9 @@ const Settings = ({ categories, logs, session }) => {
 
   return (
     <div className="d-flex flex-column main-container">
+      <Head>
+        <title>MART | Profile</title>
+      </Head>
       <Header categories={categories} logs={data.logs} />
       <main className="container my-4 flex-grow-1">
         {data && data.data && (
