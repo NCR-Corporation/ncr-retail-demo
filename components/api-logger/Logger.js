@@ -80,7 +80,7 @@ const Logger = ({ logs }) => {
               }}
             >
               <div className={styles.closeBtn}>
-                <Button color="primary" onClick={toggleMaximize} outline>
+                <Button color="light" onClick={toggleMaximize}>
                   {state.width == window.innerWidth &&
                   state.height == window.innerHeight
                     ? 'Shrink'
