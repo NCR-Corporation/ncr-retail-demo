@@ -8,11 +8,11 @@ describe('Visit Retail Demo', () => {
 
     cy.contains('Set as My Store').click();
 
-    let homepage = cy.get('#index-list').children();
-    cy.expect(homepage).to.not.be.empty;
+    // let homepage = cy.get('#index-list').children();
+    // cy.expect(homepage).to.not.be.empty;
 
-    cy.contains('Family Night Favorites').should('exist');
-    cy.contains('Kitchen Essentials').should('exist');
+    // cy.contains('Family Night Favorites').should('exist');
+    // cy.contains('Kitchen Essentials').should('exist');
 
     // Confirm all the elements on the page.
     cy.contains('Manage').should('exist');

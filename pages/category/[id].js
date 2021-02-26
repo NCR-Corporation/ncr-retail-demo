@@ -113,7 +113,7 @@ export default function Category({ categories }) {
                 ))}
               </Row>
             )}
-            <div className="row row-cols-md-3">
+            <div className="row row-cols-md-3" id="catalog-items">
               {categoryItems.length > 0 ? (
                 categoryItems.map((item) => (
                   <div
