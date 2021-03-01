@@ -8,6 +8,7 @@ const Footer = () => {
   const startDemo = () => {
     localStorage.clear();
     Router.reload(window.location.pathname);
+    window.scrollTo(0, 0);
   };
   return (
     <footer className="footer">
