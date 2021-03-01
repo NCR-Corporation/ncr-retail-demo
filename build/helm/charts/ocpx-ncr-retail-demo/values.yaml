@@ -28,7 +28,7 @@ RetailDemo:
   BSPSharedKey:
   NextAuthURL:
   GoogleMapsAPIKey:
-  NextPublicAppConfigured: 'true'
+  NextPublicAppConfigured: true
 Ingress:
   Annotations: {}
   RetailDemo: {}
