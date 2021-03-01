@@ -31,6 +31,7 @@ export default function Header({ categories, logs }) {
   }, [isModalOpen]);
 
   let showConfigModal = false;
+  console.log('rocess', process.env.NEXT_PUBLIC_APP_CONFIGURED);
   if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
     showConfigModal = true;
   }
