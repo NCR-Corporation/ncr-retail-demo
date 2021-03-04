@@ -40,7 +40,7 @@ spec:
             - name: REACT_APP_GOOGLE_MAPS_API_KEY
               value: {{ quote .Values.RetailDemo.GoogleMapsAPIKey }}
             - name: NEXT_PUBLIC_APP_CONFIGURED
-              value: {{ quote .Values.RetailDemo.NextPublicAppConfigured}}
+              value: true
           ports:
             - name: http
               containerPort: 8080
