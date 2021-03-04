@@ -8,8 +8,6 @@ steps:
         'NGINX_VERSION=${_NGINX_VERSION}',
         '--build-arg',
         'NGINX_VARIANT=alpine',
-        '--build-arg',
-        'NEXT_PUBLIC_APP_CONFIGURED=true',
         '--tag',
         'us.gcr.io/$PROJECT_ID/${_APP_NAME}:${_APP_TAG}',
         '--label',
