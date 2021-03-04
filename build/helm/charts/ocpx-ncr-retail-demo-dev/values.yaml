@@ -1,7 +1,7 @@
 Master:
   App:
-    Name: ocpx-ncr-retail-demo
-    Prefix: ocpx-ncr-retail-demo
+    Name: ocpx-ncr-retail-demo-dev
+    Prefix: ocpx-ncr-retail-demo-dev
     ReleaseVersion:
   ImagePullPolicy: Always
 Image:
