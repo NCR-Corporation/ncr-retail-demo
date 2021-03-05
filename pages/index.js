@@ -12,17 +12,11 @@ import ConfigurationModal from '~/components/public/ConfigurationModal';
 
 import { getCategoryNodesForMenu } from '~/lib/category';
 
-function Home({ categories, configured }) {
+function Home({ categories }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useHomepage(userStore.id);
-  const [isConfigured, setIsConfigured] = useState(configured);
-  const toggleConfigurationModal = () => setIsConfigured(!isConfigured);
   return (
     <div className="d-flex flex-column main-container">
-      <ConfigurationModal
-        modalProp={!isConfigured}
-        toggle={toggleConfigurationModal}
-      />
       <Header
         categories={categories}
         logs={data && data.logs ? data.logs : []}
@@ -61,9 +55,6 @@ export async function getStaticProps() {
     props: {
       categories,
       logs,
-      configured: process.env.REACT_APP_CONFIGURED
-        ? process.env.REACT_APP_CONFIGURED
-        : false,
     },
     revalidate: 60,
   };

@@ -34,10 +34,6 @@ const Header = ({ navigation = true, activeTab }) => {
         Router.reload(window.location.pathname);
       });
   };
-  let isConfigured = true;
-  if (!process.env.REACT_APP_CONFIGURED) {
-    isConfigured = false;
-  }
 
   return (
     <header className="section-header bg-white shadow-sm">
