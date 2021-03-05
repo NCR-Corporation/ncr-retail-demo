@@ -8,7 +8,6 @@ import HomeAboutCards from '~/components/public/home/HomeAboutCards';
 import HomeGroups from '~/components/public/home/HomeGroups';
 import HomeMap from '~/components/public/home/HomeMap';
 import HomeQuote from '~/components/public/home/HomeQuote';
-import ConfigurationModal from '~/components/public/ConfigurationModal';
 
 import { getCategoryNodesForMenu } from '~/lib/category';
 
@@ -20,7 +19,6 @@ function Home({ categories }) {
       <Header
         categories={categories}
         logs={data && data.logs ? data.logs : []}
-        configured={configured}
       />
       <HomeCarousel />
       <main className="container my-4 flex-grow-1">

@@ -57,8 +57,10 @@ const Header = ({ navigation = true, activeTab }) => {
               </Link>
             </Col>
             <Col className="col text-md-right">
-              {isConfigured ? (
+              <>
                 <Button
+                  id="Popover1"
+                  type="button"
                   color="primary"
                   className="float-right"
                   onClick={() => buildSampleDatabase()}
@@ -70,38 +72,26 @@ const Header = ({ navigation = true, activeTab }) => {
                   )}{' '}
                   Build Sample Database
                 </Button>
-              ) : (
-                <>
-                  <Button
-                    id="Popover1"
-                    type="button"
-                    color="primary"
-                    className="float-right"
-                  >
-                    <FontAwesomeIcon icon={faWrench} size="1x" /> Build Sample
-                    Database
-                  </Button>
-                  <Popover
-                    placement="left"
-                    isOpen={popoverOpen}
-                    target="Popover1"
-                    toggle={toggle}
-                  >
-                    <PopoverHeader>Setup Required.</PopoverHeader>
-                    <PopoverBody>
-                      Application keys are required to build out the datbase.
-                      Check out the{' '}
-                      <a
-                        href="https://github.com/NCR-Corporation/ncr-retail-demo"
-                        target="_blank"
-                      >
-                        Github README
-                      </a>{' '}
-                      for more information.
-                    </PopoverBody>
-                  </Popover>
-                </>
-              )}
+                <Popover
+                  placement="left"
+                  isOpen={popoverOpen}
+                  target="Popover1"
+                  toggle={toggle}
+                >
+                  <PopoverHeader>Setup Required.</PopoverHeader>
+                  <PopoverBody>
+                    Application keys are required to build out the datbase.
+                    Check out the{' '}
+                    <a
+                      href="https://github.com/NCR-Corporation/ncr-retail-demo"
+                      target="_blank"
+                    >
+                      Github README
+                    </a>{' '}
+                    for more information.
+                  </PopoverBody>
+                </Popover>
+              </>
             </Col>
           </Row>
         </Container>
