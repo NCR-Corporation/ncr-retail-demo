@@ -24,7 +24,7 @@ export default function Header({ categories, logs }) {
   const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
   const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
   useEffect(() => {
-    if (Object.keys(userStore).length == 0 && !showConfigModal) {
+    if (Object.keys(userStore).length == 0) {
       setIsModalOpen(true);
     }
   }, [isModalOpen]);
