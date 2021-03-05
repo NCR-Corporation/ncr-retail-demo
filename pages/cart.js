@@ -28,7 +28,7 @@ export default function Cart({ categories }) {
 
   React.useEffect(() => {
     fetchCart();
-  }, []);
+  }, [userCart]);
 
   const fetchCart = () => {
     setLoading(true);

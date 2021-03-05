@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
@@ -13,6 +13,7 @@ export default function CartItem({
   setCartLogs,
   logs,
 }) {
+  const [qty, setQty] = useState(item.quantity.value);
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
 
@@ -61,6 +62,7 @@ export default function CartItem({
         userCart.etag = data.etag;
         userCart.totalQuantity = userCart.totalQuantity - previousQty + newQty;
         setUserCart(userCart);
+        setQty(newQty);
       });
   };
   return (
@@ -81,7 +83,7 @@ export default function CartItem({
                 type="select"
                 name="select"
                 id="qtySelect"
-                value={item.quantity.value}
+                value={qty}
                 onChange={() => handleQuantityChange(event, item)}
               >
                 {Array.from({ length: 20 }, (_, i) => i + 1).map((item) => (
