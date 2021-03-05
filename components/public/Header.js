@@ -7,7 +7,6 @@ import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
 import LoginModal from '~/components/auth/LoginModal';
-import ConfigurationModal from '~/components/public/ConfigurationModal';
 import { UserStoreContext } from '~/context/userStore';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';
@@ -30,21 +29,8 @@ export default function Header({ categories, logs }) {
     }
   }, [isModalOpen]);
 
-  let showConfigModal = false;
-  console.log('rocess', process.env.NEXT_PUBLIC_APP_CONFIGURED);
-  if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
-    showConfigModal = true;
-  }
-  console.log(showConfigModal);
-  const [isConfigured, setIsConfigured] = useState(showConfigModal);
-  const toggleConfigurationModal = () => setIsConfigured(!isConfigured);
-
   return (
     <div className="bg-white">
-      <ConfigurationModal
-        modalProp={isConfigured}
-        toggle={toggleConfigurationModal}
-      />
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
       <LoginModal
         modalProp={isLoginModalOpen}

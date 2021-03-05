@@ -6,10 +6,6 @@ import Link from 'next/link';
 import { Col, Row, Button } from 'reactstrap';
 
 function Groups({ data }) {
-  let isConfigured = true;
-  if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
-    isConfigured = false;
-  }
   const groups = data.length > 0 ? data.data.pageContent : data;
 
   const selectOptions = {
@@ -73,13 +69,11 @@ function Groups({ data }) {
   ];
   return (
     <div>
-      {isConfigured && (
-        <div className="text-right my-2">
-          <Link href="/admin/groups/new">
-            <a className="btn btn-primary">New Group</a>
-          </Link>
-        </div>
-      )}
+      <div className="text-right my-2">
+        <Link href="/admin/groups/new">
+          <a className="btn btn-primary">New Group</a>
+        </Link>
+      </div>
 
       <div className="bg-white">
         <BootstrapTable

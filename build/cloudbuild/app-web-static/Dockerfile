@@ -1,7 +1,6 @@
 FROM node:12
 
 COPY . /app
-ENV NEXT_PUBLIC_APP_CONFIGURED='true'
 
 RUN chown -R node:node /app
 

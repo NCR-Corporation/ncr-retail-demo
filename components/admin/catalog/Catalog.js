@@ -5,10 +5,6 @@ import filterFactory, { selectFilter } from 'react-bootstrap-table2-filter';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 function Catalog({ data }) {
-  let isConfigured = true;
-  if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
-    isConfigured = false;
-  }
   const catalog = data.length == 0 ? data : data.data.pageContent;
 
   const selectOptions = {
@@ -59,13 +55,11 @@ function Catalog({ data }) {
 
   return (
     <div>
-      {isConfigured && (
-        <div className="text-right mb-2">
-          <Link href="/admin/catalog/new">
-            <a className="btn btn-primary">New Catalog Item</a>
-          </Link>
-        </div>
-      )}
+      <div className="text-right mb-2">
+        <Link href="/admin/catalog/new">
+          <a className="btn btn-primary">New Catalog Item</a>
+        </Link>
+      </div>
       <div className="bg-white">
         <BootstrapTable
           bootstrap4

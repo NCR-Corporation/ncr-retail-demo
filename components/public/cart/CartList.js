@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Col, Row, Card, CardBody, Button } from 'reactstrap';
 import CartItem from './CartItem';
 import { UserCartContext } from '~/context/userCart';
-export default function CartList({ userAPICart }) {
+export default function CartList({ userAPICart, setCartLogs, logs }) {
   const { userCart } = useContext(UserCartContext);
   const cartItems = userAPICart.cartItems.data.pageContent;
   return (
@@ -26,6 +26,8 @@ export default function CartList({ userAPICart }) {
         {cartItems.length > 0 ? (
           cartItems.map((item) => (
             <CartItem
+              logs={logs}
+              setCartLogs={setCartLogs}
               location={userCart.location}
               item={item}
               itemKey={item.lineId}

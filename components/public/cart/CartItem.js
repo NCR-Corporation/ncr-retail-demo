@@ -6,7 +6,13 @@ import { Col, Row, Button, FormGroup, Input } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 
-export default function CartItem({ location, item, itemKey }) {
+export default function CartItem({
+  location,
+  item,
+  itemKey,
+  setCartLogs,
+  logs,
+}) {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
 
@@ -21,6 +27,7 @@ export default function CartItem({ location, item, itemKey }) {
     })
       .then((res) => res.json())
       .then((data) => {
+        setCartLogs(logs.concat(data.logs));
         let totalQuantity = userCart.totalQuantity - item.quantity.value;
         userCart.totalQuantity = totalQuantity;
         setUserCart(userCart);
@@ -28,11 +35,13 @@ export default function CartItem({ location, item, itemKey }) {
   };
 
   const handleQuantityChange = (event, item) => {
+    let previousQty = item.quantity.value;
+    let newQty = parseInt(event.target.value);
     let itemObj = {
       itemId: {
         itemCode: item.itemId.value,
       },
-      quantity: parseInt(event.target.value),
+      quantity: newQty,
     };
     fetch(`/api/cart`, {
       method: 'POST',
@@ -47,10 +56,10 @@ export default function CartItem({ location, item, itemKey }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        setCartLogs(logs.concat(data.logs));
         userCart.location = data.location;
         userCart.etag = data.etag;
-        userCart.totalQuantity =
-          userCart.totalQuantity + parseInt(event.target.value);
+        userCart.totalQuantity = userCart.totalQuantity - previousQty + newQty;
         setUserCart(userCart);
       });
   };

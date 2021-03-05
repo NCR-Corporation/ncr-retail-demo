@@ -5,10 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 function Categories({ categories }) {
-  let isConfigured = true;
-  if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
-    isConfigured = false;
-  }
   const columns = [
     {
       dataField: 'nodeId.nodeId',
@@ -73,13 +69,11 @@ function Categories({ categories }) {
 
   return (
     <div className="pb-4">
-      {isConfigured && (
-        <div className="text-right my-2">
-          <Link href="/admin/category/new">
-            <a className="btn btn-primary">New Category</a>
-          </Link>
-        </div>
-      )}
+      <div className="text-right my-2">
+        <Link href="/admin/category/new">
+          <a className="btn btn-primary">New Category</a>
+        </Link>
+      </div>
       <div className="bg-white">
         <BootstrapTable
           bootstrap4

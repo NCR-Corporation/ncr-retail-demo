@@ -6,10 +6,6 @@ import Link from 'next/link';
 import { Col, Row, Button } from 'reactstrap';
 
 function Sites({ data }) {
-  let isConfigured = true;
-  if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
-    isConfigured = false;
-  }
   const sites = data.length == 0 ? data : data.data.pageContent;
 
   const selectOptions = {
@@ -95,13 +91,11 @@ function Sites({ data }) {
   ];
   return (
     <div>
-      {isConfigured && (
-        <div className="text-right my-2">
-          <Link href="/admin/sites/new">
-            <a className="btn btn-primary">New Site</a>
-          </Link>
-        </div>
-      )}
+      <div className="text-right my-2">
+        <Link href="/admin/sites/new">
+          <a className="btn btn-primary">New Site</a>
+        </Link>
+      </div>
 
       <div className="bg-white">
         <BootstrapTable

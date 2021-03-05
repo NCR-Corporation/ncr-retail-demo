@@ -35,7 +35,7 @@ const Header = ({ navigation = true, activeTab }) => {
       });
   };
   let isConfigured = true;
-  if (!process.env.NEXT_PUBLIC_APP_CONFIGURED) {
+  if (!process.env.REACT_APP_CONFIGURED) {
     isConfigured = false;
   }
 

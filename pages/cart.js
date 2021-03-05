@@ -18,45 +18,36 @@ import CartList from '~/components/public/cart/CartList';
 
 import { getCategoryNodesForMenu } from '~/lib/category';
 
-export default function Cart({ categories, logs }) {
+export default function Cart({ categories }) {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
   const [userAPICart, setUserAPICart] = useState({ empty: true });
-  const [userAPICartLoading, setUserAPICartLoading] = useState(false);
+  const [cartLogs, setCartLogs] = useState([]);
 
-  const [cartCreated, setCartCreated] = useState(false);
-
-  React.useEffect(() => {
-    if (!userCart.location && !userCart.etag && userCart.totalQuantity == 0) {
-      setUserAPICart({ empty: true });
-      setUserAPICartLoading(false);
-    } else {
-      fetchCart();
-    }
-  }, [userCart]);
+  const [loading, setLoading] = useState(false);
 
   React.useEffect(() => {
-    setCartCreated(true);
     fetchCart();
-  }, [cartCreated]);
+  }, []);
 
   const fetchCart = () => {
+    setLoading(true);
     if (userCart.etag && userCart.location) {
-      setUserAPICartLoading(true);
       const { location } = userCart;
       fetch(`/api/cart/${userStore.id}/${location}`)
         .then((response) => response.json())
         .then((res) => {
+          setCartLogs(res.logs);
           const { cart, cartItems } = res;
           if (cart.status == 404 || cartItems.status == 404) {
           } else {
             setUserAPICart({ cart, cartItems });
           }
-          setUserAPICartLoading(false);
+          setLoading(false);
         });
     } else {
       setUserAPICart({ empty: true });
-      setUserAPICartLoading(false);
+      setLoading(false);
     }
   };
   const emptyCart = () => {
@@ -64,8 +55,10 @@ export default function Cart({ categories, logs }) {
       method: 'DELETE',
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then((res) => {
+        setCartLogs(res.logs);
         setUserCart({ totalQuantity: 0, etag: null, location: null });
+        setUserAPICart({ empty: true });
       });
   };
 
@@ -74,7 +67,7 @@ export default function Cart({ categories, logs }) {
       <Head>
         <title>MART | Cart</title>
       </Head>
-      <Header categories={categories} logs={logs} />
+      <Header categories={categories} logs={cartLogs} />
       <Container className="my-4 flex-grow-1">
         <Row className="mb-2">
           <Col>
@@ -88,7 +81,7 @@ export default function Cart({ categories, logs }) {
               (userAPICart.cartItems.data &&
                 userAPICart.cartItems.data.pageContent &&
                 userAPICart.cartItems.data.pageContent.length == 0) ? (
-                userAPICartLoading ? (
+                loading ? (
                   <div className="d-flex justify-content-center py-4">
                     <Spinner color="dark" />
                   </div>
@@ -100,6 +93,8 @@ export default function Cart({ categories, logs }) {
                 userAPICart.cartItems.data.pageContent &&
                 userAPICart.cartItems.data.pageContent.length > 0 && (
                   <CartList
+                    logs={cartLogs}
+                    setCartLogs={setCartLogs}
                     userAPICart={userAPICart}
                     location={userCart.location}
                     siteId={userStore.id}
@@ -126,7 +121,7 @@ export default function Cart({ categories, logs }) {
               )}
           </Col>
           <Col md="4">
-            {userAPICartLoading ? (
+            {loading ? (
               <Card>
                 <CardBody>
                   <div className="d-flex justify-content-center py-4">
@@ -143,7 +138,7 @@ export default function Cart({ categories, logs }) {
                   <CardBody>
                     <CartCheckout
                       userCart={userCart}
-                      userAPICartLoading={userAPICartLoading}
+                      userAPICartLoading={loading}
                       userAPICart={userAPICart}
                     />
                   </CardBody>
