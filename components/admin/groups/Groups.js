@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Col, Row, Button } from 'reactstrap';
 
 function Groups({ data }) {
-  console.log('the data', data);
   const groups =
     data.data && data.data.pageContent.length > 0 ? data.data.pageContent : [];
 

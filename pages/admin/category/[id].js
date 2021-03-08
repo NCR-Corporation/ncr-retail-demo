@@ -3,7 +3,6 @@ import { getAllCategoryNodes } from '~/lib/category';
 import Header from '~/components/admin/Header';
 
 const EditCategory = ({ categoryId, categoryNodes }) => {
-  console.log('categorynodes', categoryNodes);
   return (
     <div className="bg pb-4">
       <Header />

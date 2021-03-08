@@ -7,7 +7,6 @@ import useDashboard from '~/lib/hooks/useDashboard';
 
 const GroupsTab = () => {
   let { data, isLoading, isError } = useDashboard('groups');
-  console.log('data', data);
 
   return (
     <div>
