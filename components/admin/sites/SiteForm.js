@@ -183,11 +183,15 @@ const New = ({ siteId }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status != 200) {
-            setShowAlert({ status: data.status, message: data.data.message });
+          const { response } = data;
+          if (response.status != 200) {
+            setShowAlert({
+              status: response.status,
+              message: response.data.message,
+            });
           } else {
             setShowAlert({
-              status: data.status,
+              status: response.status,
               message: 'Site successfully updated',
             });
           }
@@ -197,11 +201,15 @@ const New = ({ siteId }) => {
       fetch('/api/sites', { method: 'POST', body: JSON.stringify(data) })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status != 200) {
-            setShowAlert({ status: data.status, message: data.data.message });
+          const { response } = data;
+          if (response.status != 200) {
+            setShowAlert({
+              status: response.status,
+              message: response.data.message,
+            });
           } else {
             setShowAlert({
-              status: data.status,
+              status: response.status,
               message: 'Site successfully created',
             });
           }

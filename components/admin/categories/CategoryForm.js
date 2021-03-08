@@ -116,8 +116,12 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status != 204) {
-            setShowAlert({ status: data.status, message: data.data.message });
+          const { response } = data;
+          if (response.status != 204) {
+            setShowAlert({
+              status: response.status,
+              message: response.data.message,
+            });
           } else {
             setShowAlert({
               status: 200,
@@ -130,8 +134,12 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
       fetch(`/api/category`, { method: 'PUT', body: JSON.stringify(nodes) })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status != 204) {
-            setShowAlert({ status: data.status, message: data.data.message });
+          const { response } = data;
+          if (response.status != 204) {
+            setShowAlert({
+              status: response.status,
+              message: response.data.message,
+            });
           } else {
             setShowAlert({
               status: 200,

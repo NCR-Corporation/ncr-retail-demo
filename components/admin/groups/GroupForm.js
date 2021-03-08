@@ -75,11 +75,15 @@ const GroupForm = ({ id }) => {
     fetch(`/api/groups`, { method: 'POST', body: JSON.stringify(data) })
       .then((response) => response.json())
       .then((data) => {
-        if (data.status != 200) {
-          setShowAlert({ status: data.status, message: data.data.message });
+        const { response } = data;
+        if (response.status != 200) {
+          setShowAlert({
+            status: response.status,
+            message: response.data.message,
+          });
         } else {
           setShowAlert({
-            status: data.status,
+            status: response.status,
             message: 'Group successfully created',
           });
         }
