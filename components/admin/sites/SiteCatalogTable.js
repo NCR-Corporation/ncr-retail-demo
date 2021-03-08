@@ -4,6 +4,7 @@ import { Modal, Alert } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import SiteCatalogItemForm from './SiteCatalogItemForm';
+import Image from 'next/image';
 
 export default function SiteCatalogTable({
   catalog,
@@ -60,6 +61,11 @@ export default function SiteCatalogTable({
       dataField: 'itemAttributes.imageUrls[0]',
       sort: true,
       text: 'Image',
+      formatter: (rowContent, row) => {
+        return (
+          <Image width={50} height={50} src={row.itemAttributes.imageUrls[0]} />
+        );
+      },
     },
     // {
     //   dataField: 'itemAttributes.status',
