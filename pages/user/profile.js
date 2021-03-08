@@ -11,7 +11,7 @@ import LoginModal from '~/components/auth/LoginModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
 import { getCategoryNodesForMenu } from '~/lib/category';
 
-const Settings = ({ categories, logs, session }) => {
+const Settings = ({ categories, session }) => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);

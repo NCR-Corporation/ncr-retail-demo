@@ -2,12 +2,12 @@ import Header from '~/components/public/Header';
 import Head from 'next/head';
 import Footer from '~/components/public/Footer';
 import Sidebar from '~/components/public/user/Sidebar';
-import { Card, CardBody, Col, Row, Spinner } from 'reactstrap';
+import { Card, CardBody, Col, Row } from 'reactstrap';
 import OrderList from '~/components/public/order/OrderList';
 import useUserOrders from '~/lib/hooks/useUserOrders';
 import { getCategoryNodesForMenu } from '~/lib/category';
 
-const Orders = ({ categories, logs }) => {
+const Orders = ({ categories }) => {
   const { data, isLoading, isError } = useUserOrders();
 
   return (
@@ -69,7 +69,7 @@ export async function getStaticProps() {
       categories,
       logs,
     },
-    revalidate: 60,
+    revalidate: 61,
   };
 }
 
