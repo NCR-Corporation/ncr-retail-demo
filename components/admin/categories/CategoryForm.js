@@ -45,7 +45,8 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
   let { category, isLoading, isError } = useCategory(categoryId);
   const [initialValues, setInitialValues] = useState(init);
   if (categoryId && !isLoading && !isError && initialValues.nodeCode == '') {
-    const { data } = category;
+    const { response } = category;
+    const { data } = response;
     const {
       departmentNode,
       departmentSale,
@@ -359,17 +360,19 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
                         className="invalid-feedback"
                       />
                     </div>
-                    <CategorySelect
-                      currentCategory={initialValues.nodeCode}
-                      initialCategory={initialValues.parentCategory ?? ''}
-                      setDisabled={
-                        initialValues.parentCategory || categoryId
-                          ? true
-                          : false
-                      }
-                      setParentCategory={setParentCategory}
-                      categories={categoryNodes}
-                    />
+                    {categoryNodes.length > 0 && (
+                      <CategorySelect
+                        currentCategory={initialValues.nodeCode}
+                        initialCategory={initialValues.parentCategory ?? ''}
+                        setDisabled={
+                          initialValues.parentCategory || categoryId
+                            ? true
+                            : false
+                        }
+                        setParentCategory={setParentCategory}
+                        categories={categoryNodes}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

@@ -97,6 +97,8 @@ const New = ({ siteId }) => {
   let { site, isLoading, isError } = useSite(siteId);
   const [initialValues, setInitialValues] = useState(init);
   if (!isLoading && !isError && siteId && initialValues.siteName == '') {
+    const { response } = site;
+    const { data } = response;
     const {
       coordinates,
       currency,
@@ -110,7 +112,7 @@ const New = ({ siteId }) => {
       contact,
       timezone,
       address,
-    } = site.data;
+    } = data;
     let siteValues = {
       siteName,
       contactPerson: contact ? contact.contactPerson : '',

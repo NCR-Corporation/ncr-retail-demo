@@ -3,11 +3,15 @@ import { getAllCategoryNodes } from '~/lib/category';
 import Header from '~/components/admin/Header';
 
 const EditCategory = ({ categoryId, categoryNodes }) => {
+  console.log('categorynodes', categoryNodes);
   return (
     <div className="bg pb-4">
       <Header />
       <main className="container">
-        <CategoryForm categoryId={categoryId} categoryNodes={categoryNodes} />
+        <CategoryForm
+          categoryId={categoryId}
+          categoryNodes={categoryNodes.categories}
+        />
       </main>
     </div>
   );
