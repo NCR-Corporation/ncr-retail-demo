@@ -5,7 +5,7 @@ import useSiteCatalog from '~/lib/hooks/useSiteCatalog';
 import { Row, Col, Spinner, Container } from 'reactstrap';
 import SiteCatalogTable from '~/components/admin/sites/SiteCatalogTable';
 
-const SiteCatalog = ({ id, categories }) => {
+const SiteCatalog = ({ id }) => {
   let { siteData, isLoading, isError } = useSiteCatalog(id);
 
   const fetchUpdatedCatalog = () => {
