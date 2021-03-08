@@ -1,6 +1,7 @@
 import { Button, CardBody, Spinner } from 'reactstrap';
 
-export default function CheckoutTotal({ data, purchase, isPuchasing }) {
+export default function CheckoutTotal({ order, data, purchase, isPuchasing }) {
+  console.log(order);
   const cartTotals = data.cart.data;
   return (
     <CardBody>
@@ -27,10 +28,16 @@ export default function CheckoutTotal({ data, purchase, isPuchasing }) {
               100}
           </dd>
         </dl>
-        <Button color="primary" block onClick={purchase}>
-          {isPuchasing && <Spinner size="sm" />}
-          Purchase
-        </Button>
+        {order.shipping && order.payment ? (
+          <Button color="primary" block onClick={purchase}>
+            {isPuchasing && <Spinner size="sm" />}
+            Purchase
+          </Button>
+        ) : (
+          <Button color="primary" block disabled>
+            Purchase
+          </Button>
+        )}
       </div>
     </CardBody>
   );

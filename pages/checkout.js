@@ -129,6 +129,7 @@ const Checkout = ({ session }) => {
                 <Col md="4">
                   <Card className="mb-2 cart-card">
                     <CheckoutTotal
+                      order={order}
                       purchase={purchase}
                       data={data}
                       isPurchasing={isPurchasing}

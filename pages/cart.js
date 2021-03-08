@@ -160,6 +160,6 @@ export async function getStaticProps() {
       categories,
       logs,
     },
-    revalidate: 60,
+    revalidate: 61,
   };
 }
