@@ -153,13 +153,12 @@ export default function Cart({ categories }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
       categories,
       logs,
     },
-    revalidate: 61,
   };
 }
