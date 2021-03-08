@@ -3,7 +3,7 @@ export default function Metatags({ children }) {
   const title = 'MART | Sample App Retail Demo';
   const description =
     "A sample retail demo application built on top of NCR's APIs.";
-  const socialImage = `${process.env.REACT_APP_URI}/mart.png`;
+  const socialImage = `/mart.png`;
   return (
     <div>
       <Head>
