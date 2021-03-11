@@ -18,14 +18,14 @@ export default async function handler(req, res) {
       if (exchange.status !== 200) {
         res.json({ status: exchange.status, logs });
       } else {
-        res.json({ exchange, logs, status: 200 });
+        res.json({ exchange, logs, status: response.status });
       }
     } else {
-      res.json({ data: response.data, logs, status: 200 });
+      res.json({ data: response.data, logs, status: response.status });
     }
   } else if (req.method === 'PUT') {
     let response = await updateCurrentUser(token, req.body);
     logs.push(response.log);
-    res.json({ response, logs, status: 200 });
+    res.json({ response, logs, status: response.status });
   }
 }

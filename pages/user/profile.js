@@ -5,7 +5,7 @@ import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/client';
 import useUser from '~/lib/hooks/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
-import { Button, Col, Row, Spinner } from 'reactstrap';
+import { Col, Row, Spinner } from 'reactstrap';
 import ProfileForm from '~/components/public/user/ProfileForm';
 import LoginModal from '~/components/auth/LoginModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
@@ -17,6 +17,7 @@ const Settings = ({ categories, session }) => {
   const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
   const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
   let { data, isLoading, isError } = useUser(session);
+  const [logs, setLogs] = useState(data && data.logs ? data.logs : []);
   if (isLoading) {
     return (
       <div className="d-flex flex-column main-container">
@@ -68,7 +69,10 @@ const Settings = ({ categories, session }) => {
       <Head>
         <title>MART | Profile</title>
       </Head>
-      <Header categories={categories} logs={data.logs} />
+      <Header
+        categories={categories}
+        logs={logs.length > 0 ? logs : data.logs}
+      />
       <main className="container my-4 flex-grow-1">
         {data && data.data && (
           <Row>
@@ -76,7 +80,12 @@ const Settings = ({ categories, session }) => {
               <Sidebar url="profile" />
             </Col>
             <Col>
-              <ProfileForm user={data} session={session} />
+              <ProfileForm
+                user={data}
+                session={session}
+                logs={data.logs}
+                setLogs={setLogs}
+              />
             </Col>
           </Row>
         )}
