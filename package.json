@@ -1,7 +1,9 @@
 {
   "name": "sample-app-retail-demo",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "private": true,
+  "description": "A sample retail demo application built on top of NCR's APIs.",
+  "homepage": "https://github.com/NCR-Corporation/ncr-retail-demo",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
