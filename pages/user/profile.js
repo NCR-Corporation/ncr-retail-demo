@@ -69,14 +69,10 @@ const Settings = ({ categories, session }) => {
       <Head>
         <title>MART | Profile</title>
       </Head>
-<<<<<<< HEAD
       <Header
         categories={categories}
         logs={logs.length > 0 ? logs : data.logs}
       />
-=======
-      <Header categories={categories} logs={data.logs} />
->>>>>>> main
       <main className="container my-4 flex-grow-1">
         {data && data.data && (
           <Row>
@@ -84,16 +80,12 @@ const Settings = ({ categories, session }) => {
               <Sidebar url="profile" />
             </Col>
             <Col>
-<<<<<<< HEAD
               <ProfileForm
                 user={data}
                 session={session}
                 logs={data.logs}
                 setLogs={setLogs}
               />
-=======
-              <ProfileForm user={data} session={session} />
->>>>>>> main
             </Col>
           </Row>
         )}
