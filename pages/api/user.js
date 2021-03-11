@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       res.json({ data: response.data, logs, status: response.status });
     }
   } else if (req.method === 'PUT') {
-    let response = await updateCurrentUser(token, req.body);
+    let response = await updateCurrentUser(req.body);
     logs.push(response.log);
     res.json({ response, logs, status: response.status });
   }

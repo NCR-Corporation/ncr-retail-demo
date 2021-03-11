@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { signIn } from 'next-auth/client';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -11,6 +12,7 @@ import {
   Spinner,
   Alert,
 } from 'reactstrap';
+import { useRouter } from 'next/router';
 
 const createConsumerSchema = Yup.object().shape({
   username: Yup.string().required('Username is required.'),
@@ -46,6 +48,7 @@ const createConsumerSchema = Yup.object().shape({
 });
 
 export default function ProfileForm({ session, user, logs, setLogs }) {
+  const router = useRouter();
   const [showAlert, setShowAlert] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -107,7 +110,19 @@ export default function ProfileForm({ session, user, logs, setLogs }) {
         const newLogs = logs.concat(data.logs);
         setLogs(newLogs);
         setVisible(true);
+        updateUserSession();
       });
+  };
+
+  const updateUserSession = () => {
+    console.log({ session });
+    signIn('update-session', {
+      json: true,
+      token: session.user.token,
+      disableCallback: true,
+    }).then(async () => {
+      router.reload();
+    });
   };
   return (
     <Formik

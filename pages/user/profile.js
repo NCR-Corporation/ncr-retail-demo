@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
