@@ -15,6 +15,6 @@ COPY --chown=node:node . .
 RUN npm run build
 
 # # Running the app
-EXPOSE 8080
+EXPOSE 3000
 CMD npm run start
 

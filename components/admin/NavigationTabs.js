@@ -2,11 +2,7 @@ import Link from 'next/link';
 import { Nav, NavItem } from 'reactstrap';
 const NavigationTabs = ({ activeTab, tabs = true }) => {
   return (
-    <Nav
-      tabs={tabs ? true : ''}
-      navbar={!tabs ? true : ''}
-      className="admin-nav"
-    >
+    <Nav navbar={!tabs ? true : ''} className="admin-nav">
       <NavItem>
         <Link href="/admin/dashboard">
           <a

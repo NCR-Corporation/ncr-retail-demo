@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Col, Row, Button } from 'reactstrap';
 
 function Sites({ data }) {
-  const sites = data.data.pageContent;
+  const sites = data.length == 0 ? data : data.data.pageContent;
 
   const selectOptions = {
     ACTIVE: 'ACTIVE',

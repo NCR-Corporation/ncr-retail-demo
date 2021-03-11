@@ -10,6 +10,7 @@ const FindStoreModal = (props) => {
   const { setUserStore } = useContext(UserStoreContext);
   const [coordinates, setCoordinates] = useState(coords);
   const [sites, setSites] = useState();
+  const [logs, setLogs] = useState([]);
   if (props.coords && !coordinates) {
     setCoordinates(props.coords);
   }
@@ -23,12 +24,14 @@ const FindStoreModal = (props) => {
         )
           .then((res) => res.json())
           .then((data) => {
+            setLogs([data.log]);
             setSites(data.data.pageContent);
           });
       } else {
         fetch(`/api/findSites`)
           .then((res) => res.json())
           .then((data) => {
+            setLogs([data.log]);
             setSites(data.data.pageContent);
           });
       }
@@ -39,28 +42,39 @@ const FindStoreModal = (props) => {
   return (
     <div>
       <Modal isOpen={modalProp} toggle={toggle} size="lg">
-        <ModalHeader toggle={toggle}>Find a Store</ModalHeader>
-        <ModalBody>
+        <ModalHeader
+          toggle={toggle}
+          className="d-flex flex-columns border-none bg-brand-primary text-white"
+        >
+          <span className="font-weight-bold h3">Find a Store</span>
           {!props.isGeolocationAvailable ? (
-            <div>
+            <p>
               <small className="text-muted">Geolocation is unavailable.</small>
-            </div>
+            </p>
           ) : (
             !props.isGeolocationEnabled && (
-              <div>
+              <p>
                 <small className="text-muted">User location not enabled</small>
-              </div>
+              </p>
             )
           )}
-          <small>
-            {coordinates
-              ? `Latitude: ${coordinates.latitude.toFixed(
-                  2
-                )}, Longitude: ${coordinates.longitude.toFixed(2)}`
-              : ''}
-          </small>
+          {coordinates && coordinates.latitude && (
+            <p className="mb-0">
+              <small>
+                Your location: [
+                {coordinates
+                  ? `${coordinates.latitude.toFixed(
+                      2
+                    )}, ${coordinates.longitude.toFixed(2)}`
+                  : ''}
+                ]
+              </small>
+            </p>
+          )}
+        </ModalHeader>
+        <ModalBody className="py-0">
           {sites && sites.length > 0 && (
-            <div>
+            <div id="store-modal-list" className="px-2 py-2">
               {sites.map((site) => (
                 <FindStoreModalStore
                   site={site}

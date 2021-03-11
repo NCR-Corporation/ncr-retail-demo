@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import Head from 'next/head';
 import { Card, Spinner, CardBody, Col, Container, Row } from 'reactstrap';
 import CheckoutTotal from '~/components/public/checkout/CheckoutTotal';
 import HeaderCheckout from '~/components/public/HeaderCheckout';
@@ -25,14 +26,14 @@ const Checkout = ({ session }) => {
   const userSession = useUser(session);
   const [order, setOrder] = useState({});
 
-  const { cart, isLoading, isError } = useCart(userStore.id, userCart.location);
+  const { data, isLoading, isError } = useCart(userStore.id, userCart.location);
   const [isPurchasing, setIsPurchasing] = useState(false);
   if (
     !isPurchasing &&
     (userCart.totalQuantity == 0 ||
       (!isLoading &&
         !isError &&
-        (cart.cart.status == 404 || cart.cartItems.status == 404)))
+        (data.cart.status == 404 || data.cartItems.status == 404)))
   ) {
     router.push({
       pathname: '/',
@@ -42,19 +43,18 @@ const Checkout = ({ session }) => {
   const purchase = async () => {
     setIsPurchasing(true);
     let userOrder = order;
-    userOrder['cart'] = cart.cart.data;
-    userOrder['lineItems'] = cart.cartItems.data.pageContent;
-    userOrder['user'] = userSession.user.data;
+    userOrder['cart'] = data.cart.data;
+    userOrder['lineItems'] = data.cartItems.data.pageContent;
+    userOrder['user'] = userSession.data.data;
     userOrder['store'] = userStore;
     userOrder['userCart'] = userCart;
     fetch(`/api/order`, { method: 'POST', body: JSON.stringify(userOrder) })
       .then((res) => res.json())
       .then((data) => {
         // Reset the cart.
-        if (data.status == 200) {
+        if (data.response.status == 200) {
           setUserCart({ totalQuantity: 0, etag: null, location: null });
-          router.push(`/order/${data.data.id}`);
-          setIsPurchasing(false);
+          router.push(`/order/${data.response.data.id}`);
         } else {
           setIsPurchasing(false);
         }
@@ -62,6 +62,9 @@ const Checkout = ({ session }) => {
   };
   return (
     <div className="d-flex flex-column main-container">
+      <Head>
+        <title>MART | Checkout</title>
+      </Head>
       <HeaderCheckout />
       {userSession.isError ? (
         <div>
@@ -84,7 +87,7 @@ const Checkout = ({ session }) => {
               <h4 className="mb-1">Checkout</h4>
             </Col>
           </Row>
-          {isLoading && (
+          {(isLoading || isPurchasing) && (
             <div className="d-flex justify-content-center">
               <Spinner color="primary" />
             </div>
@@ -102,38 +105,43 @@ const Checkout = ({ session }) => {
               </Col>
             </Row>
           )}
-          {!isLoading && !isError && cart && cart.cartItems.status == 200 && (
-            <Row>
-              <Col md="8">
-                <Card className="mb-2 cart-card">
-                  <CheckoutList cartItems={cart.cartItems.data.pageContent} />
-                </Card>
-                <CheckoutUser
-                  session={session}
-                  order={order}
-                  setOrder={setOrder}
-                />
-                <CheckoutTender
-                  cartId={userCart.location}
-                  order={order}
-                  setOrder={setOrder}
-                />
-              </Col>
-              <Col md="4">
-                <Card className="mb-2 cart-card">
-                  <CheckoutTotal
-                    purchase={purchase}
-                    userAPICart={cart}
-                    isPurchasing={isPurchasing}
+          {!isPurchasing &&
+            !isLoading &&
+            !isError &&
+            data &&
+            data.cartItems.status == 200 && (
+              <Row>
+                <Col md="8">
+                  <Card className="mb-2 cart-card">
+                    <CheckoutList cartItems={data.cartItems.data.pageContent} />
+                  </Card>
+                  <CheckoutUser
+                    session={session}
+                    order={order}
+                    setOrder={setOrder}
                   />
-                </Card>
-                <small className="text-muted">
-                  *Be sure to fill out and click "Set Shipping Address" and "Use
-                  Payment Method"
-                </small>
-              </Col>
-            </Row>
-          )}
+                  <CheckoutTender
+                    cartId={userCart.location}
+                    order={order}
+                    setOrder={setOrder}
+                  />
+                </Col>
+                <Col md="4">
+                  <Card className="mb-2 cart-card">
+                    <CheckoutTotal
+                      order={order}
+                      purchase={purchase}
+                      data={data}
+                      isPurchasing={isPurchasing}
+                    />
+                  </Card>
+                  <small className="text-muted">
+                    *Be sure to fill out and click "Set Shipping Address" and
+                    "Use Payment Method"
+                  </small>
+                </Col>
+              </Row>
+            )}
         </Container>
       )}
     </div>

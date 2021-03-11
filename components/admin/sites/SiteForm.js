@@ -96,7 +96,9 @@ const New = ({ siteId }) => {
   const onDismiss = () => setVisible(false);
   let { site, isLoading, isError } = useSite(siteId);
   const [initialValues, setInitialValues] = useState(init);
-  if (!isLoading && !isError && initialValues.siteName == '') {
+  if (!isLoading && !isError && siteId && initialValues.siteName == '') {
+    const { response } = site;
+    const { data } = response;
     const {
       coordinates,
       currency,
@@ -110,7 +112,7 @@ const New = ({ siteId }) => {
       contact,
       timezone,
       address,
-    } = site.data;
+    } = data;
     let siteValues = {
       siteName,
       contactPerson: contact ? contact.contactPerson : '',
@@ -181,11 +183,15 @@ const New = ({ siteId }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status != 200) {
-            setShowAlert({ status: data.status, message: data.data.message });
+          const { response } = data;
+          if (response.status != 200) {
+            setShowAlert({
+              status: response.status,
+              message: response.data.message,
+            });
           } else {
             setShowAlert({
-              status: data.status,
+              status: response.status,
               message: 'Site successfully updated',
             });
           }
@@ -195,11 +201,15 @@ const New = ({ siteId }) => {
       fetch('/api/sites', { method: 'POST', body: JSON.stringify(data) })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status != 200) {
-            setShowAlert({ status: data.status, message: data.data.message });
+          const { response } = data;
+          if (response.status != 200) {
+            setShowAlert({
+              status: response.status,
+              message: response.data.message,
+            });
           } else {
             setShowAlert({
-              status: data.status,
+              status: response.status,
               message: 'Site successfully created',
             });
           }

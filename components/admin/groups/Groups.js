@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { Col, Row, Button } from 'reactstrap';
 
 function Groups({ data }) {
-  const groups = data.data.pageContent;
+  const groups =
+    data.data && data.data.pageContent.length > 0 ? data.data.pageContent : [];
 
   const selectOptions = {
     ACTIVE: 'ACTIVE',
@@ -40,7 +41,7 @@ function Groups({ data }) {
       }),
     },
     {
-      dataField: '',
+      dataField: 'Edit',
       headerStyle: {
         width: '120px',
         textAlign: 'center',
@@ -78,7 +79,7 @@ function Groups({ data }) {
       <div className="bg-white">
         <BootstrapTable
           bootstrap4
-          keyField="referenceId"
+          keyField="groupId.groupCode"
           data={groups}
           columns={columns}
           hover

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/client';
@@ -8,17 +9,21 @@ import { Button, Col, Row, Spinner } from 'reactstrap';
 import ProfileForm from '~/components/public/user/ProfileForm';
 import LoginModal from '~/components/auth/LoginModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
+import { getCategoryNodesForMenu } from '~/lib/category';
 
-const Settings = ({ session }) => {
+const Settings = ({ categories, session }) => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
   const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
-  let { user, isLoading, isError } = useUser(session);
+  let { data, isLoading, isError } = useUser(session);
   if (isLoading) {
     return (
       <div className="d-flex flex-column main-container">
-        <Header />
+        <Head>
+          <title>MART | Profile</title>
+        </Head>
+        <Header categories={categories} />
         <main className="container my-4 flex-grow-1">
           <Row>
             <Col md="3">
@@ -38,7 +43,10 @@ const Settings = ({ session }) => {
   if (isError) {
     return (
       <div className="d-flex flex-column main-container">
-        <Header />
+        <Head>
+          <title>MART | Profile</title>
+        </Head>
+        <Header categories={categories} />
         <LoginModal
           modalProp={isRegisterModalOpen ? false : true}
           toggle={toggleLoginModal}
@@ -57,15 +65,18 @@ const Settings = ({ session }) => {
 
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
+      <Head>
+        <title>MART | Profile</title>
+      </Head>
+      <Header categories={categories} logs={data.logs} />
       <main className="container my-4 flex-grow-1">
-        {user.data && (
+        {data && data.data && (
           <Row>
             <Col md="3">
               <Sidebar url="profile" />
             </Col>
             <Col>
-              <ProfileForm user={user} session={session} />
+              <ProfileForm user={data} session={session} />
             </Col>
           </Row>
         )}
@@ -78,6 +89,7 @@ const Settings = ({ session }) => {
 export async function getServerSideProps(context) {
   // Get the user's session based on the request
   const session = await getSession(context);
+  const { categories, logs } = await getCategoryNodesForMenu();
   if (!session) {
     console.log("We've lost the session");
     // If no user, redirect to login
@@ -91,7 +103,7 @@ export async function getServerSideProps(context) {
   }
 
   // If there is a user, return the current session
-  return { props: { session } };
+  return { props: { session, categories, logs } };
 }
 
 export default Settings;

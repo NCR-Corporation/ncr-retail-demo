@@ -31,16 +31,20 @@ const createGroupSchema = Yup.object().shape({
 });
 
 const GroupForm = ({ id }) => {
+  const [showAlert, setShowAlert] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const onDismiss = () => setVisible(false);
+
   const [initialValues, setInitialValues] = useState(init);
-  let { group, isLoading, isError } = useGroup(id);
+  let { data, isLoading, isError } = useGroup(id);
   if (id && !isLoading && !isError && initialValues.title == '') {
-    let { data } = group;
+    let group = data.response.data;
     let newValues = {
-      version: data.version + 1,
-      title: data.title.values[0].value,
-      status: data.status,
-      groupId: data.groupId.groupCode,
-      tag: data.tag,
+      version: group.version + 1,
+      title: group.title.values[0].value,
+      status: group.status,
+      groupId: group.groupId.groupCode,
+      tag: group.tag,
     };
     setInitialValues(newValues);
   }
@@ -70,7 +74,21 @@ const GroupForm = ({ id }) => {
     };
     fetch(`/api/groups`, { method: 'POST', body: JSON.stringify(data) })
       .then((response) => response.json())
-      .then((data) => console.log('the', data));
+      .then((data) => {
+        const { response } = data;
+        if (response.status != 200) {
+          setShowAlert({
+            status: response.status,
+            message: response.data.message,
+          });
+        } else {
+          setShowAlert({
+            status: response.status,
+            message: 'Group successfully created',
+          });
+        }
+        setVisible(true);
+      });
   };
 
   return (
@@ -84,6 +102,14 @@ const GroupForm = ({ id }) => {
         const { errors, touched, isValid, dirty, setFieldValue } = formik;
         return (
           <Form>
+            <Alert
+              toggle={onDismiss}
+              isOpen={visible}
+              className="my-4"
+              color={showAlert.status == 200 ? 'success' : 'danger'}
+            >
+              {showAlert.message}
+            </Alert>
             <Row className="mt-4">
               <Col>
                 <h4 className="mb-1">{id ? 'Edit' : 'Create'} Group</h4>

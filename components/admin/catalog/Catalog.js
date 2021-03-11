@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import { Button } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import filterFactory, { selectFilter } from 'react-bootstrap-table2-filter';
-import { faEdit, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 function Catalog({ data }) {
-  const catalog = data.data.pageContent;
+  const catalog = data.length == 0 ? data : data.data.pageContent;
 
   const selectOptions = {
     ACTIVE: 'ACTIVE',
@@ -54,12 +53,6 @@ function Catalog({ data }) {
     },
   ];
 
-  // const defaultSorted = [
-  //   {
-  //     dataField: 'status',
-  //     order: 'asc',
-  //   },
-  // ];
   return (
     <div>
       <div className="text-right mb-2">
@@ -74,7 +67,6 @@ function Catalog({ data }) {
           data={catalog}
           columns={columns}
           hover
-          // defaultSorted={defaultSorted}
           noDataIndication="No catalog items found"
           filter={filterFactory()}
         />

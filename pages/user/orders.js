@@ -1,28 +1,26 @@
 import Header from '~/components/public/Header';
+import Head from 'next/head';
 import Footer from '~/components/public/Footer';
 import Sidebar from '~/components/public/user/Sidebar';
-import { Card, CardBody, Col, Row, Spinner } from 'reactstrap';
+import { Card, CardBody, Col, Row } from 'reactstrap';
 import OrderList from '~/components/public/order/OrderList';
 import useUserOrders from '~/lib/hooks/useUserOrders';
+import { getCategoryNodesForMenu } from '~/lib/category';
 
-const Orders = () => {
-  const { orders, isLoading, isError } = useUserOrders();
+const Orders = ({ categories }) => {
+  const { data, isLoading, isError } = useUserOrders();
 
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
+      <Head>
+        <title>MART | Orders</title>
+      </Head>
+      <Header categories={categories} logs={data && data.logs} />
       <main className="container my-4 flex-grow-1">
         <Row>
           <Col md="3">
             <Sidebar url="orders" />
           </Col>
-          {isLoading && (
-            <Col md="9">
-              <div className="d-flex justify-content-center">
-                <Spinner color="dark" />
-              </div>
-            </Col>
-          )}
           {isError && (
             <Col sm="9">
               <Card className="shadow-sm">
@@ -34,9 +32,11 @@ const Orders = () => {
               </Card>
             </Col>
           )}
-          {!isLoading &&
-            !isError &&
-            (orders.data.pageContent.length == 0 ? (
+          {!isError &&
+            (!isLoading &&
+            data &&
+            data.data &&
+            data.data.data.pageContent.length == 0 ? (
               <Col sm="9">
                 <Card className="shadow-sm">
                   <CardBody>
@@ -46,9 +46,13 @@ const Orders = () => {
               </Col>
             ) : (
               <Col sm="9">
-                {orders.data.pageContent.map((order) => (
-                  <OrderList order={order} key={order.id} />
-                ))}
+                {!isLoading
+                  ? data.data.data.pageContent.map((order) => (
+                      <OrderList order={order} key={order.id} />
+                    ))
+                  : [...Array(4).keys()].map((index) => (
+                      <OrderList order={null} key={index} />
+                    ))}
               </Col>
             ))}
         </Row>
@@ -57,5 +61,15 @@ const Orders = () => {
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  const { categories, logs } = await getCategoryNodesForMenu();
+  return {
+    props: {
+      categories,
+      logs,
+    },
+  };
+}
 
 export default Orders;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import Link from 'next/link';
@@ -7,12 +8,16 @@ import { Container, Card, Col, Row, CardBody, Spinner } from 'reactstrap';
 import useCategory from '~/lib/hooks/useCategory';
 import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
+import { useRouter } from 'next/router';
+import { getCategoryNodesForMenu } from '~/lib/category';
+import Skeleton from 'react-loading-skeleton';
 
-export default function Category({ id }) {
+export default function Category({ categories }) {
+  const router = useRouter();
+  const { id } = router.query;
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCategory(id, userStore.id);
   let category, childrenCategories, categoryItems;
-  console.log(data);
   if (!isLoading && !isError && data && data.category) {
     category = data.category;
     childrenCategories = data.childrenCategories;
@@ -46,11 +51,40 @@ export default function Category({ id }) {
   }
   return (
     <div className="d-flex flex-column main-container">
-      <Header />
+      <Header
+        categories={categories}
+        logs={data && data.logs ? data.logs : []}
+      />
       <Container className="my-4 flex-grow-1">
+        {isLoading ? (
+          <Row className="pb-4">
+            <Col sm={12}>
+              <Skeleton width="33%" />
+            </Col>
+          </Row>
+        ) : (
+          <>
+            <Head>
+              <title>MART | {category.data.title.values[0].value}</title>
+            </Head>
+            <Row className="">
+              <Col sm={12}>
+                <h2 className="text-body" style={{ fontWeight: '600' }}>
+                  {category.data.title.values[0].value}
+                </h2>
+              </Col>
+            </Row>
+          </>
+        )}
         {isLoading && (
-          <div className="d-flex justify-content-center h-100">
-            <Spinner color="dark" />
+          <div>
+            <div className="row row-cols-md-3">
+              {[...Array(4).keys()].map((index) => (
+                <div className="col-sm-6 col-md-3 mb-4" key={index}>
+                  <ItemCard />
+                </div>
+              ))}
+            </div>
           </div>
         )}
         {isError && <p>Error</p>}
@@ -79,7 +113,7 @@ export default function Category({ id }) {
                 ))}
               </Row>
             )}
-            <div className="row row-cols-md-3">
+            <div className="row row-cols-md-3" id="catalog-items">
               {categoryItems.length > 0 ? (
                 categoryItems.map((item) => (
                   <div
@@ -102,9 +136,11 @@ export default function Category({ id }) {
 }
 
 export async function getServerSideProps(context) {
+  const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
-      id: context.params.id,
+      categories,
+      logs,
     },
   };
 }

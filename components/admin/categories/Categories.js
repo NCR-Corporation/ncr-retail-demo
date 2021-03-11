@@ -3,10 +3,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { Button } from 'reactstrap';
 
 function Categories({ categories }) {
-  const router = useRouter();
   const columns = [
     {
       dataField: 'nodeId.nodeId',
@@ -24,6 +22,11 @@ function Categories({ categories }) {
     {
       dataField: 'parentId.nodeId',
       text: 'Parent',
+      sort: true,
+    },
+    {
+      dataField: 'tag',
+      text: 'Tag',
       sort: true,
     },
     {

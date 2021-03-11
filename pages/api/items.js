@@ -4,10 +4,12 @@ import {
   createCatalogAttributesItem,
 } from '~/lib/catalog';
 import { getSites } from '~/lib/sites';
+let logs = [];
 
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
-  let { data } = await getSites();
+  let { data, log } = await getSites();
+  logs.push(log);
   let items = [];
   let prices = [];
   let attributes = [];
@@ -78,8 +80,17 @@ export default async function handler(req, res) {
   let pricesBody = { itemPrices: prices };
   let attributesBody = { itemAttributes: attributes };
   let itemsResponse = await createCatalogItems(itemsBody);
+  logs.push(itemsResponse.log);
   let pricesResponse = await createCatalogPricesItem(pricesBody);
+  logs.push(pricesResponse.log);
   let attributesResponse = await createCatalogAttributesItem(attributesBody);
+  logs.push(attributesResponse.log);
 
-  res.json([itemsResponse, pricesResponse, attributesResponse]);
+  res.json({
+    itemsResponse,
+    pricesResponse,
+    attributesResponse,
+    logs,
+    status: 200,
+  });
 }

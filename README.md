@@ -40,7 +40,7 @@ This repository showcases an imaginary retail company with multiple stores in di
 
 ## How to Use
 
-❗❗ **Important Note** ❗❗
+🚧 **Important Note** 🚧
 
 If this is the **first time** using a project with the generated keys, you will most likely **not see any data**. Why? When using the Try It Out feature, each application is a fresh installation with no data. See [Seed the Database](#seeding-the-database) to populate the database with test data.
 

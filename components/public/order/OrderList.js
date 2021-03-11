@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Card, CardTitle, CardBody, Col, Row } from 'reactstrap';
+import Skeleton from 'react-loading-skeleton';
 
 export default function OrderList({ order }) {
   const convertStatusText = (text) => {
@@ -19,11 +20,23 @@ export default function OrderList({ order }) {
   return (
     <Card className="mb-2">
       <CardBody className="border-bottom pb-0">
-        <CardTitle>
-          <strong>Order ID: {order.id}</strong>
-          <p className="float-right">
+        <CardTitle className="d-flex justify-content-between">
+          {order ? (
+            <strong>Order ID: {order.id}</strong>
+          ) : (
+            <span className="w-50">
+              <strong>
+                Order ID: <Skeleton width="50%" />
+              </strong>
+            </span>
+          )}
+          <p className={!order ? 'w-50 text-right' : ''}>
             Last Updated:{' '}
-            {new Date(Date.parse(order.dateUpdated)).toLocaleString()}
+            {order ? (
+              new Date(Date.parse(order.dateUpdated)).toLocaleString()
+            ) : (
+              <Skeleton width="25%" />
+            )}
           </p>
         </CardTitle>
       </CardBody>
@@ -31,30 +44,44 @@ export default function OrderList({ order }) {
         <Row>
           <Col md="3">
             <strong>Shipping To:</strong>
-            <p className="mb-0">{order.customer.name}</p>
-            {order.fulfillment && (
+            <p className="mb-0">{order ? order.customer.name : <Skeleton />}</p>
+            {order ? (
+              order.fulfillment && (
+                <div>
+                  <p className="mb-0">{order.fulfillment.address.line1}</p>
+                  <p className="mb-0">
+                    {order.fulfillment.address.city}{' '}
+                    {order.fulfillment.address.state}{' '}
+                    {order.fulfillment.address.postalCode}
+                  </p>
+                </div>
+              )
+            ) : (
               <div>
-                <p className="mb-0">{order.fulfillment.address.line1}</p>
                 <p className="mb-0">
-                  {order.fulfillment.address.city}{' '}
-                  {order.fulfillment.address.state}{' '}
-                  {order.fulfillment.address.postalCode}
+                  <Skeleton /> <Skeleton />
                 </p>
               </div>
             )}
           </Col>
           <Col md="3">
             <strong>Total:</strong>
-            <p className="mb-0">${order.totals[0].value}</p>
+            <p className="mb-0">
+              {order ? `$${order.totals[0].value}` : <Skeleton />}
+            </p>
           </Col>
           <Col md="3">
             <strong>Status:</strong>
-            <p className="mb-0">{convertStatusText(order.status)}</p>
+            <p className="mb-0">
+              {order ? convertStatusText(order.status) : <Skeleton />}
+            </p>
           </Col>
           <Col md="3">
-            <Link href={`/order/${order.id}`}>
-              <a className="btn btn-outline-primary">View Order</a>
-            </Link>
+            {order && (
+              <Link href={`/order/${order.id}`}>
+                <a className="btn btn-outline-primary">View Order</a>
+              </Link>
+            )}
           </Col>
         </Row>
       </CardBody>

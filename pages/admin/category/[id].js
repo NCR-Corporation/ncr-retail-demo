@@ -7,7 +7,10 @@ const EditCategory = ({ categoryId, categoryNodes }) => {
     <div className="bg pb-4">
       <Header />
       <main className="container">
-        <CategoryForm categoryId={categoryId} categoryNodes={categoryNodes} />
+        <CategoryForm
+          categoryId={categoryId}
+          categoryNodes={categoryNodes.categories}
+        />
       </main>
     </div>
   );

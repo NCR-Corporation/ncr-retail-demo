@@ -4,8 +4,10 @@ import _ from 'lodash';
 import { findNearby, getSites } from '~/lib/sites';
 
 export default async function handler(req, res) {
+  let logs = [];
   if (req.query.latitude && req.query.longitude) {
     let response = await findNearby(req.query.latitude, req.query.longitude);
+    logs.push(response.log);
     if (response.status == 200) {
       let sites = response.data.sites;
       let activeSites = [];
@@ -32,10 +34,11 @@ export default async function handler(req, res) {
         res.json(response);
       }
     } else {
-      res.json(response);
+      res.json({ ...response, logs });
     }
   } else {
     let response = await findNearby();
-    res.json(response);
+    logs.push(response.log);
+    res.json({ ...response, logs });
   }
 }
