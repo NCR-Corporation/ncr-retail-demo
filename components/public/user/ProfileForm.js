@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { signIn } from 'next-auth/client';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -11,6 +12,7 @@ import {
   Spinner,
   Alert,
 } from 'reactstrap';
+import { useRouter } from 'next/router';
 
 const createConsumerSchema = Yup.object().shape({
   username: Yup.string().required('Username is required.'),
@@ -45,7 +47,8 @@ const createConsumerSchema = Yup.object().shape({
   phoneNumber: Yup.string().matches(/\+?(\d|\()[\d-() ]*\d/),
 });
 
-export default function ProfileForm({ session, user }) {
+export default function ProfileForm({ session, user, logs, setLogs }) {
+  const router = useRouter();
   const [showAlert, setShowAlert] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -93,14 +96,33 @@ export default function ProfileForm({ session, user }) {
       .then((data) => {
         // This is always failing.
         setIsUpdating(false);
-        if (data.status != 200) {
+        if (data.response.status != 200) {
           setShowAlert({
-            status: data.status,
+            status: data.response.status,
             message: `Uhoh, we've hit an error. Please try again later.`,
           });
+        } else {
+          setShowAlert({
+            status: 200,
+            message: 'Successfully updated your profile.',
+          });
         }
+        const newLogs = logs.concat(data.logs);
+        setLogs(newLogs);
         setVisible(true);
+        updateUserSession();
       });
+  };
+
+  const updateUserSession = () => {
+    console.log({ session });
+    signIn('update-session', {
+      json: true,
+      token: session.user.token,
+      disableCallback: true,
+    }).then(async () => {
+      router.reload();
+    });
   };
   return (
     <Formik
@@ -225,6 +247,7 @@ export default function ProfileForm({ session, user }) {
                                 ? 'is-invalid'
                                 : null
                             } form-control`}
+                            disabled
                           />
                           <ErrorMessage
                             name="email"
