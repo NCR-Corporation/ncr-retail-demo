@@ -109,6 +109,33 @@ const options = {
         }
       },
     }),
+    Providers.Credentials({
+      id: 'update-session',
+      name: 'Update Session',
+      credentials: {
+        token: {
+          label: 'Token',
+          type: 'text',
+          placeholder: '',
+        },
+      },
+      authorize: async (credentials) => {
+        let userProfile = await getCurrentUserProfileData(credentials.token);
+        if (userProfile.status == 200) {
+          let user = userProfile.data;
+          let expiresAt = new Date();
+          expiresAt.setSeconds(expiresAt.getSeconds() + 900);
+          let userSessionObj = {
+            token: credentials.token,
+            username: user.username,
+            givenName: user.givenName,
+            expires: expiresAt,
+          };
+          return Promise.resolve(userSessionObj);
+        }
+        return Promise.reject();
+      },
+    }),
   ],
   callbacks: {
     session: async (session, user) => {
