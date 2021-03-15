@@ -8,7 +8,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 8080",
-    "find:unused": "next-unused",
     "prettify": "npx prettier --write .",
     "postinstall": "patch-package",
     "cy:open": "cypress open"
@@ -63,8 +62,8 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
     "ncr-hmac": "file:ncr-hmac",
-    "next": "10.0.3",
-    "next-auth": "3.1.0",
+    "next": "^10.0.8",
+    "next-auth": "3.3.0",
     "nprogress": "^0.2.0",
     "react": "17.0.1",
     "react-bootstrap-table-next": "^4.0.3",
@@ -86,7 +85,6 @@
   },
   "devDependencies": {
     "cypress": "^6.5.0",
-    "next-unused": "0.0.3",
     "patch-package": "^6.2.2",
     "prettier": "^2.2.1"
   }
