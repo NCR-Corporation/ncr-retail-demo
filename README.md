@@ -1,6 +1,6 @@
 <h1 align="center">
 <br>
-<a href="https://retaildemo.ncrcloud.com" target="_blank"><img src="./public/mart-banner.png" alt="MART" height="175px" /></a>
+<a href="https://retaildemo.ncrcloud.com" target="_blank"><img src="./public/mart-banner.png" alt="MART" height="auto" width="100%" /></a>
 <br>
 </h1>
 
