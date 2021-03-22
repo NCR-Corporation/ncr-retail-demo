@@ -25,7 +25,7 @@ const HomeAboutCards = (props) => {
             className="text-dark"
           />
           <CardBody>
-            <CardTitle tag="h5" className="font-weight-bolder text-dark">
+            <CardTitle tag="h2" className="h5 font-weight-bolder text-dark">
               Built with NCR APIs
             </CardTitle>
             <CardText className="text-dark">
@@ -39,7 +39,7 @@ const HomeAboutCards = (props) => {
         <Card className="d-flex align-items-center justify-content-center flex-row pl-4 py-2">
           <FontAwesomeIcon icon={faCode} size="3x" className="text-dark" />
           <CardBody>
-            <CardTitle tag="h5" className="font-weight-bolder text-dark">
+            <CardTitle tag="h2" className="h5 font-weight-bolder text-dark">
               Open Sourced
             </CardTitle>
             <CardText className="text-dark">
@@ -52,7 +52,7 @@ const HomeAboutCards = (props) => {
         <Card className="d-flex align-items-center justify-content-center flex-row pl-4 py-2">
           <FontAwesomeIcon icon={faKey} size="3x" className="text-dark" />
           <CardBody>
-            <CardTitle tag="h5" className="font-weight-bolder text-dark">
+            <CardTitle tag="h2" className="h5 font-weight-bolder text-dark">
               Admin Interface
             </CardTitle>
             <CardText className="text-dark">
