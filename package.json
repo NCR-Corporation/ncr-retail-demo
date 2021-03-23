@@ -12,38 +12,6 @@
     "postinstall": "patch-package",
     "cy:open": "cypress open"
   },
-  "next-unused": {
-    "alias": {
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@public/*": [
-        "public/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@context/*": [
-        "context/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ]
-    },
-    "debug": true,
-    "include": [
-      "components",
-      "lib",
-      "pages"
-    ],
-    "exclude": [],
-    "entrypoints": [
-      "pages"
-    ]
-  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
@@ -62,7 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "ncr-hmac": "file:ncr-hmac",
-    "next": "10.0.3",
+    "next": "10.0.9",
     "next-auth": "3.1.0",
     "nprogress": "^0.2.0",
     "react": "17.0.1",
