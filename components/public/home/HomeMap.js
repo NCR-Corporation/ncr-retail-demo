@@ -15,12 +15,12 @@ const HomeMap = () => {
         className="p-4 w-33 bg-lighter text-white"
         style={{ borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
       >
-        <h6
-          className="brand-primary text-uppercase"
+        <h2
+          className="h6 brand-primary text-uppercase"
           style={{ fontWeight: '600' }}
         >
           Our Stores
-        </h6>
+        </h2>
         <ListGroup flush>
           {data.data.pageContent.map((element) => (
             <ListGroupItem

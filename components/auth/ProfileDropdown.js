@@ -44,7 +44,7 @@ function ProfileDropdown({ toggleModalLogin }) {
           </span>
         </Button>
       ) : (
-        <Nav>
+        <div className="nav">
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle
               tag="a"
@@ -77,7 +77,7 @@ function ProfileDropdown({ toggleModalLogin }) {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-        </Nav>
+        </div>
       )}
     </div>
   );

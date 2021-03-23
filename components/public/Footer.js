@@ -20,9 +20,9 @@ const Footer = () => {
             </Link>
           </Col>
           <Col sm="12" md="4">
-            <h6 className="text-uppercase font-weight-bolder text-light">
+            <h2 className="h6 text-uppercase font-weight-bolder text-light">
               Resources
-            </h6>
+            </h2>
             <ul className="list-unstyled text-small">
               <li>
                 <Link href="/sites">
@@ -39,9 +39,9 @@ const Footer = () => {
             </ul>
           </Col>
           <Col sm="12" md="4">
-            <h6 className="text-uppercase font-weight-bolder text-light">
+            <h2 className="h6 text-uppercase font-weight-bolder text-light">
               Help
-            </h6>
+            </h2>
             <ul className="list-unstyled text-small">
               <li>
                 <Link href="https://developer.ncrcloud.com/">

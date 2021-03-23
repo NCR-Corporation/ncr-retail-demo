@@ -58,7 +58,8 @@ export default function Order({ id, categories }) {
                   {convertStatusText(data.order.data.status)}
                 </h5>
                 <Progress
-                  value={`${
+                  barAriaLabelledBy={convertStatusText(data.order.data.status)}
+                  value=`${
                     data.order.data.status === 'OrderPlaced'
                       ? '1'
                       : data.order.data.status == 'ReceivedForFulfillment'

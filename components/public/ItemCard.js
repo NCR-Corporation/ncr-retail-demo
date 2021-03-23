@@ -45,9 +45,9 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
 
   return (
     <Card className="border-0 shadow-sm item-card h-100">
-      <Link href={item ? `/catalog/${item.itemId.itemCode}` : '#'}>
-        <a>
-          {item ? (
+      {item ? (
+        <Link href={item ? `/catalog/${item.itemId.itemCode}` : '#'}>
+          <a aria-label={item.shortDescription.values[0].value}>
             <Image
               alt={
                 item.shortDescription.values
@@ -67,13 +67,13 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
               height={255}
               className="p-4"
             />
-          ) : (
-            <div className="p-4">
-              <Skeleton height="255px" />
-            </div>
-          )}
-        </a>
-      </Link>
+          </a>
+        </Link>
+      ) : (
+        <div className="p-4">
+          <Skeleton height="255px" />
+        </div>
+      )}
       {item ? (
         <CardBody className="d-flex pb-1">
           <div className="align-self-end">
