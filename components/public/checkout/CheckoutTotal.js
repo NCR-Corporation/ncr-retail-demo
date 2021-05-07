@@ -1,7 +1,6 @@
 import { Button, CardBody, Spinner } from 'reactstrap';
 
 export default function CheckoutTotal({ order, data, purchase, isPuchasing }) {
-  console.log(order);
   const cartTotals = data.cart.data;
   return (
     <CardBody>

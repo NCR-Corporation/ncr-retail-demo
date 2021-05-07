@@ -1,72 +1,9 @@
 import Link from 'next/link';
-import BootstrapTable from 'react-bootstrap-table-next';
-import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Table } from 'reactstrap';
 
 function Categories({ categories }) {
-  const columns = [
-    {
-      dataField: 'nodeId.nodeId',
-      text: 'ID',
-      sort: true,
-      headerStyle: {
-        width: '100px',
-      },
-    },
-    {
-      dataField: 'title.value',
-      text: 'Name',
-      sort: true,
-    },
-    {
-      dataField: 'parentId.nodeId',
-      text: 'Parent',
-      sort: true,
-    },
-    {
-      dataField: 'tag',
-      text: 'Tag',
-      sort: true,
-    },
-    {
-      dataField: 'status',
-      text: 'Status',
-      sort: true,
-    },
-    {
-      dataField: 'departmentSale',
-      text: 'Department Sale',
-      sort: true,
-    },
-    {
-      dataField: 'departmentNode',
-      text: 'Department Node',
-      sort: true,
-    },
-    {
-      dataField: '',
-      text: '',
-      headerStyle: {
-        width: '80px',
-      },
-      formatter: (rowContent, row) => {
-        return (
-          <a href={`/admin/category/${row.nodeId.nodeId}`}>
-            <FontAwesomeIcon icon={faEdit} color="darkslategray" />
-          </a>
-        );
-      },
-    },
-  ];
-
-  const defaultSorted = [
-    {
-      dataField: 'nodeId.nodeId',
-      order: 'asc',
-    },
-  ];
-
   return (
     <div className="pb-4">
       <div className="text-right my-2">
@@ -75,15 +12,40 @@ function Categories({ categories }) {
         </Link>
       </div>
       <div className="bg-white">
-        <BootstrapTable
-          bootstrap4
-          keyField="nodeId.nodeId"
-          data={categories}
-          columns={columns}
-          hover
-          defaultSorted={defaultSorted}
-          noDataIndication="No categories found"
-        />
+        <Table responsive hover bordered>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Parent</th>
+              <th>Tag</th>
+              <th>Status</th>
+              <th>Department Sale</th>
+              <th>Department Node</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {categories.map((item) => (
+              <tr key={item.nodeId.nodeId}>
+                <th scope="row">{item.nodeId.nodeId}</th>
+                <td>{item.title.value}</td>
+                <td>{item.parentId && item.parentId.nodeId}</td>
+                <td>{item.tag}</td>
+                <td>{item.status}</td>
+                <td>{`${item.departmentSale}`}</td>
+                <td>{`${item.departmentNode}`}</td>
+                <td>
+                  <>
+                    <a href={`/admin/category/${item.nodeId.nodeId}`}>
+                      <FontAwesomeIcon icon={faEdit} color="darkslategray" />
+                    </a>
+                  </>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
     </div>
   );

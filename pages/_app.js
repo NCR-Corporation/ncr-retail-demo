@@ -1,6 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Head from 'next/head';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import '~/styles/style.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 // Prevent fontawesome from adding its CSS since we did it manually above:

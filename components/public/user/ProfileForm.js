@@ -115,7 +115,6 @@ export default function ProfileForm({ session, user, logs, setLogs }) {
   };
 
   const updateUserSession = () => {
-    console.log({ session });
     signIn('update-session', {
       json: true,
       token: session.user.token,

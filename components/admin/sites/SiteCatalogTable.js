@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
-import { Modal, Alert } from 'reactstrap';
+import { Modal, Alert, Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import SiteCatalogItemForm from './SiteCatalogItemForm';
@@ -23,81 +22,6 @@ export default function SiteCatalogTable({
     setModal(!modal);
   };
 
-  const columns = [
-    {
-      dataField: 'item.itemId.itemCode',
-      text: 'ID',
-      sort: true,
-    },
-    {
-      dataField: 'item.shortDescription.values[0].value',
-      sort: true,
-      text: 'Name',
-    },
-    {
-      dataField: 'item.longDescription.values[0].value',
-      sort: true,
-      text: 'Long',
-    },
-    {
-      dataField: 'item.merchandiseCategory.nodeId',
-      sort: true,
-      text: 'Merchandise',
-    },
-    {
-      dataField: 'itemAttributes.groups[0].groupCode',
-      sort: true,
-      text: 'Groups',
-    },
-    {
-      dataField: 'itemPrices[0].price',
-      sort: true,
-      text: 'Price',
-      headerStyle: {
-        width: '80px',
-      },
-    },
-    {
-      dataField: 'itemAttributes.imageUrls[0]',
-      sort: true,
-      text: 'Image',
-      formatter: (rowContent, row) => {
-        return (
-          <Image width={50} height={50} src={row.itemAttributes.imageUrls[0]} />
-        );
-      },
-    },
-    // {
-    //   dataField: 'itemAttributes.status',
-    //   sort: true,
-    //   text: 'Status',
-    // },
-    {
-      dataField: '',
-      text: '',
-      headerStyle: {
-        width: '60px',
-      },
-      formatter: (rowContent, row) => {
-        return (
-          <FontAwesomeIcon
-            key={row.item.itemId.itemCode}
-            icon={faEdit}
-            size="sm"
-            className="pointer"
-            onClick={() => toggle(row)}
-          />
-        );
-      },
-    },
-  ];
-
-  const defaultSorted = [
-    {
-      dataField: 'itemId.itemCode',
-      order: 'asc',
-    },
-  ];
   const showAlertMessage = ({ status, message }) => {
     toggle(null);
     setShowAlert({ status, message });
@@ -124,15 +48,51 @@ export default function SiteCatalogTable({
       >
         {showAlert.message}
       </Alert>
-      <BootstrapTable
-        bootstrap4
-        keyField="item.itemId.itemCode"
-        data={catalog.data.pageContent}
-        columns={columns}
-        hover
-        defaultSorted={defaultSorted}
-        noDataIndication="No catalog items found"
-      />
+      <Table responsive hover bordered>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Long</th>
+            <th>Merchandise</th>
+            <th>Groups</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {catalog.data.pageContent.map((item) => (
+            <tr key={item.item.itemId.itemCode}>
+              <th scope="row">{item.item.itemId.itemCode}</th>
+              <td>{item.item.shortDescription.values[0].value}</td>
+              <td>{item.item.longDescription.values[0].value}</td>
+              <td>{item.item.merchandiseCategory.nodeId}</td>
+              <td>
+                {item.itemAttributes.groups.length > 0 &&
+                  item.itemAttributes.groups[0].groupCode}
+              </td>
+              <td>{item.itemPrices[0].price}</td>
+              <td>
+                <Image
+                  width={50}
+                  height={50}
+                  src={item.itemAttributes.imageUrls[0]}
+                />
+              </td>
+              <td>
+                <FontAwesomeIcon
+                  key={item.item.itemId.itemCode}
+                  icon={faEdit}
+                  size="sm"
+                  className="pointer"
+                  onClick={() => toggle(item)}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 }
