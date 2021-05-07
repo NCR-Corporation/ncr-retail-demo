@@ -1,57 +1,10 @@
 import Link from 'next/link';
-import BootstrapTable from 'react-bootstrap-table-next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import filterFactory, { selectFilter } from 'react-bootstrap-table2-filter';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Table } from 'reactstrap';
 
 function Catalog({ data }) {
   const catalog = data.length == 0 ? data : data.data.pageContent;
-
-  const selectOptions = {
-    ACTIVE: 'ACTIVE',
-    INACTIVE: 'INACTIVE',
-  };
-
-  const columns = [
-    {
-      dataField: 'itemId.itemCode',
-      text: 'ID',
-      sort: true,
-    },
-    {
-      dataField: 'shortDescription.value',
-      text: 'Name',
-      sort: true,
-    },
-    {
-      dataField: 'status',
-      text: 'Status',
-      sort: true,
-      formatter: (cell) => {
-        return selectOptions[cell];
-      },
-      filter: selectFilter({
-        options: selectOptions,
-        defaultValue: 'ACTIVE',
-      }),
-    },
-    {
-      dataField: '',
-      text: '',
-      headerStyle: {
-        width: '80px',
-      },
-      formatter: (rowContent, row) => {
-        return (
-          <>
-            <a href={`/admin/catalog/${row.itemId.itemCode}`}>
-              <FontAwesomeIcon icon={faEdit} color="darkslategray" />
-            </a>
-          </>
-        );
-      },
-    },
-  ];
 
   return (
     <div>
@@ -61,15 +14,32 @@ function Catalog({ data }) {
         </Link>
       </div>
       <div className="bg-white">
-        <BootstrapTable
-          bootstrap4
-          keyField="itemId.itemCode"
-          data={catalog}
-          columns={columns}
-          hover
-          noDataIndication="No catalog items found"
-          filter={filterFactory()}
-        />
+        <Table responsive hover bordered>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {catalog.map((item) => (
+              <tr key={item.itemId.itemCode}>
+                <th scope="row">{item.itemId.itemCode}</th>
+                <td>{item.shortDescription.value}</td>
+                <td>{item.status}</td>
+                <td>
+                  <>
+                    <a href={`/admin/catalog/${item.itemId.itemCode}`}>
+                      <FontAwesomeIcon icon={faEdit} color="darkslategray" />
+                    </a>
+                  </>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
     </div>
   );
