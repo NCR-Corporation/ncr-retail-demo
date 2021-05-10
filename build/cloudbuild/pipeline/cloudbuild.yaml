@@ -30,6 +30,8 @@ steps:
         ls -la
         cd build/helm/charts
 
+        export HOME="$(cat /etc/passwd | grep "^$(id -un):" | cut -d ":" -f 6)"
+
         helm gcs init "gs://${_HELM_STORAGE_BUCKET}"
         helm repo add gs-repository "gs://${_HELM_STORAGE_BUCKET}"
 
@@ -47,8 +49,8 @@ images:
   - 'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}'
 
 substitutions:
-  _HELM_GCS_VERSION: '0.2.0'
+  _HELM_GCS_VERSION: '0.3.9'
   _HELM_STORAGE_BUCKET: ''
-  _HELM_VERSION: '2.11.0'
+  _HELM_VERSION: '3.5.3'
   _NODEJS_VERSION: '12'
   _NGINX_VERSION: '1.15'
