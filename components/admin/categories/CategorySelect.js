@@ -1,23 +1,17 @@
 import { useState } from 'react';
 import { Input } from 'reactstrap';
 
-const CategorySelect = ({
-  currentCategory,
-  initialCategory,
-  setDisabled,
-  setParentCategory,
-  categories,
-}) => {
+const CategorySelect = ({ currentCategory, initialCategory, setDisabled, setParentCategory, categories }) => {
   const [selectedCategory, setSelectedCategory] = useState({ nodeCode: '--' });
   const [childVisible, setChildVisible] = useState(false);
   const [selectedChild, setSelectedChild] = useState({ nodeCode: '--' });
   const [selectedGrandChild, setSelectedGrandChild] = useState({
-    nodeCode: '--',
+    nodeCode: '--'
   });
   const [categoryChildren, setCategoryChildren] = useState({ nodeCode: '--' });
   const [grandchildVisible, setGrandChildVisible] = useState(false);
   const [categoryGrandchildren, setCategoryGrandchildren] = useState({
-    nodeCode: '--',
+    nodeCode: '--'
   });
 
   if (initialCategory != '' && selectedCategory.nodeCode == '--') {
@@ -33,17 +27,10 @@ const CategorySelect = ({
           setSelectedCategory(element);
           setCategoryChildren(element.children);
           setChildVisible(true);
-          if (
-            element.children[initialCategory].children &&
-            Object.keys(element.children[initialCategory]).length > 0
-          ) {
-            setCategoryGrandchildren(
-              element.children[initialCategory].children
-            );
+          if (element.children[initialCategory].children && Object.keys(element.children[initialCategory]).length > 0) {
+            setCategoryGrandchildren(element.children[initialCategory].children);
             setGrandChildVisible(true);
-            setSelectedGrandChild(
-              element.children[initialCategory].children[currentCategory]
-            );
+            setSelectedGrandChild(element.children[initialCategory].children[currentCategory]);
           }
           setSelectedChild(element.children[initialCategory]);
           break;
@@ -71,15 +58,8 @@ const CategorySelect = ({
 
   const handleChildCategoryChange = (e) => {
     if (e.target.value != '') {
-      if (
-        e.target.value != '' &&
-        selectedCategory.children[e.target.value].children &&
-        Object.keys(selectedCategory.children[e.target.value].children).length >
-          0
-      ) {
-        setCategoryGrandchildren(
-          selectedCategory.children[e.target.value].children
-        );
+      if (e.target.value != '' && selectedCategory.children[e.target.value].children && Object.keys(selectedCategory.children[e.target.value].children).length > 0) {
+        setCategoryGrandchildren(selectedCategory.children[e.target.value].children);
         setGrandChildVisible(true);
         // setSelectedChild(selectedCategory.children[e.target.value]);
       }
@@ -93,16 +73,8 @@ const CategorySelect = ({
 
   const handleGrandChildCategoryChange = (e) => {
     if (e.target.value != '') {
-      setSelectedGrandChild(
-        selectedCategory.children[selectedChild.nodeCode].children[
-          e.target.value
-        ]
-      );
-      setParentCategory(
-        selectedCategory.children[selectedChild.nodeCode].children[
-          e.target.value
-        ].nodeCode
-      );
+      setSelectedGrandChild(selectedCategory.children[selectedChild.nodeCode].children[e.target.value]);
+      setParentCategory(selectedCategory.children[selectedChild.nodeCode].children[e.target.value].nodeCode);
     } else {
       setParentCategory(selectedChild.nodeCode);
     }
@@ -110,15 +82,9 @@ const CategorySelect = ({
 
   return (
     <div>
-      <label>Parent Category*</label>
+      <p>Parent Category*</p>
       <div className="form-group">
-        <Input
-          disabled={setDisabled ? 'disabled' : ''}
-          type="select"
-          name="select"
-          onChange={(e) => handleRootCategoryChange(e)}
-          value={selectedCategory.nodeCode}
-        >
+        <Input disabled={setDisabled ? 'disabled' : ''} type="select" name="select" onChange={(e) => handleRootCategoryChange(e)} value={selectedCategory.nodeCode}>
           <option value="">--</option>
           {categories.map((category) => (
             <option key={category.nodeCode} value={category.nodeCode}>
@@ -129,13 +95,7 @@ const CategorySelect = ({
       </div>
       {childVisible && (
         <div className="form-group">
-          <Input
-            disabled={setDisabled ? 'disabled' : ''}
-            type="select"
-            name="select"
-            onChange={(e) => handleChildCategoryChange(e)}
-            value={selectedChild.nodeCode}
-          >
+          <Input disabled={setDisabled ? 'disabled' : ''} type="select" name="select" onChange={(e) => handleChildCategoryChange(e)} value={selectedChild.nodeCode}>
             <option value="">--</option>
             {Object.keys(categoryChildren).map((key) => {
               let category = categoryChildren[key];
@@ -152,13 +112,7 @@ const CategorySelect = ({
       )}
       {grandchildVisible && (
         <div className="form-group">
-          <Input
-            disabled={setDisabled ? 'disabled' : ''}
-            type="select"
-            name="select"
-            onChange={(e) => handleGrandChildCategoryChange(e)}
-            value={selectedGrandChild.nodeCode}
-          >
+          <Input disabled={setDisabled ? 'disabled' : ''} type="select" name="select" onChange={(e) => handleGrandChildCategoryChange(e)} value={selectedGrandChild.nodeCode}>
             <option value="">--</option>
             {Object.keys(categoryGrandchildren).map((key) => {
               let category = categoryGrandchildren[key];

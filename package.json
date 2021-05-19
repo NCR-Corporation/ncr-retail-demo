@@ -10,7 +10,19 @@
     "start": "next start -p 8080",
     "prettify": "npx prettier --write .",
     "postinstall": "patch-package",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "lint": "eslint --fix .",
+    "format": "prettier --write . --config ./.prettierrc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -21,6 +33,7 @@
     "bootstrap": "^4.5.3",
     "cookie": "^0.4.1",
     "cookie-cutter": "^0.2.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
     "formik": "^2.2.6",
     "framer-motion": "^3.10.6",
     "google-map-react": "^2.1.9",
@@ -51,7 +64,15 @@
   },
   "devDependencies": {
     "cypress": "^6.8.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "patch-package": "^6.4.7",
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.0"
   }
 }

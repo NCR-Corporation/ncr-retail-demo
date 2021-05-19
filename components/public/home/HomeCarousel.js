@@ -1,28 +1,23 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import {
-  Carousel,
-  CarouselItem,
-  CarouselIndicators,
-  CarouselCaption,
-} from 'reactstrap';
+import { Carousel, CarouselItem, CarouselIndicators, CarouselCaption } from 'reactstrap';
 
 const items = [
   {
     src: '/images/fresh-food.png',
     altText: 'Fresh Food, Every Day',
     caption: 'Fresh Food, Every Day',
-    link: '/category/1f33d252',
+    link: '/category/1f33d252'
   },
   {
     src: '/images/kitchen-home.png',
     altText: 'Kitchen Essentials for Your Home',
     caption: 'Kitchen Essentials for Your Home',
-    link: '/category/af452ca5',
-  },
+    link: '/category/af452ca5'
+  }
 ];
 
-const HomeCarousel = (props) => {
+const HomeCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
@@ -44,16 +39,8 @@ const HomeCarousel = (props) => {
   };
   const slides = items.map((item) => {
     return (
-      <CarouselItem
-        onExiting={() => setAnimating(true)}
-        onExited={() => setAnimating(false)}
-        key={item.src}
-      >
-        <img
-          src={item.src}
-          alt={item.altText}
-          style={{ minWidth: '100%', width: '100%' }}
-        />
+      <CarouselItem onExiting={() => setAnimating(true)} onExited={() => setAnimating(false)} key={item.src}>
+        <img src={item.src} alt={item.altText} style={{ minWidth: '100%', width: '100%' }} />
         <CarouselCaption
           captionHeader={
             <div className="container">
@@ -76,11 +63,7 @@ const HomeCarousel = (props) => {
 
   return (
     <Carousel activeIndex={activeIndex} next={next} previous={previous}>
-      <CarouselIndicators
-        items={items}
-        activeIndex={activeIndex}
-        onClickHandler={goToIndex}
-      />
+      <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
       {slides}
     </Carousel>
   );

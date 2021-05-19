@@ -1,23 +1,7 @@
 import Header from '~/components/admin/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faTruck,
-  faThList,
-  faCheckCircle,
-  faCircle,
-  faExclamationCircle,
-  faShoppingCart,
-} from '@fortawesome/free-solid-svg-icons';
-import _ from 'lodash';
-import {
-  Container,
-  CardTitle,
-  Card,
-  CardBody,
-  Col,
-  Row,
-  Spinner,
-} from 'reactstrap';
+import { faTruck, faCheckCircle, faCircle, faExclamationCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { Container, CardTitle, Card, CardBody, Col, Row, Spinner } from 'reactstrap';
 import useDashboard from '~/lib/hooks/useDashboard';
 import Orders from '~/components/admin/orders/Orders';
 
@@ -27,18 +11,10 @@ const Dashboard = () => {
   let ordersReceived = [];
   let ordersInFulfillment = [];
   let ordersFilled = [];
-  if (
-    !isLoading &&
-    !isError &&
-    data &&
-    data.orders &&
-    data.orders.data.pageContent
-  ) {
+  if (!isLoading && !isError && data && data.orders && data.orders.data.pageContent) {
     let orders = data.orders.data.pageContent;
     ordersPlaced = orders.filter((el) => el.status == 'OrderPlaced');
-    ordersReceived = orders.filter(
-      (el) => el.status == 'ReceivedForFulfillment'
-    );
+    ordersReceived = orders.filter((el) => el.status == 'ReceivedForFulfillment');
     ordersInFulfillment = orders.filter((el) => el.status == 'InFulfillment');
     ordersFilled = orders.filter((el) => el.status == 'Finished');
   }
@@ -52,9 +28,7 @@ const Dashboard = () => {
             <Spinner color="dark" />
           </div>
         )}
-        {isError && (
-          <small className="text-muted">Uhoh, we've hit an error.</small>
-        )}
+        {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
         {!isLoading && !isError && (
           <div className="my-4">
             <Row className="text-center">
@@ -63,17 +37,8 @@ const Dashboard = () => {
                   <CardBody>
                     <CardTitle tag="h5">
                       <span className="fa-layers fa-fw pb-2">
-                        <FontAwesomeIcon
-                          className="text-danger"
-                          icon={faCircle}
-                          size="2x"
-                          transform="left-3"
-                        />
-                        <FontAwesomeIcon
-                          icon={faExclamationCircle}
-                          inverse
-                          transform="shrink-2"
-                        />
+                        <FontAwesomeIcon className="text-danger" icon={faCircle} size="2x" transform="left-3" />
+                        <FontAwesomeIcon icon={faExclamationCircle} inverse transform="shrink-2" />
                       </span>
                     </CardTitle>
                     <CardTitle tag="h4" className="m-0">
@@ -88,17 +53,8 @@ const Dashboard = () => {
                   <CardBody>
                     <CardTitle tag="h5">
                       <span className="fa-layers fa-fw pb-2">
-                        <FontAwesomeIcon
-                          className="text-warning"
-                          icon={faCircle}
-                          size="2x"
-                          transform="left-3"
-                        />
-                        <FontAwesomeIcon
-                          icon={faShoppingCart}
-                          inverse
-                          transform="shrink-2"
-                        />
+                        <FontAwesomeIcon className="text-warning" icon={faCircle} size="2x" transform="left-3" />
+                        <FontAwesomeIcon icon={faShoppingCart} inverse transform="shrink-2" />
                       </span>
                     </CardTitle>
                     <CardTitle tag="h4" className="m-0">
@@ -113,17 +69,8 @@ const Dashboard = () => {
                   <CardBody>
                     <CardTitle tag="h5">
                       <span className="fa-layers fa-fw pb-2">
-                        <FontAwesomeIcon
-                          className="text-info"
-                          icon={faCircle}
-                          size="2x"
-                          transform="left-3"
-                        />
-                        <FontAwesomeIcon
-                          icon={faTruck}
-                          inverse
-                          transform="shrink-2"
-                        />
+                        <FontAwesomeIcon className="text-info" icon={faCircle} size="2x" transform="left-3" />
+                        <FontAwesomeIcon icon={faTruck} inverse transform="shrink-2" />
                       </span>
                     </CardTitle>
                     <CardTitle tag="h4" className="m-0">
@@ -138,17 +85,8 @@ const Dashboard = () => {
                   <CardBody>
                     <CardTitle tag="h5">
                       <span className="fa-layers fa-fw pb-2">
-                        <FontAwesomeIcon
-                          className="text-success"
-                          icon={faCircle}
-                          size="2x"
-                          transform="left-3"
-                        />
-                        <FontAwesomeIcon
-                          icon={faCheckCircle}
-                          inverse
-                          transform="shrink-2"
-                        />
+                        <FontAwesomeIcon className="text-success" icon={faCircle} size="2x" transform="left-3" />
+                        <FontAwesomeIcon icon={faCheckCircle} inverse transform="shrink-2" />
                       </span>
                     </CardTitle>
                     <CardTitle tag="h4" className="m-0">
@@ -161,13 +99,7 @@ const Dashboard = () => {
             </Row>
             <div className="my-4">
               <h4 className="mb-1">Recent Orders</h4>
-              <Orders
-                orders={
-                  data.orders && data.orders.data.pageContent
-                    ? data.orders.data.pageContent
-                    : []
-                }
-              />
+              <Orders orders={data.orders && data.orders.data.pageContent ? data.orders.data.pageContent : []} />
             </div>
           </div>
         )}

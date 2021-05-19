@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import Footer from '~/components/public/Footer';
 import Header from '~/components/public/Header';
 import useHomepage from '~/lib/hooks/useHomepage';
@@ -16,26 +16,18 @@ function Home({ categories }) {
   const { data, isLoading, isError } = useHomepage(userStore.id);
   return (
     <div className="d-flex flex-column main-container">
-      <Header
-        categories={categories}
-        logs={data && data.logs ? data.logs : []}
-      />
+      <Header categories={categories} logs={data && data.logs ? data.logs : []} />
       <HomeCarousel />
       <main className="container my-4 flex-grow-1">
         <div>
           <HomeAboutCards />
           {isError && (
             <small className="text-muted center">
-              Uhoh, we've hit an error.
+              {`Uhoh, we've hit an error.`}
               <code>{JSON.stringify(isError.info)}</code>
             </small>
           )}
-          <HomeGroups
-            isError={isError}
-            isLoading={isLoading}
-            userStore={userStore}
-            data={data}
-          />
+          <HomeGroups isError={isError} isLoading={isLoading} userStore={userStore} data={data} />
           <HomeQuote />
           <div id="stores" className="my-5">
             <HomeMap />
@@ -52,8 +44,8 @@ export async function getServerSideProps() {
   return {
     props: {
       categories,
-      logs,
-    },
+      logs
+    }
   };
 }
 

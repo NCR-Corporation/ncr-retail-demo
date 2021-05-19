@@ -32,16 +32,8 @@ export default function Header({ categories, logs }) {
   return (
     <div className="bg-white">
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
-      <LoginModal
-        modalProp={isLoginModalOpen}
-        toggle={toggleLoginModal}
-        toggleRegister={toggleRegisterModal}
-      />
-      <RegisterConsumerModal
-        modalProp={isRegisterModalOpen}
-        toggle={toggleRegisterModal}
-        toggleLogin={toggleLoginModal}
-      />
+      <LoginModal modalProp={isLoginModalOpen} toggle={toggleLoginModal} toggleRegister={toggleRegisterModal} />
+      <RegisterConsumerModal modalProp={isRegisterModalOpen} toggle={toggleRegisterModal} toggleLogin={toggleLoginModal} />
       <header className="section-header shadow-sm">
         <section className="header-top border-lighter">
           <Container>
@@ -68,11 +60,7 @@ export default function Header({ categories, logs }) {
               <Col sm="8" md="5">
                 <SearchBar />
               </Col>
-              <Col
-                sm="12"
-                md="4"
-                className="text-sm-left text-md-right text-white"
-              >
+              <Col sm="12" md="4" className="text-sm-left text-md-right text-white">
                 <div className="d-flex justify-content-end align-items-center">
                   <div className="pr-4 d-flex flex-column justify-content-start">
                     <ProfileDropdown toggleModalLogin={toggleLoginModal} />
@@ -80,24 +68,13 @@ export default function Header({ categories, logs }) {
                   <div className="pl-2 d-flex align-items-center justify-content-between text-white border-left border-white border-1">
                     <Link href="/cart">
                       <a style={{ border: 'none !important' }}>
-                        <Button
-                          color="light"
-                          outline
-                          className="border-none cart-btn"
-                        >
-                          <FontAwesomeIcon
-                            icon={faShoppingCart}
-                            size="1x"
-                            className="pr-1"
-                          />{' '}
-                          Cart
-                          {userCart &&
-                            userCart.totalQuantity != null &&
-                            userCart.totalQuantity > 0 && (
-                              <Badge color="warning" className="ml-1">
-                                {userCart.totalQuantity}
-                              </Badge>
-                            )}
+                        <Button color="light" outline className="border-none cart-btn">
+                          <FontAwesomeIcon icon={faShoppingCart} size="1x" className="pr-1" /> Cart
+                          {userCart && userCart.totalQuantity != null && userCart.totalQuantity > 0 && (
+                            <Badge color="warning" className="ml-1">
+                              {userCart.totalQuantity}
+                            </Badge>
+                          )}
                         </Button>
                       </a>
                     </Link>
@@ -107,11 +84,7 @@ export default function Header({ categories, logs }) {
             </Row>
           </Container>
         </section>
-        <SubHeader
-          categories={categories}
-          userStore={userStore}
-          setIsModalOpen={setIsModalOpen}
-        />
+        <SubHeader categories={categories} userStore={userStore} setIsModalOpen={setIsModalOpen} />
       </header>
     </div>
   );

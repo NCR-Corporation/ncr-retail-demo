@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '~/components/admin/Header';
 import Groups from '~/components/admin/groups/Groups';
 
@@ -17,14 +17,8 @@ const GroupsTab = () => {
             <Spinner color="dark" />
           </div>
         )}
-        {isError && (
-          <small className="text-muted">Uhoh, we've hit an error.</small>
-        )}
-        {!isLoading && !isError && (
-          <Groups
-            data={data.result && data.result.status == 200 ? data.result : []}
-          />
-        )}
+        {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
+        {!isLoading && !isError && <Groups data={data.result && data.result.status == 200 ? data.result : []} />}
       </Container>
     </div>
   );

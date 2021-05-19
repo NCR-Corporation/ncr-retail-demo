@@ -25,18 +25,13 @@ const Orders = ({ categories }) => {
             <Col sm="9">
               <Card className="shadow-sm">
                 <CardBody>
-                  <small className="text-muted">
-                    Uhoh, we've hit an error.
-                  </small>
+                  <small className="text-muted">{`Uhoh, we've hit an error.`}</small>
                 </CardBody>
               </Card>
             </Col>
           )}
           {!isError &&
-            (!isLoading &&
-            data &&
-            data.data &&
-            data.data.data.pageContent.length == 0 ? (
+            (!isLoading && data && data.data && data.data.data.pageContent.length == 0 ? (
               <Col sm="9">
                 <Card className="shadow-sm">
                   <CardBody>
@@ -46,13 +41,7 @@ const Orders = ({ categories }) => {
               </Col>
             ) : (
               <Col sm="9">
-                {!isLoading
-                  ? data.data.data.pageContent.map((order) => (
-                      <OrderList order={order} key={order.id} />
-                    ))
-                  : [...Array(4).keys()].map((index) => (
-                      <OrderList order={null} key={index} />
-                    ))}
+                {!isLoading ? data.data.data.pageContent.map((order) => <OrderList order={order} key={order.id} />) : [...Array(4).keys()].map((index) => <OrderList order={null} key={index} />)}
               </Col>
             ))}
         </Row>
@@ -67,8 +56,8 @@ export async function getServerSideProps() {
   return {
     props: {
       categories,
-      logs,
-    },
+      logs
+    }
   };
 }
 

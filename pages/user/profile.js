@@ -48,16 +48,8 @@ const Settings = ({ categories, session }) => {
           <title>MART | Profile</title>
         </Head>
         <Header categories={categories} />
-        <LoginModal
-          modalProp={isRegisterModalOpen ? false : true}
-          toggle={toggleLoginModal}
-          toggleRegister={toggleRegisterModal}
-        />
-        <RegisterConsumerModal
-          modalProp={isRegisterModalOpen}
-          toggle={toggleRegisterModal}
-          toggleLogin={toggleLoginModal}
-        />
+        <LoginModal modalProp={isRegisterModalOpen ? false : true} toggle={toggleLoginModal} toggleRegister={toggleRegisterModal} />
+        <RegisterConsumerModal modalProp={isRegisterModalOpen} toggle={toggleRegisterModal} toggleLogin={toggleLoginModal} />
         <main className="container my-4 flex-grow-1"></main>
         <Footer />
       </div>
@@ -69,10 +61,7 @@ const Settings = ({ categories, session }) => {
       <Head>
         <title>MART | Profile</title>
       </Head>
-      <Header
-        categories={categories}
-        logs={logs.length > 0 ? logs : data.logs}
-      />
+      <Header categories={categories} logs={logs.length > 0 ? logs : data.logs} />
       <main className="container my-4 flex-grow-1">
         {data && data.data && (
           <Row>
@@ -80,12 +69,7 @@ const Settings = ({ categories, session }) => {
               <Sidebar url="profile" />
             </Col>
             <Col>
-              <ProfileForm
-                user={data}
-                session={session}
-                logs={data.logs}
-                setLogs={setLogs}
-              />
+              <ProfileForm user={data} session={session} logs={data.logs} setLogs={setLogs} />
             </Col>
           </Row>
         )}
@@ -106,8 +90,8 @@ export async function getServerSideProps(context) {
       props: {},
       redirect: {
         destination: '/',
-        permanent: false,
-      },
+        permanent: false
+      }
     };
   }
 

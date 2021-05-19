@@ -5,7 +5,7 @@ import { getById } from '~/lib/sites';
 import { getCategoryNodesForMenu } from '~/lib/category';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStoreAlt } from '@fortawesome/free-solid-svg-icons';
-import { Button, Row, Col, Container } from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 import FindStoreMap from '~/components/public/FindStoreMap';
 
 export default function Site({ site, categories }) {
@@ -22,16 +22,11 @@ export default function Site({ site, categories }) {
             <div className="ml-4">
               <h2 className="mb-0">{site.data.siteName}</h2>
               <small className="text-muted">
-                {site.data.address.street} {site.data.address.city},{' '}
-                {site.data.address.state} {site.data.address.postalCode}
+                {site.data.address.street} {site.data.address.city}, {site.data.address.state} {site.data.address.postalCode}
               </small>
             </div>
           </div>
-          <a
-            target="_blank"
-            href={`https://maps.google.com/?ll=${site.data.coordinates.latitude},${site.data.coordinates.longitude}`}
-            className="btn btn-outline-primary"
-          >
+          <a target="_blank" href={`https://maps.google.com/?ll=${site.data.coordinates.latitude},${site.data.coordinates.longitude}`} className="btn btn-outline-primary" rel="noreferrer">
             Directions
           </a>
         </div>
@@ -42,10 +37,7 @@ export default function Site({ site, categories }) {
             <p>Coming Soon</p>
           </Col>
           <Col md={6}>
-            <FindStoreMap
-              coordinates={site.data.coordinates}
-              sites={[site.data]}
-            />
+            <FindStoreMap coordinates={site.data.coordinates} sites={[site.data]} />
           </Col>
         </Row>
       </Container>
@@ -60,7 +52,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       site,
-      categories,
-    },
+      categories
+    }
   };
 }

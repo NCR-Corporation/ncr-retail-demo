@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import useSites from '~/lib/hooks/useSites';
@@ -11,14 +10,8 @@ const HomeMap = () => {
 
   return !isLoading && !isError ? (
     <div className="d-flex">
-      <div
-        className="p-4 w-33 bg-lighter text-white"
-        style={{ borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
-      >
-        <h2
-          className="h6 brand-primary text-uppercase"
-          style={{ fontWeight: '600' }}
-        >
+      <div className="p-4 w-33 bg-lighter text-white" style={{ borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}>
+        <h2 className="h6 brand-primary text-uppercase" style={{ fontWeight: '600' }}>
           Our Stores
         </h2>
         <ListGroup flush>
@@ -34,11 +27,7 @@ const HomeMap = () => {
                 <p className="m-0">{element.siteName}</p>
                 <small className="text-muted">{element.address.street}</small>
               </div>
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                size="1x"
-                className="pl-1"
-              />
+              <FontAwesomeIcon icon={faChevronRight} size="1x" className="pl-1" />
             </ListGroupItem>
           ))}
         </ListGroup>
@@ -54,7 +43,7 @@ const HomeMap = () => {
 
 export default geolocated({
   positionOptions: {
-    enableHighAccuracy: false,
+    enableHighAccuracy: false
   },
-  userDecisionTimeout: 5000,
+  userDecisionTimeout: 5000
 })(HomeMap);

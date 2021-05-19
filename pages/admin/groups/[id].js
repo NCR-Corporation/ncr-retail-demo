@@ -16,8 +16,8 @@ const EditGroup = ({ groupId }) => {
 export async function getServerSideProps(context) {
   return {
     props: {
-      groupId: context.params.id,
-    },
+      groupId: context.params.id
+    }
   };
 }
 

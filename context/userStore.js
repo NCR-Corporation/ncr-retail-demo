@@ -21,10 +21,7 @@ if (!isServer) {
 const UserStoreContext = React.createContext();
 
 function UserStoreProvider(props) {
-  const [userStore, setUserStore] = useReducer(
-    reducer,
-    localState || initialState
-  );
+  const [userStore, setUserStore] = useReducer(reducer, localState || initialState);
 
   useEffect(() => {
     if (!isServer) {
@@ -32,11 +29,7 @@ function UserStoreProvider(props) {
     }
   }, [userStore]);
 
-  return (
-    <UserStoreContext.Provider value={{ userStore, setUserStore }}>
-      {props.children}
-    </UserStoreContext.Provider>
-  );
+  return <UserStoreContext.Provider value={{ userStore, setUserStore }}>{props.children}</UserStoreContext.Provider>;
 }
 
 export { UserStoreContext, UserStoreProvider };

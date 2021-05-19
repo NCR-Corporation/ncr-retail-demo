@@ -12,44 +12,38 @@ const createUserSchema = Yup.object().shape({
     .max(256, 'Maximum of 256 characters')
     .when('sameAsShipping', {
       is: false,
-      then: Yup.string().required('Street is required'),
+      then: Yup.string().required('Street is required')
     }),
   city: Yup.string()
     .max(128, 'Maximum of 128 characters')
     .when('street', {
       is: (street) => street && street.length > 0,
-      then: Yup.string().required('City is required'),
+      then: Yup.string().required('City is required')
     }),
   country: Yup.string()
     .max(128, 'Maximum of 128 characters')
     .when('street', {
       is: (street) => street && street.length > 0,
-      then: Yup.string().required('Country is required'),
+      then: Yup.string().required('Country is required')
     }),
   postalCode: Yup.string()
     .max(64, 'Maximum of 64 characters')
     .when('street', {
       is: (street) => street && street.length > 0,
-      then: Yup.string().required('Postal Code is required'),
+      then: Yup.string().required('Postal Code is required')
     }),
   state: Yup.string()
     .max(128, 'Maximum of 128 characters')
     .when('street', {
       is: (street) => street && street.length > 0,
-      then: Yup.string().required('State is required'),
+      then: Yup.string().required('State is required')
     }),
-  sameAsShipping: Yup.boolean(),
+  sameAsShipping: Yup.boolean()
 });
 
 export default function CheckoutUser({ order, setOrder }) {
   const [tenderConfirmed, setTenderConfirmed] = useState(false);
-  const {
-    meta,
-    getCardImageProps,
-    getCardNumberProps,
-    getExpiryDateProps,
-    getCVCProps,
-  } = usePaymentInputs();
+  const { meta, getCardImageProps, getCardNumberProps, getExpiryDateProps, getCVCProps } = usePaymentInputs();
   let address = {};
   const initialValues = {
     street: address.street ? address.street : '',
@@ -60,7 +54,7 @@ export default function CheckoutUser({ order, setOrder }) {
     cardNumber: '',
     expiryDate: '',
     cvc: '',
-    sameAsShipping: false,
+    sameAsShipping: false
   };
 
   const handleSubmit = async (values) => {
@@ -108,7 +102,7 @@ export default function CheckoutUser({ order, setOrder }) {
                                 className="form-control "
                                 {...getCardNumberProps({
                                   onBlur: field.onBlur,
-                                  onChange: field.onChange,
+                                  onChange: field.onChange
                                 })}
                               />
                             )}
@@ -123,7 +117,7 @@ export default function CheckoutUser({ order, setOrder }) {
                             className="form-control"
                             {...getExpiryDateProps({
                               onBlur: field.onBlur,
-                              onChange: field.onChange,
+                              onChange: field.onChange
                             })}
                           />
                         )}
@@ -136,7 +130,7 @@ export default function CheckoutUser({ order, setOrder }) {
                             className="form-control"
                             {...getCVCProps({
                               onBlur: field.onBlur,
-                              onChange: field.onChange,
+                              onChange: field.onChange
                             })}
                           />
                         )}
@@ -148,25 +142,9 @@ export default function CheckoutUser({ order, setOrder }) {
                       <h5>Billing Address</h5>
                     </Col>
                     <Col sm="6">
-                      <Field
-                        type="checkbox"
-                        name="sameAsShipping"
-                        id="sameAsShipping"
-                        className={`${
-                          errors.sameAsShipping && touched.sameAsShipping
-                            ? 'is-invalid'
-                            : null
-                        } form-check-input`}
-                      />
-                      <ErrorMessage
-                        name="sameAsShipping"
-                        component="div"
-                        className="invalid-feedback"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="sameAsShipping"
-                      >
+                      <Field type="checkbox" name="sameAsShipping" id="sameAsShipping" className={`${errors.sameAsShipping && touched.sameAsShipping ? 'is-invalid' : null} form-check-input`} />
+                      <ErrorMessage name="sameAsShipping" component="div" className="invalid-feedback" />
+                      <label className="form-check-label" htmlFor="sameAsShipping">
                         Same as Shipping
                       </label>
                     </Col>
@@ -175,20 +153,8 @@ export default function CheckoutUser({ order, setOrder }) {
                     <Col sm="12">
                       <div className="form-group">
                         <label htmlFor="street">Street</label>
-                        <Field
-                          name="street"
-                          id="street"
-                          className={`${
-                            errors.street && touched.street
-                              ? 'is-invalid'
-                              : null
-                          } form-control`}
-                        />
-                        <ErrorMessage
-                          name="street"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <Field name="street" id="street" className={`${errors.street && touched.street ? 'is-invalid' : null} form-control`} />
+                        <ErrorMessage name="street" component="div" className="invalid-feedback" />
                       </div>
                     </Col>
                   </Row>
@@ -196,90 +162,39 @@ export default function CheckoutUser({ order, setOrder }) {
                     <Col sm="4">
                       <div className="form-group">
                         <label htmlFor="city">City</label>
-                        <Field
-                          name="city"
-                          id="city"
-                          className={`${
-                            errors.city && touched.city ? 'is-invalid' : null
-                          } form-control`}
-                        />
-                        <ErrorMessage
-                          name="city"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <Field name="city" id="city" className={`${errors.city && touched.city ? 'is-invalid' : null} form-control`} />
+                        <ErrorMessage name="city" component="div" className="invalid-feedback" />
                       </div>
                     </Col>
                     <Col sm="2">
                       <div className="form-group ">
                         <label htmlFor="state">State</label>
-                        <Field
-                          name="state"
-                          id="state"
-                          className={`${
-                            errors.state && touched.state ? 'is-invalid' : null
-                          } form-control`}
-                        />
-                        <ErrorMessage
-                          name="state"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <Field name="state" id="state" className={`${errors.state && touched.state ? 'is-invalid' : null} form-control`} />
+                        <ErrorMessage name="state" component="div" className="invalid-feedback" />
                       </div>
                     </Col>
                     <Col sm="3">
                       <div className="form-group ">
                         <label htmlFor="postalCode">Postal Code</label>
-                        <Field
-                          name="postalCode"
-                          id="postalCode"
-                          className={`${
-                            errors.postalCode && touched.postalCode
-                              ? 'is-invalid'
-                              : null
-                          } form-control`}
-                        />
-                        <ErrorMessage
-                          name="postalCode"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <Field name="postalCode" id="postalCode" className={`${errors.postalCode && touched.postalCode ? 'is-invalid' : null} form-control`} />
+                        <ErrorMessage name="postalCode" component="div" className="invalid-feedback" />
                       </div>
                     </Col>
                     <Col sm="3">
                       <div className="form-group ">
                         <label htmlFor="country">Country</label>
-                        <Field
-                          name="country"
-                          id="country"
-                          className={`${
-                            errors.country && touched.country
-                              ? 'is-invalid'
-                              : null
-                          } form-control`}
-                        />
-                        <ErrorMessage
-                          name="country"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <Field name="country" id="country" className={`${errors.country && touched.country ? 'is-invalid' : null} form-control`} />
+                        <ErrorMessage name="country" component="div" className="invalid-feedback" />
                       </div>
                     </Col>
                   </Row>
                   <Button
                     color={`${tenderConfirmed ? 'success' : 'primary'}`}
                     type="submit"
-                    className={`${
-                      !(dirty && isValid) ? 'disabled' : ''
-                    } float-right`}
+                    className={`${!(dirty && isValid) ? 'disabled' : ''} float-right`}
                     disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}
                   >
-                    {tenderConfirmed ? (
-                      <FontAwesomeIcon icon={faCheckCircle} size="lg" />
-                    ) : (
-                      '+'
-                    )}{' '}
-                    Use Payment Method
+                    {tenderConfirmed ? <FontAwesomeIcon icon={faCheckCircle} size="lg" /> : '+'} Use Payment Method
                   </Button>
                 </CardBody>
               </Card>

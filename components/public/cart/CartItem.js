@@ -6,13 +6,7 @@ import { Col, Row, Button, FormGroup, Input } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 
-export default function CartItem({
-  location,
-  item,
-  itemKey,
-  setCartLogs,
-  logs,
-}) {
+export default function CartItem({ location, item, itemKey, setCartLogs, logs }) {
   const [qty, setQty] = useState(item.quantity.value);
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
@@ -23,8 +17,8 @@ export default function CartItem({
       body: JSON.stringify({
         siteId: userStore.id,
         cartId: location,
-        lineItemId: itemKey,
-      }),
+        lineItemId: itemKey
+      })
     })
       .then((res) => res.json())
       .then((data) => {
@@ -40,9 +34,9 @@ export default function CartItem({
     let newQty = parseInt(event.target.value);
     let itemObj = {
       itemId: {
-        itemCode: item.itemId.value,
+        itemCode: item.itemId.value
       },
-      quantity: newQty,
+      quantity: newQty
     };
     fetch(`/api/cart`, {
       method: 'POST',
@@ -52,8 +46,8 @@ export default function CartItem({
         etag: userCart.etag ?? false,
         location: userCart.location ?? false,
         item: itemObj,
-        fromCart: true,
-      }),
+        fromCart: true
+      })
     })
       .then((response) => response.json())
       .then((data) => {
@@ -79,13 +73,7 @@ export default function CartItem({
           </Col>
           <Col sm="4" md="2">
             <FormGroup>
-              <Input
-                type="select"
-                name="select"
-                id="qtySelect"
-                value={qty}
-                onChange={() => handleQuantityChange(event, item)}
-              >
+              <Input type="select" name="select" id="qtySelect" value={qty} onChange={() => handleQuantityChange(event, item)}>
                 {Array.from({ length: 20 }, (_, i) => i + 1).map((item) => (
                   <option key={item}>{item}</option>
                 ))}
@@ -93,11 +81,7 @@ export default function CartItem({
             </FormGroup>
           </Col>
           <Col sm="2">
-            <Button
-              onClick={() => removeFromCart(itemKey)}
-              color="link"
-              className="float-right mt-1 text-muted p-0"
-            >
+            <Button onClick={() => removeFromCart(itemKey)} color="link" className="float-right mt-1 text-muted p-0">
               <FontAwesomeIcon icon={faTimesCircle} size="lg" />
             </Button>
           </Col>

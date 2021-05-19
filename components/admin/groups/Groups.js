@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { Table } from 'reactstrap';
 
 function Groups({ data }) {
-  const groups =
-    data.data && data.data.pageContent.length > 0 ? data.data.pageContent : [];
+  const groups = data.data && data.data.pageContent.length > 0 ? data.data.pageContent : [];
 
   return (
     <div className="pb-4">

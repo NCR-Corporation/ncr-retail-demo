@@ -13,22 +13,22 @@ const options = {
       credentials: {
         username: {
           type: 'text',
-          label: 'Username',
+          label: 'Username'
         },
         firstName: {
           type: 'text',
-          label: 'First Name',
+          label: 'First Name'
         },
         lastName: {
           type: 'text',
-          label: 'Last Name',
+          label: 'Last Name'
         },
         emailAddress: {
           label: 'Email Address',
           type: 'text',
-          placeholder: '',
+          placeholder: ''
         },
-        password: { label: 'Password', type: 'password' },
+        password: { label: 'Password', type: 'password' }
       },
       authorize: async (credentials) => {
         let password = credentials.password;
@@ -40,14 +40,11 @@ const options = {
           forcePasswordChange: false,
           password,
           status: 'ACTIVE',
-          username: credentials.username,
+          username: credentials.username
         };
         let user = await createUser(userObj);
         if (user.status == 200) {
-          let response = await authenticateUser(
-            credentials.username,
-            credentials.password
-          );
+          let response = await authenticateUser(credentials.username, credentials.password);
           const { status, data } = response;
           if (status === 200) {
             let userProfile = await getCurrentUserProfileData(data.token);
@@ -59,7 +56,7 @@ const options = {
                 token: data.token,
                 username: user.username,
                 givenName: user.givenName,
-                expires: expiresAt,
+                expires: expiresAt
               };
               return Promise.resolve(userSessionObj);
             }
@@ -70,7 +67,7 @@ const options = {
         } else {
           return Promise.reject();
         }
-      },
+      }
     }),
     Providers.Credentials({
       id: 'login',
@@ -79,15 +76,12 @@ const options = {
         emailAddress: {
           label: 'Email Address',
           type: 'text',
-          placeholder: '',
+          placeholder: ''
         },
-        password: { label: 'Password', type: 'password' },
+        password: { label: 'Password', type: 'password' }
       },
       authorize: async (credentials) => {
-        let response = await authenticateUser(
-          credentials.username,
-          credentials.password
-        );
+        let response = await authenticateUser(credentials.username, credentials.password);
         const { status, data } = response;
         if (status === 200) {
           let userProfile = await getCurrentUserProfileData(data.token);
@@ -99,7 +93,7 @@ const options = {
               token: data.token,
               username: user.username,
               givenName: user.givenName,
-              expires: expiresAt,
+              expires: expiresAt
             };
             return Promise.resolve(userSessionObj);
           }
@@ -107,7 +101,7 @@ const options = {
         } else {
           return Promise.reject();
         }
-      },
+      }
     }),
     Providers.Credentials({
       id: 'update-session',
@@ -116,8 +110,8 @@ const options = {
         token: {
           label: 'Token',
           type: 'text',
-          placeholder: '',
-        },
+          placeholder: ''
+        }
       },
       authorize: async (credentials) => {
         let userProfile = await getCurrentUserProfileData(credentials.token);
@@ -129,13 +123,13 @@ const options = {
             token: credentials.token,
             username: user.username,
             givenName: user.givenName,
-            expires: expiresAt,
+            expires: expiresAt
           };
           return Promise.resolve(userSessionObj);
         }
         return Promise.reject();
-      },
-    }),
+      }
+    })
   ],
   callbacks: {
     session: async (session, user) => {
@@ -154,17 +148,17 @@ const options = {
       }
       return Promise.resolve(session);
     },
-    jwt: async (token, user, account, profile, isNewUser) => {
+    jwt: async (token, user) => {
       if (user) {
         token.data = user;
       }
       return Promise.resolve(token);
-    },
+    }
   },
   session: {
-    jwt: false,
+    jwt: false
   },
-  debug: true,
+  debug: true
 };
 
 export default (req, res) => NextAuth(req, res, options);

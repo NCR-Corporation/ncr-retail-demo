@@ -10,14 +10,7 @@ const Base64 = require('crypto-js/enc-base64');
  * @param {string} organization
  * @param {string} secretKey
  */
-module.exports = function ({
-  url,
-  date,
-  method,
-  contentType,
-  organization,
-  secretKey,
-}) {
+module.exports = function ({ url, date, method, contentType, organization, secretKey }) {
   /**
    * @param {object} variables
    */
@@ -28,12 +21,8 @@ module.exports = function ({
     while (matchedVar !== null) {
       const variableReplacement = matchedVar[1];
       const variableName = matchedVar[2];
-      const variableValue =
-        process.env[variableName] || process.env[variableName];
-      convertedContent = convertedContent.replace(
-        variableReplacement,
-        variableValue
-      );
+      const variableValue = process.env[variableName] || process.env[variableName];
+      convertedContent = convertedContent.replace(variableReplacement, variableValue);
       matchedVar = new RegExp(regexPattern).exec(convertedContent);
     }
     return convertedContent;
@@ -43,16 +32,13 @@ module.exports = function ({
    * @param {object} request
    */
   signableContent = function (request) {
-    const requestPath = convertVariables(request.url.trim()).replace(
-      /^https?:\/\/[^/]+\//,
-      '/'
-    );
+    const requestPath = convertVariables(request.url.trim()).replace(/^https?:\/\/[^/]+\//, '/');
     const params = [
       request.method,
       requestPath,
       request.contentType,
       // request.headers['content-md5'],
-      convertVariables(request.organization),
+      convertVariables(request.organization)
     ];
     return params.filter((p) => p && p.length > 0).join('\n');
   };
@@ -73,7 +59,7 @@ module.exports = function ({
     method,
     contentType,
     organization,
-    secretKey,
+    secretKey
   });
   const hmac = hmacSHA512(signedContent, key);
   return Base64.stringify(hmac);

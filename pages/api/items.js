@@ -1,8 +1,4 @@
-import {
-  createCatalogItems,
-  createCatalogPricesItem,
-  createCatalogAttributesItem,
-} from '~/lib/catalog';
+import { createCatalogItems, createCatalogPricesItem, createCatalogAttributesItem } from '~/lib/catalog';
 import { getSites } from '~/lib/sites';
 let logs = [];
 
@@ -25,7 +21,7 @@ export default async function handler(req, res) {
       priceId: {
         itemCode: itemCopy.itemId.itemCode,
         enterpriseUnitId: site.id,
-        priceCode: itemCopy.itemId.itemCode,
+        priceCode: itemCopy.itemId.itemCode
       },
       dynamicAttributes: [
         {
@@ -33,15 +29,15 @@ export default async function handler(req, res) {
           attributes: [
             {
               key: 'UOM',
-              value: itemCopy.unitOfMeasure,
+              value: itemCopy.unitOfMeasure
             },
             {
               key: 'UNITS',
-              value: '1',
-            },
-          ],
-        },
-      ],
+              value: '1'
+            }
+          ]
+        }
+      ]
     };
     delete itemCopy['price'];
     delete itemCopy['currency'];
@@ -52,13 +48,13 @@ export default async function handler(req, res) {
     itemAttributes['imageUrls'] = [itemCopy.imageUrl];
     itemAttributes['itemAttributesId'] = {
       itemCode: itemCopy.itemId.itemCode,
-      enterpriseUnitId: site.id,
+      enterpriseUnitId: site.id
     };
     if (itemCopy.groups) {
       itemAttributes['groups'] = [
         {
-          groupCode: itemCopy.groups,
-        },
+          groupCode: itemCopy.groups
+        }
       ];
       delete itemCopy['groups'];
     }
@@ -91,6 +87,6 @@ export default async function handler(req, res) {
     pricesResponse,
     attributesResponse,
     logs,
-    status: 200,
+    status: 200
   });
 }

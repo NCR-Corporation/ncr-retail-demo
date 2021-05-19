@@ -15,15 +15,15 @@ export default async function handler(req, res) {
       firstName: user.givenName,
       lastName: user.familyName,
       phone: user.phone ?? '',
-      email: user.email ?? '',
+      email: user.email ?? ''
     },
     owner: store.siteName,
     status: 'OrderPlaced',
     totals: [
       {
         type: 'Net',
-        value: cart.totals.netAmount,
-      },
+        value: cart.totals.netAmount
+      }
     ],
     fulfillment: {
       address: {
@@ -31,9 +31,9 @@ export default async function handler(req, res) {
         city: shipping.city,
         state: shipping.state,
         country: shipping.country,
-        postalCode: shipping.postalCode,
+        postalCode: shipping.postalCode
       },
-      type: 'Delivery',
+      type: 'Delivery'
     },
     orderLines: [],
     payment: [
@@ -44,14 +44,14 @@ export default async function handler(req, res) {
         maskedPAN: payment.cardNumber,
         expiration: {
           month: expiryDate[0],
-          year: expiryDate[1],
+          year: expiryDate[1]
         },
 
         subType: 'VISA', // tochange,
         payBalance: false,
-        paymentTime: new Date().toISOString(),
-      },
-    ],
+        paymentTime: new Date().toISOString()
+      }
+    ]
   };
 
   lineItems.forEach((item) => {
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
       quantity: item.quantity,
       taxes: item.taxes,
       unitPrice: item.price.unitPrice,
-      scanData: item.scanData,
+      scanData: item.scanData
     });
   });
 
@@ -72,11 +72,7 @@ export default async function handler(req, res) {
 
   let userCart = body.userCart;
   // Close out the cart.
-  let userCartStatus = await updateUserCartStatus(
-    store.id,
-    userCart.location,
-    'Closed'
-  );
+  let userCartStatus = await updateUserCartStatus(store.id, userCart.location, 'Closed');
   logs.push(userCartStatus.log);
   res.json({ response: result, logs, status: 200 });
 }

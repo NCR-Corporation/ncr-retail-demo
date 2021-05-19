@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import _ from 'lodash';
-import {
-  Button,
-  UncontrolledCollapse,
-  Card,
-  CardBody,
-  CardTitle,
-  Container,
-} from 'reactstrap';
+import { Button, UncontrolledCollapse, Card, CardBody, CardTitle, Container } from 'reactstrap';
 import ReactJson from 'react-json-view';
 import styles from './Logger.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +11,7 @@ import { motion } from 'framer-motion';
 
 const variants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1 },
+  visible: { opacity: 1 }
 };
 
 const Logger = ({ logs }) => {
@@ -29,12 +22,12 @@ const Logger = ({ logs }) => {
     absoluteHeight: 500,
     absoluteLeft: 0,
     absoluteRight: 0,
-    position: null,
+    position: null
   });
   const [isActive, setIsActive] = useState(false);
 
   // On top layout
-  const onResize = (event, { element, size, handle }) => {
+  const onResize = (_, { size }) => {
     setSizes({ width: size.width, height: size.height });
   };
 
@@ -42,7 +35,7 @@ const Logger = ({ logs }) => {
     setSizes({
       width: state.width != window.innerWidth ? window.innerWidth : 500,
       height: state.height != window.innerHeight ? window.innerHeight : 500,
-      position: state.position == null ? 0 : null,
+      position: state.position == null ? 0 : null
     });
   };
 
@@ -63,8 +56,6 @@ const Logger = ({ logs }) => {
       {isActive && (
         <Draggable handle=".handle">
           <ResizableBox
-            width={500}
-            height={500}
             minConstraints={[500, 250]}
             maxConstraints={[1000, 1200]}
             resizeHandles={['se', 'ne', 'e', 'n', 's']}
@@ -76,15 +67,12 @@ const Logger = ({ logs }) => {
             <div
               style={{
                 width: state.width + 'px',
-                height: state.height + 'px',
+                height: state.height + 'px'
               }}
             >
               <div className={styles.closeBtn}>
                 <Button color="light" onClick={toggleMaximize}>
-                  {state.width == window.innerWidth &&
-                  state.height == window.innerHeight
-                    ? 'Shrink'
-                    : 'Maximize'}
+                  {state.width == window.innerWidth && state.height == window.innerHeight ? 'Shrink' : 'Maximize'}
                 </Button>
                 <Button color="primary" onClick={toggleActive}>
                   Close
@@ -96,50 +84,30 @@ const Logger = ({ logs }) => {
                   {sortedLogs &&
                     sortedLogs.length > 0 &&
                     sortedLogs.map((log, key) => (
-                      <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={variants}
-                        key={key}
-                      >
+                      <motion.div initial="hidden" animate="visible" variants={variants} key={key}>
                         {log && log.req && log.res && (
-                          <Card
-                            className="mb-2"
-                            style={{ fontFamily: 'monospace' }}
-                          >
+                          <Card className="mb-2" style={{ fontFamily: 'monospace' }}>
                             <CardBody>
                               <CardTitle>
                                 <strong>
                                   {log.req.request.method} {log.req.url}
                                 </strong>
                               </CardTitle>
-                              <p className="text-muted">
-                                {log.req.request.headers['Date']}
-                              </p>
-                              <a
-                                className="btn btn-link pl-0"
-                                id={`req-toggler${key}`}
-                              >
+                              <p className="text-muted">{log.req.request.headers['Date']}</p>
+                              <a className="btn btn-link pl-0" id={`req-toggler${key}`}>
                                 View Request
                               </a>
-                              <a
-                                className="btn btn-link"
-                                id={`res-toggler${key}`}
-                              >
+                              <a className="btn btn-link" id={`res-toggler${key}`}>
                                 View Response
                               </a>
-                              <UncontrolledCollapse
-                                toggler={`#req-toggler${key}`}
-                              >
+                              <UncontrolledCollapse toggler={`#req-toggler${key}`}>
                                 <Card>
                                   <CardBody>
                                     <ReactJson src={log.req} />
                                   </CardBody>
                                 </Card>
                               </UncontrolledCollapse>
-                              <UncontrolledCollapse
-                                toggler={`#res-toggler${key}`}
-                              >
+                              <UncontrolledCollapse toggler={`#res-toggler${key}`}>
                                 <Card>
                                   <CardBody>
                                     <ReactJson src={log.res} />

@@ -16,18 +16,8 @@ const OrdersTab = () => {
             <Spinner color="dark" />
           </div>
         )}
-        {isError && (
-          <small className="text-muted">Uhoh, we've hit an error.</small>
-        )}
-        {!isLoading && !isError && (
-          <Orders
-            orders={
-              data.orders && data.orders.data && data.orders.data.pageContent
-                ? data.orders.data.pageContent
-                : []
-            }
-          />
-        )}
+        {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
+        {!isLoading && !isError && <Orders orders={data.orders && data.orders.data && data.orders.data.pageContent ? data.orders.data.pageContent : []} />}
       </Container>
     </div>
   );

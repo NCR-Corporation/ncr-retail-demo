@@ -8,7 +8,7 @@ import { UserCartProvider } from '~/context/userCart';
 
 import Metatags from '~/components/public/Metatags';
 import { config } from '@fortawesome/fontawesome-svg-core';
-config.autoAddCss = false; /* eslint-disable import/first */
+config.autoAddCss = false;
 
 import Router from 'next/router';
 import NProgress from 'nprogress'; //nprogress module

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Button, Alert, Row, Col, Spinner, Card, CardBody } from 'reactstrap';
+import { Button, Alert, Row, Col, Card, CardBody } from 'reactstrap';
 import generateGUID from '~/lib/generateGUID';
 import useGroup from '~/lib/hooks/useGroup';
 
@@ -10,24 +10,15 @@ const init = {
   tag: '',
   status: '',
   title: '',
-  groupId: '',
+  groupId: ''
 };
 
 const createGroupSchema = Yup.object().shape({
   version: Yup.number().required('Version is required when udpating a group'),
   tag: Yup.string(),
-  status: Yup.mixed()
-    .required('Status is required')
-    .oneOf([
-      'INACTIVE',
-      'ACTIVE',
-      'DISCONTINUED',
-      'SEASONAL',
-      'TO_DISCONTINUE',
-      'UNAUTHORIZED',
-    ]),
+  status: Yup.mixed().required('Status is required').oneOf(['INACTIVE', 'ACTIVE', 'DISCONTINUED', 'SEASONAL', 'TO_DISCONTINUE', 'UNAUTHORIZED']),
   title: Yup.string().required('Title is required'),
-  groupId: Yup.string().required('Group id is required'),
+  groupId: Yup.string().required('Group id is required')
 });
 
 const GroupForm = ({ id }) => {
@@ -44,7 +35,7 @@ const GroupForm = ({ id }) => {
       title: group.title.values[0].value,
       status: group.status,
       groupId: group.groupId.groupCode,
-      tag: group.tag,
+      tag: group.tag
     };
     setInitialValues(newValues);
   }
@@ -60,7 +51,7 @@ const GroupForm = ({ id }) => {
     }
     let groupId = data['groupId'];
     data['groupId'] = {
-      groupCode: groupId,
+      groupCode: groupId
     };
     let title = data['title'];
     // Doesn't support multi-lang right now.
@@ -68,9 +59,9 @@ const GroupForm = ({ id }) => {
       values: [
         {
           locale: 'en-US',
-          value: title,
-        },
-      ],
+          value: title
+        }
+      ]
     };
     fetch(`/api/groups`, { method: 'POST', body: JSON.stringify(data) })
       .then((response) => response.json())
@@ -79,12 +70,12 @@ const GroupForm = ({ id }) => {
         if (response.status != 200) {
           setShowAlert({
             status: response.status,
-            message: response.data.message,
+            message: response.data.message
           });
         } else {
           setShowAlert({
             status: response.status,
-            message: 'Group successfully created',
+            message: 'Group successfully created'
           });
         }
         setVisible(true);
@@ -92,22 +83,12 @@ const GroupForm = ({ id }) => {
   };
 
   return (
-    <Formik
-      enableReinitialize={true}
-      initialValues={initialValues}
-      validationSchema={createGroupSchema}
-      onSubmit={handleSubmit}
-    >
+    <Formik enableReinitialize={true} initialValues={initialValues} validationSchema={createGroupSchema} onSubmit={handleSubmit}>
       {(formik) => {
         const { errors, touched, isValid, dirty, setFieldValue } = formik;
         return (
           <Form>
-            <Alert
-              toggle={onDismiss}
-              isOpen={visible}
-              className="my-4"
-              color={showAlert.status == 200 ? 'success' : 'danger'}
-            >
+            <Alert toggle={onDismiss} isOpen={visible} className="my-4" color={showAlert.status == 200 ? 'success' : 'danger'}>
               {showAlert.message}
             </Alert>
             <Row className="mt-4">
@@ -116,13 +97,7 @@ const GroupForm = ({ id }) => {
               </Col>
               <Col>
                 <div className="form-group float-right">
-                  <button
-                    type="submit"
-                    className={`${
-                      !(dirty && isValid) ? 'disabled' : ''
-                    } btn btn-primary`}
-                    disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}
-                  >
+                  <button type="submit" className={`${!(dirty && isValid) ? 'disabled' : ''} btn btn-primary`} disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}>
                     {' '}
                     {id ? '+ Update' : '+ Create'} Group
                   </button>
@@ -136,87 +111,32 @@ const GroupForm = ({ id }) => {
                     <div className="form-row">
                       <div className="form-group col-md-6">
                         <label htmlFor="title">Title*</label>
-                        <Field
-                          name="title"
-                          id="title"
-                          className={`${
-                            errors.title && touched.title ? 'is-invalid' : null
-                          } form-control`}
-                        />
-                        <ErrorMessage
-                          name="title"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <Field name="title" id="title" className={`${errors.title && touched.title ? 'is-invalid' : null} form-control`} />
+                        <ErrorMessage name="title" component="div" className="invalid-feedback" />
                       </div>
                     </div>
                     <div className="form-group">
                       <label htmlFor="groupId">Group Id</label>
-                      <Field
-                        name="groupId"
-                        id="groupId"
-                        className={`${
-                          errors.groupId && touched.groupId
-                            ? 'is-invalid'
-                            : null
-                        } form-control`}
-                        disabled={id ? 'disabled' : ''}
-                      />
-                      <ErrorMessage
-                        name="groupId"
-                        component="div"
-                        className="invalid-feedback"
-                      />
-                      <Button
-                        onClick={() => setFieldValue('groupId', generateGUID())}
-                        color="link"
-                        className="m-0 p-0"
-                      >
+                      <Field name="groupId" id="groupId" className={`${errors.groupId && touched.groupId ? 'is-invalid' : null} form-control`} disabled={id ? 'disabled' : ''} />
+                      <ErrorMessage name="groupId" component="div" className="invalid-feedback" />
+                      <Button onClick={() => setFieldValue('groupId', generateGUID())} color="link" className="m-0 p-0">
                         Generate
                       </Button>
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="tag">Tag</label>
-                      <Field
-                        name="tag"
-                        id="tag"
-                        className={`${
-                          errors.tag && touched.tag ? 'is-invalid' : null
-                        } form-control`}
-                      />
-                      <ErrorMessage
-                        name="tag"
-                        component="div"
-                        className="invalid-feedback"
-                      />
+                      <Field name="tag" id="tag" className={`${errors.tag && touched.tag ? 'is-invalid' : null} form-control`} />
+                      <ErrorMessage name="tag" component="div" className="invalid-feedback" />
                     </div>
                     <div className="form-group">
                       <label htmlFor="version">Version</label>
-                      <Field
-                        name="version"
-                        id="version"
-                        className={`${
-                          errors.version && touched.version
-                            ? 'is-invalid'
-                            : null
-                        } form-control`}
-                      />
-                      <ErrorMessage
-                        name="version"
-                        component="div"
-                        className="invalid-feedback"
-                      />
+                      <Field name="version" id="version" className={`${errors.version && touched.version ? 'is-invalid' : null} form-control`} />
+                      <ErrorMessage name="version" component="div" className="invalid-feedback" />
                     </div>
                     <div className="form-group">
                       <label htmlFor="status">Status</label>
-                      <Field
-                        as="select"
-                        name="status"
-                        className={`${
-                          errors.status && touched.status ? 'is-invalid' : null
-                        } form-control`}
-                      >
+                      <Field as="select" name="status" className={`${errors.status && touched.status ? 'is-invalid' : null} form-control`}>
                         <option value="" label="--" />
                         <option value="ACTIVE" label="ACTIVE" />
                         <option value="INACTIVE" label="INACTIVE" />
@@ -225,11 +145,7 @@ const GroupForm = ({ id }) => {
                         <option value="TO_DISCONTINUE" label="TO_DISCONTINUE" />
                         <option value="UNAUTHORIZED" label="UNAUTHORIZED" />
                       </Field>
-                      <ErrorMessage
-                        name="status"
-                        component="div"
-                        className="invalid-feedback"
-                      />
+                      <ErrorMessage name="status" component="div" className="invalid-feedback" />
                     </div>
                   </CardBody>
                 </Card>

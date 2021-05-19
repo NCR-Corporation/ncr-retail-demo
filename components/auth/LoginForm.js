@@ -3,34 +3,23 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { getSession, signIn, useSession } from 'next-auth/client';
-import {
-  Row,
-  Card,
-  CardBody,
-  CardTitle,
-  Col,
-  Button,
-  Spinner,
-  CardFooter,
-  Alert,
-} from 'reactstrap';
+import { getSession, signIn } from 'next-auth/client';
+import { Row, Card, CardBody, CardTitle, Col, Button, Spinner, CardFooter, Alert } from 'reactstrap';
 
 const initialValues = {
   username: '',
-  password: '',
+  password: ''
 };
 
 const createConsumerSchema = Yup.object().shape({
   username: Yup.string().required('Username is required.'),
-  password: Yup.string().required('Password is required.'),
+  password: Yup.string().required('Password is required.')
 });
 
 export default function Login({ toggle, showRegisterModal }) {
   const router = useRouter();
   const [loginRequest, setLoginRequest] = useState(false);
   const [loginErrors, useErrors] = useState(false);
-  const [session, loading] = useSession();
 
   const [visible, setVisible] = useState(true);
   const onDismiss = () => setVisible(false);
@@ -41,7 +30,7 @@ export default function Login({ toggle, showRegisterModal }) {
       json: true,
       username: values.username,
       password: values.password,
-      disableCallback: true,
+      disableCallback: true
     }).then(async () => {
       let status = await getSession();
       setLoginRequest(false);
@@ -54,7 +43,7 @@ export default function Login({ toggle, showRegisterModal }) {
           router.reload();
         } else {
           router.push({
-            pathname: '/',
+            pathname: '/'
           });
         }
       }
@@ -62,11 +51,7 @@ export default function Login({ toggle, showRegisterModal }) {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={createConsumerSchema}
-      onSubmit={handleSubmit}
-    >
+    <Formik initialValues={initialValues} validationSchema={createConsumerSchema} onSubmit={handleSubmit}>
       {(formik) => {
         const { errors, touched, isValid, dirty } = formik;
         return (
@@ -87,20 +72,8 @@ export default function Login({ toggle, showRegisterModal }) {
                           <label htmlFor="username">
                             Username* <small>[tester00]</small>
                           </label>
-                          <Field
-                            name="username"
-                            id="username"
-                            className={`${
-                              errors.username && touched.username
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                          />
-                          <ErrorMessage
-                            name="username"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <Field name="username" id="username" className={`${errors.username && touched.username ? 'is-invalid' : null} form-control`} />
+                          <ErrorMessage name="username" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
                     </Row>
@@ -110,38 +83,15 @@ export default function Login({ toggle, showRegisterModal }) {
                           <label htmlFor="password">
                             Password* <small>[testing!12]</small>
                           </label>
-                          <Field
-                            name="password"
-                            type="password"
-                            id="password"
-                            className={`${
-                              errors.password && touched.password
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                          />
-                          <ErrorMessage
-                            name="password"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <Field name="password" type="password" id="password" className={`${errors.password && touched.password ? 'is-invalid' : null} form-control`} />
+                          <ErrorMessage name="password" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <Button
-                          block
-                          color="primary"
-                          type="submit"
-                          className={`${!(dirty && isValid) ? 'disabled' : ''}`}
-                          disabled={!(dirty && isValid)}
-                        >
-                          {loginRequest ? (
-                            <Spinner color="light" size="sm" />
-                          ) : (
-                            <span>Login</span>
-                          )}
+                        <Button block color="primary" type="submit" className={`${!(dirty && isValid) ? 'disabled' : ''}`} disabled={!(dirty && isValid)}>
+                          {loginRequest ? <Spinner color="light" size="sm" /> : <span>Login</span>}
                         </Button>
                       </Col>
                     </Row>
@@ -154,11 +104,7 @@ export default function Login({ toggle, showRegisterModal }) {
                           <a className="link p-0 m-0">Register</a>
                         </Link>
                       ) : (
-                        <Button
-                          color="link"
-                          className="p-0 m-0"
-                          onClick={showRegisterModal}
-                        >
+                        <Button color="link" className="p-0 m-0" onClick={showRegisterModal}>
                           Register
                         </Button>
                       )}

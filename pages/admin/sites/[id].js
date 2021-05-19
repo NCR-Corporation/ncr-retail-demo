@@ -7,8 +7,8 @@ const EditSite = ({ siteId }) => {
 export async function getServerSideProps(context) {
   return {
     props: {
-      siteId: context.params.id,
-    },
+      siteId: context.params.id
+    }
   };
 }
 

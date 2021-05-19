@@ -12,7 +12,7 @@ steps:
         'us.gcr.io/$PROJECT_ID/${_APP_NAME}:${_APP_TAG}',
         '--label',
         'artifact=${_APP_TAG}',
-        '.',
+        '.'
       ]
 images: ['us.gcr.io/$PROJECT_ID/${_APP_NAME}:${_APP_TAG}']
 substitutions:

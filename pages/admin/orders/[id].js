@@ -16,8 +16,8 @@ const EditOrder = ({ orderId }) => {
 export async function getServerSideProps(context) {
   return {
     props: {
-      orderId: context.params.id,
-    },
+      orderId: context.params.id
+    }
   };
 }
 
