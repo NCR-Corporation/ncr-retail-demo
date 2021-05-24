@@ -9,10 +9,10 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-  Nav,
 } from 'reactstrap';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-function ProfileDropdown({ toggleModalLogin }) {
+function ProfileDropdown() {
   const router = useRouter();
   const [session, loading] = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -21,19 +21,24 @@ function ProfileDropdown({ toggleModalLogin }) {
   return (
     <div className="d-inline-block">
       {!loading && (!session || !session.user) ? (
-        <Button
-          color="link"
-          onClick={toggleModalLogin}
-          className="text-light py-0 px-2 text-left d-flex flex-column justify-content-start text-decoration-none"
-        >
-          <span>
-            <small>Signup / Login</small>
-          </span>
-          <span>
-            My Account
-            <FontAwesomeIcon icon={faChevronDown} size="1x" className="pl-1" />
-          </span>
-        </Button>
+        <Link href="/auth/login">
+          <Button
+            color="link"
+            className="text-light py-0 px-2 text-left d-flex flex-column justify-content-start text-decoration-none"
+          >
+            <span>
+              <small>Signup / Login</small>
+            </span>
+            <span>
+              My Account
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                size="1x"
+                className="pl-1"
+              />
+            </span>
+          </Button>
+        </Link>
       ) : loading ? (
         <Button
           color="link"

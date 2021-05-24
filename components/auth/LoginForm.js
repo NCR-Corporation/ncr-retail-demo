@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { getSession, signIn, useSession } from 'next-auth/client';
+import { getSession, signIn } from 'next-auth/client';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   Row,
   Card,
@@ -13,7 +14,6 @@ import {
   Button,
   Spinner,
   CardFooter,
-  Alert,
 } from 'reactstrap';
 
 const initialValues = {
@@ -26,14 +26,9 @@ const createConsumerSchema = Yup.object().shape({
   password: Yup.string().required('Password is required.'),
 });
 
-export default function Login({ toggle, showRegisterModal }) {
+export default function Login({ query = false }) {
   const router = useRouter();
   const [loginRequest, setLoginRequest] = useState(false);
-  const [loginErrors, useErrors] = useState(false);
-  const [session, loading] = useSession();
-
-  const [visible, setVisible] = useState(true);
-  const onDismiss = () => setVisible(false);
 
   const handleSubmit = async (values) => {
     setLoginRequest(true);
@@ -41,22 +36,16 @@ export default function Login({ toggle, showRegisterModal }) {
       json: true,
       username: values.username,
       password: values.password,
-      disableCallback: true,
+      redirect: false,
     }).then(async () => {
       let status = await getSession();
       setLoginRequest(false);
       if (status == null) {
-        useErrors(true);
+        toast.error('Invalid Login. Please try again');
       } else {
-        // If a modal
-        if (toggle) {
-          toggle();
-          router.reload();
-        } else {
-          router.push({
-            pathname: '/',
-          });
-        }
+        router.push({
+          pathname: query && query.redirect ? query.redirect : '/',
+        });
       }
     });
   };
@@ -71,15 +60,11 @@ export default function Login({ toggle, showRegisterModal }) {
         const { errors, touched, isValid, dirty } = formik;
         return (
           <Form>
+            <Toaster />
             <Row>
               <Col>
                 <Card>
                   <CardBody>
-                    {loginErrors && (
-                      <Alert color="danger" isOpen={visible} toggle={onDismiss}>
-                        Invalid login.
-                      </Alert>
-                    )}
                     <CardTitle tag="h4">Login</CardTitle>
                     <Row>
                       <Col>
@@ -149,19 +134,9 @@ export default function Login({ toggle, showRegisterModal }) {
                   <CardFooter className="bg">
                     <p className="text-muted mb-0">
                       Need have an account?{' '}
-                      {!showRegisterModal ? (
-                        <Link href="/auth/register">
-                          <a className="link p-0 m-0">Register</a>
-                        </Link>
-                      ) : (
-                        <Button
-                          color="link"
-                          className="p-0 m-0"
-                          onClick={showRegisterModal}
-                        >
-                          Register
-                        </Button>
-                      )}
+                      <Link href="/auth/register">
+                        <a className="link p-0 m-0">Register</a>
+                      </Link>
                     </p>
                   </CardFooter>
                 </Card>
