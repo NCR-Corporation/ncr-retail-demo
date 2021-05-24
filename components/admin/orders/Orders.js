@@ -1,6 +1,5 @@
-import BootstrapTable from 'react-bootstrap-table-next';
 import { mutate } from 'swr';
-import { Button } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 
 function RecentOrders({ orders }) {
   const updateOrderStatus = (order, status) => {
@@ -20,127 +19,77 @@ function RecentOrders({ orders }) {
         mutate(`/api/order/${order.id}`);
       });
   };
-  const columns = [
-    {
-      dataField: 'id',
-      text: 'Id',
-      sort: true,
-      formatter: (cell, row) => {
-        return <small>{cell}</small>;
-      },
-    },
-    {
-      dataField: 'customer.name',
-      text: 'Customer',
-      sort: true,
-    },
-    {
-      dataField: 'dateUpdated',
-      text: 'Last Updated',
-      sort: true,
-      formatter: (cell, row) => {
-        let locale = new Date(Date.parse(cell)).toLocaleString();
-        return <p>{locale}</p>;
-      },
-    },
-    {
-      dataField: 'owner',
-      text: 'Site',
-      sort: true,
-    },
-    {
-      dataField: 'status',
-      text: 'Status',
-      sort: true,
-    },
-    {
-      dataField: 'orderLines',
-      text: 'Total Items',
-      sort: true,
-      formatter: (cell, row) => {
-        return <p>{cell && cell.length}</p>;
-      },
-      headerStyle: {
-        width: '150px',
-      },
-    },
-    {
-      dataField: 'totals[0].value',
-      text: 'Price Total',
-      sort: true,
-      formatter: (cell, row) => {
-        return <p>${cell}</p>;
-      },
-      headerStyle: {
-        width: '150px',
-      },
-    },
-    {
-      dataField: '',
-      text: '',
-      formatter: (rowContent, row) => {
-        return (
-          <div>
-            {row.status == 'OrderPlaced' && (
-              <Button
-                size="sm"
-                color="danger"
-                onClick={() => updateOrderStatus(row, 'ReceivedForFulfillment')}
-              >
-                Set Received
-              </Button>
-            )}
-            {row.status == 'ReceivedForFulfillment' && (
-              <Button
-                size="sm"
-                color="warning"
-                onClick={() => updateOrderStatus(row, 'InFulfillment')}
-              >
-                Set In Fulfillment
-              </Button>
-            )}
-            {row.status == 'InFulfillment' && (
-              <Button
-                size="sm"
-                color="info"
-                onClick={() => updateOrderStatus(row, 'Finished')}
-              >
-                Set Finished
-              </Button>
-            )}
-            {row.status == 'Finished' && (
-              <Button disabled color="success" size="sm">
-                Completed
-              </Button>
-            )}
-            {/* 
-            <Link href={`/admin/orders/${row.id}`}>
-              <a className="btn btn-primary">Update</a>
-            </Link> */}
-          </div>
-        );
-      },
-    },
-  ];
 
-  const defaultSorted = [
-    {
-      dataField: 'dateUpdated',
-      order: 'desc',
-    },
-  ];
   return (
     <div className="text-right my-2">
       <div className="bg-white">
-        <BootstrapTable
-          bootstrap4
-          keyField="id"
-          data={orders}
-          columns={columns}
-          hover
-          defaultSorted={defaultSorted}
-          noDataIndication="No recent orders"
-        />
+        <Table responsive hover bordered>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Customer</th>
+              <th>Last Updated</th>
+              <th>Site</th>
+              <th>Status</th>
+              <th>Total Items</th>
+              <th>Price Total</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((item) => (
+              <tr key={item.id}>
+                <th scope="row">{item.id}</th>
+                <td>{item.customer.name}</td>
+                <td>
+                  {new Date(Date.parse(item.dateUpdated)).toLocaleString()}
+                </td>
+                <td>{item.owner}</td>
+                <td>{item.status}</td>
+                <td>{item.orderLines.length}</td>
+                <td>{item.totals[0].value}</td>
+                <td>
+                  <div>
+                    {item.status == 'OrderPlaced' && (
+                      <Button
+                        size="sm"
+                        color="danger"
+                        onClick={() =>
+                          updateOrderStatus(item, 'ReceivedForFulfillment')
+                        }
+                      >
+                        Set Received
+                      </Button>
+                    )}
+                    {item.status == 'ReceivedForFulfillment' && (
+                      <Button
+                        size="sm"
+                        color="warning"
+                        onClick={() => updateOrderStatus(item, 'InFulfillment')}
+                      >
+                        Set In Fulfillment
+                      </Button>
+                    )}
+                    {item.status == 'InFulfillment' && (
+                      <Button
+                        size="sm"
+                        color="info"
+                        onClick={() => updateOrderStatus(item, 'Finished')}
+                      >
+                        Set Finished
+                      </Button>
+                    )}
+                    {item.status == 'Finished' && (
+                      <Button disabled color="success" size="sm">
+                        Completed
+                      </Button>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
     </div>
   );

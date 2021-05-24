@@ -2,7 +2,7 @@ const HomeQuote = () => {
   return (
     <div>
       <div className="vh-66 d-flex align-items-center justify-content-center flex-column w-50 text-center m-auto">
-        <p className="h1 font-weight-bold">Our Story</p>
+        <h2 className="h1 font-weight-bold">Our Story</h2>
         <p>
           <em>
             Our mission is to provide everything you need for your kitchen, your

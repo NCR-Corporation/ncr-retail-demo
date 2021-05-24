@@ -48,8 +48,8 @@ const options = {
             credentials.username,
             credentials.password
           );
-          const { status, data } = response;
-          if (status === 200) {
+          const authenticateUserResponse = response;
+          if (authenticateUserResponse.status === 200) {
             let userProfile = await getCurrentUserProfileData(data.token);
             if (userProfile.status == 200) {
               let user = userProfile.data;
@@ -63,12 +63,13 @@ const options = {
               };
               return Promise.resolve(userSessionObj);
             }
-            return Promise.reject();
+            return Promise.reject(userProfile);
           } else {
-            return Promise.reject();
+            return Promise.reject(authenticateUserResponse);
           }
         } else {
-          return Promise.reject();
+          let error = user.data.message;
+          throw new Error(error);
         }
       },
     }),
@@ -162,7 +163,7 @@ const options = {
     },
   },
   session: {
-    jwt: false,
+    jwt: true,
   },
   debug: true,
 };

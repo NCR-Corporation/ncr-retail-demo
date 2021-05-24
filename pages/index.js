@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import Footer from '~/components/public/Footer';
 import Header from '~/components/public/Header';
 import useHomepage from '~/lib/hooks/useHomepage';
