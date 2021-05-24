@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 8080",
+    "start": "next start",
     "prettify": "npx prettier --write .",
     "cy:open": "cypress open"
   },
