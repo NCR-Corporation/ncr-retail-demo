@@ -1,6 +1,6 @@
 {
   "name": "sample-app-retail-demo",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "A sample retail demo application built on top of NCR's APIs.",
   "homepage": "https://github.com/NCR-Corporation/ncr-retail-demo",
@@ -9,7 +9,6 @@
     "build": "next build",
     "start": "next start -p 8080",
     "prettify": "npx prettier --write .",
-    "postinstall": "patch-package",
     "cy:open": "cypress open"
   },
   "dependencies": {
@@ -30,14 +29,15 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "ncr-hmac": "file:ncr-hmac",
-    "next": "10.0.9",
-    "next-auth": "3.1.0",
+    "next": "^10.2.2",
+    "next-auth": "^4.0.0",
     "nprogress": "^0.2.0",
     "react": "17.0.1",
     "react-datepicker": "^3.6.0",
     "react-dom": "17.0.1",
     "react-draggable": "^4.4.3",
     "react-geolocated": "^3.1.0",
+    "react-hot-toast": "^1.0.2",
     "react-json-view": "git+https://github.com/thomasjm/react-json-view.git#e9baddc761536929f436e93baa5cebc5be519417",
     "react-loading-skeleton": "^2.2.0",
     "react-payment-inputs": "^1.1.7",
