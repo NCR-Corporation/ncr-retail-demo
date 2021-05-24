@@ -4,6 +4,7 @@ FROM node:alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json yarn.lock ./
+COPY ncr-hmac ./ncr-hmac
 RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
