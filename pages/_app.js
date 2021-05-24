@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
     <Provider
       options={{
         clientMaxAge: 0,
-        keepAlive: 0,
+        keepAlive: 0
       }}
       session={pageProps.session}
     >

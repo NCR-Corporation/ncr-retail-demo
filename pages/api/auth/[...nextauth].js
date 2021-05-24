@@ -44,10 +44,7 @@ const options = {
         };
         let user = await createUser(userObj);
         if (user.status == 200) {
-          let response = await authenticateUser(
-            credentials.username,
-            credentials.password
-          );
+          let response = await authenticateUser(credentials.username, credentials.password);
           const authenticateUserResponse = response;
           if (authenticateUserResponse.status === 200) {
             let userProfile = await getCurrentUserProfileData(data.token);
@@ -160,11 +157,7 @@ const options = {
     }
   },
   session: {
-<<<<<<< HEAD
-    jwt: false
-=======
-    jwt: true,
->>>>>>> main
+    jwt: true
   },
   debug: true
 };
