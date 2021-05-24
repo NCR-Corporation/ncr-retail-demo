@@ -4,7 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import { signIn, getSession } from 'next-auth/client';
-// import Header from '~/components/public/Header';
+import toast, { Toaster } from 'react-hot-toast';
+
 import { Row, Card, CardBody, CardTitle, Col, Button, Spinner, CardFooter } from 'reactstrap';
 
 const initialValues = {
@@ -22,7 +23,7 @@ const createConsumerSchema = Yup.object().shape({
   password: Yup.string().required('Password is required.')
 });
 
-export default function Register({ showLoginModal }) {
+export default function Register() {
   const router = useRouter();
   const [registering, setRegistering] = useState(false);
   const handleSubmit = async (values) => {
@@ -34,15 +35,16 @@ export default function Register({ showLoginModal }) {
       firstName,
       lastName,
       password,
-      disableCallback: true
-    }).then(async () => {
+      redirect: false
+    }).then(async (data) => {
       let status = await getSession();
       setRegistering(false);
       if (status === null) {
-        // set errors
+        toast.error(data.error);
       } else {
-        showLoginModal();
-        router.reload();
+        router.push({
+          pathname: '/'
+        });
       }
     });
   };
@@ -52,6 +54,7 @@ export default function Register({ showLoginModal }) {
         const { errors, touched, isValid, dirty } = formik;
         return (
           <Form>
+            <Toaster />
             <Row>
               <Col>
                 <Card>
@@ -113,15 +116,9 @@ export default function Register({ showLoginModal }) {
                   <CardFooter className="bg">
                     <p className="text-muted mb-0">
                       Already have an account?{' '}
-                      {!showLoginModal ? (
-                        <Link href="/auth/login">
-                          <a className="link p-0 m-0">Login</a>
-                        </Link>
-                      ) : (
-                        <Button color="link" className="p-0 b-0" onClick={showLoginModal}>
-                          Login
-                        </Button>
-                      )}
+                      <Link href="/auth/login">
+                        <a className="link p-0 m-0">Login</a>
+                      </Link>
                     </p>
                   </CardFooter>
                 </Card>

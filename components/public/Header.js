@@ -18,11 +18,7 @@ export default function Header({ categories, logs }) {
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
-  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
-  const toggleRegisterModal = () => setRegisterModalOpen(!isRegisterModalOpen);
-  const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
   useEffect(() => {
     if (Object.keys(userStore).length == 0) {
       setIsModalOpen(true);
@@ -32,8 +28,6 @@ export default function Header({ categories, logs }) {
   return (
     <div className="bg-white">
       <FindStoreModal modalProp={isModalOpen} toggle={toggleModal} />
-      <LoginModal modalProp={isLoginModalOpen} toggle={toggleLoginModal} toggleRegister={toggleRegisterModal} />
-      <RegisterConsumerModal modalProp={isRegisterModalOpen} toggle={toggleRegisterModal} toggleLogin={toggleLoginModal} />
       <header className="section-header shadow-sm">
         <section className="header-top border-lighter">
           <Container>
@@ -63,7 +57,7 @@ export default function Header({ categories, logs }) {
               <Col sm="12" md="4" className="text-sm-left text-md-right text-white">
                 <div className="d-flex justify-content-end align-items-center">
                   <div className="pr-4 d-flex flex-column justify-content-start">
-                    <ProfileDropdown toggleModalLogin={toggleLoginModal} />
+                    <ProfileDropdown />
                   </div>
                   <div className="pl-2 d-flex align-items-center justify-content-between text-white border-left border-white border-1">
                     <Link href="/cart">
