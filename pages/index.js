@@ -9,17 +9,12 @@ import HomeGroups from '~/components/public/home/HomeGroups';
 import HomeMap from '~/components/public/home/HomeMap';
 import HomeQuote from '~/components/public/home/HomeQuote';
 
-import { getCategoryNodesForMenu } from '~/lib/category';
-
-function Home({ categories }) {
+function Home({}) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useHomepage(userStore.id);
   return (
     <div className="d-flex flex-column main-container">
-      <Header
-        categories={categories}
-        logs={data && data.logs ? data.logs : []}
-      />
+      <Header logs={data && data.logs ? data.logs : []} />
       <HomeCarousel />
       <main className="container my-4 flex-grow-1">
         <div>
@@ -45,16 +40,6 @@ function Home({ categories }) {
       <Footer />
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  const { categories, logs } = await getCategoryNodesForMenu();
-  return {
-    props: {
-      categories,
-      logs,
-    },
-  };
 }
 
 export default Home;

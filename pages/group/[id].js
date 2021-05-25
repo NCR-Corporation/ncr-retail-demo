@@ -14,20 +14,16 @@ import useGroupItems from '~/lib/hooks/useGroupItems';
 import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
 import { useRouter } from 'next/router';
-import { getCategoryNodesForMenu } from '~/lib/category';
 import Skeleton from 'react-loading-skeleton';
 
-export default function Group({ categories }) {
+export default function Group() {
   const router = useRouter();
   const { id } = router.query;
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useGroupItems(id, userStore.id);
   return (
     <div className="d-flex flex-column main-container">
-      <Header
-        categories={categories}
-        logs={data && data.logs ? data.logs : []}
-      />
+      <Header logs={data && data.logs ? data.logs : []} />
       {!isLoading ? (
         <>
           <Head>
@@ -100,14 +96,4 @@ export default function Group({ categories }) {
       <Footer />
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  const { categories, logs } = await getCategoryNodesForMenu();
-  return {
-    props: {
-      categories,
-      logs,
-    },
-  };
 }

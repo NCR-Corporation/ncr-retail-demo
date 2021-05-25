@@ -26,9 +26,8 @@ import { UserStoreContext } from '~/context/userStore';
 import { UserCartContext } from '~/context/userCart';
 import useCatalogItem from '~/lib/hooks/useCatalogItem';
 import Skeleton from 'react-loading-skeleton';
-import { getCategoryNodesForMenu } from '~/lib/category';
 
-const CatalogItem = ({ id, categories }) => {
+const CatalogItem = ({ id }) => {
   const { userStore } = useContext(UserStoreContext);
   const { userCart, setUserCart } = useContext(UserCartContext);
   let { data, isLoading, isError } = useCatalogItem(id, userStore.id);
@@ -73,10 +72,7 @@ const CatalogItem = ({ id, categories }) => {
   };
   return (
     <div className="d-flex flex-column main-container">
-      <Header
-        categories={categories}
-        logs={logs.length == 0 && data && data.logs ? data.logs : logs}
-      />
+      <Header logs={logs.length == 0 && data && data.logs ? data.logs : logs} />
       {!isLoading && data.catalogItem && (
         <Head>
           <title>
@@ -252,12 +248,9 @@ const CatalogItem = ({ id, categories }) => {
 };
 
 export async function getServerSideProps(context) {
-  const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
       id: context.params.id,
-      categories,
-      logs,
     },
   };
 }

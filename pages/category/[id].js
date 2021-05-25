@@ -9,10 +9,9 @@ import useCategory from '~/lib/hooks/useCategory';
 import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
 import { useRouter } from 'next/router';
-import { getCategoryNodesForMenu } from '~/lib/category';
 import Skeleton from 'react-loading-skeleton';
 
-export default function Category({ categories }) {
+export default function Category() {
   const router = useRouter();
   const { id } = router.query;
   const { userStore } = useContext(UserStoreContext);
@@ -51,10 +50,7 @@ export default function Category({ categories }) {
   }
   return (
     <div className="d-flex flex-column main-container">
-      <Header
-        categories={categories}
-        logs={data && data.logs ? data.logs : []}
-      />
+      <Header logs={data && data.logs ? data.logs : []} />
       <Container className="my-4 flex-grow-1">
         {isLoading ? (
           <Row className="pb-4">
@@ -133,14 +129,4 @@ export default function Category({ categories }) {
       <Footer />
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  const { categories, logs } = await getCategoryNodesForMenu();
-  return {
-    props: {
-      categories,
-      logs,
-    },
-  };
 }
