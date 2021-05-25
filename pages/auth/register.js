@@ -1,7 +1,7 @@
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import { Row, Col, Container } from 'reactstrap';
-Gimport RegisterForm from '~/components/auth/RegisterForm';
+import RegisterForm from '~/components/auth/RegisterForm';
 
 const register = ({}) => {
   return (

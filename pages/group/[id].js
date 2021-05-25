@@ -24,10 +24,13 @@ export default function Group() {
   return (
     <div className="d-flex flex-column main-container">
       <Header logs={data && data.logs ? data.logs : []} />
-      {!isLoading ? (
+      {!isLoading && data ? (
         <>
           <Head>
-            <title>MART | {data.group.data.title.values[0].value}</title>
+            <title>
+              MART |{' '}
+              {data && data.group && data.group.data.title.values[0].value}
+            </title>
           </Head>
           <Card className="card-group-header" inverse>
             <CardImg
