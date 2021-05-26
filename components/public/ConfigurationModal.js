@@ -12,7 +12,7 @@ const ConfigurationModal = ({ modalProp, toggle }) => {
           <p>
             <span role="img" aria-label="Wave">
               👋
-            </span>{' '}
+            </span>
             Hey there,
           </p>
           <p>{`Thank you for downloading MART and getting started with NCR's APIs. In order for this application to run, there are a couple tasks that need to be completed.`}</p>
