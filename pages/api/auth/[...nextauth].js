@@ -47,13 +47,13 @@ const options = {
           let response = await authenticateUser(credentials.username, credentials.password);
           const authenticateUserResponse = response;
           if (authenticateUserResponse.status === 200) {
-            let userProfile = await getCurrentUserProfileData(data.token);
+            let userProfile = await getCurrentUserProfileData(authenticateUserResponse.data.token);
             if (userProfile.status == 200) {
               let user = userProfile.data;
               let expiresAt = new Date();
               expiresAt.setSeconds(expiresAt.getSeconds() + 900);
               let userSessionObj = {
-                token: data.token,
+                token: authenticateUserResponse.data.token,
                 username: user.username,
                 givenName: user.givenName,
                 expires: expiresAt

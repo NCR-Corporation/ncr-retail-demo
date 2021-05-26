@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
-import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
-import LoginModal from '~/components/auth/LoginModal';
 import { UserStoreContext } from '~/context/userStore';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';

@@ -9,7 +9,6 @@
     "build": "next build",
     "start": "next start -p ${PORT:=8080}",
     "prettify": "npx prettier --write .",
-    "postinstall": "patch-package",
     "cy:open": "cypress open",
     "lint": "eslint --fix .",
     "format": "prettier --write . --config ./.prettierrc"
@@ -65,7 +64,7 @@
   },
   "devDependencies": {
     "cypress": "^6.8.0",
-    "eslint": "^7.26.0",
+    "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
