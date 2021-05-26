@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 8080",
+    "start": "next start -p ${PORT:=8080}",
     "prettify": "npx prettier --write .",
     "postinstall": "patch-package",
     "cy:open": "cypress open",
