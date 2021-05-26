@@ -13,9 +13,8 @@ import {
 } from 'reactstrap';
 import CheckoutList from '~/components/public/checkout/CheckoutList';
 import useOrder from '~/lib/hooks/useOrder';
-import { getCategoryNodesForMenu } from '~/lib/category';
 
-export default function Order({ id, categories }) {
+export default function Order({ id }) {
   const { data, isLoading, isError } = useOrder(id);
   const convertStatusText = (text) => {
     if (text === 'OrderPlaced') {
@@ -37,7 +36,7 @@ export default function Order({ id, categories }) {
       <Head>
         <title>MART | Order</title>
       </Head>
-      <Header logs={data ? data.logs : []} categories={categories} />
+      <Header logs={data ? data.logs : []} />
       <Container className="my-4 flex-grow-1">
         {isLoading && (
           <div className="d-flex justify-content-center h-100">
@@ -114,12 +113,9 @@ export default function Order({ id, categories }) {
 }
 
 export async function getServerSideProps(context) {
-  const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
       id: context.params.id,
-      categories,
-      logs,
     },
   };
 }

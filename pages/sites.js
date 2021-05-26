@@ -7,10 +7,9 @@ import Footer from '~/components/public/Footer';
 import { UserStoreContext } from '~/context/userStore';
 import FindStoreMap from '~/components/public/FindStoreMap';
 import FindStoreModalStore from '~/components/public/FindStoreModalStore';
-import { getCategoryNodesForMenu } from '~/lib/category';
 
 const Sites = (props) => {
-  const { coords, categories } = props;
+  const { coords } = props;
   const { setUserStore } = useContext(UserStoreContext);
   const [coordinates, setCoordinates] = useState(coords);
   const [sites, setSites] = useState();
@@ -49,7 +48,7 @@ const Sites = (props) => {
         <title>MART | Sites</title>
       </Head>
       <div className="d-flex flex-column main-container">
-        <Header categories={categories} logs={logs} />
+        <Header logs={logs} />
         <Container className="my-4 flex-grow-1">
           <h1>Stores</h1>
           <Row>
@@ -80,16 +79,6 @@ const Sites = (props) => {
     </>
   );
 };
-
-export async function getServerSideProps() {
-  const { categories, logs } = await getCategoryNodesForMenu();
-  return {
-    props: {
-      categories,
-      logs,
-    },
-  };
-}
 
 export default geolocated({
   positionOptions: {

@@ -16,9 +16,7 @@ import Footer from '~/components/public/Footer';
 import CartCheckout from '~/components/public/cart/CartCheckout';
 import CartList from '~/components/public/cart/CartList';
 
-import { getCategoryNodesForMenu } from '~/lib/category';
-
-export default function Cart({ categories }) {
+export default function Cart({}) {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
   const [userAPICart, setUserAPICart] = useState({ empty: true });
@@ -67,7 +65,7 @@ export default function Cart({ categories }) {
       <Head>
         <title>MART | Cart</title>
       </Head>
-      <Header categories={categories} logs={cartLogs} />
+      <Header logs={cartLogs} />
       <Container className="my-4 flex-grow-1">
         <Row className="mb-2">
           <Col>
@@ -151,14 +149,4 @@ export default function Cart({ categories }) {
       <Footer />
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  const { categories, logs } = await getCategoryNodesForMenu();
-  return {
-    props: {
-      categories,
-      logs,
-    },
-  };
 }
