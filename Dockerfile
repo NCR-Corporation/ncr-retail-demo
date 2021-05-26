@@ -41,5 +41,6 @@ EXPOSE 8080
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry.
 # ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_OPTIONS=--max-old-space-size=4000
 
 CMD ["yarn", "start"]
