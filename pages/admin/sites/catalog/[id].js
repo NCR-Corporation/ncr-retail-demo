@@ -21,9 +21,7 @@ const SiteCatalog = ({ id }) => {
           <Spinner color="dark" />
         </div>
       )}
-      {isError && (
-        <small className="text-muted">Uhoh, we've hit an error.</small>
-      )}
+      {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
       {!isLoading && !isError && (
         <Container fluid className="w-75 my-2 flex-grow-1">
           <Row className="my-4">
@@ -38,12 +36,7 @@ const SiteCatalog = ({ id }) => {
               </div>
             </Col>
           </Row>
-          <SiteCatalogTable
-            catalog={siteData.catalog}
-            setExpandRow={true}
-            siteId={id}
-            fetchUpdatedCatalog={fetchUpdatedCatalog}
-          />
+          <SiteCatalogTable catalog={siteData.catalog} setExpandRow={true} siteId={id} fetchUpdatedCatalog={fetchUpdatedCatalog} />
         </Container>
       )}
     </div>
@@ -53,8 +46,8 @@ const SiteCatalog = ({ id }) => {
 export async function getServerSideProps(context) {
   return {
     props: {
-      id: context.params.id,
-    },
+      id: context.params.id
+    }
   };
 }
 

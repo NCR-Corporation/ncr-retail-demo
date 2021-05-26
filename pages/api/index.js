@@ -4,12 +4,7 @@ import _ from 'lodash';
 export default async function handler(req, res) {
   let logs = [];
   let homepageGroup = await getHomepageGroups('Homepage');
-  if (
-    homepageGroup &&
-    homepageGroup.status == 200 &&
-    homepageGroup.data &&
-    homepageGroup.data.pageContent.length > 0
-  ) {
+  if (homepageGroup && homepageGroup.status == 200 && homepageGroup.data && homepageGroup.data.pageContent.length > 0) {
     logs.push(homepageGroup.log);
     let homepageGroups = homepageGroup.data.pageContent[0].tag;
     let homepageGroupsArray = homepageGroups.split(', ');
@@ -18,7 +13,7 @@ export default async function handler(req, res) {
       let currentGroup = await getGroupById(group);
       logs.push(currentGroup.log);
       homepageContent.push({
-        group: currentGroup,
+        group: currentGroup
       });
     });
     await Promise.all(promises);

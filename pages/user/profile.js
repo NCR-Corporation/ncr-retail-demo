@@ -40,7 +40,7 @@ const Settings = ({ categories, session }) => {
   if (isError) {
     router.push({
       pathname: '/auth/login',
-      query: { redirect: '/user/profile' },
+      query: { redirect: '/user/profile' }
     });
   }
 
@@ -49,10 +49,7 @@ const Settings = ({ categories, session }) => {
       <Head>
         <title>MART | Profile</title>
       </Head>
-      <Header
-        categories={categories}
-        logs={logs.length > 0 ? logs : data.logs}
-      />
+      <Header categories={categories} logs={logs.length > 0 ? logs : data.logs} />
       <main className="container my-4 flex-grow-1">
         {data && data.data && (
           <Row>
@@ -60,12 +57,7 @@ const Settings = ({ categories, session }) => {
               <Sidebar url="profile" />
             </Col>
             <Col>
-              <ProfileForm
-                user={data}
-                session={session}
-                logs={data.logs}
-                setLogs={setLogs}
-              />
+              <ProfileForm user={data} session={session} logs={data.logs} setLogs={setLogs} />
             </Col>
           </Row>
         )}
@@ -86,8 +78,8 @@ export async function getServerSideProps(context) {
       props: {},
       redirect: {
         destination: '/',
-        permanent: false,
-      },
+        permanent: false
+      }
     };
   }
 

@@ -23,7 +23,7 @@ const init = {
   endDate: '',
   imageUrl: '',
   version: 1,
-  groups: '',
+  groups: ''
 };
 
 const createItemSchema = Yup.object().shape({
@@ -31,19 +31,8 @@ const createItemSchema = Yup.object().shape({
   shortDescription: Yup.string().required('Short description is required'),
   longDescription: Yup.string().required('Long description is required'),
   // Need to update this required check to handle hidden field on change
-  merchandiseCategory: Yup.string().required(
-    'Merchandise Category is required'
-  ),
-  status: Yup.mixed()
-    .required('Status is required')
-    .oneOf([
-      'INACTIVE',
-      'ACTIVE',
-      'DISCONTINUED',
-      'SEASONAL',
-      'TO_DISCONTINUE',
-      'UNAUTHORIZED',
-    ]),
+  merchandiseCategory: Yup.string().required('Merchandise Category is required'),
+  status: Yup.mixed().required('Status is required').oneOf(['INACTIVE', 'ACTIVE', 'DISCONTINUED', 'SEASONAL', 'TO_DISCONTINUE', 'UNAUTHORIZED']),
   departmentId: Yup.string(),
   nonMerchandise: Yup.boolean(),
   price: Yup.number().when('version', {
@@ -51,15 +40,12 @@ const createItemSchema = Yup.object().shape({
     then: Yup.number().test(
       'is-decimal',
       'Input Valid Price',
-      (value) =>
-        (value + '').match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/) // needs to be updated, doesn't accept an ending 0
-    ),
+      (value) => (value + '').match(/^(?!^0\.00$)(([1-9][\d]{0,6})|([0]))\.[\d]{2}$/) // needs to be updated, doesn't accept an ending 0
+    )
   }),
   version: Yup.number().required('Version is required when updating catalog.'),
-  unitOfMeasure: Yup.mixed()
-    .required('Unit of Measure is required')
-    .oneOf(['EA']),
-  groups: Yup.string(),
+  unitOfMeasure: Yup.mixed().required('Unit of Measure is required').oneOf(['EA']),
+  groups: Yup.string()
 });
 
 const CatalogForm = ({ id, categories }) => {
@@ -71,29 +57,17 @@ const CatalogForm = ({ id, categories }) => {
   let { data, isLoading, isError } = useCatalogItem(id);
   const [initialValues, setInitialValues] = useState(init);
   if (id && !isLoading && !isError && initialValues.itemId == '') {
-    const {
-      departmentId,
-      itemId,
-      longDescription,
-      merchandiseCategory,
-      nonMerchandise,
-      shortDescription,
-      status,
-      version,
-      groups,
-    } = data.catalogItem.data;
+    const { departmentId, itemId, longDescription, nonMerchandise, shortDescription, status, version, groups } = data.catalogItem.data;
     let catalogValues = {
       version: version + 1,
       departmentId: departmentId ?? 'NA',
       itemId: itemId.itemCode,
       longDescription: longDescription ? longDescription.values[0].value : '',
-      shortDescription: shortDescription
-        ? shortDescription.values[0].value
-        : '',
+      shortDescription: shortDescription ? shortDescription.values[0].value : '',
       merchandiseCategory: 'Drinks',
       nonMerchandise: nonMerchandise ?? false,
       status,
-      groups,
+      groups
     };
     setInitialValues(catalogValues);
   }
@@ -118,17 +92,17 @@ const CatalogForm = ({ id, categories }) => {
         attributes: [
           {
             key: 'ITEM_TYPE_CODE',
-            value: '0',
-          },
-        ],
-      },
+            value: '0'
+          }
+        ]
+      }
     ];
 
     data['packageIdentifiers'] = [
       {
         type: '0',
-        value: data['itemId'],
-      },
+        value: data['itemId']
+      }
     ];
 
     data['departmentId'] = '02';
@@ -144,9 +118,9 @@ const CatalogForm = ({ id, categories }) => {
       values: [
         {
           locale: 'en-us',
-          value: values['shortDescription'],
-        },
-      ],
+          value: values['shortDescription']
+        }
+      ]
     };
 
     delete data['longDescription'];
@@ -154,9 +128,9 @@ const CatalogForm = ({ id, categories }) => {
       values: [
         {
           locale: 'en-us',
-          value: values['longDescription'],
-        },
-      ],
+          value: values['longDescription']
+        }
+      ]
     };
 
     if (id) {
@@ -167,12 +141,12 @@ const CatalogForm = ({ id, categories }) => {
           if (data.response.status != 204) {
             setShowAlert({
               status: data.response.status,
-              message: data.response.data.message,
+              message: data.response.data.message
             });
           } else {
             setShowAlert({
               status: 200,
-              message: 'Item successfully updated.',
+              message: 'Item successfully updated.'
             });
           }
           setVisible(true);
@@ -186,7 +160,7 @@ const CatalogForm = ({ id, categories }) => {
             if (data[key].status != 204) {
               setShowAlert({
                 status: data[key].status,
-                message: data[key].data.message,
+                message: data[key].data.message
               });
               error = true;
             }
@@ -194,7 +168,7 @@ const CatalogForm = ({ id, categories }) => {
           if (!error) {
             setShowAlert({
               status: 200,
-              message: 'Item successfully created.',
+              message: 'Item successfully created.'
             });
           }
           setVisible(true);
@@ -203,21 +177,9 @@ const CatalogForm = ({ id, categories }) => {
   };
 
   return (
-    <Formik
-      enableReinitialize={true}
-      initialValues={initialValues}
-      validationSchema={createItemSchema}
-      onSubmit={handleSubmit}
-    >
+    <Formik enableReinitialize={true} initialValues={initialValues} validationSchema={createItemSchema} onSubmit={handleSubmit}>
       {(formik) => {
-        const {
-          errors,
-          touched,
-          isValid,
-          dirty,
-          setFieldTouched,
-          setFieldValue,
-        } = formik;
+        const { errors, touched, isValid, dirty, setFieldTouched, setFieldValue } = formik;
         useEffect(() => {
           initialValues.merchandiseCategory = parentCategory;
           setFieldValue('merchandiseCategory', parentCategory);
@@ -230,8 +192,7 @@ const CatalogForm = ({ id, categories }) => {
               <Form>
                 {id && (
                   <Alert isOpen={true} color="warning">
-                    Item ID, price and attributes are unable to be edited on a
-                    global level.
+                    Item ID, price and attributes are unable to be edited on a global level.
                   </Alert>
                 )}
                 {isLoading && (
@@ -239,12 +200,7 @@ const CatalogForm = ({ id, categories }) => {
                     <Spinner color="primary" />
                   </div>
                 )}
-                <Alert
-                  toggle={onDismiss}
-                  isOpen={visible}
-                  className="my-4"
-                  color={showAlert.status == 200 ? 'success' : 'danger'}
-                >
+                <Alert toggle={onDismiss} isOpen={visible} className="my-4" color={showAlert.status == 200 ? 'success' : 'danger'}>
                   {showAlert.message}
                 </Alert>
                 <Row>
@@ -253,13 +209,7 @@ const CatalogForm = ({ id, categories }) => {
                   </Col>
                   <Col>
                     <div className="form-group float-right">
-                      <button
-                        type="submit"
-                        className={`${
-                          !(dirty && isValid) ? 'disabled' : ''
-                        } btn btn-primary`}
-                        disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}
-                      >
+                      <button type="submit" className={`${!(dirty && isValid) ? 'disabled' : ''} btn btn-primary`} disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}>
                         + {id ? 'Update' : 'Create'} Item
                       </button>
                     </div>
@@ -276,39 +226,20 @@ const CatalogForm = ({ id, categories }) => {
                             name="shortDescription"
                             id="shortDescription"
                             placeholder="Item Name"
-                            className={`${
-                              errors.shortDescription &&
-                              touched.shortDescription
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
+                            className={`${errors.shortDescription && touched.shortDescription ? 'is-invalid' : null} form-control`}
                           />
-                          <ErrorMessage
-                            name="shortDescription"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <ErrorMessage name="shortDescription" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="longDescription">
-                            Long Description
-                          </label>
+                          <label htmlFor="longDescription">Long Description</label>
                           <Field
                             as="textarea"
                             rows="4"
                             name="longDescription"
                             id="longDescription"
-                            className={`${
-                              errors.longDescription && touched.longDescription
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
+                            className={`${errors.longDescription && touched.longDescription ? 'is-invalid' : null} form-control`}
                           />
-                          <ErrorMessage
-                            name="longDescription"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <ErrorMessage name="longDescription" component="div" className="invalid-feedback" />
                         </div>
                       </CardBody>
                     </Card>
@@ -320,18 +251,10 @@ const CatalogForm = ({ id, categories }) => {
                             name="imageUrl"
                             id="imageUrl"
                             placeholder="https://..."
-                            className={`${
-                              errors.imageUrl && touched.imageUrl
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
+                            className={`${errors.imageUrl && touched.imageUrl ? 'is-invalid' : null} form-control`}
                             disabled={id ? 'disabled' : ''}
                           />
-                          <ErrorMessage
-                            name="imageUrl"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <ErrorMessage name="imageUrl" component="div" className="invalid-feedback" />
                         </div>
                       </CardBody>
                     </Card>
@@ -341,41 +264,19 @@ const CatalogForm = ({ id, categories }) => {
                           <div className="form-row">
                             <div className="form-group col-md-4">
                               <label htmlFor="price">Price</label>
-                              <Field
-                                name="price"
-                                id="price"
-                                className={`${
-                                  errors.price && touched.price
-                                    ? 'is-invalid'
-                                    : null
-                                } form-control`}
-                              />
-                              <ErrorMessage
-                                name="price"
-                                component="div"
-                                className="invalid-feedback"
-                              />
+                              <Field name="price" id="price" className={`${errors.price && touched.price ? 'is-invalid' : null} form-control`} />
+                              <ErrorMessage name="price" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
                               <label htmlFor="currency">Currency</label>
-                              <Field
-                                as="select"
-                                name="currency"
-                                className={`${
-                                  errors.currency && touched.currency
-                                    ? 'is-invalid'
-                                    : null
-                                } form-control`}
-                              >
+                              <Field as="select" name="currency" className={`${errors.currency && touched.currency ? 'is-invalid' : null} form-control`}>
                                 <option value="USD">USD</option>
                               </Field>
                             </div>
                           </div>
                           <div className="form-row">
                             <div className="form-group col-md-4">
-                              <label htmlFor="effectiveDate">
-                                Effective Date
-                              </label>
+                              <label htmlFor="effectiveDate">Effective Date</label>
                               <DatePicker name="effectiveDate" />
                             </div>
                             <div className="form-group col-md-4">
@@ -385,10 +286,7 @@ const CatalogForm = ({ id, categories }) => {
                           </div>
                         </CardBody>
                       ) : (
-                        <CardBody>
-                          Price cannot be updated on a global level after
-                          creation. Prices are updated on each individual site.
-                        </CardBody>
+                        <CardBody>Price cannot be updated on a global level after creation. Prices are updated on each individual site.</CardBody>
                       )}
                     </Card>
                   </Col>
@@ -398,109 +296,46 @@ const CatalogForm = ({ id, categories }) => {
                         <div className="form-row">
                           <div className="form-group col-md-6">
                             <label htmlFor="version">Version</label>
-                            <Field
-                              name="version"
-                              id="version"
-                              className={`${
-                                errors.version && touched.version
-                                  ? 'is-invalid'
-                                  : null
-                              } form-control`}
-                            />
-                            <ErrorMessage
-                              name="version"
-                              component="div"
-                              className="invalid-feedback"
-                            />
+                            <Field name="version" id="version" className={`${errors.version && touched.version ? 'is-invalid' : null} form-control`} />
+                            <ErrorMessage name="version" component="div" className="invalid-feedback" />
                           </div>
                         </div>
                         <div className="form-row">
                           <div className="form-group col-12">
                             <label htmlFor="itemId">Item ID*</label>
-                            <Field
-                              name="itemId"
-                              id="itemId"
-                              className={`${
-                                errors.itemId && touched.itemId
-                                  ? 'is-invalid'
-                                  : null
-                              } form-control`}
-                              disabled={id ? 'disabled' : ''}
-                            />
-                            <ErrorMessage
-                              name="itemId"
-                              component="div"
-                              className="invalid-feedback"
-                            />
-                            <Button
-                              onClick={() =>
-                                setFieldValue('itemId', generateGUID())
-                              }
-                              color="link"
-                              className="m-0 p-0"
-                            >
+                            <Field name="itemId" id="itemId" className={`${errors.itemId && touched.itemId ? 'is-invalid' : null} form-control`} disabled={id ? 'disabled' : ''} />
+                            <ErrorMessage name="itemId" component="div" className="invalid-feedback" />
+                            <Button onClick={() => setFieldValue('itemId', generateGUID())} color="link" className="m-0 p-0">
                               Generate
                             </Button>
                           </div>
                         </div>
                         <div className="form-group">
                           <label htmlFor="status">Status*</label>
-                          <Field
-                            as="select"
-                            name="status"
-                            className={`${
-                              errors.status && touched.status
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                          >
+                          <Field as="select" name="status" className={`${errors.status && touched.status ? 'is-invalid' : null} form-control`}>
                             <option>--</option>
                             <option value="ACTIVE" label="Active" />
                             <option value="INACTIVE" label="Inactive" />
                             <option value="DISCONTINUED" label="Discontinue" />
                             <option value="SEASONAL" label="Seasonal" />
-                            <option
-                              value="TO_DISCONTINUE"
-                              label="To Discontinue"
-                            />
+                            <option value="TO_DISCONTINUE" label="To Discontinue" />
                             <option value="UNAUTHORIZED" label="Unauthorized" />
                           </Field>
-                          <ErrorMessage
-                            name="status"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <ErrorMessage name="status" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
                           <label htmlFor="status">Unit of Measure*</label>
-                          <Field
-                            as="select"
-                            name="unitOfMeasure"
-                            className={`${
-                              errors.unitOfMeasure && touched.unitOfMeasure
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                          >
+                          <Field as="select" name="unitOfMeasure" className={`${errors.unitOfMeasure && touched.unitOfMeasure ? 'is-invalid' : null} form-control`}>
                             <option>--</option>
                             <option value="EA" label="Each" />
                           </Field>
-                          <ErrorMessage
-                            name="status"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <ErrorMessage name="status" component="div" className="invalid-feedback" />
                         </div>
                       </CardBody>
                     </Card>
                     <Card className="mb-3">
                       <CardBody>
-                        <Field
-                          name="merchandiseCategory"
-                          id="merchandiseCategory"
-                          className="d-none"
-                          value={parentCategory || ''}
-                        />
+                        <Field name="merchandiseCategory" id="merchandiseCategory" className="d-none" value={parentCategory || ''} />
                         <CategorySelect
                           currentCategory={initialValues.merchandiseCategory}
                           initialCategory={initialValues.parentCategory ?? ''}
@@ -514,21 +349,8 @@ const CatalogForm = ({ id, categories }) => {
                       <CardBody>
                         <div className="form-group">
                           <label htmlFor="groups">Group</label>
-                          <Field
-                            name="groups"
-                            id="groups"
-                            className={`${
-                              errors.groups && touched.groups
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                            disabled={id ? 'disabled' : ''}
-                          />
-                          <ErrorMessage
-                            name="groups"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <Field name="groups" id="groups" className={`${errors.groups && touched.groups ? 'is-invalid' : null} form-control`} disabled={id ? 'disabled' : ''} />
+                          <ErrorMessage name="groups" component="div" className="invalid-feedback" />
                         </div>
                       </CardBody>
                     </Card>

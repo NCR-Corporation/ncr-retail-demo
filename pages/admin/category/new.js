@@ -17,8 +17,8 @@ export async function getServerSideProps() {
   const categoryNodes = await getAllCategoryNodes();
   return {
     props: {
-      categoryNodes,
-    },
+      categoryNodes
+    }
   };
 }
 

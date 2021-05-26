@@ -1,37 +1,18 @@
-const {
-  CardDeck,
-  Card,
-  CardBody,
-  CardText,
-  CardTitle,
-  Row,
-  Col,
-} = require('reactstrap');
+const { Card, CardBody, CardText, CardTitle, Row, Col } = require('reactstrap');
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faProjectDiagram,
-  faCode,
-  faKey,
-} from '@fortawesome/free-solid-svg-icons';
+import { faProjectDiagram, faCode, faKey } from '@fortawesome/free-solid-svg-icons';
 
-const HomeAboutCards = (props) => {
+const HomeAboutCards = () => {
   return (
     <Row className="mb-4">
       <Col sm={12} md={4} className="pl-0">
         <Card className="d-flex align-items-center justify-content-center flex-row pl-4 py-2">
-          <FontAwesomeIcon
-            icon={faProjectDiagram}
-            size="3x"
-            className="text-dark"
-          />
+          <FontAwesomeIcon icon={faProjectDiagram} size="3x" className="text-dark" />
           <CardBody>
             <CardTitle tag="h2" className="h5 font-weight-bolder text-dark">
               Built with NCR APIs
             </CardTitle>
-            <CardText className="text-dark">
-              Integrated with Catalog, Sites, Order, Selling, Provisioning,
-              Security, and more.
-            </CardText>
+            <CardText className="text-dark">Integrated with Catalog, Sites, Order, Selling, Provisioning, Security, and more.</CardText>
           </CardBody>
         </Card>
       </Col>
@@ -42,9 +23,7 @@ const HomeAboutCards = (props) => {
             <CardTitle tag="h2" className="h5 font-weight-bolder text-dark">
               Open Sourced
             </CardTitle>
-            <CardText className="text-dark">
-              View the code, clone the repository, and get started on your own
-            </CardText>
+            <CardText className="text-dark">View the code, clone the repository, and get started on your own</CardText>
           </CardBody>
         </Card>
       </Col>
@@ -55,10 +34,7 @@ const HomeAboutCards = (props) => {
             <CardTitle tag="h2" className="h5 font-weight-bolder text-dark">
               Admin Interface
             </CardTitle>
-            <CardText className="text-dark">
-              Deepen your understanding of NCR APIs by creating sites, new
-              catalog items, and more.
-            </CardText>
+            <CardText className="text-dark">Deepen your understanding of NCR APIs by creating sites, new catalog items, and more.</CardText>
           </CardBody>
         </Card>
       </Col>

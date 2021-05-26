@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '~/components/admin/Header';
 import Categories from '~/components/admin/categories/Categories';
 
@@ -17,12 +17,8 @@ const CategoriesTab = () => {
             <Spinner color="dark" />
           </div>
         )}
-        {isError && (
-          <small className="text-muted">Uhoh, we've hit an error.</small>
-        )}
-        {!isLoading && !isError && (
-          <Categories categories={data.categoryNodes} />
-        )}
+        {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
+        {!isLoading && !isError && <Categories categories={data.categoryNodes} />}
       </Container>
     </div>
   );

@@ -17,16 +17,16 @@ export default function OrderForm({ orderId }) {
         siteId: order.data.enterpriseUnitId,
         orderId: order.data.id,
         values: {
-          status,
-        },
-      }),
+          status
+        }
+      })
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         mutate(`/api/order/${orderId}`);
         setShowAlert({
           status: 200,
-          message: `Order status updated to ${status}`,
+          message: `Order status updated to ${status}`
         });
         setVisible(true);
       });
@@ -38,17 +38,10 @@ export default function OrderForm({ orderId }) {
           <Spinner color="primary" />
         </div>
       )}
-      {isError && (
-        <small className="text-muted">Uhoh, we've hit an error</small>
-      )}
+      {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
       {!isError && !isLoading && (
         <div>
-          <Alert
-            toggle={onDismiss}
-            isOpen={visible}
-            className="my-4"
-            color={showAlert.status == 200 ? 'success' : 'danger'}
-          >
+          <Alert toggle={onDismiss} isOpen={visible} className="my-4" color={showAlert.status == 200 ? 'success' : 'danger'}>
             {showAlert.message}
           </Alert>
           <Row>
@@ -68,45 +61,25 @@ export default function OrderForm({ orderId }) {
               <Card className="mb-3">
                 <CardBody>
                   <Button
-                    color={`${
-                      order.data.status != 'OrderPlaced'
-                        ? 'secondary'
-                        : 'primary'
-                    }`}
+                    color={`${order.data.status != 'OrderPlaced' ? 'secondary' : 'primary'}`}
                     block
-                    disabled={`${
-                      order.data.status != 'OrderPlaced' ? 'disabled' : ''
-                    }`}
+                    disabled={`${order.data.status != 'OrderPlaced' ? 'disabled' : ''}`}
                     onClick={() => updateOrderStatus('ReceivedForFulfillment')}
                   >
                     Set Order Received
                   </Button>
                   <Button
                     block
-                    color={`${
-                      order.data.status != 'ReceivedForFulfillment'
-                        ? 'secondary'
-                        : 'primary'
-                    }`}
-                    disabled={`${
-                      order.data.status != 'ReceivedForFulfillment'
-                        ? 'disabled'
-                        : ''
-                    }`}
+                    color={`${order.data.status != 'ReceivedForFulfillment' ? 'secondary' : 'primary'}`}
+                    disabled={`${order.data.status != 'ReceivedForFulfillment' ? 'disabled' : ''}`}
                     onClick={() => updateOrderStatus('InFulfillment')}
                   >
                     Set Order In Fulfillment
                   </Button>
                   <Button
                     block
-                    color={`${
-                      order.data.status != 'InFulfillment'
-                        ? 'secondary'
-                        : 'primary'
-                    }`}
-                    disabled={`${
-                      order.data.status != 'InFulfillment' ? 'disabled' : ''
-                    }`}
+                    color={`${order.data.status != 'InFulfillment' ? 'secondary' : 'primary'}`}
+                    disabled={`${order.data.status != 'InFulfillment' ? 'disabled' : ''}`}
                     onClick={() => updateOrderStatus('Finished')}
                   >
                     Set Order Completed

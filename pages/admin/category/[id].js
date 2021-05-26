@@ -7,10 +7,7 @@ const EditCategory = ({ categoryId, categoryNodes }) => {
     <div className="bg pb-4">
       <Header />
       <main className="container">
-        <CategoryForm
-          categoryId={categoryId}
-          categoryNodes={categoryNodes.categories}
-        />
+        <CategoryForm categoryId={categoryId} categoryNodes={categoryNodes.categories} />
       </main>
     </div>
   );
@@ -21,8 +18,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       categoryId: context.params.id,
-      categoryNodes,
-    },
+      categoryNodes
+    }
   };
 }
 

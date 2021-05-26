@@ -27,8 +27,8 @@ export async function getServerSideProps() {
   return {
     props: {
       categories,
-      logs,
-    },
+      logs
+    }
   };
 }
 

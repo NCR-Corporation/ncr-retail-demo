@@ -1,7 +1,7 @@
 // This probably can be under sites.js...but this was quicker.
 import haversine from 'haversine';
 import _ from 'lodash';
-import { findNearby, getSites } from '~/lib/sites';
+import { findNearby } from '~/lib/sites';
 
 export default async function handler(req, res) {
   let logs = [];
@@ -13,12 +13,12 @@ export default async function handler(req, res) {
       let activeSites = [];
       const start = {
         latitude: req.query.latitude,
-        longitude: req.query.longitude,
+        longitude: req.query.longitude
       };
       sites.forEach((site) => {
         let end = {
           latitude: site.coordinates.latitude,
-          longitude: site.coordinates.longitude,
+          longitude: site.coordinates.longitude
         };
         site['distanceTo'] = haversine(start, end, { unit: 'mile' });
         if (site.status == 'ACTIVE') {

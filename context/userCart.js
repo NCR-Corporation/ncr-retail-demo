@@ -21,10 +21,7 @@ if (!isServer) {
 const UserCartContext = React.createContext();
 
 function UserCartProvider(props) {
-  const [userCart, setUserCart] = useReducer(
-    reducer,
-    localState || initialState
-  );
+  const [userCart, setUserCart] = useReducer(reducer, localState || initialState);
 
   useEffect(() => {
     if (!isServer) {
@@ -32,11 +29,7 @@ function UserCartProvider(props) {
     }
   }, [userCart]);
 
-  return (
-    <UserCartContext.Provider value={{ userCart, setUserCart }}>
-      {props.children}
-    </UserCartContext.Provider>
-  );
+  return <UserCartContext.Provider value={{ userCart, setUserCart }}>{props.children}</UserCartContext.Provider>;
 }
 
 export { UserCartContext, UserCartProvider };

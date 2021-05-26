@@ -15,9 +15,7 @@ export default async function handler(req, res) {
             if (element.children[child].children) {
               let grandchildren = element.children[child].children;
               let sortedGC = [];
-              Object.keys(grandchildren).forEach((index) =>
-                sortedGC.push(grandchildren[index])
-              );
+              Object.keys(grandchildren).forEach((index) => sortedGC.push(grandchildren[index]));
               sortedGC = _.sortBy(sortedGC, function (c) {
                 return c.nodeCode;
               });

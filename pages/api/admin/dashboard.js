@@ -7,6 +7,6 @@ export default async function handler(req, res) {
   res.json({
     orders,
     logs,
-    status: 200,
+    status: 200
   });
 }

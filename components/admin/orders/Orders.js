@@ -9,9 +9,9 @@ function RecentOrders({ orders }) {
         siteId: order.enterpriseUnitId,
         orderId: order.id,
         values: {
-          status,
-        },
-      }),
+          status
+        }
+      })
     })
       .then((res) => res.json())
       .then(() => {
@@ -41,9 +41,7 @@ function RecentOrders({ orders }) {
               <tr key={item.id}>
                 <th scope="row">{item.id}</th>
                 <td>{item.customer.name}</td>
-                <td>
-                  {new Date(Date.parse(item.dateUpdated)).toLocaleString()}
-                </td>
+                <td>{new Date(Date.parse(item.dateUpdated)).toLocaleString()}</td>
                 <td>{item.owner}</td>
                 <td>{item.status}</td>
                 <td>{item.orderLines.length}</td>
@@ -51,31 +49,17 @@ function RecentOrders({ orders }) {
                 <td>
                   <div>
                     {item.status == 'OrderPlaced' && (
-                      <Button
-                        size="sm"
-                        color="danger"
-                        onClick={() =>
-                          updateOrderStatus(item, 'ReceivedForFulfillment')
-                        }
-                      >
+                      <Button size="sm" color="danger" onClick={() => updateOrderStatus(item, 'ReceivedForFulfillment')}>
                         Set Received
                       </Button>
                     )}
                     {item.status == 'ReceivedForFulfillment' && (
-                      <Button
-                        size="sm"
-                        color="warning"
-                        onClick={() => updateOrderStatus(item, 'InFulfillment')}
-                      >
+                      <Button size="sm" color="warning" onClick={() => updateOrderStatus(item, 'InFulfillment')}>
                         Set In Fulfillment
                       </Button>
                     )}
                     {item.status == 'InFulfillment' && (
-                      <Button
-                        size="sm"
-                        color="info"
-                        onClick={() => updateOrderStatus(item, 'Finished')}
-                      >
+                      <Button size="sm" color="info" onClick={() => updateOrderStatus(item, 'Finished')}>
                         Set Finished
                       </Button>
                     )}

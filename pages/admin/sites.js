@@ -16,14 +16,8 @@ const SitesTab = () => {
             <Spinner color="dark" />
           </div>
         )}
-        {isError && (
-          <small className="text-muted">Uhoh, we've hit an error.</small>
-        )}
-        {!isLoading && !isError && (
-          <Sites
-            data={data.sites && data.sites.status == 200 ? data.sites : []}
-          />
-        )}
+        {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
+        {!isLoading && !isError && <Sites data={data.sites && data.sites.status == 200 ? data.sites : []} />}
       </Container>
     </div>
   );

@@ -1,9 +1,4 @@
-import {
-  createCart,
-  addItemToCart,
-  getCartItemsById,
-  updateItemInCartById,
-} from '~/lib/cart';
+import { createCart, addItemToCart, getCartItemsById, updateItemInCartById } from '~/lib/cart';
 let logs = [];
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
@@ -20,8 +15,8 @@ export default async function handler(req, res) {
       scanData: item.itemId.itemCode,
       quantity: {
         unitOfMeasure: 'EA', // ???
-        value: item.quantity,
-      },
+        value: item.quantity
+      }
     };
     let addToCart = await addItemToCart(body.siteId, cartId, etag, obj);
     logs.push(addToCart.log);
@@ -50,33 +45,20 @@ export default async function handler(req, res) {
         scanData: item.itemId.itemCode,
         quantity: {
           unitOfMeasure: 'EA', // ???
-          value: item.quantity,
-        },
+          value: item.quantity
+        }
       };
-      let addItemToExistingCart = await addItemToCart(
-        body.siteId,
-        cartId,
-        etag,
-        obj
-      );
+      let addItemToExistingCart = await addItemToCart(body.siteId, cartId, etag, obj);
       logs.push(addItemToExistingCart.log);
     } else {
       let updateObj = {
         quantity: {
           unitOfMeasure: 'EA',
-          value: body.fromCart
-            ? item.quantity
-            : update.quantity.value + item.quantity,
-        },
+          value: body.fromCart ? item.quantity : update.quantity.value + item.quantity
+        }
       };
       let lineId = update.lineId;
-      let updateItemInCart = await updateItemInCartById(
-        body.siteId,
-        cartId,
-        etag,
-        lineId,
-        updateObj
-      );
+      let updateItemInCart = await updateItemInCartById(body.siteId, cartId, etag, lineId, updateObj);
       logs.push(updateItemInCart.log);
     }
     res.json({ status: 200, etag, location: cartId, logs });

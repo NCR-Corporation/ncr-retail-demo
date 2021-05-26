@@ -4,7 +4,7 @@ import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import Link from 'next/link';
 import ItemCard from '~/components/public/ItemCard';
-import { Container, Card, Col, Row, CardBody, Spinner } from 'reactstrap';
+import { Container, Card, Col, Row, CardBody } from 'reactstrap';
 import useCategory from '~/lib/hooks/useCategory';
 import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
@@ -51,10 +51,7 @@ export default function Category({ categories }) {
   }
   return (
     <div className="d-flex flex-column main-container">
-      <Header
-        categories={categories}
-        logs={data && data.logs ? data.logs : []}
-      />
+      <Header categories={categories} logs={data && data.logs ? data.logs : []} />
       <Container className="my-4 flex-grow-1">
         {isLoading ? (
           <Row className="pb-4">
@@ -93,18 +90,12 @@ export default function Category({ categories }) {
             {childrenCategories.data.pageContent.length > 0 && (
               <Row>
                 {childrenCategories.data.pageContent.map((child) => (
-                  <Col
-                    sm={smallColumns}
-                    md={mediumColumns}
-                    key={child.nodeCode}
-                  >
+                  <Col sm={smallColumns} md={mediumColumns} key={child.nodeCode}>
                     <Card className="shadow-sm p-2 bg-white rounded border-0 mb-4 category-card">
                       <Link href={`/category/${child.nodeCode}`} passHref>
                         <a>
                           <CardBody>
-                            <p className="h5 card-title text-center">
-                              {child.title.value}
-                            </p>
+                            <p className="h5 card-title text-center">{child.title.value}</p>
                           </CardBody>
                         </a>
                       </Link>
@@ -116,10 +107,7 @@ export default function Category({ categories }) {
             <div className="row row-cols-md-3" id="catalog-items">
               {categoryItems.length > 0 ? (
                 categoryItems.map((item) => (
-                  <div
-                    className="col-sm-6 col-md-3 mb-4"
-                    key={item.item.itemId.itemCode}
-                  >
+                  <div className="col-sm-6 col-md-3 mb-4" key={item.item.itemId.itemCode}>
                     <ItemCard catalogItem={item} />
                   </div>
                 ))
@@ -135,12 +123,12 @@ export default function Category({ categories }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
       categories,
-      logs,
-    },
+      logs
+    }
   };
 }

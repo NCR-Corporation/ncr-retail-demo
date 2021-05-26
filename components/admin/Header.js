@@ -5,20 +5,7 @@ import Link from 'next/link';
 import NavigationTabs from '~/components/admin/NavigationTabs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faWrench } from '@fortawesome/free-solid-svg-icons';
-import {
-  Container,
-  Nav,
-  Navbar,
-  NavItem,
-  NavLink,
-  Row,
-  Col,
-  Button,
-  Popover,
-  PopoverBody,
-  PopoverHeader,
-  Spinner,
-} from 'reactstrap';
+import { Container, Nav, Navbar, NavItem, NavLink, Row, Col, Button, Popover, PopoverBody, PopoverHeader, Spinner } from 'reactstrap';
 
 const Header = ({ navigation = true, activeTab }) => {
   const [exporting, setIsExporting] = useState(false);
@@ -28,9 +15,11 @@ const Header = ({ navigation = true, activeTab }) => {
   const toggle = () => setPopoverOpen(!popoverOpen);
 
   const buildSampleDatabase = () => {
+    setIsExporting(true);
     fetch(`/api/export`)
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
+        setIsExporting(false);
         Router.reload(window.location.pathname);
       });
   };
@@ -58,34 +47,14 @@ const Header = ({ navigation = true, activeTab }) => {
             </Col>
             <Col className="col text-md-right">
               <>
-                <Button
-                  id="Popover1"
-                  type="button"
-                  color="primary"
-                  className="float-right"
-                  onClick={() => buildSampleDatabase()}
-                >
-                  {exporting ? (
-                    <Spinner color="light" size="sm" />
-                  ) : (
-                    <FontAwesomeIcon icon={faWrench} size="1x" />
-                  )}{' '}
-                  Build Sample Database
+                <Button id="Popover1" type="button" color="primary" className="float-right" onClick={() => buildSampleDatabase()}>
+                  {exporting ? <Spinner color="light" size="sm" /> : <FontAwesomeIcon icon={faWrench} size="1x" />} Build Sample Database
                 </Button>
-                <Popover
-                  placement="left"
-                  isOpen={popoverOpen}
-                  target="Popover1"
-                  toggle={toggle}
-                >
+                <Popover placement="left" isOpen={popoverOpen} target="Popover1" toggle={toggle}>
                   <PopoverHeader>Setup Required.</PopoverHeader>
                   <PopoverBody>
-                    Application keys are required to build out the datbase.
-                    Check out the{' '}
-                    <a
-                      href="https://github.com/NCR-Corporation/ncr-retail-demo"
-                      target="_blank"
-                    >
+                    Application keys are required to build out the datbase. Check out the{' '}
+                    <a href="https://github.com/NCR-Corporation/ncr-retail-demo" target="_blank" rel="noreferrer">
                       Github README
                     </a>{' '}
                     for more information.

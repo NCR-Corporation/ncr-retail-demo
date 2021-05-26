@@ -1,14 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Head from 'next/head';
-import {
-  Card,
-  CardBody,
-  Col,
-  Container,
-  Row,
-  Button,
-  Spinner,
-} from 'reactstrap';
+import { Card, CardBody, Col, Container, Row, Button, Spinner } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import Header from '~/components/public/Header';
@@ -39,8 +31,7 @@ export default function Cart({ categories }) {
         .then((res) => {
           setCartLogs(res.logs);
           const { cart, cartItems } = res;
-          if (cart.status == 404 || cartItems.status == 404) {
-          } else {
+          if (cart.status != 404 && cartItems.status != 404) {
             setUserAPICart({ cart, cartItems });
           }
           setLoading(false);
@@ -52,7 +43,7 @@ export default function Cart({ categories }) {
   };
   const emptyCart = () => {
     fetch(`/api/cart/${userStore.id}/${userCart.location}`, {
-      method: 'DELETE',
+      method: 'DELETE'
     })
       .then((response) => response.json())
       .then((res) => {
@@ -77,10 +68,7 @@ export default function Cart({ categories }) {
         <Row>
           <Col md="8">
             <Card className="mb-2 cart-card">
-              {userAPICart.empty === true ||
-              (userAPICart.cartItems.data &&
-                userAPICart.cartItems.data.pageContent &&
-                userAPICart.cartItems.data.pageContent.length == 0) ? (
+              {userAPICart.empty === true || (userAPICart.cartItems.data && userAPICart.cartItems.data.pageContent && userAPICart.cartItems.data.pageContent.length == 0) ? (
                 loading ? (
                   <div className="d-flex justify-content-center py-4">
                     <Spinner color="dark" />
@@ -91,34 +79,18 @@ export default function Cart({ categories }) {
               ) : (
                 userAPICart.cartItems.data &&
                 userAPICart.cartItems.data.pageContent &&
-                userAPICart.cartItems.data.pageContent.length > 0 && (
-                  <CartList
-                    logs={cartLogs}
-                    setCartLogs={setCartLogs}
-                    userAPICart={userAPICart}
-                    location={userCart.location}
-                    siteId={userStore.id}
-                  />
-                )
+                userAPICart.cartItems.data.pageContent.length > 0 && <CartList logs={cartLogs} setCartLogs={setCartLogs} userAPICart={userAPICart} location={userCart.location} siteId={userStore.id} />
               )}
             </Card>
-            {!userAPICart.empty &&
-              userAPICart.cartItems.data &&
-              userAPICart.cartItems.data.pageContent &&
-              userAPICart.cartItems.data.pageContent.length > 0 && (
-                <Row>
-                  <Col>
-                    <Button
-                      onClick={() => emptyCart()}
-                      color="link"
-                      className="mt-1 text-muted p-0"
-                      size="sm"
-                    >
-                      Clear Cart
-                    </Button>
-                  </Col>
-                </Row>
-              )}
+            {!userAPICart.empty && userAPICart.cartItems.data && userAPICart.cartItems.data.pageContent && userAPICart.cartItems.data.pageContent.length > 0 && (
+              <Row>
+                <Col>
+                  <Button onClick={() => emptyCart()} color="link" className="mt-1 text-muted p-0" size="sm">
+                    Clear Cart
+                  </Button>
+                </Col>
+              </Row>
+            )}
           </Col>
           <Col md="4">
             {loading ? (
@@ -136,11 +108,7 @@ export default function Cart({ categories }) {
               userAPICart.cartItems.data.pageContent.length > 0 && (
                 <Card>
                   <CardBody>
-                    <CartCheckout
-                      userCart={userCart}
-                      userAPICartLoading={loading}
-                      userAPICart={userAPICart}
-                    />
+                    <CartCheckout userCart={userCart} userAPICartLoading={loading} userAPICart={userAPICart} />
                   </CardBody>
                 </Card>
               )
@@ -158,7 +126,7 @@ export async function getServerSideProps() {
   return {
     props: {
       categories,
-      logs,
-    },
+      logs
+    }
   };
 }

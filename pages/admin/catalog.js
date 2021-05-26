@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '~/components/admin/Header';
 import Catalog from '~/components/admin/catalog/Catalog';
 
@@ -17,16 +17,8 @@ const CatalogTab = () => {
             <Spinner color="dark" />
           </div>
         )}
-        {isError && (
-          <small className="text-muted">Uhoh, we've hit an error.</small>
-        )}
-        {!isLoading && !isError && (
-          <Catalog
-            data={
-              data.catalog && data.catalog.status == 200 ? data.catalog : []
-            }
-          />
-        )}
+        {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
+        {!isLoading && !isError && <Catalog data={data.catalog && data.catalog.status == 200 ? data.catalog : []} />}
       </Container>
     </div>
   );

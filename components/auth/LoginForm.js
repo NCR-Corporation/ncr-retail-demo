@@ -5,25 +5,16 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { getSession, signIn } from 'next-auth/client';
 import toast, { Toaster } from 'react-hot-toast';
-import {
-  Row,
-  Card,
-  CardBody,
-  CardTitle,
-  Col,
-  Button,
-  Spinner,
-  CardFooter,
-} from 'reactstrap';
+import { Row, Card, CardBody, CardTitle, Col, Button, Spinner, CardFooter } from 'reactstrap';
 
 const initialValues = {
   username: '',
-  password: '',
+  password: ''
 };
 
 const createConsumerSchema = Yup.object().shape({
   username: Yup.string().required('Username is required.'),
-  password: Yup.string().required('Password is required.'),
+  password: Yup.string().required('Password is required.')
 });
 
 export default function Login({ query = false }) {
@@ -36,7 +27,7 @@ export default function Login({ query = false }) {
       json: true,
       username: values.username,
       password: values.password,
-      redirect: false,
+      redirect: false
     }).then(async () => {
       let status = await getSession();
       setLoginRequest(false);
@@ -44,18 +35,14 @@ export default function Login({ query = false }) {
         toast.error('Invalid Login. Please try again');
       } else {
         router.push({
-          pathname: query && query.redirect ? query.redirect : '/',
+          pathname: query && query.redirect ? query.redirect : '/'
         });
       }
     });
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={createConsumerSchema}
-      onSubmit={handleSubmit}
-    >
+    <Formik initialValues={initialValues} validationSchema={createConsumerSchema} onSubmit={handleSubmit}>
       {(formik) => {
         const { errors, touched, isValid, dirty } = formik;
         return (
@@ -72,20 +59,8 @@ export default function Login({ query = false }) {
                           <label htmlFor="username">
                             Username* <small>[tester00]</small>
                           </label>
-                          <Field
-                            name="username"
-                            id="username"
-                            className={`${
-                              errors.username && touched.username
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                          />
-                          <ErrorMessage
-                            name="username"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <Field name="username" id="username" className={`${errors.username && touched.username ? 'is-invalid' : null} form-control`} />
+                          <ErrorMessage name="username" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
                     </Row>
@@ -95,38 +70,15 @@ export default function Login({ query = false }) {
                           <label htmlFor="password">
                             Password* <small>[testing!12]</small>
                           </label>
-                          <Field
-                            name="password"
-                            type="password"
-                            id="password"
-                            className={`${
-                              errors.password && touched.password
-                                ? 'is-invalid'
-                                : null
-                            } form-control`}
-                          />
-                          <ErrorMessage
-                            name="password"
-                            component="div"
-                            className="invalid-feedback"
-                          />
+                          <Field name="password" type="password" id="password" className={`${errors.password && touched.password ? 'is-invalid' : null} form-control`} />
+                          <ErrorMessage name="password" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <Button
-                          block
-                          color="primary"
-                          type="submit"
-                          className={`${!(dirty && isValid) ? 'disabled' : ''}`}
-                          disabled={!(dirty && isValid)}
-                        >
-                          {loginRequest ? (
-                            <Spinner color="light" size="sm" />
-                          ) : (
-                            <span>Login</span>
-                          )}
+                        <Button block color="primary" type="submit" className={`${!(dirty && isValid) ? 'disabled' : ''}`} disabled={!(dirty && isValid)}>
+                          {loginRequest ? <Spinner color="light" size="sm" /> : <span>Login</span>}
                         </Button>
                       </Col>
                     </Row>

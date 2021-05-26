@@ -2,9 +2,9 @@ import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/client';
 import Sidebar from '~/components/public/user/Sidebar';
-import { Col, Row, Spinner } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 
-const Addresses = ({}) => {
+const Addresses = () => {
   return (
     <div className="d-flex flex-column main-container">
       <Header />
@@ -31,8 +31,8 @@ export async function getServerSideProps(context) {
       props: {},
       redirect: {
         destination: '/',
-        permanent: false,
-      },
+        permanent: false
+      }
     };
   }
 
