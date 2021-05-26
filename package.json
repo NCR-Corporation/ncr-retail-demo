@@ -51,6 +51,7 @@
     "react-draggable": "^4.4.3",
     "react-geolocated": "^3.1.0",
     "react-hot-toast": "latest",
+    "react-json-view": "^1.21.3",
     "react-loading-skeleton": "^2.2.0",
     "react-payment-inputs": "^1.1.7",
     "react-resizable": "^1.11.1",
