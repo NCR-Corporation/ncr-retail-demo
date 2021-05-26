@@ -5,8 +5,9 @@ import Sidebar from '~/components/public/user/Sidebar';
 import { Card, CardBody, Col, Row } from 'reactstrap';
 import OrderList from '~/components/public/order/OrderList';
 import useUserOrders from '~/lib/hooks/useUserOrders';
+import { getCategoryNodesForMenu } from '~/lib/category';
 
-const Orders = () => {
+const Orders = ({ categories }) => {
   const { data, isLoading, isError } = useUserOrders();
 
   return (
@@ -14,7 +15,7 @@ const Orders = () => {
       <Head>
         <title>MART | Orders</title>
       </Head>
-      <Header logs={data && data.logs} />
+      <Header categories={categories} logs={data && data.logs} />
       <main className="container my-4 flex-grow-1">
         <Row>
           <Col md="3">
@@ -60,5 +61,15 @@ const Orders = () => {
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  const { categories, logs } = await getCategoryNodesForMenu();
+  return {
+    props: {
+      categories,
+      logs,
+    },
+  };
+}
 
 export default Orders;

@@ -6,8 +6,9 @@ import { UserStoreContext } from '~/context/userStore';
 import ItemCard from '~/components/public/ItemCard';
 import useCatalog from '~/lib/hooks/useCatalog';
 import { Row, Col, Spinner } from 'reactstrap';
+import { getCategoryNodesForMenu } from '~/lib/category';
 
-export default function Catalog({ query }) {
+export default function Catalog({ query, categories }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCatalog(userStore.id, query);
   return (
@@ -15,7 +16,10 @@ export default function Catalog({ query }) {
       <Head>
         <title>MART | Catalog</title>
       </Head>
-      <Header logs={data && data.logs ? data.logs : []} />
+      <Header
+        categories={categories}
+        logs={data && data.logs ? data.logs : []}
+      />
       <div className="container my-4 flex-grow-1">
         {isLoading && (
           <div>
@@ -49,10 +53,14 @@ export default function Catalog({ query }) {
     </div>
   );
 }
+
 export async function getServerSideProps(context) {
+  const { categories, logs } = await getCategoryNodesForMenu();
   return {
     props: {
       query: context.query.query ? context.query.query : '',
+      categories,
+      logs,
     },
   };
 }
