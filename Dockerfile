@@ -20,6 +20,7 @@ FROM node:16.2.0-alpine3.13 AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
+ENV NODE_OPTIONS=--max-old-space-size=16000
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
@@ -34,7 +35,7 @@ COPY --from=builder /app/ncr-hmac ./ncr-hmac
 
 USER nextjs
 
-EXPOSE 3000
+EXPOSE 8080
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
