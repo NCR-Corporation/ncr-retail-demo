@@ -11,7 +11,7 @@
 <img src="https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg" alt="Dependencies" />
 <a href="https://github.com/NCR-Corporation/ncr-retail-demo/issues"><img src="https://img.shields.io/github/issues/NCR-Corporation/ncr-retail-demo" alt="Github Issues" /></a>
 <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions Welcome" />
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-Apache 2.0-brightgreen" alt="License" /></a>
+<a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache 2.0-brightgreen" alt="License" /></a>
 </p>
 
 <p align="center">
@@ -41,35 +41,39 @@ This repository showcases an imaginary retail company with multiple stores in di
 
 ## How to Use
 
-🚧 **Important Note** 🚧
+🚧 **Important** 🚧
 
-If this is the **first time** using a project with the generated keys, you will most likely **not see any data**. Why? When using the Test Drive feature, each application is a fresh installation with no data. See [Seed the Database](#seeding-the-database) to populate the database with test data.
+If this is the **first time** using a project with the generated keys, you will most likely **not see any data**.
+
+Why? When using the Test Drive feature, each application is a **fresh installation with no data.** See [Seed the Database](#seeding-the-database) to populate the database with test data and get started quickly.
 
 ### Getting Started
 
-First, clone the repository for local development.
+1. First, clone the repository for local development.
 
-```bash
-git clone https://github.com/NCR-Corporation/ncr-retail-demo.git
-```
+   ```bash
+   git clone https://github.com/NCR-Corporation/ncr-retail-demo.git
+   ```
 
-Secondly, open the repository in an editor and rename `.env copy.local` to `.env.local`.
+2. Secondly, open the repository in an editor and rename `.env copy.local` to `.env.local`.
 
-After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncrcloud.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncrcloud.com) and visit the [Test Drive Documentation]https://developer.ncrcloud.com/portals/dev-portal/getting-started).
+3. After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncrcloud.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncrcloud.com) and visit the [Test Drive Documentation](https://developer.ncrcloud.com/portals/dev-portal/getting-started).
 
-Next, install all npm packages in the project directory:
+4. Next, install all npm packages in the project directory:
 
-```bash
-npm install
-```
+   ```bash
+   npm install
+   # yarn
+   ```
 
-Finally, run the development server:
+5. Finally, run the development server:
 
-```bash
-npm run dev
-```
+   ```bash
+   npm run dev
+   # yarn dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the sample demo application _generated with your keys._
+6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the sample demo application _generated with your keys._
 
 > This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 > To learn more about Next.js, visit the [Next.js Documentation](https://nextjs.org/docs).
@@ -81,7 +85,7 @@ Every new application built with NCR is a blank installation with no data. If yo
 1. Create your own Sites, Categories, Groups, and Catalog
 2. Seed the database.
 
-To seed the database, visit the [Admin Dashboard](http://localhost:3000/admin/dashboard) by clicking "⚙ Manage" in the top of the homepage or visiting `/admin/dashboard`. From there, near the top is a blue button "⬇ Build Sample Database". Note, you will still have to have a valid Organization, Secret, and Shared key in your `.env.local`.
+To seed the database, visit the [Admin Dashboard](http://localhost:3000/admin/dashboard) by clicking "⚙ Manage" in the top of the homepage or visiting `/admin/dashboard`. From there, near the top is a blue button "⬇ Build Sample Database". You will still have to have a valid Organization, Secret, and Shared key in your `.env.local`.
 
 ## Support
 
