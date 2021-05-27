@@ -19,7 +19,7 @@
 <a href="#features">Features</a> //
 <a href="#overview">Overview</a> //
 <a href="#how-to-use">How to Use</a> //
-<a href="#support">Supprt</a> //
+<a href="#support">Support</a> //
 <a href="/CONTRIBUTING.md">Contributing</a> //
 <a href="#license">License</a>
 
