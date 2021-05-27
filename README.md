@@ -20,6 +20,7 @@
 <a href="#overview">Overview</a> //
 <a href="#how-to-use">How to Use</a> //
 <a href="#support">Supprt</a> //
+<a href="#contributing">Contributing</a> //
 <a href="#license">License</a>
 
 ## Features
@@ -84,7 +85,13 @@ To seed the database, visit the [Admin Dashboard](http://localhost:3000/admin/da
 
 ## Support
 
-Feel free to open an issue.
+Feel free to open an issue! If there are any bugs you find or any features you would like to see implemented, create the appropriate issue on the repository.
+
+## Contributing
+
+Thank you for contributing to this repository to help it become even better.
+
+If you are looking to add a new feature, be sure to create a new issue (either feature or bug) to track the changes. From there, create a PR onto the repository and confirm all workflows run successfully.
 
 ## License
 
