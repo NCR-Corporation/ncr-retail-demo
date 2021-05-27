@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import _ from 'lodash';
 import { Button, UncontrolledCollapse, Card, CardBody, CardTitle, Container } from 'reactstrap';
-import ReactJson from 'react-json-view';
 import styles from './Logger.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
@@ -25,6 +25,8 @@ const Logger = ({ logs }) => {
     position: null
   });
   const [isActive, setIsActive] = useState(false);
+
+  const DynamicReactJSON = dynamic(import('react-json-view'), { ssr: false });
 
   // On top layout
   const onResize = (_, { size }) => {
@@ -103,14 +105,14 @@ const Logger = ({ logs }) => {
                               <UncontrolledCollapse toggler={`#req-toggler${key}`}>
                                 <Card>
                                   <CardBody>
-                                    <ReactJson src={log.req} />
+                                    <DynamicReactJSON src={log.req} />
                                   </CardBody>
                                 </Card>
                               </UncontrolledCollapse>
                               <UncontrolledCollapse toggler={`#res-toggler${key}`}>
                                 <Card>
                                   <CardBody>
-                                    <ReactJson src={log.res} />
+                                    <DynamicReactJSON src={log.res} />
                                   </CardBody>
                                 </Card>
                               </UncontrolledCollapse>
