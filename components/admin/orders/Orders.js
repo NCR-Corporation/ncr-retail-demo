@@ -2,6 +2,7 @@ import { mutate } from 'swr';
 import { Button, Table } from 'reactstrap';
 
 function RecentOrders({ orders }) {
+  orders.reverse();
   const updateOrderStatus = (order, status) => {
     fetch(`/api/order/${order.id}`, {
       method: 'POST',
