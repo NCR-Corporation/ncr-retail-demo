@@ -30,12 +30,12 @@
 - Adding to/viewing Cart
 - Management of Sites
 - Management of Categories & Catalog
-- Singular store management
+- Singule store management
 - Catalog Search
 
 ## Overview
 
-MART integrates with multiple NCR APIs including [Catalog](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8717/documentation), [Sites](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8849/documentation?proxy=bsp-site-site-v1&path=post_sites), [Security](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8302/documentation?proxy=bsp-core-security&path=post_authentication), & [Provisioning](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8306/documentation?proxy=bsp-core-provisioning&path=post_configuration-sets). The demo application showcases one possible way to utilize one or many of the available APIs.
+MART integrates with multiple NCR APIs including [Order](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8311/overview), [Catalog](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8717/overview), [Sites](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/9031/overview), [Security](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8302/documentation?proxy=bsp-core-security&path=post_authentication), & [Provisioning](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8306/documentation?proxy=bsp-core-provisioning&path=post_configuration-sets). The demo application showcases one possible way to utilize one or many of the available APIs.
 
 This repository showcases an imaginary retail company with multiple stores in different location. The company can be managed globally as well as at the individual store level.
 
