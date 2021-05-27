@@ -43,7 +43,7 @@ This repository showcases an imaginary retail company with multiple stores in di
 
 🚧 **Important Note** 🚧
 
-If this is the **first time** using a project with the generated keys, you will most likely **not see any data**. Why? When using the Try It Out feature, each application is a fresh installation with no data. See [Seed the Database](#seeding-the-database) to populate the database with test data.
+If this is the **first time** using a project with the generated keys, you will most likely **not see any data**. Why? When using the Test Drive feature, each application is a fresh installation with no data. See [Seed the Database](#seeding-the-database) to populate the database with test data.
 
 ### Getting Started
 
@@ -55,7 +55,7 @@ git clone https://github.com/NCR-Corporation/ncr-retail-demo.git
 
 Secondly, open the repository in an editor and rename `.env copy.local` to `.env.local`.
 
-After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncrcloud.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncrcloud.com) and visit the [Try It Out Documentation](https://developer.ncrcloud.com/portals/dev-portal/help-center/topics?topic=Try%20It%20Out%20Feature).
+After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncrcloud.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncrcloud.com) and visit the [Test Drive Documentation]https://developer.ncrcloud.com/portals/dev-portal/getting-started).
 
 Next, install all npm packages in the project directory:
 
