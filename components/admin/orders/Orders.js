@@ -45,8 +45,8 @@ function RecentOrders({ orders }) {
                 <td>{new Date(Date.parse(item.dateUpdated)).toLocaleString()}</td>
                 <td>{item.owner}</td>
                 <td>{item.status}</td>
-                <td>{item.orderLines.length}</td>
-                <td>{item.totals[0].value}</td>
+                <td>{item.orderLines && item.orderLines.length ? item.orderLines.length : 0}</td>
+                <td>{item.totals ? item.totals[0].value : 0}</td>
                 <td>
                   <div>
                     {item.status == 'OrderPlaced' && (
