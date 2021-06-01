@@ -41,7 +41,7 @@ function RecentOrders({ orders }) {
             {orders.map((item) => (
               <tr key={item.id}>
                 <th scope="row">{item.id}</th>
-                <td>{item.customer.name}</td>
+                <td>{item && item.customer ? item.customer.name : ''}</td>
                 <td>{new Date(Date.parse(item.dateUpdated)).toLocaleString()}</td>
                 <td>{item.owner}</td>
                 <td>{item.status}</td>
