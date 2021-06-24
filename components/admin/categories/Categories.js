@@ -11,7 +11,7 @@ function Categories({ categories }) {
           <a className="btn btn-primary">New Category</a>
         </Link>
       </div>
-      <div className="bg-white">
+      <div className="bg-white pb-2">
         <Table responsive hover bordered>
           <thead>
             <tr>
@@ -26,26 +26,28 @@ function Categories({ categories }) {
             </tr>
           </thead>
           <tbody>
-            {categories.map((item) => (
-              <tr key={item.nodeId.nodeId}>
-                <th scope="row">{item.nodeId.nodeId}</th>
-                <td>{item.title.value}</td>
-                <td>{item.parentId && item.parentId.nodeId}</td>
-                <td>{item.tag}</td>
-                <td>{item.status}</td>
-                <td>{`${item.departmentSale}`}</td>
-                <td>{`${item.departmentNode}`}</td>
-                <td>
-                  <>
-                    <a href={`/admin/category/${item.nodeId.nodeId}`}>
-                      <FontAwesomeIcon icon={faEdit} color="darkslategray" />
-                    </a>
-                  </>
-                </td>
-              </tr>
-            ))}
+            {categories.categories &&
+              categories.categories.map((item) => (
+                <tr key={item.nodeId.nodeId}>
+                  <th scope="row">{item.nodeId.nodeId}</th>
+                  <td>{item.title.value}</td>
+                  <td>{item.parentId && item.parentId.nodeId}</td>
+                  <td>{item.tag}</td>
+                  <td>{item.status}</td>
+                  <td>{`${item.departmentSale}`}</td>
+                  <td>{`${item.departmentNode}`}</td>
+                  <td>
+                    <>
+                      <a href={`/admin/category/${item.nodeId.nodeId}`}>
+                        <FontAwesomeIcon icon={faEdit} color="darkslategray" />
+                      </a>
+                    </>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
+        {categories.categories.length == 0 && <p className="text-center">No categories found.</p>}
       </div>
     </div>
   );

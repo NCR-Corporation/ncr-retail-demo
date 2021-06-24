@@ -13,7 +13,7 @@ function Sites({ data }) {
         </Link>
       </div>
 
-      <div className="bg-white">
+      <div className="bg-white pb-2">
         <Table responsive hover bordered>
           <thead>
             <tr>
@@ -48,6 +48,7 @@ function Sites({ data }) {
             ))}
           </tbody>
         </Table>
+        {sites.length == 0 && <p className="text-center">No sites found.</p>}
       </div>
     </div>
   );

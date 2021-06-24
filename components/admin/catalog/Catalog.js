@@ -13,7 +13,7 @@ function Catalog({ data }) {
           <a className="btn btn-primary">New Catalog Item</a>
         </Link>
       </div>
-      <div className="bg-white">
+      <div className="bg-white pb-2">
         <Table responsive hover bordered>
           <thead>
             <tr>
@@ -40,6 +40,7 @@ function Catalog({ data }) {
             ))}
           </tbody>
         </Table>
+        {catalog.length == 0 && <p className="text-center">No catalog items found.</p>}
       </div>
     </div>
   );

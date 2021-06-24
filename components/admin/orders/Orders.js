@@ -22,8 +22,8 @@ function RecentOrders({ orders }) {
   };
 
   return (
-    <div className="text-right my-2">
-      <div className="bg-white">
+    <div className="text-right">
+      <div className="bg-white pb-2">
         <Table responsive hover bordered>
           <thead>
             <tr>
@@ -75,6 +75,7 @@ function RecentOrders({ orders }) {
             ))}
           </tbody>
         </Table>
+        {orders.length == 0 && <p className="text-center">No orders found.</p>}
       </div>
     </div>
   );

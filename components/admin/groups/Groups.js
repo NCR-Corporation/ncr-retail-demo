@@ -7,14 +7,14 @@ function Groups({ data }) {
   const groups = data.data && data.data.pageContent.length > 0 ? data.data.pageContent : [];
 
   return (
-    <div className="pb-4">
+    <div>
       <div className="text-right my-2">
         <Link href="/admin/groups/new">
           <a className="btn btn-primary">New Group</a>
         </Link>
       </div>
 
-      <div className="bg-white">
+      <div className="bg-white pb-2">
         <Table responsive hover bordered>
           <thead>
             <tr>
@@ -41,6 +41,7 @@ function Groups({ data }) {
             ))}
           </tbody>
         </Table>
+        {groups.length == 0 && <p className="text-center">No groups found.</p>}
       </div>
     </div>
   );
