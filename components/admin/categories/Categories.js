@@ -8,7 +8,7 @@ function Categories({ categories }) {
   return (
     <div className="pb-4">
       <div className="bg-white pb-2">
-        <Table responsive hover bordered>
+        <Table responsive hover striped size="sm">
           <thead>
             <tr>
               <th>ID</th>

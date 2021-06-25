@@ -32,7 +32,7 @@ export default function SiteCatalogTable({ catalog, siteId, fetchUpdatedCatalog 
       <Alert toggle={onDismiss} isOpen={visible} className="my-4" color={showAlert.status == 204 ? 'success' : 'danger'}>
         {showAlert.message}
       </Alert>
-      <Table responsive hover bordered>
+      <Table responsive hover striped size="sm">
         <thead>
           <tr>
             <th>Id</th>
@@ -56,7 +56,7 @@ export default function SiteCatalogTable({ catalog, siteId, fetchUpdatedCatalog 
               <td>{item.itemPrices && item.itemPrices.length > 0 && item.itemPrices[0].price}</td>
               <td>
                 {item.itemAttributes && item.itemAttributes.imageUrls.length > 0 && (
-                  <Image width={50} height={50} src={item.itemAttributes && item.itemAttributes.imageUrls.length > 0 && item.itemAttributes.imageUrls[0]} />
+                  <Image width={25} height={25} src={item.itemAttributes && item.itemAttributes.imageUrls.length > 0 && item.itemAttributes.imageUrls[0]} />
                 )}
               </td>
               <td>

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Table } from 'reactstrap';
@@ -9,7 +8,7 @@ function Catalog({ data }) {
   return (
     <div>
       <div className="bg-white pb-2">
-        <Table responsive hover bordered>
+        <Table responsive hover stiped size="sm">
           <thead>
             <tr>
               <th>ID</th>
