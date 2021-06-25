@@ -22,9 +22,9 @@ function RecentOrders({ orders }) {
   };
 
   return (
-    <div className="text-right">
+    <div>
       <div className="bg-white pb-2">
-        <Table responsive hover bordered>
+        <Table responsive hover striped size="sm">
           <thead>
             <tr>
               <th>Id</th>
