@@ -1,7 +1,12 @@
 import SiteForm from '~/components/admin/sites/SiteForm';
+import Layout from '~/components/admin/Layout';
 
 const EditSite = ({ siteId }) => {
-  return <SiteForm siteId={siteId} />;
+  return (
+    <Layout activeTab="sites">
+      <SiteForm siteId={siteId} />
+    </Layout>
+  );
 };
 
 export async function getServerSideProps(context) {

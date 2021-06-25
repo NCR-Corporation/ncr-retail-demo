@@ -186,179 +186,173 @@ const CatalogForm = ({ id, categories }) => {
           setFieldTouched('merchandiseCategory', true);
         }, [parentCategory]);
         return (
-          <div className="bg pb-4">
-            <Header />
-            <main className="container my-4 flex-grow-1">
-              <Form>
-                {id && (
-                  <Alert isOpen={true} color="warning">
-                    Item ID, price and attributes are unable to be edited on a global level.
-                  </Alert>
-                )}
-                {isLoading && (
-                  <div className="my-4 d-flex justify-content-center">
-                    <Spinner color="primary" />
-                  </div>
-                )}
-                <Alert toggle={onDismiss} isOpen={visible} className="my-4" color={showAlert.status == 200 ? 'success' : 'danger'}>
-                  {showAlert.message}
+          <main className="my-4">
+            <Form>
+              {id && (
+                <Alert isOpen={true} color="warning">
+                  Item ID, price and attributes are unable to be edited on a global level.
                 </Alert>
-                <Row>
-                  <Col>
-                    <h4 className="mb-2">{id ? 'Edit' : 'Create'} Item</h4>
-                  </Col>
-                  <Col>
-                    <div className="form-group float-right">
-                      <button type="submit" className={`${!(dirty && isValid) ? 'disabled' : ''} btn btn-primary`} disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}>
-                        + {id ? 'Update' : 'Create'} Item
-                      </button>
-                    </div>
-                  </Col>
-                </Row>
+              )}
+              {isLoading && (
+                <div className="my-4 d-flex justify-content-center">
+                  <Spinner color="primary" />
+                </div>
+              )}
+              <Alert toggle={onDismiss} isOpen={visible} className="my-4" color={showAlert.status == 200 ? 'success' : 'danger'}>
+                {showAlert.message}
+              </Alert>
+              <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 className="h2">{id ? 'Edit' : 'Create'} Item</h1>
+                <div className="form-group float-right">
+                  <button type="submit" className={`${!(dirty && isValid) ? 'disabled' : ''} btn btn-primary`} disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}>
+                    {' '}
+                    {id ? '+ Update' : '+ Create'} Item
+                  </button>
+                </div>
+              </div>
 
-                <Row>
-                  <Col md="8">
-                    <Card className="mb-3">
-                      <CardBody>
-                        <div className="form-group">
-                          <label htmlFor="shortDescription">Title*</label>
-                          <Field
-                            name="shortDescription"
-                            id="shortDescription"
-                            placeholder="Item Name"
-                            className={`${errors.shortDescription && touched.shortDescription ? 'is-invalid' : null} form-control`}
-                          />
-                          <ErrorMessage name="shortDescription" component="div" className="invalid-feedback" />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="longDescription">Long Description</label>
-                          <Field
-                            as="textarea"
-                            rows="4"
-                            name="longDescription"
-                            id="longDescription"
-                            className={`${errors.longDescription && touched.longDescription ? 'is-invalid' : null} form-control`}
-                          />
-                          <ErrorMessage name="longDescription" component="div" className="invalid-feedback" />
-                        </div>
-                      </CardBody>
-                    </Card>
-                    <Card className="mb-3">
-                      <CardBody>
-                        <div className="form-group">
-                          <label htmlFor="imageUrl">Image Url</label>
-                          <Field
-                            name="imageUrl"
-                            id="imageUrl"
-                            placeholder="https://..."
-                            className={`${errors.imageUrl && touched.imageUrl ? 'is-invalid' : null} form-control`}
-                            disabled={id ? 'disabled' : ''}
-                          />
-                          <ErrorMessage name="imageUrl" component="div" className="invalid-feedback" />
-                        </div>
-                      </CardBody>
-                    </Card>
-                    <Card className="mb-3">
-                      {!id ? (
-                        <CardBody>
-                          <div className="form-row">
-                            <div className="form-group col-md-4">
-                              <label htmlFor="price">Price</label>
-                              <Field name="price" id="price" className={`${errors.price && touched.price ? 'is-invalid' : null} form-control`} />
-                              <ErrorMessage name="price" component="div" className="invalid-feedback" />
-                            </div>
-                            <div className="form-group">
-                              <label htmlFor="currency">Currency</label>
-                              <Field as="select" name="currency" className={`${errors.currency && touched.currency ? 'is-invalid' : null} form-control`}>
-                                <option value="USD">USD</option>
-                              </Field>
-                            </div>
-                          </div>
-                          <div className="form-row">
-                            <div className="form-group col-md-4">
-                              <label htmlFor="effectiveDate">Effective Date</label>
-                              <DatePicker name="effectiveDate" />
-                            </div>
-                            <div className="form-group col-md-4">
-                              <label htmlFor="endDate">End Date</label>
-                              <DatePicker name="endDate" />
-                            </div>
-                          </div>
-                        </CardBody>
-                      ) : (
-                        <CardBody>Price cannot be updated on a global level after creation. Prices are updated on each individual site.</CardBody>
-                      )}
-                    </Card>
-                  </Col>
-                  <Col md="4">
-                    <Card className="mb-3">
-                      <CardBody>
-                        <div className="form-row">
-                          <div className="form-group col-md-6">
-                            <label htmlFor="version">Version</label>
-                            <Field name="version" id="version" className={`${errors.version && touched.version ? 'is-invalid' : null} form-control`} />
-                            <ErrorMessage name="version" component="div" className="invalid-feedback" />
-                          </div>
-                        </div>
-                        <div className="form-row">
-                          <div className="form-group col-12">
-                            <label htmlFor="itemId">Item ID*</label>
-                            <Field name="itemId" id="itemId" className={`${errors.itemId && touched.itemId ? 'is-invalid' : null} form-control`} disabled={id ? 'disabled' : ''} />
-                            <ErrorMessage name="itemId" component="div" className="invalid-feedback" />
-                            <Button onClick={() => setFieldValue('itemId', generateGUID())} color="link" className="m-0 p-0">
-                              Generate
-                            </Button>
-                          </div>
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="status">Status*</label>
-                          <Field as="select" name="status" className={`${errors.status && touched.status ? 'is-invalid' : null} form-control`}>
-                            <option>--</option>
-                            <option value="ACTIVE" label="Active" />
-                            <option value="INACTIVE" label="Inactive" />
-                            <option value="DISCONTINUED" label="Discontinue" />
-                            <option value="SEASONAL" label="Seasonal" />
-                            <option value="TO_DISCONTINUE" label="To Discontinue" />
-                            <option value="UNAUTHORIZED" label="Unauthorized" />
-                          </Field>
-                          <ErrorMessage name="status" component="div" className="invalid-feedback" />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="status">Unit of Measure*</label>
-                          <Field as="select" name="unitOfMeasure" className={`${errors.unitOfMeasure && touched.unitOfMeasure ? 'is-invalid' : null} form-control`}>
-                            <option>--</option>
-                            <option value="EA" label="Each" />
-                          </Field>
-                          <ErrorMessage name="status" component="div" className="invalid-feedback" />
-                        </div>
-                      </CardBody>
-                    </Card>
-                    <Card className="mb-3">
-                      <CardBody>
-                        <Field name="merchandiseCategory" id="merchandiseCategory" className="d-none" value={parentCategory || ''} />
-                        <CategorySelect
-                          currentCategory={initialValues.merchandiseCategory}
-                          initialCategory={initialValues.parentCategory ?? ''}
-                          setDisabled={false}
-                          setParentCategory={setParentCategory}
-                          categories={categories}
+              <Row>
+                <Col md="8">
+                  <Card className="mb-3">
+                    <CardBody>
+                      <div className="form-group">
+                        <label htmlFor="shortDescription">Title*</label>
+                        <Field
+                          name="shortDescription"
+                          id="shortDescription"
+                          placeholder="Item Name"
+                          className={`${errors.shortDescription && touched.shortDescription ? 'is-invalid' : null} form-control`}
                         />
-                      </CardBody>
-                    </Card>
-                    <Card className="mb-3">
+                        <ErrorMessage name="shortDescription" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="longDescription">Long Description</label>
+                        <Field
+                          as="textarea"
+                          rows="4"
+                          name="longDescription"
+                          id="longDescription"
+                          className={`${errors.longDescription && touched.longDescription ? 'is-invalid' : null} form-control`}
+                        />
+                        <ErrorMessage name="longDescription" component="div" className="invalid-feedback" />
+                      </div>
+                    </CardBody>
+                  </Card>
+                  <Card className="mb-3">
+                    <CardBody>
+                      <div className="form-group">
+                        <label htmlFor="imageUrl">Image Url</label>
+                        <Field
+                          name="imageUrl"
+                          id="imageUrl"
+                          placeholder="https://..."
+                          className={`${errors.imageUrl && touched.imageUrl ? 'is-invalid' : null} form-control`}
+                          disabled={id ? 'disabled' : ''}
+                        />
+                        <ErrorMessage name="imageUrl" component="div" className="invalid-feedback" />
+                      </div>
+                    </CardBody>
+                  </Card>
+                  <Card className="mb-3">
+                    {!id ? (
                       <CardBody>
-                        <div className="form-group">
-                          <label htmlFor="groups">Group</label>
-                          <Field name="groups" id="groups" className={`${errors.groups && touched.groups ? 'is-invalid' : null} form-control`} disabled={id ? 'disabled' : ''} />
-                          <ErrorMessage name="groups" component="div" className="invalid-feedback" />
+                        <div className="form-row">
+                          <div className="form-group col-md-4">
+                            <label htmlFor="price">Price</label>
+                            <Field name="price" id="price" className={`${errors.price && touched.price ? 'is-invalid' : null} form-control`} />
+                            <ErrorMessage name="price" component="div" className="invalid-feedback" />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="currency">Currency</label>
+                            <Field as="select" name="currency" className={`${errors.currency && touched.currency ? 'is-invalid' : null} form-control`}>
+                              <option value="USD">USD</option>
+                            </Field>
+                          </div>
+                        </div>
+                        <div className="form-row">
+                          <div className="form-group col-md-4">
+                            <label htmlFor="effectiveDate">Effective Date</label>
+                            <DatePicker name="effectiveDate" />
+                          </div>
+                          <div className="form-group col-md-4">
+                            <label htmlFor="endDate">End Date</label>
+                            <DatePicker name="endDate" />
+                          </div>
                         </div>
                       </CardBody>
-                    </Card>
-                  </Col>
-                </Row>
-              </Form>
-            </main>
-          </div>
+                    ) : (
+                      <CardBody>Price cannot be updated on a global level after creation. Prices are updated on each individual site.</CardBody>
+                    )}
+                  </Card>
+                </Col>
+                <Col md="4">
+                  <Card className="mb-3">
+                    <CardBody>
+                      <div className="form-row">
+                        <div className="form-group col-md-6">
+                          <label htmlFor="version">Version</label>
+                          <Field name="version" id="version" className={`${errors.version && touched.version ? 'is-invalid' : null} form-control`} />
+                          <ErrorMessage name="version" component="div" className="invalid-feedback" />
+                        </div>
+                      </div>
+                      <div className="form-row">
+                        <div className="form-group col-12">
+                          <label htmlFor="itemId">Item ID*</label>
+                          <Field name="itemId" id="itemId" className={`${errors.itemId && touched.itemId ? 'is-invalid' : null} form-control`} disabled={id ? 'disabled' : ''} />
+                          <ErrorMessage name="itemId" component="div" className="invalid-feedback" />
+                          <Button onClick={() => setFieldValue('itemId', generateGUID())} color="link" className="m-0 p-0">
+                            Generate
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="status">Status*</label>
+                        <Field as="select" name="status" className={`${errors.status && touched.status ? 'is-invalid' : null} form-control`}>
+                          <option>--</option>
+                          <option value="ACTIVE" label="Active" />
+                          <option value="INACTIVE" label="Inactive" />
+                          <option value="DISCONTINUED" label="Discontinue" />
+                          <option value="SEASONAL" label="Seasonal" />
+                          <option value="TO_DISCONTINUE" label="To Discontinue" />
+                          <option value="UNAUTHORIZED" label="Unauthorized" />
+                        </Field>
+                        <ErrorMessage name="status" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="status">Unit of Measure*</label>
+                        <Field as="select" name="unitOfMeasure" className={`${errors.unitOfMeasure && touched.unitOfMeasure ? 'is-invalid' : null} form-control`}>
+                          <option>--</option>
+                          <option value="EA" label="Each" />
+                        </Field>
+                        <ErrorMessage name="status" component="div" className="invalid-feedback" />
+                      </div>
+                    </CardBody>
+                  </Card>
+                  <Card className="mb-3">
+                    <CardBody>
+                      <Field name="merchandiseCategory" id="merchandiseCategory" className="d-none" value={parentCategory || ''} />
+                      <CategorySelect
+                        currentCategory={initialValues.merchandiseCategory}
+                        initialCategory={initialValues.parentCategory ?? ''}
+                        setDisabled={false}
+                        setParentCategory={setParentCategory}
+                        categories={categories}
+                      />
+                    </CardBody>
+                  </Card>
+                  <Card className="mb-3">
+                    <CardBody>
+                      <div className="form-group">
+                        <label htmlFor="groups">Group</label>
+                        <Field name="groups" id="groups" className={`${errors.groups && touched.groups ? 'is-invalid' : null} form-control`} disabled={id ? 'disabled' : ''} />
+                        <ErrorMessage name="groups" component="div" className="invalid-feedback" />
+                      </div>
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+            </Form>
+          </main>
         );
       }}
     </Formik>

@@ -136,7 +136,7 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
       {(formik) => {
         const { errors, touched, isValid, dirty, setFieldValue } = formik;
         return (
-          <Form>
+          <Form className="my-4">
             {isLoading && (
               <div className="my-4 d-flex justify-content-center">
                 <Spinner color="primary" />
@@ -145,19 +145,15 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
             <Alert toggle={onDismiss} isOpen={visible} className="my-4" color={showAlert.status == 200 ? 'success' : 'danger'}>
               {showAlert.message}
             </Alert>
-            <Row className="mt-4">
-              <Col>
-                <h4 className="mb-1">{categoryId ? 'Edit' : 'Create'} Category</h4>
-              </Col>
-              <Col>
-                <div className="form-group float-right">
-                  <button type="submit" className={`${!(dirty && isValid) ? 'disabled' : ''} btn btn-primary`} disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}>
-                    {' '}
-                    {categoryId ? '+ Update' : '+ Create'} Category
-                  </button>
-                </div>
-              </Col>
-            </Row>
+            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 className="h2">{categoryId ? 'Edit' : 'Create'} Category</h1>
+              <div className="form-group float-right">
+                <button type="submit" className={`${!(dirty && isValid) ? 'disabled' : ''} btn btn-primary`} disabled={`${!(dirty && isValid) ? 'disabled' : ''}`}>
+                  {' '}
+                  {categoryId ? '+ Update' : '+ Create'} Category
+                </button>
+              </div>
+            </div>
             <div className="row">
               <div className="col-md-8">
                 <div className="card">

@@ -1,15 +1,11 @@
-import { Container } from 'reactstrap';
 import GroupForm from '~/components/admin/groups/GroupForm';
-import Header from '~/components/admin/Header';
+import Layout from '~/components/admin/Layout';
 
 const NewGroup = () => {
   return (
-    <div className="bg pb-4">
-      <Header />
-      <Container className="my-4 flex-grow-1">
-        <GroupForm />
-      </Container>
-    </div>
+    <Layout activeTab="groups">
+      <GroupForm />
+    </Layout>
   );
 };
 

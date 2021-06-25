@@ -52,10 +52,12 @@ export default function SiteCatalogTable({ catalog, siteId, fetchUpdatedCatalog 
               <td>{item.item.shortDescription.values[0].value}</td>
               <td>{item.item.longDescription.values[0].value}</td>
               <td>{item.item.merchandiseCategory.nodeId}</td>
-              <td>{item.itemAttributes.groups.length > 0 && item.itemAttributes.groups[0].groupCode}</td>
-              <td>{item.itemPrices[0].price}</td>
+              <td>{item.itemAttributes && item.itemAttributes.groups.length > 0 && item.itemAttributes.groups[0].groupCode}</td>
+              <td>{item.itemPrices && item.itemPrices.length > 0 && item.itemPrices[0].price}</td>
               <td>
-                <Image width={50} height={50} src={item.itemAttributes.imageUrls[0]} />
+                {item.itemAttributes && item.itemAttributes.imageUrls.length > 0 && (
+                  <Image width={50} height={50} src={item.itemAttributes && item.itemAttributes.imageUrls.length > 0 && item.itemAttributes.imageUrls[0]} />
+                )}
               </td>
               <td>
                 <FontAwesomeIcon key={item.item.itemId.itemCode} icon={faEdit} size="sm" className="pointer" onClick={() => toggle(item)} />
