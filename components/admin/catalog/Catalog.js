@@ -8,11 +8,6 @@ function Catalog({ data }) {
 
   return (
     <div>
-      <div className="text-right mb-2">
-        <Link href="/admin/catalog/new">
-          <a className="btn btn-primary">New Catalog Item</a>
-        </Link>
-      </div>
       <div className="bg-white pb-2">
         <Table responsive hover bordered>
           <thead>

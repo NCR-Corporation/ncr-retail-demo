@@ -8,12 +8,6 @@ function Groups({ data }) {
 
   return (
     <div>
-      <div className="text-right my-2">
-        <Link href="/admin/groups/new">
-          <a className="btn btn-primary">New Group</a>
-        </Link>
-      </div>
-
       <div className="bg-white pb-2">
         <Table responsive hover bordered>
           <thead>

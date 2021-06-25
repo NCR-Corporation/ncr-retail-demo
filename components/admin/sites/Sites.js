@@ -7,12 +7,6 @@ function Sites({ data }) {
   const sites = data.length == 0 ? data : data.data.pageContent;
   return (
     <div>
-      <div className="text-right my-2">
-        <Link href="/admin/sites/new">
-          <a className="btn btn-primary">New Site</a>
-        </Link>
-      </div>
-
       <div className="bg-white pb-2">
         <Table responsive hover bordered>
           <thead>

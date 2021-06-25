@@ -1,9 +1,8 @@
-import Link from 'next/link';
 import { mutate } from 'swr';
-import Header from '~/components/admin/Header';
 import useSiteCatalog from '~/lib/hooks/useSiteCatalog';
-import { Row, Col, Spinner, Container } from 'reactstrap';
+import { Spinner } from 'reactstrap';
 import SiteCatalogTable from '~/components/admin/sites/SiteCatalogTable';
+import Layout from '~/components/admin/Layout';
 
 const SiteCatalog = ({ id }) => {
   let { siteData, isLoading, isError } = useSiteCatalog(id);
@@ -13,33 +12,18 @@ const SiteCatalog = ({ id }) => {
   };
 
   return (
-    <div className="bg pb-4">
-      <Header />
-
+    <Layout activeTab="categories">
+      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 className="h2">{!isLoading && !isError && siteData.site.siteName}</h1>
+      </div>
       {isLoading && (
         <div className="d-flex justify-content-center mt-5">
           <Spinner color="dark" />
         </div>
       )}
       {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
-      {!isLoading && !isError && (
-        <Container fluid className="w-75 my-2 flex-grow-1">
-          <Row className="my-4">
-            <Col>
-              <h4 className="m-1">{siteData.site.siteName}</h4>
-            </Col>
-            <Col>
-              <div className="form-group float-right">
-                <Link href={`/admin/sites/${siteData.site.id}`}>
-                  <a className="btn btn-primary">Edit Site</a>
-                </Link>
-              </div>
-            </Col>
-          </Row>
-          <SiteCatalogTable catalog={siteData.catalog} setExpandRow={true} siteId={id} fetchUpdatedCatalog={fetchUpdatedCatalog} />
-        </Container>
-      )}
-    </div>
+      {!isLoading && !isError && <SiteCatalogTable catalog={siteData.catalog} setExpandRow={true} siteId={id} fetchUpdatedCatalog={fetchUpdatedCatalog} />}
+    </Layout>
   );
 };
 

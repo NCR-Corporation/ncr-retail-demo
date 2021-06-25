@@ -4,13 +4,9 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Table } from 'reactstrap';
 
 function Categories({ categories }) {
+  console.log(categories);
   return (
     <div className="pb-4">
-      <div className="text-right my-2">
-        <Link href="/admin/category/new">
-          <a className="btn btn-primary">New Category</a>
-        </Link>
-      </div>
       <div className="bg-white pb-2">
         <Table responsive hover bordered>
           <thead>
@@ -26,8 +22,8 @@ function Categories({ categories }) {
             </tr>
           </thead>
           <tbody>
-            {categories.categories &&
-              categories.categories.map((item) => (
+            {categories &&
+              categories.map((item) => (
                 <tr key={item.nodeId.nodeId}>
                   <th scope="row">{item.nodeId.nodeId}</th>
                   <td>{item.title.value}</td>
@@ -47,7 +43,7 @@ function Categories({ categories }) {
               ))}
           </tbody>
         </Table>
-        {categories.categories.length == 0 && <p className="text-center">No categories found.</p>}
+        {categories.length == 0 && <p className="text-center">No categories found.</p>}
       </div>
     </div>
   );
