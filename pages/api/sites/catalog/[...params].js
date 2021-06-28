@@ -1,8 +1,5 @@
 import uniqid from 'uniqid';
-import {
-  updateSiteCatalogItemPricesByItemCode,
-  updateSiteCatalogItemAttributesByItemCode,
-} from '~/lib/catalog';
+import { updateSiteCatalogItemPricesByItemCode, updateSiteCatalogItemAttributesByItemCode } from '~/lib/catalog';
 let logs = [];
 
 export default async function handler(req, res) {
@@ -17,26 +14,26 @@ export default async function handler(req, res) {
       values: [
         {
           locale: 'en-US',
-          value: body.shortDescription,
-        },
-      ],
+          value: body.shortDescription
+        }
+      ]
     },
     longDescription: {
       values: [
         {
           locale: 'en-US',
-          value: body.longDescription,
-        },
-      ],
+          value: body.longDescription
+        }
+      ]
     },
-    status: body.status,
+    status: body.status
   };
 
   if (body.groups) {
     itemAttributes['groups'] = [
       {
-        groupCode: body.groups,
-      },
+        groupCode: body.groups
+      }
     ];
   }
 
@@ -54,29 +51,20 @@ export default async function handler(req, res) {
         attributes: [
           {
             key: 'UOM',
-            value: 'EA',
+            value: 'EA'
           },
           {
             key: 'UNITS',
-            value: '1',
-          },
-        ],
-      },
-    ],
+            value: '1'
+          }
+        ]
+      }
+    ]
   };
   let priceId = body.priceId !== '' ? body.priceId : uniqid();
-  let updatePrice = await updateSiteCatalogItemPricesByItemCode(
-    siteId,
-    itemId,
-    priceId,
-    itemPrices
-  );
+  let updatePrice = await updateSiteCatalogItemPricesByItemCode(siteId, itemId, priceId, itemPrices);
   logs.push(updatePrice.log);
-  let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(
-    siteId,
-    itemId,
-    itemAttributes
-  );
+  let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(siteId, itemId, itemAttributes);
   logs.push(updateAttributes.log);
 
   res.json({ updatePrice, updateAttributes, logs, status: 200 });

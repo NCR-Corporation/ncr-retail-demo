@@ -15,28 +15,16 @@ const SearchBar = () => {
   const handleSubmit = preventDefault(() => {
     router.push({
       pathname: '/catalog',
-      query: { query },
+      query: { query }
     });
   });
 
   return (
     <form onSubmit={handleSubmit} className="search">
       <div className="input-group w-100">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search"
-          name="query"
-          value={query}
-          onChange={handleParam(setQuery)}
-          aria-label="Search"
-        />
+        <input type="text" className="form-control" placeholder="Search" name="query" value={query} onChange={handleParam(setQuery)} aria-label="Search" />
         <div className="input-group-append">
-          <Button
-            className="brand-dark-primary border-0"
-            type="submit"
-            aria-label="Search"
-          >
+          <Button className="brand-dark-primary border-0" type="submit" aria-label="Search">
             <FontAwesomeIcon icon={faSearch} />
           </Button>
         </div>

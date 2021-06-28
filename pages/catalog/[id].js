@@ -1,25 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
-import {
-  Container,
-  Spinner,
-  Card,
-  Row,
-  Col,
-  CardTitle,
-  Breadcrumb,
-  BreadcrumbItem,
-  CardBody,
-  CardSubtitle,
-  CardText,
-  Button,
-  FormGroup,
-  Input,
-} from 'reactstrap';
+import { Container, Spinner, Card, Row, Col, CardTitle, Breadcrumb, BreadcrumbItem, CardBody, CardSubtitle, CardText, Button, FormGroup, Input } from 'reactstrap';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import { UserStoreContext } from '~/context/userStore';
@@ -48,16 +33,14 @@ const CatalogItem = ({ id, categories }) => {
         cart: userCart,
         etag: userCart.etag ?? false,
         location: userCart.location ?? false,
-        item: itemObj,
-      }),
+        item: itemObj
+      })
     })
       .then((response) => response.json())
       .then((res) => {
         userCart.location = res.location;
         userCart.etag = res.etag;
-        userCart.totalQuantity = userCart.totalQuantity
-          ? userCart.totalQuantity + quantity
-          : quantity;
+        userCart.totalQuantity = userCart.totalQuantity ? userCart.totalQuantity + quantity : quantity;
         setUserCart(userCart);
         setAddedToCart(true);
         setAddingToCart(false);
@@ -73,40 +56,29 @@ const CatalogItem = ({ id, categories }) => {
   };
   return (
     <div className="d-flex flex-column main-container">
-      <Header
-        categories={categories}
-        logs={logs.length == 0 && data && data.logs ? data.logs : logs}
-      />
+      <Header categories={categories} logs={logs.length == 0 && data && data.logs ? data.logs : logs} />
       {!isLoading && data.catalogItem && (
         <Head>
-          <title>
-            MART | {data.catalogItem.data.item.shortDescription.values[0].value}
-          </title>
+          <title>MART | {data.catalogItem.data.item.shortDescription.values[0].value}</title>
         </Head>
       )}
       <Container className="my-4 flex-grow-1">
         {!isError && (
           <Breadcrumb className="bg-white shadow-sm">
-            {!isLoading &&
-            data.catalogItem &&
-            data.catalogItem.data['categories'].length > 0
+            {!isLoading && data.catalogItem && data.catalogItem.data['categories'].length > 0
               ? data.catalogItem.data['categories'].map((ancestor) => (
                   <BreadcrumbItem key={ancestor.nodeCode}>
-                    <Link href={`/category/${ancestor.nodeCode}`}>
-                      {ancestor.title.value}
-                    </Link>
+                    <Link href={`/category/${ancestor.nodeCode}`}>{ancestor.title.value}</Link>
                   </BreadcrumbItem>
                 ))
               : [...Array(2).keys()].map((index) => (
                   <BreadcrumbItem key={index}>
-                    <a href="#">
-                      <Skeleton width="50px" />
-                    </a>
+                    <Skeleton width="50px" />
                   </BreadcrumbItem>
                 ))}
           </Breadcrumb>
         )}
-        {isError && <p className="text-muted">Uhoh, we've hit an error.</p>}
+        {isError && <p className="text-muted">{`Uhoh, we've hit an error.`}</p>}
         {!isError && (
           <Card className="mb-3 border-0 shadow-sm">
             <Row className="no-gutters">
@@ -114,18 +86,14 @@ const CatalogItem = ({ id, categories }) => {
                 {!isLoading && data.catalogItem ? (
                   <Image
                     src={
-                      data.catalogItem.data.itemAttributes &&
-                      data.catalogItem.data.itemAttributes.imageUrls.length > 0
+                      data.catalogItem.data.itemAttributes && data.catalogItem.data.itemAttributes.imageUrls.length > 0
                         ? data.catalogItem.data.itemAttributes.imageUrls[0]
                         : 'https://via.placeholder.com/500'
                     }
                     layout="responsive"
                     width={500}
                     height={500}
-                    alt={
-                      data.catalogItem.data.item.shortDescription.values[0]
-                        .value
-                    }
+                    alt={data.catalogItem.data.item.shortDescription.values[0].value}
                     className="p-4"
                   />
                 ) : (
@@ -138,10 +106,7 @@ const CatalogItem = ({ id, categories }) => {
                 <CardBody className="h-100 d-flex flex-column pb-5">
                   {!isLoading && data.catalogItem ? (
                     <CardTitle tag="h2" className="bd-highlight">
-                      {
-                        data.catalogItem.data.item.shortDescription.values[0]
-                          .value
-                      }
+                      {data.catalogItem.data.item.shortDescription.values[0].value}
                     </CardTitle>
                   ) : (
                     <CardTitle tag="h2" className="bd-highlight">
@@ -150,8 +115,7 @@ const CatalogItem = ({ id, categories }) => {
                   )}
                   {!isLoading && data.catalogItem ? (
                     <CardSubtitle className="mb-2 text-muted">
-                      <strong>Item #:</strong>{' '}
-                      {data.catalogItem.data.item.itemId.itemCode}
+                      <strong>Item #:</strong> {data.catalogItem.data.item.itemId.itemCode}
                     </CardSubtitle>
                   ) : (
                     <CardSubtitle className="mb-2 text-muted">
@@ -159,12 +123,7 @@ const CatalogItem = ({ id, categories }) => {
                     </CardSubtitle>
                   )}
                   {!isLoading && data.catalogItem ? (
-                    <CardText>
-                      {
-                        data.catalogItem.data.item.longDescription.values[0]
-                          .value
-                      }
-                    </CardText>
+                    <CardText>{data.catalogItem.data.item.longDescription.values[0].value}</CardText>
                   ) : (
                     <CardText>
                       <Skeleton width="75%" />
@@ -174,11 +133,7 @@ const CatalogItem = ({ id, categories }) => {
                     <div className="d-flex justify-content-between mb-3">
                       <div className="flex-fill">
                         {!isLoading && data.catalogItem ? (
-                          <h3 className="text-muted">
-                            {data.catalogItem.data.itemPrices
-                              ? `$${data.catalogItem.data.itemPrices[0].price}`
-                              : 'Not available at this store'}
-                          </h3>
+                          <h3 className="text-muted">{data.catalogItem.data.itemPrices ? `$${data.catalogItem.data.itemPrices[0].price}` : 'Not available at this store'}</h3>
                         ) : (
                           <Skeleton width="50%" />
                         )}
@@ -188,17 +143,8 @@ const CatalogItem = ({ id, categories }) => {
                         <Col sm="4">
                           {!isLoading ? (
                             <FormGroup>
-                              <Input
-                                type="select"
-                                name="select"
-                                id="qtySelect"
-                                value={quantity}
-                                onChange={handleQuantityChange}
-                              >
-                                {Array.from(
-                                  { length: 10 },
-                                  (_, i) => i + 1
-                                ).map((item) => (
+                              <Input type="select" name="select" id="qtySelect" value={quantity} onChange={handleQuantityChange}>
+                                {Array.from({ length: 10 }, (_, i) => i + 1).map((item) => (
                                   <option key={item}>{item}</option>
                                 ))}
                               </Input>
@@ -211,10 +157,7 @@ const CatalogItem = ({ id, categories }) => {
                           {!isLoading ? (
                             <Button
                               block
-                              color="primary"
-                              onClick={() =>
-                                handleAddToCart(data.catalogItem.data.item)
-                              }
+                              onClick={() => handleAddToCart(data.catalogItem.data.item)}
                               className={`${addedToCart && 'fade-btn'}`}
                               color={addedToCart ? 'success' : 'primary'}
                               outline
@@ -223,10 +166,7 @@ const CatalogItem = ({ id, categories }) => {
                               {addingToCart && <Spinner size="sm" />}
                               {addedToCart ? (
                                 <div>
-                                  <FontAwesomeIcon
-                                    icon={faCheckCircle}
-                                    size="lg"
-                                  />
+                                  <FontAwesomeIcon icon={faCheckCircle} size="lg" />
                                   {'  '}Added
                                 </div>
                               ) : (
@@ -257,8 +197,8 @@ export async function getServerSideProps(context) {
     props: {
       id: context.params.id,
       categories,
-      logs,
-    },
+      logs
+    }
   };
 }
 

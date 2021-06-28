@@ -6,34 +6,29 @@ import { createSite, getSites } from '~/lib/sites';
 
 import { createGroup } from '~/lib/groups';
 import { createCategory } from '~/lib/category';
-import {
-  createCatalogItems,
-  createCatalogPricesItem,
-  createCatalogAttributesItem,
-} from '~/lib/catalog';
+import { createCatalogItems, createCatalogPricesItem, createCatalogAttributesItem } from '~/lib/catalog';
 
 export default async function handler(req, res) {
-  let sitesPromise = sites.forEach(async (site) => {
-    let created = await createSite(site);
-  });
+  for (let i = 0; i < sites.length; i += 1) {
+    await createSite(sites[i]);
+  }
 
-  await Promise.all(sitesPromise);
-
-  let groupsPromise = groups.forEach(async (group) => {
-    let created = await createGroup(group);
-  });
-
-  await Promise.all(groupsPromise);
+  for (let i = 0; i < groups.length; i += 1) {
+    await createGroup(groups[i]);
+  }
 
   let categoryObject = { nodes: categories };
-  let categoriesPromise = await createCategory(categoryObject);
+  await createCategory(categoryObject);
 
-  let catalogPromise = catalog.map(async (item) => {
+  let catalogPromise = [];
+  for (let i = 0; i <= catalog.length; i += 1) {
+    let item = catalog[i];
     let { data } = await getSites();
     let items = [];
     let prices = [];
     let attributes = [];
-    data.pageContent.forEach((site) => {
+    for (let j = 0; j < data.pageContent.length; j++) {
+      let site = data.pageContent[j];
       let itemCopy = JSON.parse(JSON.stringify(item));
       let itemPrice = {
         version: 1,
@@ -45,7 +40,7 @@ export default async function handler(req, res) {
         priceId: {
           itemCode: itemCopy.itemId.itemCode,
           enterpriseUnitId: site.id,
-          priceCode: itemCopy.itemId.itemCode,
+          priceCode: itemCopy.itemId.itemCode
         },
         dynamicAttributes: [
           {
@@ -53,15 +48,15 @@ export default async function handler(req, res) {
             attributes: [
               {
                 key: 'UOM',
-                value: itemCopy.unitOfMeasure,
+                value: itemCopy.unitOfMeasure
               },
               {
                 key: 'UNITS',
-                value: '1',
-              },
-            ],
-          },
-        ],
+                value: '1'
+              }
+            ]
+          }
+        ]
       };
       delete itemCopy['price'];
       delete itemCopy['currency'];
@@ -72,13 +67,13 @@ export default async function handler(req, res) {
       itemAttributes['imageUrls'] = [itemCopy.imageUrl];
       itemAttributes['itemAttributesId'] = {
         itemCode: itemCopy.itemId.itemCode,
-        enterpriseUnitId: site.id,
+        enterpriseUnitId: site.id
       };
       if (itemCopy.groups) {
         itemAttributes['groups'] = [
           {
-            groupCode: itemCopy.groups,
-          },
+            groupCode: itemCopy.groups
+          }
         ];
         delete itemCopy['groups'];
       }
@@ -94,15 +89,15 @@ export default async function handler(req, res) {
       items.push(itemCopy);
       prices.push(itemPrice);
       attributes.push(itemAttributes);
-    });
+    }
 
     let itemsBody = { items: items };
     let pricesBody = { itemPrices: prices };
     let attributesBody = { itemAttributes: attributes };
-    let itemsResponse = await createCatalogItems(itemsBody);
-    let pricesResponse = await createCatalogPricesItem(pricesBody);
-    let attributesResponse = await createCatalogAttributesItem(attributesBody);
-  });
+    await createCatalogItems(itemsBody);
+    await createCatalogPricesItem(pricesBody);
+    await createCatalogAttributesItem(attributesBody);
+  }
 
   await Promise.all(catalogPromise);
 

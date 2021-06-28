@@ -28,15 +28,9 @@ const Checkout = ({ session }) => {
 
   const { data, isLoading, isError } = useCart(userStore.id, userCart.location);
   const [isPurchasing, setIsPurchasing] = useState(false);
-  if (
-    !isPurchasing &&
-    (userCart.totalQuantity == 0 ||
-      (!isLoading &&
-        !isError &&
-        (data.cart.status == 404 || data.cartItems.status == 404)))
-  ) {
+  if (!isPurchasing && (userCart.totalQuantity == 0 || (!isLoading && !isError && (data.cart.status == 404 || data.cartItems.status == 404)))) {
     router.push({
-      pathname: '/',
+      pathname: '/'
     });
   }
 
@@ -68,17 +62,8 @@ const Checkout = ({ session }) => {
       <HeaderCheckout />
       {userSession.isError ? (
         <div>
-          <LoginModal
-            modalProp={isRegisterModalOpen ? false : true}
-            toggle={toggleLoginModal}
-            toggleRegister={toggleRegisterModal}
-            title="Please login to continue"
-          />
-          <RegisterConsumerModal
-            modalProp={isRegisterModalOpen}
-            toggle={toggleRegisterModal}
-            toggleLogin={toggleLoginModal}
-          />
+          <LoginModal modalProp={isRegisterModalOpen ? false : true} toggle={toggleLoginModal} toggleRegister={toggleRegisterModal} title="Please login to continue" />
+          <RegisterConsumerModal modalProp={isRegisterModalOpen} toggle={toggleRegisterModal} toggleLogin={toggleLoginModal} />
         </div>
       ) : (
         <Container className="my-4 flex-grow-1">
@@ -97,51 +82,29 @@ const Checkout = ({ session }) => {
               <Col md="8">
                 <Card className="mb-2 cart-card">
                   <CardBody>
-                    <small className="text-muted">
-                      Uhoh, we've hit an error.
-                    </small>
+                    <small className="text-muted">{`Uhoh, we've hit an error.`}</small>
                   </CardBody>
                 </Card>
               </Col>
             </Row>
           )}
-          {!isPurchasing &&
-            !isLoading &&
-            !isError &&
-            data &&
-            data.cartItems.status == 200 && (
-              <Row>
-                <Col md="8">
-                  <Card className="mb-2 cart-card">
-                    <CheckoutList cartItems={data.cartItems.data.pageContent} />
-                  </Card>
-                  <CheckoutUser
-                    session={session}
-                    order={order}
-                    setOrder={setOrder}
-                  />
-                  <CheckoutTender
-                    cartId={userCart.location}
-                    order={order}
-                    setOrder={setOrder}
-                  />
-                </Col>
-                <Col md="4">
-                  <Card className="mb-2 cart-card">
-                    <CheckoutTotal
-                      order={order}
-                      purchase={purchase}
-                      data={data}
-                      isPurchasing={isPurchasing}
-                    />
-                  </Card>
-                  <small className="text-muted">
-                    *Be sure to fill out and click "Set Shipping Address" and
-                    "Use Payment Method"
-                  </small>
-                </Col>
-              </Row>
-            )}
+          {!isPurchasing && !isLoading && !isError && data && data.cartItems.status == 200 && (
+            <Row>
+              <Col md="8">
+                <Card className="mb-2 cart-card">
+                  <CheckoutList cartItems={data.cartItems.data.pageContent} />
+                </Card>
+                <CheckoutUser session={session} order={order} setOrder={setOrder} />
+                <CheckoutTender cartId={userCart.location} order={order} setOrder={setOrder} />
+              </Col>
+              <Col md="4">
+                <Card className="mb-2 cart-card">
+                  <CheckoutTotal order={order} purchase={purchase} data={data} isPurchasing={isPurchasing} />
+                </Card>
+                <small className="text-muted">{`*Be sure to fill out and click "Set Shipping Address" and "Use Payment Method"`}</small>
+              </Col>
+            </Row>
+          )}
         </Container>
       )}
     </div>

@@ -30,14 +30,7 @@ export default function OrderList({ order }) {
               </strong>
             </span>
           )}
-          <p className={!order ? 'w-50 text-right' : ''}>
-            Last Updated:{' '}
-            {order ? (
-              new Date(Date.parse(order.dateUpdated)).toLocaleString()
-            ) : (
-              <Skeleton width="25%" />
-            )}
-          </p>
+          <p className={!order ? 'w-50 text-right' : ''}>Last Updated: {order ? new Date(Date.parse(order.dateUpdated)).toLocaleString() : <Skeleton width="25%" />}</p>
         </CardTitle>
       </CardBody>
       <CardBody>
@@ -50,9 +43,7 @@ export default function OrderList({ order }) {
                 <div>
                   <p className="mb-0">{order.fulfillment.address.line1}</p>
                   <p className="mb-0">
-                    {order.fulfillment.address.city}{' '}
-                    {order.fulfillment.address.state}{' '}
-                    {order.fulfillment.address.postalCode}
+                    {order.fulfillment.address.city} {order.fulfillment.address.state} {order.fulfillment.address.postalCode}
                   </p>
                 </div>
               )
@@ -66,15 +57,11 @@ export default function OrderList({ order }) {
           </Col>
           <Col md="3">
             <strong>Total:</strong>
-            <p className="mb-0">
-              {order ? `$${order.totals[0].value}` : <Skeleton />}
-            </p>
+            <p className="mb-0">{order ? `$${order.totals[0].value}` : <Skeleton />}</p>
           </Col>
           <Col md="3">
             <strong>Status:</strong>
-            <p className="mb-0">
-              {order ? convertStatusText(order.status) : <Skeleton />}
-            </p>
+            <p className="mb-0">{order ? convertStatusText(order.status) : <Skeleton />}</p>
           </Col>
           <Col md="3">
             {order && (

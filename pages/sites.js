@@ -23,9 +23,7 @@ const Sites = (props) => {
     // Get locations near user.
     const fetchData = async () => {
       if (props.coords && coordinates.latitude) {
-        fetch(
-          `/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`
-        )
+        fetch(`/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`)
           .then((res) => res.json())
           .then((data) => {
             setLogs([data.log]);
@@ -54,24 +52,10 @@ const Sites = (props) => {
           <h1>Stores</h1>
           <Row>
             <Col md="6">
-              <FindStoreMap
-                sites={sites}
-                coordinates={coords}
-                setUserStore={setUserStore}
-              />
+              <FindStoreMap sites={sites} coordinates={coords} setUserStore={setUserStore} />
             </Col>
             <Col md="6">
-              <ul>
-                {sites &&
-                  sites.length > 0 &&
-                  sites.map((site) => (
-                    <FindStoreModalStore
-                      site={site}
-                      setUserStore={setUserStore}
-                      key={site.id}
-                    />
-                  ))}
-              </ul>
+              <ul>{sites && sites.length > 0 && sites.map((site) => <FindStoreModalStore site={site} setUserStore={setUserStore} key={site.id} />)}</ul>
             </Col>
           </Row>
         </Container>
@@ -86,14 +70,14 @@ export async function getServerSideProps() {
   return {
     props: {
       categories,
-      logs,
-    },
+      logs
+    }
   };
 }
 
 export default geolocated({
   positionOptions: {
-    enableHighAccuracy: false,
+    enableHighAccuracy: false
   },
-  userDecisionTimeout: 5000,
+  userDecisionTimeout: 5000
 })(Sites);

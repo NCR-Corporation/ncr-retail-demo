@@ -5,14 +5,10 @@ export default function Sidebar({ url }) {
   return (
     <ListGroup>
       <Link href="/user/profile">
-        <a className={`list-group-item ${url === 'profile' && 'active'}`}>
-          Profile
-        </a>
+        <a className={`list-group-item ${url === 'profile' && 'active'}`}>Profile</a>
       </Link>
       <Link href="/user/orders">
-        <a className={`list-group-item ${url === 'orders' && 'active'}`}>
-          Orders
-        </a>
+        <a className={`list-group-item ${url === 'orders' && 'active'}`}>Orders</a>
       </Link>
       {/* <Link href="/user/payments">
         <a

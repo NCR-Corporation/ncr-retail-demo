@@ -6,19 +6,16 @@ import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { Card, CardBody, CardFooter, Row, Col, Button } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
-import { addToCart } from '~/lib/hooks/useCart';
 import Skeleton from 'react-loading-skeleton';
 
 const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
   const { item, itemPrices, itemAttributes } = catalogItem;
   const { userCart, setUserCart } = useContext(UserCartContext);
   const [addingToCart, setAddingToCart] = useState(false);
-  const [loading, setLoading] = useState(false);
   const { userStore } = useContext(UserStoreContext);
 
   const handleAddToCart = async (itemObj) => {
     itemObj['quantity'] = 1;
-    setLoading(true);
     setAddingToCart(false);
     fetch(`/api/cart`, {
       method: 'POST',
@@ -27,19 +24,16 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
         cart: userCart,
         etag: userCart.etag ?? false,
         location: userCart.location ?? false,
-        item: itemObj,
-      }),
+        item: itemObj
+      })
     })
       .then((response) => response.json())
       .then((data) => {
         userCart.location = data.location;
         userCart.etag = data.etag;
-        userCart.totalQuantity = userCart.totalQuantity
-          ? userCart.totalQuantity + 1
-          : 1;
+        userCart.totalQuantity = userCart.totalQuantity ? userCart.totalQuantity + 1 : 1;
         setUserCart(userCart);
         setAddingToCart(true);
-        setLoading(false);
       });
   };
 
@@ -49,16 +43,9 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
         <Link href={item ? `/catalog/${item.itemId.itemCode}` : '#'}>
           <a aria-label={item.shortDescription.values[0].value}>
             <Image
-              alt={
-                item.shortDescription.values
-                  ? item.shortDescription.values[0].value
-                  : item.shortDescription.value
-              }
+              alt={item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}
               src={
-                itemAttributes &&
-                itemAttributes.imageUrls &&
-                itemAttributes.imageUrls.length > 0 &&
-                itemAttributes.imageUrls[0] !== ''
+                itemAttributes && itemAttributes.imageUrls && itemAttributes.imageUrls.length > 0 && itemAttributes.imageUrls[0] !== ''
                   ? itemAttributes.imageUrls[0]
                   : 'https://via.placeholder.com/150'
               }
@@ -78,11 +65,7 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
         <CardBody className="d-flex pb-1">
           <div className="align-self-end">
             <Link href={item ? `/catalog/${item.itemId.itemCode}` : '#'}>
-              <a className="h5 card-title mb-0">
-                {item.shortDescription.values
-                  ? item.shortDescription.values[0].value
-                  : item.shortDescription.value}
-              </a>
+              <a className="h5 card-title mb-0">{item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}</a>
             </Link>
           </div>
         </CardBody>
@@ -95,22 +78,10 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
           </Row>
         </CardBody>
       )}
-      <CardFooter
-        className={`bg-white font-weight-bold h6 ${
-          !item && 'card-footer-loading'
-        }`}
-      >
+      <CardFooter className={`bg-white font-weight-bold h6 ${!item && 'card-footer-loading'}`}>
         <Row>
           <Col md="12" className="mb-2">
-            {itemPrices ? (
-              itemPrices.length > 0 ? (
-                `$${itemPrices[0].price}`
-              ) : (
-                'Not available at this store'
-              )
-            ) : (
-              <Skeleton />
-            )}
+            {itemPrices ? itemPrices.length > 0 ? `$${itemPrices[0].price}` : 'Not available at this store' : <Skeleton />}
           </Col>
           {item && showCartButton && (
             <Col sm="12" md="12">

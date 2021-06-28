@@ -1,7 +1,4 @@
-import {
-  getCurrentUserProfileData,
-  updateCurrentUser,
-} from '~/lib/provisioning';
+import { getCurrentUserProfileData, updateCurrentUser } from '~/lib/provisioning';
 import { exchangeToken } from '~/lib/security';
 let logs = [];
 

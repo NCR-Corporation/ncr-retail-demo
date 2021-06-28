@@ -3,13 +3,7 @@ import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import Head from 'next/head';
 import ItemCard from '~/components/public/ItemCard';
-import {
-  Container,
-  Card,
-  CardImgOverlay,
-  CardTitle,
-  CardImg,
-} from 'reactstrap';
+import { Container, Card, CardImgOverlay, CardTitle, CardImg } from 'reactstrap';
 import useGroupItems from '~/lib/hooks/useGroupItems';
 import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
@@ -24,17 +18,11 @@ export default function Group({ categories }) {
   const { data, isLoading, isError } = useGroupItems(id, userStore.id);
   return (
     <div className="d-flex flex-column main-container">
-      <Header
-        categories={categories}
-        logs={data && data.logs ? data.logs : []}
-      />
+      <Header categories={categories} logs={data && data.logs ? data.logs : []} />
       {!isLoading ? (
         <>
           <Head>
-            <title>
-              MART |{' '}
-              {data && data.group && data.group.data.title.values[0].value}
-            </title>
+            <title>MART | {data && data.group && data.group.data.title.values[0].value}</title>
           </Head>
           <Card className="card-group-header" inverse>
             <CardImg
@@ -44,7 +32,7 @@ export default function Group({ categories }) {
                 width: '100%',
                 height: '150px',
                 opacity: '0.75',
-                objectFit: 'cover',
+                objectFit: 'cover'
               }}
             />
             <CardImgOverlay className="card-img-overlay d-flex flex-wrap align-items-center">
@@ -86,10 +74,7 @@ export default function Group({ categories }) {
             <div className="row row-cols-md-3">
               {data.groupItems.data.pageContent.length > 0 ? (
                 data.groupItems.data.pageContent.map((item) => (
-                  <div
-                    className="col-sm-6 col-md-3 mb-4"
-                    key={item.item.itemId.itemCode}
-                  >
+                  <div className="col-sm-6 col-md-3 mb-4" key={item.item.itemId.itemCode}>
                     <ItemCard catalogItem={item} />
                   </div>
                 ))
@@ -110,7 +95,7 @@ export async function getServerSideProps() {
   return {
     props: {
       categories,
-      logs,
-    },
+      logs
+    }
   };
 }

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Col, Row, Card, CardBody, Button } from 'reactstrap';
+import { Col, Row, CardBody } from 'reactstrap';
 import CartItem from './CartItem';
 import { UserCartContext } from '~/context/userCart';
 export default function CartList({ userAPICart, setCartLogs, logs }) {
@@ -24,16 +24,7 @@ export default function CartList({ userAPICart, setCartLogs, logs }) {
           </Row>
         )}
         {cartItems.length > 0 ? (
-          cartItems.map((item) => (
-            <CartItem
-              logs={logs}
-              setCartLogs={setCartLogs}
-              location={userCart.location}
-              item={item}
-              itemKey={item.lineId}
-              key={item.lineId}
-            />
-          ))
+          cartItems.map((item) => <CartItem logs={logs} setCartLogs={setCartLogs} location={userCart.location} item={item} itemKey={item.lineId} key={item.lineId} />)
         ) : (
           <small className="text-muted">No items yet.</small>
         )}

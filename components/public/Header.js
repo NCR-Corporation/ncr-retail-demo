@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
 import FindStoreModal from './FindStoreModal';
-import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
-import LoginModal from '~/components/auth/LoginModal';
 import { UserStoreContext } from '~/context/userStore';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';
@@ -54,11 +52,7 @@ export default function Header({ categories, logs }) {
               <Col sm="8" md="5">
                 <SearchBar />
               </Col>
-              <Col
-                sm="12"
-                md="4"
-                className="text-sm-left text-md-right text-white"
-              >
+              <Col sm="12" md="4" className="text-sm-left text-md-right text-white">
                 <div className="d-flex justify-content-end align-items-center">
                   <div className="pr-4 d-flex flex-column justify-content-start">
                     <ProfileDropdown />
@@ -66,24 +60,13 @@ export default function Header({ categories, logs }) {
                   <div className="pl-2 d-flex align-items-center justify-content-between text-white border-left border-white border-1">
                     <Link href="/cart">
                       <a style={{ border: 'none !important' }}>
-                        <Button
-                          color="light"
-                          outline
-                          className="border-none cart-btn"
-                        >
-                          <FontAwesomeIcon
-                            icon={faShoppingCart}
-                            size="1x"
-                            className="pr-1"
-                          />{' '}
-                          Cart
-                          {userCart &&
-                            userCart.totalQuantity != null &&
-                            userCart.totalQuantity > 0 && (
-                              <Badge color="warning" className="ml-1">
-                                {userCart.totalQuantity}
-                              </Badge>
-                            )}
+                        <Button color="light" outline className="border-none cart-btn">
+                          <FontAwesomeIcon icon={faShoppingCart} size="1x" className="pr-1" /> Cart
+                          {userCart && userCart.totalQuantity != null && userCart.totalQuantity > 0 && (
+                            <Badge color="warning" className="ml-1">
+                              {userCart.totalQuantity}
+                            </Badge>
+                          )}
                         </Button>
                       </a>
                     </Link>
@@ -93,11 +76,7 @@ export default function Header({ categories, logs }) {
             </Row>
           </Container>
         </section>
-        <SubHeader
-          categories={categories}
-          userStore={userStore}
-          setIsModalOpen={setIsModalOpen}
-        />
+        <SubHeader categories={categories} userStore={userStore} setIsModalOpen={setIsModalOpen} />
       </header>
     </div>
   );

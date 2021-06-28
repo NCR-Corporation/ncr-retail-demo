@@ -2,20 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStore } from '@fortawesome/free-solid-svg-icons';
-import {
-  Container,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Row,
-  Col,
-} from 'reactstrap';
+import { Container, Collapse, Navbar, NavbarToggler, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,13 +33,8 @@ const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
                         {/* <Row>
                           <Col sm={12} md={4}> */}
                         {Object.keys(children).map((child) => (
-                          <Link
-                            key={children[child].nodeCode}
-                            href={`/category/${children[child].nodeCode}`}
-                          >
-                            <DropdownItem>
-                              {children[child].title.value}
-                            </DropdownItem>
+                          <Link key={children[child].nodeCode} href={`/category/${children[child].nodeCode}`}>
+                            <DropdownItem>{children[child].title.value}</DropdownItem>
                           </Link>
                         ))}
                         {/* </Col>
@@ -76,13 +58,10 @@ const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
           <Nav className="ml-auto" navbar>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret suppressHydrationWarning>
-                <FontAwesomeIcon icon={faStore} />{' '}
-                {userStore != undefined ? userStore.siteName : 'Set Store'}
+                <FontAwesomeIcon icon={faStore} /> {userStore != undefined ? userStore.siteName : 'Set Store'}
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem onClick={() => setIsModalOpen(true)}>
-                  Change Store
-                </DropdownItem>
+                <DropdownItem onClick={() => setIsModalOpen(true)}>Change Store</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>

@@ -10,21 +10,13 @@ export default async function handler(req, res) {
   } else if (req.method === 'GET') {
     let logs = [];
     let homepageGroup = await getHomepageGroups('Homepage');
-    if (
-      homepageGroup &&
-      homepageGroup.status == 200 &&
-      homepageGroup.data &&
-      homepageGroup.data.pageContent.length > 0
-    ) {
+    if (homepageGroup && homepageGroup.status == 200 && homepageGroup.data && homepageGroup.data.pageContent.length > 0) {
       logs.push(homepageGroup.log);
       let homepageGroups = homepageGroup.data.pageContent[0].tag;
       let homepageGroupsArray = homepageGroups.split(', ');
       let homepageContent = [];
       const promises = homepageGroupsArray.map(async (group) => {
-        let homepage = await getHomepageCatalogItemsByGroup(
-          req.query.site,
-          group
-        );
+        let homepage = await getHomepageCatalogItemsByGroup(req.query.site, group);
         logs.push(homepage.log);
         let catalog = [];
         for (let index = 0; index < homepage.data.pageContent.length; index++) {
@@ -37,7 +29,7 @@ export default async function handler(req, res) {
         logs.push(currentGroup.log);
         homepageContent.push({
           group: currentGroup,
-          catalog: homepage,
+          catalog: homepage
         });
       });
       await Promise.all(promises);
