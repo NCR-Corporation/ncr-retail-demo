@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Router from 'next/router';
 import React from 'react';
-import Link from 'next/link';
 import NavigationTabs from '~/components/admin/NavigationTabs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faWrench } from '@fortawesome/free-solid-svg-icons';
@@ -29,10 +28,10 @@ const Header = () => {
 
   return (
     <>
-      <Navbar dark sticky className="flex-md-no-wrap p-0 sticky-top shadow header-top" expand="md">
-        <Link href="/admin/dashboard" passHref>
-          <NavbarBrand className="col-md-3 col-lg-2 mr-0 px-3 logo-text">MART</NavbarBrand>
-        </Link>
+      <Navbar dark sticky="true" className="flex-md-no-wrap p-0 sticky-top shadow header-top" expand="md">
+        <NavbarBrand href="/admin/dashboard" className="col-md-3 col-lg-2 mr-0 px-3 logo-text">
+          MART
+        </NavbarBrand>
         <NavbarToggler onClick={toggleNav} />
         <Collapse isOpen={isOpen} navbar className="d-flex flex-row-reverse">
           <Nav className="px-3">

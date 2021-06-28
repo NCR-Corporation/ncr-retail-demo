@@ -9,27 +9,26 @@ import { createCategory } from '~/lib/category';
 import { createCatalogItems, createCatalogPricesItem, createCatalogAttributesItem } from '~/lib/catalog';
 
 export default async function handler(req, res) {
-  let sitesPromise = sites.forEach(async (site) => {
-    await createSite(site);
-  });
+  for (let i = 0; i < sites.length; i += 1) {
+    await createSite(sites[i]);
+  }
 
-  await Promise.all(sitesPromise);
-
-  let groupsPromise = groups.forEach(async (group) => {
-    await createGroup(group);
-  });
-
-  await Promise.all(groupsPromise);
+  for (let i = 0; i < groups.length; i += 1) {
+    await createGroup(groups[i]);
+  }
 
   let categoryObject = { nodes: categories };
   await createCategory(categoryObject);
 
-  let catalogPromise = catalog.map(async (item) => {
+  let catalogPromise = [];
+  for (let i = 0; i <= catalog.length; i += 1) {
+    let item = catalog[i];
     let { data } = await getSites();
     let items = [];
     let prices = [];
     let attributes = [];
-    data.pageContent.forEach((site) => {
+    for (let j = 0; j < data.pageContent.length; j++) {
+      let site = data.pageContent[j];
       let itemCopy = JSON.parse(JSON.stringify(item));
       let itemPrice = {
         version: 1,
@@ -90,7 +89,7 @@ export default async function handler(req, res) {
       items.push(itemCopy);
       prices.push(itemPrice);
       attributes.push(itemAttributes);
-    });
+    }
 
     let itemsBody = { items: items };
     let pricesBody = { itemPrices: prices };
@@ -98,7 +97,7 @@ export default async function handler(req, res) {
     await createCatalogItems(itemsBody);
     await createCatalogPricesItem(pricesBody);
     await createCatalogAttributesItem(attributesBody);
-  });
+  }
 
   await Promise.all(catalogPromise);
 

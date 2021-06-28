@@ -5,7 +5,7 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 const NavigationTabs = ({ activeTab, tabs = true }) => {
   return (
     <>
-      <Nav navbar={!tabs ? true : ''} className="flex-column">
+      <Nav navbar={!tabs ? true : false} className="flex-column">
         <NavItem>
           <Link href="/admin/dashboard">
             <a className={`nav-link ${activeTab === 'dashboard' && 'active'} ${!tabs && 'pl-0'}`}>
