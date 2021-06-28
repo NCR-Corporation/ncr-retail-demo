@@ -5,11 +5,11 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Categories from '~/components/admin/categories/Categories';
 import Layout from '~/components/admin/Layout';
 
-import { Spinner } from 'reactstrap';
 import useDashboard from '~/lib/hooks/useDashboard';
 
 const CategoriesTab = () => {
   let { data, isLoading, isError } = useDashboard('category');
+  console.log('the data', data);
 
   return (
     <Layout activeTab="categories">
@@ -25,13 +25,8 @@ const CategoriesTab = () => {
           </div>
         </div>
       </div>
-      {isLoading && (
-        <div className="d-flex justify-content-center mt-5">
-          <Spinner color="dark" />
-        </div>
-      )}
       {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
-      {!isLoading && !isError && <Categories categories={data.categoryNodes} />}
+      <Categories isLoading={isLoading} isError={isError} categories={data && data.categoryNodes ? data.categoryNodes.categories : []} />
     </Layout>
   );
 };

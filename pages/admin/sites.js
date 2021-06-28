@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Sites from '~/components/admin/sites/Sites';
 
-import { Spinner } from 'reactstrap';
 import useDashboard from '~/lib/hooks/useDashboard';
 import Layout from '~/components/admin/Layout';
 
@@ -24,13 +23,8 @@ const SitesTab = () => {
           </div>
         </div>
       </div>
-      {isLoading && (
-        <div className="d-flex justify-content-center mt-5">
-          <Spinner color="dark" />
-        </div>
-      )}
       {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
-      {!isLoading && !isError && <Sites data={data.sites && data.sites.status == 200 ? data.sites : []} />}
+      <Sites isLoading={isLoading} isError={isError} data={data && data.sites && data.sites.status == 200 ? data.sites : []} />
     </Layout>
   );
 };

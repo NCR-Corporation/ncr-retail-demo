@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { Spinner } from 'reactstrap';
 import Layout from '~/components/admin/Layout';
 import useDashboard from '~/lib/hooks/useDashboard';
 
@@ -25,13 +24,8 @@ const CatalogTab = () => {
           </div>
         </div>
       </div>
-      {isLoading && (
-        <div className="d-flex justify-content-center mt-5">
-          <Spinner color="dark" />
-        </div>
-      )}
       {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
-      {!isLoading && !isError && <Catalog data={data.catalog && data.catalog.status == 200 ? data.catalog : []} />}
+      <Catalog isLoading={isLoading} isError={isError} data={data && data.catalog && data.catalog.status == 200 ? data.catalog : []} />
     </Layout>
   );
 };
