@@ -4,12 +4,9 @@ kind: Ingress
 metadata:
   name: {{ $.Release.Name }}-ingress
   annotations:
-    {{- if .Values.Ingress.Annotations }}
-    {{- .Values.Ingress.Annotations | include "all-keys" | indent 4 }}
-    {{- end}}
-    {{- if .Values.Ingress.RetailDemo.Annotations }}
-    {{- .Values.Ingress.RetailDemo.Annotations | include "all-keys" | indent 4 }}
-    {{- end}}
+    kubernetes.io/ingress.global-static-ip-name: {{ .Values.Ingress.RetailDemo.IpName }}
+    kubernetes.io/ingress.class: gce
+    kubernetes.io/ingress.allow-http: "false"
 spec:
   {{- if .Values.Ingress.RetailDemo.TlsSecret }}
   tls:
