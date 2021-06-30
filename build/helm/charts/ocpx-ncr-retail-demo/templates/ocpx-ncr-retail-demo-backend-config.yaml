@@ -5,4 +5,4 @@ metadata:
   name: cloud-armor-backend-config-{{ .Release.Namespace }}-prod
 spec:
   securityPolicy:
-    name: {{ .Values.CloudArmor.HackathonSecurityPolicyName }}
+    name: {{ .Values.CloudArmor.RetailDemoSecurityPolicyName }}
