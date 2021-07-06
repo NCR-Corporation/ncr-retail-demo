@@ -23,8 +23,8 @@ const createSiteSchema = Yup.object().shape({
   timezone: Yup.string(),
   description: Yup.string().max(512, 'Maximum of 512 characters').min(1, 'Minimum of 1 character'), //Regex
   currency: Yup.string().matches(/^[A-Z]{3}$/, 'Matches 3 characters, A-Z. Example, USD'),
-  street: Yup.string().max(256, 'Maximum of 256 characters'),
-  city: Yup.string()
+  street: Yup.string().required('Street is required.').max(256, 'Maximum of 256 characters'),
+  city: Yup.string().required('City is required.')
     .max(128, 'Maximum of 128 characters')
     .when('street', {
       is: (street) => street && street.length > 0,
@@ -42,7 +42,7 @@ const createSiteSchema = Yup.object().shape({
       is: (street) => street && street.length > 0,
       then: Yup.string().required('Postal Code is required')
     }),
-  state: Yup.string()
+  state: Yup.string().required('State is required.')
     .max(128, 'Maximum of 128 characters')
     .when('street', {
       is: (street) => street && street.length > 0,
