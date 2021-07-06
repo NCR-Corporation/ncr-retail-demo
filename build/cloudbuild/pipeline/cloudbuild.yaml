@@ -5,14 +5,10 @@ steps:
     args:
       [
         'build',
-        '--build-arg',
-        'NGINX_VERSION=${_NGINX_VERSION}',
-        '--build-arg',
-        'NGINX_VARIANT=alpine',
-        '--tag',
-        'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}',
-        '--label',
-        'ocpx-artifact=${TAG_NAME}',
+        '--build-arg', 'NGINX_VERSION=${_NGINX_VERSION}',
+        '--build-arg', 'NGINX_VARIANT=alpine',
+        '--tag', 'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}',
+        '--label', 'ocpx-artifact=${TAG_NAME}',
         '.'
       ]
 
@@ -26,8 +22,6 @@ steps:
     args:
       - '-c'
       - |
-        echo "ls"
-        ls -la
         cd build/helm/charts
 
         export HOME="$(cat /etc/passwd | grep "^$(id -un):" | cut -d ":" -f 6)"
