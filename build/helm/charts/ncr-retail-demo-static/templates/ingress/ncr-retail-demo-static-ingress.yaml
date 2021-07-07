@@ -20,6 +20,6 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: {{ $.Release.Name }}
+              serviceName: {{ $.Release.Namespace }}
               servicePort: 80
 {{- end}}
