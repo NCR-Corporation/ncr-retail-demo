@@ -5,9 +5,9 @@ metadata:
   name: {{ $.Values.Master.App.Prefix }}-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: {{ .Values.Ingress.RetailDemo.IpName }}
-    networking.gke.io/v1beta1.FrontendConfig: frontend-config-http-to-https-redirect-{{ .Release.Namespace }}
     kubernetes.io/ingress.class: gce
     kubernetes.io/ingress.allow-http: "true"
+    networking.gke.io/v1beta1.FrontendConfig: frontend-config-http-to-https-redirect-{{ .Release.Namespace }}
 spec:
   {{- if .Values.Ingress.RetailDemo.TlsSecret }}
   tls:
