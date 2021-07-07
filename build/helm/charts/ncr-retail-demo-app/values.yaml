@@ -1,8 +1,8 @@
 Master:
   App:
-    Name: ocpx-ncr-retail-demo
-    Prefix: ocpx-ncr-retail-demo
-    ReleaseVersion:
+    Name: ncr-retail-demo-app
+    Prefix: ncr-retail-demo
+    ReleaseName:
   ImagePullPolicy: Always
 Image:
   Domain: us.gcr.io
@@ -28,6 +28,3 @@ RetailDemo:
   BSPSharedKey:
   NextAuthURL:
   GoogleMapsAPIKey:
-Ingress:
-  Annotations: {}
-  RetailDemo: {}

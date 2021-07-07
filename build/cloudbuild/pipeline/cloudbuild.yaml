@@ -1,21 +1,21 @@
 steps:
   - id: 'docker'
     name: 'gcr.io/cloud-builders/docker'
-    waitFor: ['-']
+    waitFor: [ '-' ]
     args:
       [
-        'build',
-        '--build-arg', 'NGINX_VERSION=${_NGINX_VERSION}',
-        '--build-arg', 'NGINX_VARIANT=alpine',
-        '--tag', 'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}',
-        '--label', 'ocpx-artifact=${TAG_NAME}',
-        '.'
+          'build',
+          '--build-arg', 'NGINX_VERSION=${_NGINX_VERSION}',
+          '--build-arg', 'NGINX_VARIANT=alpine',
+          '--tag', 'us.gcr.io/${PROJECT_ID}/ncr-retail-demo:${TAG_NAME}',
+          '--label', 'ncr-retail-demo-artifact=${TAG_NAME}',
+          '.'
       ]
 
   # Helm Charts
 
   - id: 'publish-helm'
-    name: 'us.gcr.io/${PROJECT_ID}/ocpx-helm:${_HELM_VERSION}-gcs${_HELM_GCS_VERSION}'
+    name: 'us.gcr.io/odsp-management/helm:latest'
     waitFor:
       - docker
     entrypoint: 'sh'
@@ -40,11 +40,8 @@ steps:
         done
 
 images:
-  - 'us.gcr.io/${PROJECT_ID}/ocpx-ncr-retail-demo:${TAG_NAME}'
+  - 'us.gcr.io/${PROJECT_ID}/ncr-retail-demo:${TAG_NAME}'
 
 substitutions:
-  _HELM_GCS_VERSION: '0.3.9'
   _HELM_STORAGE_BUCKET: ''
-  _HELM_VERSION: '3.5.3'
-  _NODEJS_VERSION: '12'
-  _NGINX_VERSION: '1.15'
+  _NGINX_VERSION: '1.17'
