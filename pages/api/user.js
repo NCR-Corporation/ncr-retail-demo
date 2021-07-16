@@ -1,7 +1,17 @@
 import { getCurrentUserProfileData, updateCurrentUser } from '~/lib/provisioning';
 import { exchangeToken } from '~/lib/security';
 let logs = [];
-
+/**
+ * @swagger
+ * /api/user:
+ *  get:
+ *    description: Returns the current user profile data. If the user profile returns 401, it attempts to reauthenticate the user with the token.
+ *    responses:
+ *      200:
+ *        description: Returns the user data.
+ *  put:
+ *    description: Updates the current user
+ */
 export default async function handler(req, res) {
   let authorization = req.headers.authorization;
   let token = authorization.split(' ')[1];
@@ -13,16 +23,17 @@ export default async function handler(req, res) {
       let exchange = await exchangeToken(authorization);
       logs.push(exchange.log);
       if (exchange.status !== 200) {
-        res.json({ status: exchange.status, logs });
+        res.status(exchange.status).json({ logs });
       } else {
-        res.json({ exchange, logs, status: response.status });
+        // TODO: Should this be fetching getCurrentUserProfileData again with the exchange token?
+        res.status(exchange.status).json({ exchange, logs });
       }
     } else {
-      res.json({ data: response.data, logs, status: response.status });
+      res.status(response.status).json({ data: response.data, logs });
     }
   } else if (req.method === 'PUT') {
     let response = await updateCurrentUser(req.body);
     logs.push(response.log);
-    res.json({ response, logs, status: response.status });
+    res.status(response.status).json({ response, logs });
   }
 }

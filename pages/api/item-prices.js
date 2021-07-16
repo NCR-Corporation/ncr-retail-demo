@@ -1,8 +1,10 @@
 import { createCatalogPricesItem } from '~/lib/catalog';
-let logs = [];
 
 export default async function handler(req, res) {
-  let response = await createCatalogPricesItem(req.query.id, JSON.parse(req.body));
-  logs.push(response.log);
-  res.json({ response, logs, status: 200 });
+  if (req.method === 'POST') {
+    let response = await createCatalogPricesItem(req.query.id, JSON.parse(req.body));
+    res.status(200).json({ response, logs: [response.log] });
+  } else {
+    res.status(405).json({ message: 'Method Not Allowed' });
+  }
 }

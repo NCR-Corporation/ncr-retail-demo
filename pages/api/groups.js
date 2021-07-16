@@ -1,5 +1,4 @@
 import { createGroup, getHomepageGroups, getGroupById } from '~/lib/groups';
-import { getHomepageCatalogItemsByGroup } from '~/lib/catalog';
 import _ from 'lodash';
 
 export default async function handler(req, res) {
@@ -16,20 +15,10 @@ export default async function handler(req, res) {
       let homepageGroupsArray = homepageGroups.split(', ');
       let homepageContent = [];
       const promises = homepageGroupsArray.map(async (group) => {
-        let homepage = await getHomepageCatalogItemsByGroup(req.query.site, group);
-        logs.push(homepage.log);
-        let catalog = [];
-        for (let index = 0; index < homepage.data.pageContent.length; index++) {
-          const element = homepage.data.pageContent[index];
-          if (element.item.status == 'ACTIVE') catalog.push(element);
-        }
-        homepage.data.pageContent = catalog;
-        homepage.data.totalResults = catalog.length;
         let currentGroup = await getGroupById(group);
         logs.push(currentGroup.log);
         homepageContent.push({
-          group: currentGroup,
-          catalog: homepage
+          group: currentGroup
         });
       });
       await Promise.all(promises);

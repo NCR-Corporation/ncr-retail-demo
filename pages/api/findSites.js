@@ -28,17 +28,16 @@ export default async function handler(req, res) {
       let orderedSites = _.orderBy(activeSites, ['distanceTo'], ['asc']);
       if (orderedSites.length == 0) {
         let response = await findNearby();
-        res.json(response);
+        res.status(response.status).json({ response, logs: [response.log] });
       } else {
         response.data.pageContent = orderedSites;
-        res.json(response);
+        res.status(response.status).json({ response, logs: [response.log] });
       }
     } else {
-      res.json({ ...response, logs });
+      res.status(response.status).json({ response, logs });
     }
   } else {
     let response = await findNearby();
-    logs.push(response.log);
-    res.json({ ...response, logs });
+    res.status(response.status).json({ data: response.data, logs: [response.log] });
   }
 }

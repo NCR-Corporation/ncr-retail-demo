@@ -44,6 +44,7 @@
     "ncr-hmac": "file:ncr-hmac",
     "next": "^10.2.2",
     "next-auth": "^4.0.0",
+    "next-swagger-doc": "^0.1.8",
     "nprogress": "^0.2.0",
     "react": "17.0.1",
     "react-datepicker": "^3.6.0",
@@ -58,6 +59,7 @@
     "reactstrap": "^8.8.1",
     "request": "^2.88.2",
     "sass": "^1.32.8",
+    "swagger-ui-react": "^4.0.0-beta.0",
     "swr": "^0.3.11",
     "uniqid": "^5.3.0",
     "yup": "^0.29.3"
