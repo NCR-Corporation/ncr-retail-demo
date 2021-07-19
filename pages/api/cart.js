@@ -2,6 +2,7 @@ import { createCart, addItemToCart, getCartItemsById, updateItemInCartById } fro
 let logs = [];
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
+  console.log('th ebody', body);
   if (body.etag == false || body.location == false) {
     let cart = await createCart(body.siteId);
     logs.push(cart.log);
@@ -20,7 +21,7 @@ export default async function handler(req, res) {
     };
     let addToCart = await addItemToCart(body.siteId, cartId, etag, obj);
     logs.push(addToCart.log);
-    res.json({ status: 200, etag, location: cartId, logs });
+    res.status(addToCart.status).json({ etag, location: cartId, logs });
   } else {
     let cartId = body.location;
     let etag = body.etag;
@@ -61,6 +62,6 @@ export default async function handler(req, res) {
       let updateItemInCart = await updateItemInCartById(body.siteId, cartId, etag, lineId, updateObj);
       logs.push(updateItemInCart.log);
     }
-    res.json({ status: 200, etag, location: cartId, logs });
+    res.status(200).json({ status: 200, etag, location: cartId, logs });
   }
 }

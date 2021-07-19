@@ -6,7 +6,7 @@ import { getCategoryNodesForMenu } from '~/lib/category';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStoreAlt } from '@fortawesome/free-solid-svg-icons';
 import { Row, Col, Container } from 'reactstrap';
-import FindStoreMap from '~/components/public/FindStoreMap';
+import FindStoreMap from '~/components/public/sites/FindStoreMap';
 
 export default function Site({ site, categories }) {
   return (

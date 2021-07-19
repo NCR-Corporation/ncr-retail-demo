@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     logs.push(result.log);
     res.json({ status: 200, result, logs });
   } else {
+    console.log(cartId, siteId);
     const cart = await getCartById(siteId, cartId);
     logs.push(cart.log);
     const cartItems = await getCartItemsById(siteId, cartId);

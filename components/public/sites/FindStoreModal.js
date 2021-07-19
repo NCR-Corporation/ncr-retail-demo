@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { geolocated } from 'react-geolocated';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { UserStoreContext } from '~/context/userStore';
-import FindStoreModalStore from './FindStoreModalStore';
+import StoreListItem from './StoreListItem';
 
 const FindStoreModal = (props) => {
   const { modalProp, toggle, coords } = props;
@@ -66,15 +66,16 @@ const FindStoreModal = (props) => {
           {sites && sites.length > 0 ? (
             <div id="store-modal-list" className="px-2 py-2">
               {sites.map((site) => (
-                <FindStoreModalStore site={site} toggle={toggle} setUserStore={setUserStore} key={site.id} />
+                <StoreListItem site={site} toggle={toggle} setUserStore={setUserStore} key={site.id} />
               ))}
             </div>
           ) : (
             <p>
-                <small className="text-muted">We were unable to find any sites in this organization. Make sure to add them through the API or visit the <Link href="/admin/sites">Sites Dashboard.</Link></small>
+              <small className="text-muted">
+                We were unable to find any sites in this organization. Make sure to add them through the API or visit the <Link href="/admin/sites">Sites Dashboard.</Link>
+              </small>
             </p>
-          )
-          }
+          )}
         </ModalBody>
       </Modal>
     </div>
