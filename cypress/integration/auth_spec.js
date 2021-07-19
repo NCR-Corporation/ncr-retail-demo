@@ -19,7 +19,7 @@ describe('Authentication', function () {
     cy.get('.card > .card-body > .row > .col > .btn', { timeout: 10000 }).click();
 
     cy.visit('http://localhost:3000/');
-    cy.contains('Kevin').should('exist');
+    cy.contains('Bruce').should('exist');
 
     cy.get('.pr-4 > .d-inline-block > .nav > .dropdown > .text-white', { timeout: 10000 }).click();
 

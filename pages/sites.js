@@ -5,8 +5,8 @@ import { geolocated } from 'react-geolocated';
 import { Col, Container, Row } from 'reactstrap';
 import Footer from '~/components/public/Footer';
 import { UserStoreContext } from '~/context/userStore';
-import FindStoreMap from '~/components/public/FindStoreMap';
-import FindStoreModalStore from '~/components/public/FindStoreModalStore';
+import FindStoreMap from '~/components/public/sites/FindStoreMap';
+import StoreListItem from '~/components/public/sites/StoreListItem';
 import { getCategoryNodesForMenu } from '~/lib/category';
 
 const Sites = (props) => {
@@ -57,7 +57,15 @@ const Sites = (props) => {
               <FindStoreMap sites={sites} coordinates={coords} setUserStore={setUserStore} />
             </Col>
             <Col md="6">
-              <ul>{sites && sites.length > 0 && sites.map((site) => <FindStoreModalStore site={site} setUserStore={setUserStore} key={site.id} />)}</ul>
+              <ul>
+                {sites &&
+                  sites.length > 0 &&
+                  sites.map((site) => {
+                    if (site.address && site.status == 'ACTIVE') {
+                      return <StoreListItem site={site} setUserStore={setUserStore} key={site.id} />;
+                    }
+                  })}
+              </ul>
             </Col>
           </Row>
         </Container>
