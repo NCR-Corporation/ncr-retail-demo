@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import useSites from '~/lib/hooks/useSites';
 import { geolocated } from 'react-geolocated';
-import FindStoreMap from '~/components/public/FindStoreMap';
+import FindStoreMap from '~/components/public/sites/FindStoreMap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
 const HomeMap = () => {

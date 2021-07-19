@@ -4,7 +4,7 @@ import Logger from '~/components/api-logger/Logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Container, Nav, NavItem, Row, Col, Button, Badge } from 'reactstrap';
-import FindStoreModal from './FindStoreModal';
+import FindStoreModal from './sites/FindStoreModal';
 import { UserStoreContext } from '~/context/userStore';
 import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';

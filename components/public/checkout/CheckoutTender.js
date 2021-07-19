@@ -89,6 +89,7 @@ export default function CheckoutUser({ order, setOrder }) {
               <Card className="mb-2 cart-card">
                 <CardBody>
                   <CardTitle tag="h5">Payment</CardTitle>
+                  <small>For demo purposes only. Use '4242 4242 4242 4242', '04/24', and '242' for testing purposes.</small>
                   <Row>
                     <Col sm="8">
                       <Row>
