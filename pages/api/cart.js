@@ -2,7 +2,6 @@ import { createCart, addItemToCart, getCartItemsById, updateItemInCartById } fro
 let logs = [];
 export default async function handler(req, res) {
   let body = JSON.parse(req.body);
-  console.log('th ebody', body);
   if (body.etag == false || body.location == false) {
     let cart = await createCart(body.siteId);
     logs.push(cart.log);
