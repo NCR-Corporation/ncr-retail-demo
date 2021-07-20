@@ -37,14 +37,12 @@ const Settings = ({ categories, session }) => {
       </div>
     );
   }
-  console.log(isError);
   if (isError) {
     router.push({
       pathname: '/auth/login',
       query: { redirect: '/user/profile' }
     });
   }
-  console.log('the data', data);
 
   return (
     <div className="d-flex flex-column main-container">

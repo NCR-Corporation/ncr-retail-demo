@@ -14,7 +14,6 @@ import { getCategoryNodesForMenu } from '~/lib/category';
 function Home({ categories }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useHomepage(userStore.id);
-  console.log('the data', data);
   return (
     <div className="d-flex flex-column main-container">
       <Header categories={categories} logs={data && data.logs ? data.logs : []} />

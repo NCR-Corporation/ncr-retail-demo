@@ -12,5 +12,5 @@ export default async function handler(req, res) {
   if (group.status !== 200) {
     res.status(group.status).json(group);
   }
-  res.json({ status: 200, groupItems, group, logs: [groupItems.log, group.log] });
+  res.status(groupItems.status).json({ groupItems, group, logs: [groupItems.log, group.log] });
 }

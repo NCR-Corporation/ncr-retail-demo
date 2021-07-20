@@ -27,7 +27,6 @@ const Sites = (props) => {
           .then((res) => res.json())
           .then((data) => {
             const { logs, response } = data;
-            console.log('data', data);
             setLogs(logs);
             setSites(response.data.pageContent);
           });
@@ -36,7 +35,6 @@ const Sites = (props) => {
           .then((res) => res.json())
           .then((body) => {
             const { logs, response } = body;
-            console.log('res', body);
             setLogs(logs);
             setSites(response.data.pageContent);
           });

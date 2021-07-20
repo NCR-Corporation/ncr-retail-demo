@@ -138,7 +138,6 @@ const CatalogForm = ({ id, categories }) => {
       fetch(`/api/items/${id}`, { method: 'POST', body: JSON.stringify(data) })
         .then((res) => res.json())
         .then((data) => {
-          console.log('the data', data);
           if (data.response.status != 204) {
             setShowAlert({
               status: data.response.status,
