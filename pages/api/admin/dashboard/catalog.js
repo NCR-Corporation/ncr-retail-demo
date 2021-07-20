@@ -1,9 +1,6 @@
 import { getCatalogItems } from '~/lib/catalog';
 
-let logs = [];
-
-export default async function handler(req, res) {
+export default async function handler(_, res) {
   const catalog = await getCatalogItems();
-  logs.push(catalog.log);
-  res.json({ catalog, logs, status: 200 });
+  res.status(catalog.status).json({ catalog, logs: [catalog.log] });
 }

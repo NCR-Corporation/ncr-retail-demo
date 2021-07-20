@@ -1,6 +1,5 @@
 import uniqid from 'uniqid';
 import { updateSiteCatalogItemPricesByItemCode, updateSiteCatalogItemAttributesByItemCode } from '~/lib/catalog';
-let logs = [];
 
 export default async function handler(req, res) {
   let siteId = req.query.params[0];
@@ -62,10 +61,16 @@ export default async function handler(req, res) {
     ]
   };
   let priceId = body.priceId !== '' ? body.priceId : uniqid();
-  let updatePrice = await updateSiteCatalogItemPricesByItemCode(siteId, itemId, priceId, itemPrices);
-  logs.push(updatePrice.log);
-  let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(siteId, itemId, itemAttributes);
-  logs.push(updateAttributes.log);
 
-  res.json({ updatePrice, updateAttributes, logs, status: 200 });
+  let updatePrice = await updateSiteCatalogItemPricesByItemCode(siteId, itemId, priceId, itemPrices);
+  if (updatePrice.status !== 200) {
+    res.status(updatePrice.status).json(updatePrice);
+  }
+
+  let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(siteId, itemId, itemAttributes);
+  if (updateAttributes.status !== 200) {
+    res.status(updateAttributes.status).json(updateAttributes);
+  }
+
+  res.status(200).json({ updatePrice, updateAttributes, logs: [updatePrice.log, updateAttributes.log] });
 }

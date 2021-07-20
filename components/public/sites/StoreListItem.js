@@ -49,7 +49,7 @@ const StoreListItem = ({ toggle, setUserStore, site }) => {
       </Row>
     );
   } else {
-    return;
+    return <></>;
   }
 };
 

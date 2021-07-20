@@ -17,13 +17,16 @@ export default async function handler(req, res) {
   let token = authorization.split(' ')[1];
   if (req.method === 'GET') {
     let response = await getCurrentUserProfileData(token);
+    console.log('eh ', response);
     logs.push(response.log);
     if (response.status === 401) {
       // Try and reauthenticate with token.
       let exchange = await exchangeToken(authorization);
+      console.log('exchange', exchange);
       logs.push(exchange.log);
       if (exchange.status !== 200) {
-        res.status(exchange.status).json({ logs });
+        // Status 500 here because useUser has special fetcher function.
+        res.status(exchange.status).json({ status: 500, logs });
       } else {
         // TODO: Should this be fetching getCurrentUserProfileData again with the exchange token?
         res.status(exchange.status).json({ exchange, logs });
