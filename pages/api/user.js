@@ -1,17 +1,7 @@
 import { getCurrentUserProfileData, updateCurrentUser } from '~/lib/provisioning';
 import { exchangeToken } from '~/lib/security';
 let logs = [];
-/**
- * @swagger
- * /api/user:
- *  get:
- *    description: Returns the current user profile data. If the user profile returns 401, it attempts to reauthenticate the user with the token.
- *    responses:
- *      200:
- *        description: Returns the user data.
- *  put:
- *    description: Updates the current user
- */
+
 export default async function handler(req, res) {
   let authorization = req.headers.authorization;
   let token = authorization.split(' ')[1];

@@ -2,12 +2,6 @@ import { createCatalogItems, createCatalogPricesItem, createCatalogAttributesIte
 import { getSites } from '~/lib/sites';
 let logs = [];
 
-/**
- * @swagger
- * /api/items:
- *  post:
- *    description: Creates a catalog items
- */
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     let body = JSON.parse(req.body);

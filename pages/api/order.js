@@ -1,14 +1,6 @@
 import { createOrder } from '~/lib/order';
 import { updateUserCartStatus } from '~/lib/cart';
 
-/**
- * @swagger
- * /api/order:
- *  post:
- *    description: Creates an order
- *    consumes:
- *      - application/json
- */
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     let logs = [];
