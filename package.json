@@ -14,7 +14,7 @@
     "lint": "eslint --fix .",
     "test": "npm start && cypress run",
     "format": "prettier --write . --config ./.prettierrc",
-    "test:ci": "run-p --race start:ci cy:run",
+    "test:ci": "npm run start:ci && npm run cy:run",
     "start:ci": "server --no-clipboard --list ${PORT:-8080}"
   },
   "husky": {
