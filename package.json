@@ -6,14 +6,16 @@
   "homepage": "https://github.com/NCR-Corporation/ncr-retail-demo",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run lint && next build",
     "start": "next start -p ${PORT:=8080}",
     "prettify": "npx prettier --write .",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "lint": "eslint --fix .",
+    "test": "npm start && cypress run",
     "format": "prettier --write . --config ./.prettierrc",
-    "test": "start-server-and-test next http://localhost:3000 cy:run"
+    "test:ci": "run-p --race start:ci cy:run",
+    "start:ci": "server --no-clipboard --list ${PORT:-8080}"
   },
   "husky": {
     "hooks": {
