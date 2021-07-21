@@ -2,38 +2,47 @@ describe('Cart', () => {
   it('add to cart', function () {
     cy.viewport(1920, 979);
 
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
 
-    cy.get('.py-0 > #store-modal-list > .py-4:nth-child(1) > .col-sm-3 > .false', { timeout: 10000 }).click();
+    /**
+     * Get & Set Site
+     */
+    cy.get('.modal-title').should('contain', 'Find a Store');
 
-    cy.get('.p-0 > .collapse > .navbar-nav > .nav-item > .pl-0').click();
+    cy.get('#store-modal-list > :nth-child(1) > :nth-child(3) > button', { timeout: 10000 }).should('contain', 'Set as My Store').click();
 
-    cy.get('.mb-4:nth-child(1) > .border-0 > .bg-white > .row > .col-sm-12 > .float-right').click();
+    // Confirm store is selected.
+    cy.get('.subheader-navbar > div > :nth-child(2) > li > a').should('contain', 'Vickery Creek Market');
 
-    cy.get('.mb-4:nth-child(2) > .border-0 > .bg-white > .row > .col-sm-12 > .float-right').click();
+    /**
+     * Add item to cart from catalog grid
+     */
+    cy.get('.subheader-navbar > div > :nth-child(1) > li:nth-child(1) > a').should('contain', 'All Items').click();
 
-    cy.get('.mb-4:nth-child(3) > .border-0 > .bg-white > .row > .col-sm-12 > .float-right').click();
+    cy.title().should('include', 'Catalog');
 
-    cy.get('.text-sm-left > .d-flex > .pl-2 > a > .border-none', {}).click();
+    cy.get('.main-container > .container > .row > :nth-child(1) > :nth-child(1) > .card-footer').should('contain', 'Add to Cart').click();
 
-    cy.get('.d-flex:nth-child(2) > .col-sm-12 > .w-100 > .col-sm-4 > .form-group > #qtySelect', { timeout: 10000 }).select('6');
+    cy.get('.header-main > .container > .row:nth-child(1) > :nth-child(3) > div > :nth-child(2) > a > button > .badge', { timeout: 10000 }).should('contain', '1');
 
-    cy.get('.d-flex:nth-child(2) > .col-sm-12 > .w-100 > .col-sm-2 > .float-right > .svg-inline--fa').click();
+    cy.get('.main-container > .container > .row > :nth-child(1) > :nth-child(1)').click();
 
-    cy.get('.row > .col-md-8 > .row > .col > .mt-1', {}).click();
+    /**
+     * Add item to cart from /catalog/[id]
+     */
+    cy.get('.main-container > .container > nav > .breadcrumb > li').should('have.length.of.at.least', 2);
+    cy.get('.card-body > :nth-child(4) > div > :nth-child(2) > :nth-child(3)> button').should('contain', 'Add to Cart').click();
 
-    cy.get('.p-0 > .collapse > .navbar-nav > .nav-item > .pl-0', {}).click();
+    cy.get('.header-main > .container > .row:nth-child(1) > :nth-child(3) > div > :nth-child(2) > a > button > .badge', { timeout: 10000 }).should('contain', '2');
 
-    cy.get('.mb-4:nth-child(2) > .border-0 > .d-flex > .align-self-end > .h5', {
-      timeout: 10000
-    }).click();
+    /**
+     * Go to cart
+     */
+    cy.get('.header-main > .container > .row:nth-child(1) > :nth-child(3) > div > :nth-child(2) > a > button', { timeout: 10000 }).click();
+    cy.title().should('include', 'Cart');
 
-    cy.get('.d-flex > .flex-fill > .col-sm-4 > .form-group > #qtySelect', {
-      timeout: 10000
-    }).select('5');
+    cy.get('#qtySelect', { timeout: 10000 }).should('contain', 2);
 
-    cy.get('.mt-auto > .d-flex > .flex-fill > .col-sm-6 > .false', {}).click();
-
-    cy.get('.text-sm-left > .d-flex > .pl-2 > a > .border-none', {}).click();
+    cy.get('.main-container > .container > :nth-child(2) > :nth-child(2) > div > div> div > div > a').should('contain', 'Checkout');
   });
 });

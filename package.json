@@ -10,8 +10,10 @@
     "start": "next start -p ${PORT:=8080}",
     "prettify": "npx prettier --write .",
     "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "lint": "eslint --fix .",
-    "format": "prettier --write . --config ./.prettierrc"
+    "format": "prettier --write . --config ./.prettierrc",
+    "test": "start-server-and-test next http://localhost:3000 cy:run"
   },
   "husky": {
     "hooks": {
@@ -58,6 +60,7 @@
     "reactstrap": "^8.8.1",
     "request": "^2.88.2",
     "sass": "^1.32.8",
+    "start-server-and-test": "^1.12.6",
     "swr": "^0.3.11",
     "uniqid": "^5.3.0",
     "yup": "^0.29.3"

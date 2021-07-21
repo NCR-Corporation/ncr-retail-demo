@@ -2,7 +2,7 @@ describe('Checkout', function () {
   it('confirm checkout flow', function () {
     cy.viewport(1920, 979);
 
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
 
     cy.get('.modal-content > .py-0 > #store-modal-list > .py-4:nth-child(1) > .col-sm-6', { timeout: 10000 }).click();
 
@@ -42,7 +42,7 @@ describe('Checkout', function () {
       timeout: 10000
     }).click();
 
-    cy.visit('http://localhost:3000/checkout');
+    cy.visit('/checkout');
 
     cy.get('.card-body > .row:nth-child(2) > .col-sm-12 > .form-group > #street', { timeout: 10000 }).click();
 
@@ -83,6 +83,6 @@ describe('Checkout', function () {
     cy.get('.col-md-4 > .mb-2 > .card-body > div > .btn', {
       timeout: 10000
     }).click();
-    cy.get('Order Placed', { timeout: 10000 }).should('exist');
+    cy.get('.main-container > .container > .card > :nth-child(2) > :nth-child(1) > h5').should('contain', 'Order Place');
   });
 });
