@@ -14,7 +14,7 @@
     "lint": "eslint --fix .",
     "test": "npm start && cypress run",
     "format": "prettier --write . --config ./.prettierrc",
-    "test:ci": "npm run build && run-p start cy:run"
+    "test:ci": "npm run build && start-server-and-test next http://localhost:3000 cy:run"
   },
   "husky": {
     "hooks": {
