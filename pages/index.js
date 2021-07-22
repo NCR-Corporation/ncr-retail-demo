@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import useHomepage from '~/lib/swr/useHomepage';
 import { UserStoreContext } from '~/context/userStore';
+import useHomepage from '~/lib/swr/useHomepage';
 import HomeCarousel from '~/components/public/home/HomeCarousel';
 import HomeAboutCards from '~/components/public/home/HomeAboutCards';
 import HomeGroups from '~/components/public/home/HomeGroups';
