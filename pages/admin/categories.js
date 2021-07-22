@@ -9,7 +9,6 @@ import useDashboard from '~/lib/swr/useDashboard';
 
 const CategoriesTab = () => {
   let { data, isLoading, isError } = useDashboard('category');
-  console.log('the data', data);
 
   return (
     <Layout activeTab="categories">

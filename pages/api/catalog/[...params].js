@@ -1,15 +1,18 @@
 import { getSiteCatalogItemDetailsByItemCode } from '~/lib/catalog';
 import { getCatalogItemCategoryAncestorsByMerchandiseCategory } from '~/lib/category';
-let logs = [];
 
 export default async function handler(req, res) {
   let siteId = req.query.params[0];
   let itemCode = req.query.params[1];
   const catalogItem = await getSiteCatalogItemDetailsByItemCode(siteId, itemCode);
-  logs.push(catalogItem.log);
+  if (catalogItem.status !== 200) {
+    res.status(catalogItem.status).json(catalogItem);
+  }
   const ancestors = await getCatalogItemCategoryAncestorsByMerchandiseCategory(catalogItem.data.item.merchandiseCategory.nodeId);
-  logs.push(ancestors.log);
+  if (ancestors.status !== 200) {
+    res.status(ancestors.status).json(ancestors);
+  }
   catalogItem.data['categories'] = ancestors.data ? ancestors.data.nodes : [];
 
-  res.json({ catalogItem, logs, status: 200 });
+  res.status(200).json({ catalogItem, logs: [catalogItem.log, ancestors.log] });
 }

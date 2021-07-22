@@ -23,13 +23,15 @@ const FindStoreModal = (props) => {
         fetch(`/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`)
           .then((res) => res.json())
           .then((data) => {
-            setSites(data.data.pageContent);
+            const { response } = data;
+            setSites(response.data.pageContent);
           });
       } else {
         fetch(`/api/findSites`)
           .then((res) => res.json())
-          .then((data) => {
-            setSites(data.data.pageContent);
+          .then((body) => {
+            const { response } = body;
+            setSites(response.data.pageContent);
           });
       }
     };
@@ -61,9 +63,11 @@ const FindStoreModal = (props) => {
         <ModalBody className="py-0">
           {sites && sites.length > 0 ? (
             <div id="store-modal-list" className="px-2 py-2">
-              {sites.map((site) => (
-                <StoreListItem site={site} toggle={toggle} setUserStore={setUserStore} key={site.id} />
-              ))}
+              {sites.map((site) => {
+                if (site.address && site.status == 'ACTIVE') {
+                  return <StoreListItem site={site} toggle={toggle} setUserStore={setUserStore} key={site.id} />;
+                }
+              })}
             </div>
           ) : (
             <p>

@@ -23,15 +23,17 @@ const Sites = (props) => {
         fetch(`/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`)
           .then((res) => res.json())
           .then((data) => {
-            setLogs([data.log]);
-            setSites(data.data.sites);
+            const { logs, response } = data;
+            setLogs(logs);
+            setSites(response.data.pageContent);
           });
       } else {
         fetch(`/api/findSites`)
           .then((res) => res.json())
-          .then((data) => {
-            setLogs([data.log]);
-            setSites(data.data.pageContent);
+          .then((body) => {
+            const { logs, response } = body;
+            setLogs(logs);
+            setSites(response.data.pageContent);
           });
       }
     };
