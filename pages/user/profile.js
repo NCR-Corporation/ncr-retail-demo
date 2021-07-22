@@ -1,26 +1,20 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Header from '~/components/public/Header';
-import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/client';
 import useUser from '~/lib/swr/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
 import { Col, Row, Spinner } from 'reactstrap';
 import ProfileForm from '~/components/public/user/ProfileForm';
-import { getCategoryNodesForMenu } from '~/lib/category';
+import Layout from '~/components/public/Layout';
 
-const Settings = ({ categories, session }) => {
+const Settings = ({ session }) => {
   let { data, isLoading, isError } = useUser(session);
   const router = useRouter();
   const [logs, setLogs] = useState(data && data.logs ? data.logs : []);
+
   if (isLoading) {
     return (
-      <div className="d-flex flex-column main-container">
-        <Head>
-          <title>MART | Profile</title>
-        </Head>
-        <Header categories={categories} />
+      <Layout title="Profile">
         <main className="container my-4 flex-grow-1">
           <Row>
             <Col md="3">
@@ -33,8 +27,7 @@ const Settings = ({ categories, session }) => {
             </Col>
           </Row>
         </main>
-        <Footer />
-      </div>
+      </Layout>
     );
   }
   if (isError) {
@@ -45,11 +38,7 @@ const Settings = ({ categories, session }) => {
   }
 
   return (
-    <div className="d-flex flex-column main-container">
-      <Head>
-        <title>MART | Profile</title>
-      </Head>
-      <Header categories={categories} logs={logs.length > 0 ? logs : data.logs} />
+    <Layout logs={logs.length > 0 ? logs : data.logs}>
       <main className="container my-4 flex-grow-1">
         {data && data.data && (
           <Row>
@@ -62,15 +51,13 @@ const Settings = ({ categories, session }) => {
           </Row>
         )}
       </main>
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 
 export async function getServerSideProps(context) {
   // Get the user's session based on the request
   const session = await getSession(context);
-  const { categories, logs } = await getCategoryNodesForMenu();
   if (!session) {
     console.log("We've lost the session");
     // If no user, redirect to login
@@ -84,7 +71,7 @@ export async function getServerSideProps(context) {
   }
 
   // If there is a user, return the current session
-  return { props: { session, categories, logs } };
+  return { props: { session } };
 }
 
 export default Settings;
