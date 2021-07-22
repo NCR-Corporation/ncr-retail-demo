@@ -1,31 +1,25 @@
 import { useContext } from 'react';
-import Header from '~/components/public/Header';
-import Footer from '~/components/public/Footer';
+import Layout from '~/components/public/Layout';
 import useGroupItems from '~/lib/swr/useGroupItems';
 import { UserStoreContext } from '~/context/userStore';
-import { getCategoryNodesForMenu } from '~/lib/category';
 import GroupHeader from '~/components/public/group/GroupHeader';
 import GroupCatalogItems from '~/components/public/group/GroupCatalogItems';
 
-export default function Group({ categories, id }) {
+export default function Group({ id }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useGroupItems(id, userStore.id);
 
   return (
-    <div className="d-flex flex-column main-container">
-      <Header categories={categories} logs={data && data.logs ? data.logs : []} />
+    <Layout logs={data && data.logs ? data.logs : []} title={!isLoading && !isError ? data.group.data.title.values[0].value : ''}>
       <GroupHeader isLoading={isLoading} data={data} />
       <GroupCatalogItems isLoading={isLoading} data={data} isError={isError} />
-      <Footer />
-    </div>
+    </Layout>
   );
 }
 
 export async function getServerSideProps(context) {
-  const { categories } = await getCategoryNodesForMenu();
   return {
     props: {
-      categories,
       id: context.query.id
     }
   };

@@ -32,7 +32,6 @@ const FindStoreModal = (props) => {
           .then((res) => res.json())
           .then((data) => {
             setLogs([data.log]);
-            console.log(logs);
             setSites(data.data.pageContent);
           });
       }

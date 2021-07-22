@@ -56,7 +56,7 @@ export default function Catalog({ query }) {
 export async function getServerSideProps(context) {
   return {
     props: {
-      query: context.query.query ? context.query.query : ''
+      query: context.query.query ? context.query.query : null
     }
   };
 }
