@@ -1,4 +1,3 @@
-import Header from '~/components/public/Header';
 import { getById } from '~/lib/sites';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStoreAlt } from '@fortawesome/free-solid-svg-icons';
