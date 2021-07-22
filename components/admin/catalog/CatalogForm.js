@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import Header from '~/components/admin/Header';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import CategorySelect from '../categories/CategorySelect';
-import useCatalogItem from '~/lib/hooks/useCatalogItem';
+import useCatalogItem from '~/lib/swr/useCatalogItem';
 import { Row, Col, Card, CardBody, Alert, Spinner, Button } from 'reactstrap';
 import DatePicker from '../DatePicker';
 import 'react-datepicker/dist/react-datepicker.css';

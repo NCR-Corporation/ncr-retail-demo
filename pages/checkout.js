@@ -7,11 +7,11 @@ import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/client';
-import useCart from '~/lib/hooks/useCart';
+import useCart from '~/lib/swr/useCart';
 import CheckoutList from '~/components/public/checkout/CheckoutList';
 import CheckoutTender from '~/components/public/checkout/CheckoutTender';
 import CheckoutUser from '~/components/public/checkout/CheckoutUser';
-import useUser from '~/lib/hooks/useUser';
+import useUser from '~/lib/swr/useUser';
 import LoginModal from '~/components/auth/LoginModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
 

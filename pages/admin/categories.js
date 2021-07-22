@@ -5,7 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Categories from '~/components/admin/categories/Categories';
 import Layout from '~/components/admin/Layout';
 
-import useDashboard from '~/lib/hooks/useDashboard';
+import useDashboard from '~/lib/swr/useDashboard';
 
 const CategoriesTab = () => {
   let { data, isLoading, isError } = useDashboard('category');

@@ -1,16 +1,15 @@
 import { Button } from 'reactstrap';
 import { findNearby } from '~/lib/sites';
-import Header from '~/components/public/Header';
+import Layout from '~/components/admin/Layout';
 
 function Search() {
   return (
-    <div className="d-flex flex-column main-container">
-      <Header />
+    <Layout>
       <div className="container">
         <p>Searching store: {localStorage.getItem('defaultStore')}</p>
         <Button>Search Item</Button>
       </div>
-    </div>
+    </Layout>
   );
 }
 

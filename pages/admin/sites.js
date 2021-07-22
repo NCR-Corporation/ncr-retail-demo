@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Sites from '~/components/admin/sites/Sites';
 
-import useDashboard from '~/lib/hooks/useDashboard';
+import useDashboard from '~/lib/swr/useDashboard';
 import Layout from '~/components/admin/Layout';
 
 const SitesTab = () => {

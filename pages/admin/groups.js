@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { Spinner } from 'reactstrap';
-import useDashboard from '~/lib/hooks/useDashboard';
+import useDashboard from '~/lib/swr/useDashboard';
 
 const GroupsTab = () => {
   let { data, isLoading, isError } = useDashboard('groups');

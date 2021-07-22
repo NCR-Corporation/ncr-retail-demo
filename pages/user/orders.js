@@ -4,7 +4,7 @@ import Footer from '~/components/public/Footer';
 import Sidebar from '~/components/public/user/Sidebar';
 import { Card, CardBody, Col, Row } from 'reactstrap';
 import OrderList from '~/components/public/order/OrderList';
-import useUserOrders from '~/lib/hooks/useUserOrders';
+import useUserOrders from '~/lib/swr/useUserOrders';
 import { getCategoryNodesForMenu } from '~/lib/category';
 
 const Orders = ({ categories }) => {

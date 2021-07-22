@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Carousel, CarouselItem, CarouselIndicators, CarouselCaption } from 'reactstrap';
+import { Carousel, CarouselItem, CarouselIndicators } from 'reactstrap';
 
 const items = [
   {
@@ -41,22 +41,16 @@ const HomeCarousel = () => {
     return (
       <CarouselItem onExiting={() => setAnimating(true)} onExited={() => setAnimating(false)} key={item.src}>
         <img src={item.src} alt={item.altText} style={{ minWidth: '100%', width: '100%' }} />
-        <CarouselCaption
-          captionHeader={
-            <div className="container">
-              <h3 className="inner-text text-left">{item.caption}</h3>
+        <div className="carousel-caption d-none d-md-block">
+          <div className="container">
+            <h3 className="inner-text text-left">{item.caption}</h3>
+            <div className="text-left">
+              <Link href={item.link}>
+                <a className="btn btn-success">Shop Now</a>
+              </Link>
             </div>
-          }
-          captionText={
-            <div className="container">
-              <div className="text-left">
-                <Link href={item.link}>
-                  <a className="btn btn-success">Shop Now</a>
-                </Link>
-              </div>
-            </div>
-          }
-        ></CarouselCaption>
+          </div>
+        </div>
       </CarouselItem>
     );
   });

@@ -5,7 +5,7 @@ import Footer from '~/components/public/Footer';
 import Link from 'next/link';
 import ItemCard from '~/components/public/ItemCard';
 import { Container, Card, Col, Row, CardBody } from 'reactstrap';
-import useCategory from '~/lib/hooks/useCategory';
+import useCategory from '~/lib/swr/useCategory';
 import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
 import { useRouter } from 'next/router';

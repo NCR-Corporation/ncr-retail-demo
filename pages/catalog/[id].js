@@ -9,7 +9,7 @@ import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import { UserStoreContext } from '~/context/userStore';
 import { UserCartContext } from '~/context/userCart';
-import useCatalogItem from '~/lib/hooks/useCatalogItem';
+import useCatalogItem from '~/lib/swr/useCatalogItem';
 import Skeleton from 'react-loading-skeleton';
 import { getCategoryNodesForMenu } from '~/lib/category';
 

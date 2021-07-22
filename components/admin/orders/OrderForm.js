@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useOrder from '~/lib/hooks/useOrder';
+import useOrder from '~/lib/swr/useOrder';
 import { mutate } from 'swr';
 import { Alert, Button, Card, CardBody, Col, Row, Spinner } from 'reactstrap';
 

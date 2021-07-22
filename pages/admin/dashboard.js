@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruck, faCheckCircle, faCircle, faExclamationCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { CardTitle, Card, CardBody, Col, Row } from 'reactstrap';
 import Skeleton from 'react-loading-skeleton';
-import useDashboard from '~/lib/hooks/useDashboard';
+import useDashboard from '~/lib/swr/useDashboard';
 import Orders from '~/components/admin/orders/Orders';
 import Layout from '~/components/admin/Layout';
 

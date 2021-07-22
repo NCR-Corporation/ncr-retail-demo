@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStore } from '@fortawesome/free-solid-svg-icons';
 import { Container, Collapse, Navbar, NavbarToggler, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
+const SubHeader = ({ data, userStore, setIsModalOpen, isLoading, isError }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -13,14 +13,14 @@ const SubHeader = ({ categories, userStore, setIsModalOpen }) => {
       <Navbar expand="md" className="p-0 subheader-navbar" light color="faded">
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          {categories && categories.length > 0 && (
+          {!isLoading && !isError && data && data.categories && data.categories.length > 0 && (
             <Nav navbar>
               <NavItem>
                 <Link href="/catalog">
                   <a className="pl-0 nav-link">All Items</a>
                 </Link>
               </NavItem>
-              {categories.map((category) => {
+              {data.categories.map((category) => {
                 let children = category.children;
                 delete children['array'];
                 if (Object.keys(children).length > 0) {

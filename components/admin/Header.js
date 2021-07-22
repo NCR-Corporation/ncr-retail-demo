@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import Router from 'next/router';
 import React from 'react';
-import NavigationTabs from '~/components/admin/NavigationTabs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faWrench } from '@fortawesome/free-solid-svg-icons';
-import { Collapse, Container, Nav, Navbar, NavItem, NavbarToggler, NavLink, Row, Col, Button, Popover, PopoverBody, PopoverHeader, Spinner, NavbarBrand, NavbarText } from 'reactstrap';
+import { Collapse, Nav, Navbar, NavItem, NavbarToggler, NavLink, Button, Popover, PopoverBody, PopoverHeader, Spinner, NavbarBrand } from 'reactstrap';
 
 const Header = () => {
   const [exporting, setIsExporting] = useState(false);
