@@ -15,7 +15,7 @@ const HomeMap = () => {
           Our Stores
         </h2>
         <ListGroup flush>
-          {data.data.pageContent.map((element) => (
+          {data.response.data.pageContent.map((element) => (
             <ListGroupItem
               style={{ background: 'none' }}
               className="pl-0 text-darker text-left d-flex justify-content-between align-items-center text-decoration-none"
@@ -33,11 +33,11 @@ const HomeMap = () => {
         </ListGroup>
       </div>
       <div className="flex-fill">
-        <FindStoreMap sites={data.data.pageContent} coordinates={{}} />
+        <FindStoreMap sites={data.response.data.pageContent} coordinates={{}} />
       </div>
     </div>
   ) : (
-    <></>
+    <>{JSON.stringify(isError)}</>
   );
 };
 

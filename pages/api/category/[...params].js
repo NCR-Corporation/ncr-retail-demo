@@ -8,18 +8,31 @@ export default async function handler(req, res) {
   let siteId = req.query.params[0];
   let categoryId = req.query.params[1];
   let categoryItems = await getSiteCatelogItemsByMerchandiseCategoryId(siteId, categoryId);
-  logs.push(categoryItems.log);
+  if (categoryItems.status !== 200) {
+    res.status(categoryItems).json(categoryItems);
+  }
   let category = await getCategoryById(categoryId);
-  logs.push(category.log);
+  if (category.status !== 200) {
+    res.status(category).json(category);
+  }
   let childrenCategories = await getCategoriesByParentId(categoryId);
+  if (childrenCategories.status !== 200) {
+    res.status(childrenCategories).json(childrenCategories);
+  }
+  logs.push(category.log);
+  logs.push(categoryItems.log);
   logs.push(childrenCategories.log);
   if (categoryItems.data && categoryItems.data.pageContent.length == 0 && childrenCategories.data.pageContent.length > 0) {
     let childCategoryItems = [];
     const promises = childrenCategories.data.pageContent.map(async (category) => {
       let childCategoryItem = await getSiteCatelogItemsByMerchandiseCategoryId(siteId, category.nodeCode);
-      logs.push(childCategoryItem.log);
-      if (childCategoryItem.data) {
-        childCategoryItems = childCategoryItems.concat(childCategoryItem.data.pageContent);
+      if (childCategoryItem.status !== 200) {
+        console.error(`${childCategoryItem.status}: ${JSON.stringify(childCategoryItem)}`);
+      } else {
+        logs.push(childCategoryItem.log);
+        if (childCategoryItem.data) {
+          childCategoryItems = childCategoryItems.concat(childCategoryItem.data.pageContent);
+        }
       }
     });
     await Promise.all(promises);
@@ -31,5 +44,5 @@ export default async function handler(req, res) {
     return obj.item.itemId.itemCode;
   };
   categoryItems = _.sortBy(categoryItems, sortByItemCode);
-  res.json({ status: 200, category, childrenCategories, categoryItems, logs });
+  res.status(200).json({ category, childrenCategories, categoryItems, logs });
 }

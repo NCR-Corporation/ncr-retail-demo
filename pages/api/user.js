@@ -13,16 +13,17 @@ export default async function handler(req, res) {
       let exchange = await exchangeToken(authorization);
       logs.push(exchange.log);
       if (exchange.status !== 200) {
-        res.json({ status: exchange.status, logs });
+        // Status 500 here because useUser has special fetcher function.
+        res.status(exchange.status).json({ status: 500, logs });
       } else {
-        res.json({ exchange, logs, status: response.status });
+        res.status(exchange.status).json({ exchange, logs });
       }
     } else {
-      res.json({ data: response.data, logs, status: response.status });
+      res.status(response.status).json({ data: response.data, logs });
     }
   } else if (req.method === 'PUT') {
     let response = await updateCurrentUser(req.body);
     logs.push(response.log);
-    res.json({ response, logs, status: response.status });
+    res.status(response.status).json({ response, logs });
   }
 }

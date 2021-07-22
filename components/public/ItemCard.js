@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
-import { Card, CardBody, CardFooter, Row, Col, Button } from 'reactstrap';
+import { Card, Spinner, CardBody, CardFooter, Row, Col, Button } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import Skeleton from 'react-loading-skeleton';
@@ -12,11 +12,13 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
   const { item, itemPrices, itemAttributes } = catalogItem;
   const { userCart, setUserCart } = useContext(UserCartContext);
   const [addingToCart, setAddingToCart] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
   const { userStore } = useContext(UserStoreContext);
 
   const handleAddToCart = async (itemObj) => {
     itemObj['quantity'] = 1;
-    setAddingToCart(false);
+    setAddingToCart(true);
+    setAddedToCart(false);
     fetch(`/api/cart`, {
       method: 'POST',
       body: JSON.stringify({
@@ -33,7 +35,8 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
         userCart.etag = data.etag;
         userCart.totalQuantity = userCart.totalQuantity ? userCart.totalQuantity + 1 : 1;
         setUserCart(userCart);
-        setAddingToCart(true);
+        setAddingToCart(false);
+        setAddedToCart(true);
       });
   };
 
@@ -87,13 +90,14 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
             <Col sm="12" md="12">
               <Button
                 block
-                className={`float-right ${addingToCart && 'fade-btn'}`}
-                color={addingToCart ? 'success' : 'primary'}
+                className={`float-right ${addedToCart && 'fade-btn'}`}
+                color={addedToCart ? 'success' : 'primary'}
                 outline
                 onClick={() => handleAddToCart(item)}
-                onAnimationEnd={() => setAddingToCart(false)}
+                onAnimationEnd={() => setAddedToCart(false)}
               >
-                {addingToCart ? (
+                {addingToCart && <Spinner size="sm" />}
+                {addedToCart ? (
                   <div>
                     <FontAwesomeIcon icon={faCheckCircle} size="lg" />
                     {'  '}Added

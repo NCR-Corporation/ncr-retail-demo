@@ -1,11 +1,14 @@
 import { getSiteCatalogItemDetails } from '~/lib/catalog';
 import { getById } from '~/lib/sites';
-let logs = [];
 
 export default async function handler(req, res) {
   const site = await getById(req.query.params[0]);
-  logs.push(site.log);
+  if (site.status !== 200) {
+    res.status(site.status).json(site);
+  }
   const catalog = await getSiteCatalogItemDetails(req.query.params[0]);
-  logs.push(catalog.log);
-  res.json({ site: site.data, catalog: catalog, logs, status: 200 });
+  if (catalog.status !== 200) {
+    res.status(catalog.status).json(catalog);
+  }
+  res.status(200).json({ site: site.data, catalog: catalog, logs: [site.log, catalog.log] });
 }

@@ -1,8 +1,6 @@
 import { getSites } from '~/lib/sites';
-let logs = [];
 
-export default async function handler(req, res) {
+export default async function handler(_, res) {
   const sites = await getSites(true);
-  logs.push(sites.log);
-  res.json({ sites, logs, status: 200 });
+  res.status(sites.status).json({ sites, logs: [sites.log] });
 }
