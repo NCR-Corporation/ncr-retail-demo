@@ -72,7 +72,6 @@ export default async function handler(req, res) {
     logs.push(result.log);
 
     let userCart = body.userCart;
-    // Close out the cart.
     let userCartStatus = await updateUserCartStatus(store.id, userCart.location, 'Closed');
     logs.push(userCartStatus.log);
     res.status(200).json({ response: result, logs });
