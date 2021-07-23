@@ -1,0 +1,22 @@
+{
+  "monitors": [
+    {
+      "frequency_minutes": "5",
+      "headers": {
+        "Cache-Control": "no-cache,no-cache,no-cache,no-cache,no-cache",
+        "Content-Type": "application/json"
+      },
+      "location_profile": "North America",
+      "method": "get",
+      "monitor_groups": [],
+      "name": "BSP Dev Advocate Retail Sample App",
+      "notification_profile": "AV Notification",
+      "threshold_profile": "Web Monitors",
+      "timeout_seconds": 15,
+      "type": "url",
+      "url": "https://retaildemo.ncrcloud.com/api/health",
+      "user_alert_groups": [""],
+      "webhooks": ["SRE site 24/7 Alerts integrations", "PagerDutyIntegration-BSPSRE", "DevEx"]
+    }
+  ]
+}
