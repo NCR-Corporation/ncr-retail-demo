@@ -4,10 +4,8 @@ import _ from 'lodash';
 export default async function handler(req, res) {
   let logs = [];
   if (req.method === 'GET') {
-    let { categories, log } = await getAllCategoryNodes(false, false);
-    if (categories.status !== 200) {
-      res.status(categories.status).json(categories);
-    }
+    let categoryResponse = await getAllCategoryNodes(false, false);
+    let { categories, log } = categoryResponse;
     logs = log;
     if (categories && categories.length > 0) {
       categories.forEach((element) => {
