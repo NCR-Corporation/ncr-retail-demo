@@ -17,7 +17,7 @@ header {
 }
 
 .footer {
-  background: #54b948;
+  background: #66c15d;
 }
 
 .brand-dark-primary {
@@ -25,15 +25,15 @@ header {
 }
 
 .bg-brand-primary {
-  background: #54b948;
+  background: #66c15d;
 }
 .brand-primary {
-  color: #54b948;
+  color: #66c15d;
 }
 
 .header-top,
 .header-main {
-  background: #54b948;
+  background: #66c15d;
 }
 .header-top .nav-link {
   color: #fff;
