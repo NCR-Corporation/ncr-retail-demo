@@ -17,7 +17,7 @@ header {
 }
 
 .footer {
-  background: #66c15d;
+  background: #54b948;
 }
 
 .brand-dark-primary {
@@ -25,15 +25,15 @@ header {
 }
 
 .bg-brand-primary {
-  background: #66c15d;
+  background: #54b948;
 }
 .brand-primary {
-  color: #66c15d;
+  color: #54b948;
 }
 
 .header-top,
 .header-main {
-  background: #66c15d;
+  background: #54b948;
 }
 .header-top .nav-link {
   color: #fff;
@@ -317,6 +317,18 @@ label {
   font-weight: 800;
   width: 40%;
 }
+@media (max-width: 575.98px) {
+  .carousel-caption .inner-text {
+    font-size: 3rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .carousel-caption .inner-text {
+    width: 100%;
+  }
+}
 
 .card-footer-loading {
   border: none !important;
@@ -330,6 +342,10 @@ label {
 
 .vh-66 {
   min-height: 66vh;
+}
+
+.vh-50 {
+  min-height: 50vh;
 }
 
 .w-33 {

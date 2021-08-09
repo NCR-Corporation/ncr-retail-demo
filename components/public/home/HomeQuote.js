@@ -1,7 +1,7 @@
 const HomeQuote = () => {
   return (
     <div>
-      <div className="vh-66 d-flex align-items-center justify-content-center flex-column w-50 text-center m-auto">
+      <div className="vh-50 d-flex align-items-center justify-content-center flex-column w-75 text-center m-auto">
         <h2 className="h1 font-weight-bold">Our Story</h2>
         <p>
           <em>

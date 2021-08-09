@@ -4,12 +4,12 @@ import Image from 'next/image';
 import Skeleton from 'react-loading-skeleton';
 const HomeGroups = ({ isError, isLoading, userStore, data }) => {
   return (
-    <div className="index-list mb-4 row">
+    <div className="index-list mb-4">
       {!isError && (
-        <Row className="w-100">
+        <Row>
           {!isLoading && userStore.id && data && data.home && data.home.length > 0
             ? data.home.map((element) => (
-                <Col md={6} key={element.group.data.groupId.groupCode}>
+                <Col md={6} key={element.group.data.groupId.groupCode} className="mb-2 mb-md-0">
                   <Card className="d-flex align-items-center justify-content-center flex-row p-4 h-100">
                     <CardBody>
                       <CardTitle tag="h2" className="text-white">
