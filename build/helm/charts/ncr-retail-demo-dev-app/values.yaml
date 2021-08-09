@@ -1,0 +1,30 @@
+Master:
+  App:
+    Name: ncr-retail-demo-dev-app
+    Prefix: ncr-retail-demo-dev
+    ReleaseName:
+  ImagePullPolicy: Always
+Image:
+  Domain: us.gcr.io
+  Project:
+  PullPolicy: Always
+Scaling:
+  RetailDemoDev:
+    Enabled:
+    DefaultReplicas:
+    MinReplicas:
+    MaxReplicas:
+    TargetCpuUtilization:
+    TargetMemoryUtilization:
+Resources:
+  RetailDemoDev:
+    MinCpu:
+    MaxCpu:
+    MinMemory:
+    MaxMemory:
+RetailDemoDev:
+  BSPSecretKey:
+  BSPOrganization:
+  BSPSharedKey:
+  NextAuthURL:
+  GoogleMapsAPIKey:

@@ -1,0 +1,26 @@
+{{- if .Values.Scaling.RetailDemoDev.Enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $.Release.Name }}
+  labels:
+      app: {{ .Values.Master.App.Prefix }}
+      version: {{ $.Chart.Version }}
+      release: {{ $.Release.Name }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $.Release.Name }}
+  minReplicas: {{ .Values.Scaling.RetailDemoDev.MinReplicas }}
+  maxReplicas: {{ .Values.Scaling.RetailDemoDev.MaxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.Scaling.RetailDemoDev.TargetCpuUtilization }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.Scaling.RetailDemoDev.TargetMemoryUtilization }}
+{{- end }}

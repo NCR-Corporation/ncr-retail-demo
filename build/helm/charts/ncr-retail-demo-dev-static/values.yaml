@@ -1,0 +1,8 @@
+Master:
+    App:
+      Name: ncr-retail-demo-dev-static
+      Prefix: ncr-retail-demo-dev
+      ReleaseName:
+Ingress:
+  Annotations: {}
+  RetailDemoDev: {}
