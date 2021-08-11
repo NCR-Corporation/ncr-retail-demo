@@ -4,7 +4,6 @@ import { Table } from 'reactstrap';
 import LoadingTable from '../LoadingTable';
 
 function Categories({ categories, isLoading, isError }) {
-  console.log(categories);
   return (
     <div className="pb-4">
       <div className="bg-white pb-2">

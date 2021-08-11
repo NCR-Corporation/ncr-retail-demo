@@ -4,7 +4,8 @@ import _ from 'lodash';
 export default async function handler(req, res) {
   let logs = [];
   if (req.method === 'GET') {
-    let { categories, log } = await getAllCategoryNodes(false, false);
+    let categoryResponse = await getAllCategoryNodes(false, false);
+    let { categories, log } = categoryResponse;
     logs = log;
     if (categories && categories.length > 0) {
       categories.forEach((element) => {
@@ -33,10 +34,9 @@ export default async function handler(req, res) {
         return c.nodeCode;
       });
     }
-    res.json({ categories, logs, status: 200 });
+    res.status(200).json({ categories, logs });
   } else if (req.method === 'PUT') {
     let response = await createCategory(JSON.parse(req.body));
-    logs.push(response.log);
-    res.json({ response, logs, status: 200 });
+    res.status(response.status).json({ response, logs: [response.log] });
   }
 }

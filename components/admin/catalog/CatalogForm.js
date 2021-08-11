@@ -136,7 +136,7 @@ const CatalogForm = ({ id, categories }) => {
     if (id) {
       delete data['unitOfMeasure'];
       fetch(`/api/items/${id}`, { method: 'POST', body: JSON.stringify(data) })
-        .then((response) => response.json())
+        .then((res) => res.json())
         .then((data) => {
           if (data.response.status != 204) {
             setShowAlert({
