@@ -18,7 +18,7 @@ function Home({ categories }) {
     <div className="d-flex flex-column main-container">
       <Header categories={categories} logs={data && data.logs ? data.logs : []} />
       <HomeCarousel />
-      <main className="container my-4 flex-grow-1">
+      <div className="container my-4 flex-grow-1">
         <div>
           <HomeAboutCards />
           {isError && (
@@ -33,7 +33,7 @@ function Home({ categories }) {
             <HomeMap />
           </div>
         </div>
-      </main>
+      </div>
       <Footer />
     </div>
   );

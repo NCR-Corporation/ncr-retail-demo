@@ -28,7 +28,7 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
 
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: '50vh', width: '100%' }}>
+    <div style={{ height: '100%', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{
           key: 'AIzaSyDOeae3mJn5fjVDyk6lW4cdYHdF0VVkrkE'
