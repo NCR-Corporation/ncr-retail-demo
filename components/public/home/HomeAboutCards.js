@@ -5,9 +5,9 @@ import { faProjectDiagram, faCode, faKey } from '@fortawesome/free-solid-svg-ico
 const HomeAboutCards = () => {
   return (
     <Row className="mb-4">
-      <Col sm={12} md={4} className="pl-0">
-        <Card className="d-flex align-items-center justify-content-center flex-row pl-4 py-2">
-          <FontAwesomeIcon icon={faProjectDiagram} size="3x" className="text-dark" />
+      <Col sm={12} md={4} className="mb-2 mb-md-0 ">
+        <Card className="d-flex align-items-center justify-content-center flex-row pl-4 pl-md-0 pl-lg-4 py-2">
+          <FontAwesomeIcon icon={faProjectDiagram} size="2x" className="text-dark d-md-none d-lg-flex" />
           <CardBody>
             <CardTitle tag="h2" className="h5 font-weight-bolder text-dark">
               Built with NCR APIs
@@ -16,9 +16,9 @@ const HomeAboutCards = () => {
           </CardBody>
         </Card>
       </Col>
-      <Col sm={12} md={4}>
-        <Card className="d-flex align-items-center justify-content-center flex-row pl-4 py-2">
-          <FontAwesomeIcon icon={faCode} size="3x" className="text-dark" />
+      <Col sm={12} md={4} className="mb-2 mb-md-0 ">
+        <Card className="d-flex align-items-center justify-content-center flex-row pl-4 pl-md-0 pl-lg-4 py-2">
+          <FontAwesomeIcon icon={faCode} size="2x" className="text-dark d-md-none d-lg-flex" />
           <CardBody>
             <CardTitle tag="h2" className="h5 font-weight-bolder text-dark">
               Open Sourced
@@ -27,9 +27,9 @@ const HomeAboutCards = () => {
           </CardBody>
         </Card>
       </Col>
-      <Col sm={12} md={4}>
-        <Card className="d-flex align-items-center justify-content-center flex-row pl-4 py-2">
-          <FontAwesomeIcon icon={faKey} size="3x" className="text-dark" />
+      <Col sm={12} md={4} className="mb-2 mb-md-0 ">
+        <Card className="d-flex align-items-center justify-content-center flex-row pl-4 pl-md-0 pl-lg-4 py-2">
+          <FontAwesomeIcon icon={faKey} size="3x" className="text-dark d-md-none d-lg-flex" />
           <CardBody>
             <CardTitle tag="h2" className="h5 font-weight-bolder text-dark">
               Admin Interface
