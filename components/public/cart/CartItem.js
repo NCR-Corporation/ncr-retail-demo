@@ -22,7 +22,7 @@ export default function CartItem({ location, item, itemKey, setCartLogs, logs })
     })
       .then((res) => res.json())
       .then((data) => {
-        setCartLogs(logs.concat(data.logs));
+
         let totalQuantity = userCart.totalQuantity - item.quantity.value;
         userCart.totalQuantity = totalQuantity;
         setUserCart(userCart);
@@ -51,7 +51,7 @@ export default function CartItem({ location, item, itemKey, setCartLogs, logs })
     })
       .then((response) => response.json())
       .then((data) => {
-        setCartLogs(logs.concat(data.logs));
+
         userCart.location = data.location;
         userCart.etag = data.etag;
         userCart.totalQuantity = userCart.totalQuantity - previousQty + newQty;
