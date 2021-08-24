@@ -54,6 +54,7 @@ const CatalogItem = ({ id, categories }) => {
     const qty = parseInt(event.target.value);
     setItemQuantity(qty);
   };
+  
   return (
     <div className="d-flex flex-column main-container">
       <Header categories={categories} logs={logs.length == 0 && data && data.logs ? data.logs : logs} />
