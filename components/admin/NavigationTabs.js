@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faExternalLinkAlt, faList, faStore, faLayerGroup, faObjectGroup, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Nav, NavItem, NavLink } from 'reactstrap';
+
 const NavigationTabs = ({ activeTab, tabs = true }) => {
   return (
     <>
