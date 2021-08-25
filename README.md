@@ -4,7 +4,7 @@
 <br>
 </h1>
 
-<h4 align="center">A sample retail demo application built on top of <a href="https://developer.ncrcloud.com" target="_blank">NCR's APIs.</a></h4>
+<h4 align="center">A sample retail demo application built on top of <a href="https://developer.ncr.com" target="_blank">NCR's APIs.</a></h4>
 
 <p align="center">
 <a href="https://retaildemo.ncrcloud.com/"><img src="https://img.shields.io/badge/-Visit%20Demo-blue" alt="Demo" /></a>
@@ -35,7 +35,7 @@
 
 ## Overview
 
-MART integrates with multiple NCR APIs including [Order](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8311/overview), [Catalog](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8717/overview), [Sites](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/9031/overview), [Security](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8302/documentation?proxy=bsp-core-security&path=post_authentication), & [Provisioning](https://developer.ncrcloud.com/portals/dev-portal/api-explorer/details/8306/documentation?proxy=bsp-core-provisioning&path=post_configuration-sets). The demo application showcases one possible way to utilize one or many of the available APIs.
+MART integrates with multiple NCR APIs including [Order](https://developer.ncr.com/portals/dev-portal/api-explorer/details/374), [Catalog](https://developer.ncr.com/portals/dev-portal/api-explorer/details/453), [Sites](https://developer.ncr.com/portals/dev-portal/api-explorer/details/645), Security, & Provisioning. The demo application showcases one possible way to utilize one or many of the available APIs.
 
 This repository showcases an imaginary retail company with multiple stores in different location. The company can be managed globally as well as at the individual store level.
 
@@ -57,7 +57,7 @@ Why? When using the Test Drive feature, each application is a **fresh installati
 
 2. Secondly, open the repository in an editor and rename `.env copy.local` to `.env.local`.
 
-3. After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncrcloud.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncrcloud.com) and visit the [Test Drive Documentation](https://developer.ncrcloud.com/portals/dev-portal/getting-started).
+3. After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncr.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncr.com) and visit the [Test Drive Documentation](https://developer.ncr.com/portals/dev-portal/getting-started).
 
 4. Next, install all npm packages in the project directory:
 
@@ -86,6 +86,8 @@ Every new application built with NCR is a blank installation with no data. If yo
 2. Seed the database.
 
 To seed the database, visit the [Admin Dashboard](http://localhost:3000/admin/dashboard) by clicking "⚙ Manage" in the top of the homepage or visiting `/admin/dashboard`. From there, near the top is a blue button "⬇ Build Sample Database". You will still have to have a valid Organization, Secret, and Shared key in your `.env.local`.
+
+**Note**: The Retail Demo currently uses NCR's Staging environment while certain APIs are not in production yet. If you are looking for more help, please reach out to the `#developer-advocate-team` in Slack.
 
 ## Support
 
