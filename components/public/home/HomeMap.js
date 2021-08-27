@@ -11,7 +11,7 @@ const HomeMap = () => {
   return !isLoading && !isError ? (
     <Row noGutters={true}>
       <Col md={4} lg={3}>
-        <div className="p-4 bg-lighter text-white" style={{ borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}>
+        <div className="p-4 bg-lighter text-white h-100" style={{ borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}>
           <h2 className="h6 brand-primary text-uppercase" style={{ fontWeight: '600' }}>
             Our Stores
           </h2>
