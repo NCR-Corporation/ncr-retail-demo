@@ -455,6 +455,16 @@ label {
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
+.build-database{
+  display: flex;
+}
+
+@media (max-width: 767.98px) {
+  .build-database{
+    display: inline-block;
+  }
+}
+
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-sticky {
     position: -webkit-sticky;
@@ -472,8 +482,12 @@ label {
   color: #999;
 }
 
-.sidebar .nav-link.active {
+.nav-link.active {
   color: #007bff;
+}
+
+.navToggle {
+  border: transparent;
 }
 
 .sidebar .nav-link:hover .feather,
