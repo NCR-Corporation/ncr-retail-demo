@@ -21,7 +21,8 @@ const register = ({ categories }) => {
 };
 
 export async function getServerSideProps() {
-  const { categories, logs } = await getCategoryNodesForMenu();
+  const response = await getCategoryNodesForMenu();
+  const { categories, logs } = JSON.parse(JSON.stringify(response));
   return {
     props: {
       categories,

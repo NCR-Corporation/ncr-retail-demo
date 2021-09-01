@@ -47,7 +47,8 @@ export default function Catalog({ query, categories }) {
 }
 
 export async function getServerSideProps(context) {
-  const { categories, logs } = await getCategoryNodesForMenu();
+  const response = await getCategoryNodesForMenu();
+  const { categories, logs } = JSON.parse(JSON.stringify(response));
   return {
     props: {
       query: context.query.query ? context.query.query : '',
