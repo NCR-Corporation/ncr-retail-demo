@@ -70,7 +70,8 @@ const Settings = ({ categories, session }) => {
 export async function getServerSideProps(context) {
   // Get the user's session based on the request
   const session = await getSession(context);
-  const { categories, logs } = await getCategoryNodesForMenu();
+  const response = await getCategoryNodesForMenu();
+  const { categories, logs } = JSON.parse(JSON.stringify(response));
   if (!session) {
     console.log("We've lost the session");
     // If no user, redirect to login

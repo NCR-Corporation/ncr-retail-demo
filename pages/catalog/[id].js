@@ -54,7 +54,7 @@ const CatalogItem = ({ id, categories }) => {
     const qty = parseInt(event.target.value);
     setItemQuantity(qty);
   };
-  
+
   return (
     <div className="d-flex flex-column main-container">
       <Header categories={categories} logs={logs.length == 0 && data && data.logs ? data.logs : logs} />
@@ -193,7 +193,8 @@ const CatalogItem = ({ id, categories }) => {
 };
 
 export async function getServerSideProps(context) {
-  const { categories, logs } = await getCategoryNodesForMenu();
+  const response = await getCategoryNodesForMenu();
+  const { categories, logs } = JSON.parse(JSON.stringify(response));
   return {
     props: {
       id: context.params.id,
