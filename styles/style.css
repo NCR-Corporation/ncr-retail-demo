@@ -317,6 +317,18 @@ label {
   font-weight: 800;
   width: 40%;
 }
+@media (max-width: 575.98px) {
+  .carousel-caption .inner-text {
+    font-size: 3rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .carousel-caption .inner-text {
+    width: 100%;
+  }
+}
 
 .card-footer-loading {
   border: none !important;
@@ -330,6 +342,10 @@ label {
 
 .vh-66 {
   min-height: 66vh;
+}
+
+.vh-50 {
+  min-height: 50vh;
 }
 
 .w-33 {
@@ -439,6 +455,16 @@ label {
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
+.build-database{
+  display: flex;
+}
+
+@media (max-width: 767.98px) {
+  .build-database{
+    display: inline-block;
+  }
+}
+
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-sticky {
     position: -webkit-sticky;
@@ -456,8 +482,12 @@ label {
   color: #999;
 }
 
-.sidebar .nav-link.active {
+.nav-link.active {
   color: #007bff;
+}
+
+.navToggle {
+  border: transparent;
 }
 
 .sidebar .nav-link:hover .feather,

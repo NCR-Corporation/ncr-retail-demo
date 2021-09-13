@@ -40,15 +40,13 @@ const HomeCarousel = () => {
   const slides = items.map((item) => {
     return (
       <CarouselItem onExiting={() => setAnimating(true)} onExited={() => setAnimating(false)} key={item.src}>
-        <img src={item.src} alt={item.altText} style={{ minWidth: '100%', width: '100%' }} />
-        <div className="carousel-caption d-none d-md-block">
+        <img src={item.src} alt={item.altText} style={{ width: '100%', objectFit: 'cover', minHeight: '400px' }} />
+        <div className="carousel-caption d-block text-left">
           <div className="container">
-            <h3 className="inner-text text-left">{item.caption}</h3>
-            <div className="text-left">
-              <Link href={item.link}>
-                <a className="btn btn-success">Shop Now</a>
-              </Link>
-            </div>
+            <h3 className="inner-text">{item.caption}</h3>
+            <Link href={item.link}>
+              <a className="btn btn-success">Shop Now</a>
+            </Link>
           </div>
         </div>
       </CarouselItem>

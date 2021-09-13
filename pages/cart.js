@@ -101,3 +101,14 @@ const CartLayout = ({ data, children }) => {
     </Layout>
   );
 };
+
+export async function getServerSideProps() {
+  const response = await getCategoryNodesForMenu();
+  const { categories, logs } = JSON.parse(JSON.stringify(response));
+  return {
+    props: {
+      categories,
+      logs
+    }
+  };
+}

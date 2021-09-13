@@ -40,7 +40,7 @@ const Footer = () => {
             <h2 className="h6 text-uppercase font-weight-bolder text-light">Help</h2>
             <ul className="list-unstyled text-small">
               <li>
-                <Link href="https://developer.ncrcloud.com/">
+                <Link href="https://developer.ncr.com/">
                   <a className="text-white">Documentation</a>
                 </Link>
               </li>

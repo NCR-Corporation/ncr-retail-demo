@@ -23,7 +23,6 @@ export default function CartItem({ location, item, itemKey }) {
     })
       .then((res) => res.json())
       .then(() => {
-        mutate(`/api/cart/${userStore.id}/${location}`);
         let totalQuantity = userCart.totalQuantity - item.quantity.value;
         userCart.totalQuantity = totalQuantity;
         setUserCart(userCart);
@@ -52,7 +51,6 @@ export default function CartItem({ location, item, itemKey }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        mutate(`/api/cart/${userStore.id}/${location}`);
         userCart.location = data.location;
         userCart.etag = data.etag;
         userCart.totalQuantity = userCart.totalQuantity - previousQty + newQty;

@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { UserStoreContext } from '~/context/userStore';
-import useHomepage from '~/lib/swr/useHomepage';
 import HomeCarousel from '~/components/public/home/HomeCarousel';
 import HomeAboutCards from '~/components/public/home/HomeAboutCards';
 import HomeGroups from '~/components/public/home/HomeGroups';
@@ -8,9 +7,12 @@ import HomeMap from '~/components/public/home/HomeMap';
 import HomeQuote from '~/components/public/home/HomeQuote';
 import Layout from '~/components/public/Layout';
 
+import { useFetch } from '~/lib/hooks/useFetch';
+
 function Home() {
   const { userStore } = useContext(UserStoreContext);
-  const { data, isLoading, isError } = useHomepage(userStore.id);
+  const { data, isError, isLoading } = useFetch('/api/groups');
+
   return (
     <Layout logs={data && data.logs ? data.logs : []}>
       <HomeCarousel />

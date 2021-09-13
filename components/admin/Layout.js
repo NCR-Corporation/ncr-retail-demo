@@ -1,16 +1,16 @@
 import React from 'react';
 import Header from '~/components/admin/Header';
-import NavigationTabs from '~/components/admin//NavigationTabs';
+import NavigationTabs from '~/components/admin/NavigationTabs';
 import { Col, Container, Row } from 'reactstrap';
 
 const Layout = (props) => {
   return (
     <div>
-      <Header navigation={false} />
+      <Header navigation={false} activeTab={props.activeTab}/>
       <Container fluid>
         <Row>
           <Col id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse bg-light">
-            <div className="sidebar-sticky pt-3">
+            <div className="sidebar-sticky pt-5">
               <NavigationTabs activeTab={props.activeTab} />
             </div>
           </Col>
