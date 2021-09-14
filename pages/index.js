@@ -7,7 +7,7 @@ import HomeMap from '~/components/public/home/HomeMap';
 import HomeQuote from '~/components/public/home/HomeQuote';
 import Layout from '~/components/public/Layout';
 
-import { useFetch } from '~/lib/hooks/useFetch';
+import { useFetch } from '~/lib/swr/useFetch';
 
 function Home() {
   const { userStore } = useContext(UserStoreContext);

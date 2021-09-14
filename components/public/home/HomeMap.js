@@ -24,7 +24,8 @@ const HomeMap = () => {
     );
   }
 
-  const sites = data.reponse.data.pageContent;
+  console.log('the data', data.response.data.pageContent);
+  const sites = data.response.data.pageContent;
 
   return (
     <div className="my-5 d-flex" id="stores">
