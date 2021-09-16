@@ -24,7 +24,6 @@ const HomeMap = () => {
     );
   }
 
-  console.log('the data', data.response.data.pageContent);
   const sites = data.response.data.pageContent;
 
   return (

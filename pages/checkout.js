@@ -77,7 +77,7 @@ const Checkout = ({ session }) => {
               <Spinner color="primary" />
             </div>
           )}
-          {!isLoading && isError && (
+          {!isLoading && isError && !isPurchasing && (
             <Row>
               <Col md="8">
                 <Card className="mb-2 cart-card">

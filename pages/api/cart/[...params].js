@@ -15,6 +15,6 @@ export default async function handler(req, res) {
     if (cartItems.status !== 200) {
       res.status(cartItems.status).json(cartItems);
     }
-    res.status(cartItems.status).json({ cart, cartItems, log: [cart.log, cartItems.log] });
+    res.status(cartItems.status).json({ cart, cartItems, logs: [cart.log, cartItems.log] });
   }
 }

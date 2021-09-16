@@ -6,7 +6,7 @@ import { Col, Container, Row } from 'reactstrap';
 const Layout = (props) => {
   return (
     <div>
-      <Header navigation={false} activeTab={props.activeTab}/>
+      <Header navigation={false} activeTab={props.activeTab} />
       <Container fluid>
         <Row>
           <Col id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse bg-light">

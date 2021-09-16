@@ -7,11 +7,30 @@ import CartCheckout from '~/components/public/cart/CartCheckout';
 import CartList from '~/components/public/cart/CartList';
 import Layout from '~/components/public/Layout';
 import useUserCart from '~/lib/swr/useUserCart';
+import { mutate } from 'swr';
 
 export default function Cart() {
   const { userCart, setUserCart } = useContext(UserCartContext);
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useUserCart(userCart, userStore);
+
+  React.useEffect(() => {
+    fetchCart();
+  }, [userCart]);
+
+  const fetchCart = () => {
+    mutate(`/api/cart/${userStore.id}/${userCart.location}`);
+  };
+
+  const emptyCart = () => {
+    fetch(`/api/cart/${userStore.id}/${userCart.location}`, {
+      method: 'DELETE'
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setUserCart({ totalQuantity: 0, etag: null, location: null });
+      });
+  };
 
   if (isLoading) {
     return (
@@ -35,28 +54,22 @@ export default function Cart() {
   }
 
   if (isError) {
+    setUserCart({ totalQuantity: 0, etag: null, location: null });
     return (
       <CartLayout data={data}>
         <Col md="8">
           <Card className="mb-2 cart-card">
             <CardBody>
-              <p>{`Uhoh, we've hit an error.`}</p>
+              <p>{`Uhoh, we've hit an error. Please try again.`}</p>
+              <Button onClick={() => emptyCart()} color="link" className="mt-1 text-muted p-0" size="sm">
+                Clear Cart
+              </Button>
             </CardBody>
           </Card>
         </Col>
       </CartLayout>
     );
   }
-
-  const emptyCart = () => {
-    fetch(`/api/cart/${userStore.id}/${userCart.location}`, {
-      method: 'DELETE'
-    })
-      .then((response) => response.json())
-      .then(() => {
-        setUserCart({ totalQuantity: 0, etag: null, location: null });
-      });
-  };
 
   return (
     <CartLayout data={data}>
