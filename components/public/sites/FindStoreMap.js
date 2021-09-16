@@ -23,6 +23,7 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
 
   const handleMarkerClick = () => {
     setShowInfoWindow(true);
+    console.log(showInfoWindow);
   };
 
   return (

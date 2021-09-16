@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 import { CardBody } from 'reactstrap';
-export default function CartCheckout({ userCart, userAPICart, isLoading = false }) {
+export default function CartCheckout({ userAPICart, isLoading = false }) {
   const cartTotals = !isLoading ? userAPICart.cart.data : 0;
   return (
     <CardBody>
