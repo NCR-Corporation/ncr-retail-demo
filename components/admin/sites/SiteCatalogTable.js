@@ -57,7 +57,7 @@ export default function SiteCatalogTable({ catalog, siteId, fetchUpdatedCatalog,
                 <td>{item.itemAttributes && item.itemAttributes.groups.length > 0 && item.itemAttributes.groups[0].groupCode}</td>
                 <td>{item.itemPrices && item.itemPrices.length > 0 && item.itemPrices[0].price}</td>
                 <td>
-                  {item.itemAttributes && item.itemAttributes.imageUrls.length > 0 && (
+                  {item.itemAttributes && item.itemAttributes.imageUrls.length > 0 && item.itemAttributes.imageUrls[0] && (
                     <Image width={25} height={25} src={item.itemAttributes && item.itemAttributes.imageUrls.length > 0 && item.itemAttributes.imageUrls[0]} />
                   )}
                 </td>

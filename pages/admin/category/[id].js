@@ -11,7 +11,9 @@ const EditCategory = ({ categoryId, categoryNodes }) => {
 };
 
 export async function getServerSideProps(context) {
-  const categoryNodes = await getAllCategoryNodes();
+  const response = await getAllCategoryNodes();
+  const categoryNodes = JSON.parse(JSON.stringify(response));
+  console.log('the category', categoryNodes);
   return {
     props: {
       categoryId: context.params.id,
