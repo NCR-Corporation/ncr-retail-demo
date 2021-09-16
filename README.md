@@ -78,7 +78,7 @@ Why? When using the Test Drive feature, each application is a **fresh installati
 > This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 > To learn more about Next.js, visit the [Next.js Documentation](https://nextjs.org/docs).
 
-### Seeding the Database
+### Seeding the Database (Experimental)
 
 Every new application built with NCR is a blank installation with no data. If you are looking to become familiar with the APIs and see the application in action locally, you will need to either:
 
@@ -86,6 +86,8 @@ Every new application built with NCR is a blank installation with no data. If yo
 2. Seed the database.
 
 To seed the database, visit the [Admin Dashboard](http://localhost:3000/admin/dashboard) by clicking "⚙ Manage" in the top of the homepage or visiting `/admin/dashboard`. From there, near the top is a blue button "⬇ Build Sample Database". You will still have to have a valid Organization, Secret, and Shared key in your `.env.local`.
+
+Seeding the database is Experimental at this time. To learn more about how it works visit [`/pages/api/export.js`](https://github.com/NCR-Corporation/ncr-retail-demo/blob/main/pages/api/export.js). You may run into issues and this is the best place to start debugging. To view the data being generated, visit the [`/data/` folder](https://github.com/NCR-Corporation/ncr-retail-demo/tree/main/data).
 
 **Note**: The Retail Demo currently uses NCR's Staging environment while certain APIs are not in production yet. If you are looking for more help, please reach out to the `#developer-advocate-team` in Slack.
 
