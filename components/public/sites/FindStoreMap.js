@@ -19,7 +19,7 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
     zoom: 10
   };
 
-  const [showInfoWindow, setShowInfoWindow] = useState(false);
+  const [setShowInfoWindow] = useState(false);
 
   const handleMarkerClick = () => {
     setShowInfoWindow(true);
