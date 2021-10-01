@@ -1,20 +1,13 @@
-import Header from '~/components/public/Header';
-import Head from 'next/head';
-import Footer from '~/components/public/Footer';
 import { getById } from '~/lib/sites';
-import { getCategoryNodesForMenu } from '~/lib/category';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStoreAlt } from '@fortawesome/free-solid-svg-icons';
 import { Row, Col, Container } from 'reactstrap';
 import FindStoreMap from '~/components/public/sites/FindStoreMap';
+import Layout from '~/components/public/Layout';
 
-export default function Site({ site, categories }) {
+export default function Site({ site }) {
   return (
-    <div>
-      <Head>
-        <title>MART | {site.data.siteName}</title>
-      </Head>
-      <Header categories={categories} logs={site.log} />
+    <Layout logs={site.log}>
       <Container className="pb-4">
         <div className="py-4 d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
@@ -41,18 +34,15 @@ export default function Site({ site, categories }) {
           </Col>
         </Row>
       </Container>
-      <Footer />
-    </div>
+    </Layout>
   );
 }
 
 export async function getServerSideProps(context) {
   const site = await getById(context.params.id);
-  const { categories } = await getCategoryNodesForMenu();
   return {
     props: {
-      site,
-      categories
+      site
     }
   };
 }

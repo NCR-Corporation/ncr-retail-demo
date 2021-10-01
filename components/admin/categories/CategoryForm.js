@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import CategorySelect from './CategorySelect';
 import * as Yup from 'yup';
-import useCategory from '~/lib/hooks/useCategory';
-import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
+import useCategory from '~/lib/swr/useCategory';
+import { Button, Alert, Spinner } from 'reactstrap';
 import generateGUID from '~/lib/generateGUID';
 
 const init = {

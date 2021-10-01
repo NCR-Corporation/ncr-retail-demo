@@ -1,59 +1,61 @@
 import { useContext } from 'react';
-import Head from 'next/head';
-import Header from '~/components/public/Header';
-import Footer from '~/components/public/Footer';
+import { Row, Col } from 'reactstrap';
 import { UserStoreContext } from '~/context/userStore';
 import ItemCard from '~/components/public/ItemCard';
-import useCatalog from '~/lib/hooks/useCatalog';
-import { Row, Col } from 'reactstrap';
-import { getCategoryNodesForMenu } from '~/lib/category';
+import useCatalog from '~/lib/swr/useCatalog';
+import Layout from '~/components/public/Layout';
 
-export default function Catalog({ query, categories }) {
+export default function Catalog({ query }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCatalog(userStore.id, query);
-  return (
-    <div className="d-flex flex-column main-container">
-      <Head>
-        <title>MART | Catalog</title>
-      </Head>
-      <Header categories={categories} logs={data && data.logs ? data.logs : []} />
-      <div className="container my-4 flex-grow-1">
-        {isLoading && (
-          <div>
-            <div className="row row-cols-md-3">
-              {[...Array(8).keys()].map((index) => (
-                <div className="col-sm-6 col-md-3 mb-4" key={index}>
-                  <ItemCard />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-        <Row>
-          {isError && <p className="text-muted">{`Uhoh, we've hit an error.`}</p>}
-          {!isLoading &&
-            !isError &&
-            data.catalogItems.data.pageContent.length > 0 &&
-            data.catalogItems.data.pageContent.map((item) => (
-              <Col sm="6" md="3" className="mb-4" key={item.item.itemId.itemCode}>
-                <ItemCard catalogItem={item} />
-              </Col>
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="container my-4 flex-grow-1">
+          <div className="row row-cols-md-3">
+            {[...Array(8).keys()].map((index) => (
+              <div className="col-sm-6 col-md-3 mb-4" key={index}>
+                <ItemCard />
+              </div>
             ))}
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Layout>
+        <div className="container my-4 flex-grow-1">
+          <p className="text-muted">{`Uhoh, we've hit an error.`}</p>
+        </div>
+      </Layout>
+    );
+  }
+
+  const catalogItems = data.catalogItems.data.pageContent;
+
+  return (
+    <Layout logs={data && data.logs ? data.logs : []} title="Catalog">
+      <div className="container my-4 flex-grow-1">
+        <Row>
+          {catalogItems.map((item) => (
+            <Col sm="6" md="3" className="mb-4" key={item.item.itemId.itemCode}>
+              <ItemCard catalogItem={item} />
+            </Col>
+          ))}
         </Row>
       </div>
-      <Footer />
-    </div>
+    </Layout>
   );
 }
 
 export async function getServerSideProps(context) {
-  const response = await getCategoryNodesForMenu();
-  const { categories, logs } = JSON.parse(JSON.stringify(response));
   return {
     props: {
-      query: context.query.query ? context.query.query : '',
-      categories,
-      logs
+      query: context.query.query ? context.query.query : null
     }
   };
 }

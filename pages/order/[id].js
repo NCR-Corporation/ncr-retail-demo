@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Footer from '~/components/public/Footer';
 import { Col, Card, CardBody, CardTitle, Container, Spinner, Progress, Row } from 'reactstrap';
 import CheckoutList from '~/components/public/checkout/CheckoutList';
-import useOrder from '~/lib/hooks/useOrder';
+import useOrder from '~/lib/swr/useOrder';
 import { getCategoryNodesForMenu } from '~/lib/category';
 
 export default function Order({ id, categories }) {
@@ -85,6 +85,7 @@ export default function Order({ id, categories }) {
 
 export async function getServerSideProps(context) {
   const response = await getCategoryNodesForMenu();
+  console.log('thedd resp', response);
   const { categories, logs } = JSON.parse(JSON.stringify(response));
   return {
     props: {

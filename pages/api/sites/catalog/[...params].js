@@ -63,14 +63,7 @@ export default async function handler(req, res) {
   let priceId = body.priceId !== '' ? body.priceId : uniqid();
 
   let updatePrice = await updateSiteCatalogItemPricesByItemCode(siteId, itemId, priceId, itemPrices);
-  if (updatePrice.status !== 200) {
-    res.status(updatePrice.status).json(updatePrice);
-  }
-
   let updateAttributes = await updateSiteCatalogItemAttributesByItemCode(siteId, itemId, itemAttributes);
-  if (updateAttributes.status !== 200) {
-    res.status(updateAttributes.status).json(updateAttributes);
-  }
 
   res.status(200).json({ updatePrice, updateAttributes, logs: [updatePrice.log, updateAttributes.log] });
 }

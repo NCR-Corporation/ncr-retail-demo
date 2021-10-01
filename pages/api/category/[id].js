@@ -6,6 +6,6 @@ export default async function handler(req, res) {
     res.status(response.status).json({ response, logs: [response.log] });
   } else if (req.method === 'PUT') {
     let response = await updateCategory(JSON.parse(req.body));
-    res.status(response.status).json({ response, logs: [response.log] });
+    res.json({ response, logs: [response.log] });
   }
 }

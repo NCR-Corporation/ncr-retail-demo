@@ -10,9 +10,10 @@ import SubHeader from './SubHeader';
 import SearchBar from './SearchBar';
 import { UserCartContext } from '~/context/userCart';
 import ProfileDropdown from '../auth/ProfileDropdown';
+import useMenu from '~/lib/swr/useMenu';
 
-export default function Header({ categories, logs }) {
-  let allLogs = logs ?? [];
+export default function Header({ logs }) {
+  const { data, isLoading, isError } = useMenu();
   const { userStore } = useContext(UserStoreContext);
   const { userCart } = useContext(UserCartContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,7 +32,7 @@ export default function Header({ categories, logs }) {
           <Container>
             <Nav className="d-flex justify-content-between row">
               <NavItem>
-                <Logger logs={allLogs} />
+                <Logger logs={logs ?? []} />
               </NavItem>
               <NavItem>
                 <a href="/admin/dashboard" className="nav-link">
@@ -76,7 +77,7 @@ export default function Header({ categories, logs }) {
             </Row>
           </Container>
         </section>
-        <SubHeader categories={categories} userStore={userStore} setIsModalOpen={setIsModalOpen} />
+        <SubHeader data={data} userStore={userStore} setIsModalOpen={setIsModalOpen} isLoading={isLoading} isError={isError} />
       </header>
     </div>
   );

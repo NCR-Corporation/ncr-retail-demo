@@ -1,5 +1,5 @@
 import React from 'react';
-import useDashboard from '~/lib/hooks/useDashboard';
+import useDashboard from '~/lib/swr/useDashboard';
 import Orders from '~/components/admin/orders/Orders';
 import Layout from '~/components/admin/Layout';
 

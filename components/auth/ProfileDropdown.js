@@ -5,6 +5,7 @@ import { faUser, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Button, Spinner, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
 function ProfileDropdown() {
   const router = useRouter();
   const [session, loading] = useSession();

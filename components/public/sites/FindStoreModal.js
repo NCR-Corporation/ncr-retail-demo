@@ -12,7 +12,6 @@ const FindStoreModal = (props) => {
   const { setUserStore } = useContext(UserStoreContext);
   const [coordinates, setCoordinates] = useState(coords);
   const [sites, setSites] = useState();
-  const [logs, setLogs] = useState([]);
   if (props.coords && !coordinates) {
     setCoordinates(props.coords);
   }
@@ -24,16 +23,14 @@ const FindStoreModal = (props) => {
         fetch(`/api/findSites?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`)
           .then((res) => res.json())
           .then((data) => {
-            const { logs, response } = data;
-            setLogs(logs);
+            const { response } = data;
             setSites(response.data.pageContent);
           });
       } else {
         fetch(`/api/findSites`)
           .then((res) => res.json())
           .then((body) => {
-            const { logs, response } = body;
-            setLogs(logs);
+            const { response } = body;
             setSites(response.data.pageContent);
           });
       }

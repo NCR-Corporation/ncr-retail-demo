@@ -11,7 +11,8 @@ const NewCategory = ({ categoryNodes }) => {
 };
 
 export async function getServerSideProps() {
-  const categoryNodes = await getAllCategoryNodes();
+  const response = await getAllCategoryNodes();
+  const categoryNodes = JSON.parse(JSON.stringify(response));
   return {
     props: {
       categoryNodes

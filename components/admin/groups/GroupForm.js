@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Alert, Row, Col, Card, CardBody } from 'reactstrap';
 import generateGUID from '~/lib/generateGUID';
-import useGroup from '~/lib/hooks/useGroup';
+import useGroup from '~/lib/swr/useGroup';
 
 const init = {
   version: 1,

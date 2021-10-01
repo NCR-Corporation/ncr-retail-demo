@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from '~/components/admin/Layout';
-import useDashboard from '~/lib/hooks/useDashboard';
+import useDashboard from '~/lib/swr/useDashboard';
 
 const CatalogTab = () => {
   let { data, isLoading, isError } = useDashboard('catalog');

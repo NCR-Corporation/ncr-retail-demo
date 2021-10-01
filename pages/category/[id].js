@@ -1,24 +1,50 @@
 import React from 'react';
-import Head from 'next/head';
-import Header from '~/components/public/Header';
-import Footer from '~/components/public/Footer';
 import Link from 'next/link';
-import ItemCard from '~/components/public/ItemCard';
 import { Container, Card, Col, Row, CardBody } from 'reactstrap';
-import useCategory from '~/lib/hooks/useCategory';
 import { useContext } from 'react';
+import ItemCard from '~/components/public/ItemCard';
+import useCategory from '~/lib/swr/useCategory';
 import { UserStoreContext } from '~/context/userStore';
-import { useRouter } from 'next/router';
-import { getCategoryNodesForMenu } from '~/lib/category';
 import Skeleton from 'react-loading-skeleton';
+import Layout from '~/components/public/Layout';
 
-export default function Category({ categories }) {
-  const router = useRouter();
-  const { id } = router.query;
+export default function Category({ id }) {
   const { userStore } = useContext(UserStoreContext);
   const { data, isLoading, isError } = useCategory(id, userStore.id);
   let category, childrenCategories, categoryItems;
-  if (!isLoading && !isError && data && data.category) {
+
+  if (isLoading) {
+    return (
+      <CategoryLayout category={category}>
+        <Row className="pb-4">
+          <Col sm={12}>
+            <Skeleton width="33%" />
+          </Col>
+        </Row>
+        <div className="row row-cols-md-3">
+          {[...Array(4).keys()].map((index) => (
+            <div className="col-sm-6 col-md-3 mb-4" key={index}>
+              <ItemCard />
+            </div>
+          ))}
+        </div>
+      </CategoryLayout>
+    );
+  }
+
+  if (isError) {
+    return (
+      <CategoryLayout category={category}>
+        <Row className="pb-4">
+          <Col sm={12}>
+            <p>{`Uhoh, we've hit an error`}</p>
+          </Col>
+        </Row>
+      </CategoryLayout>
+    );
+  }
+
+  if (data && data.category) {
     category = data.category;
     childrenCategories = data.childrenCategories;
     if (data.categoryItems.data && data.categoryItems.data.pageContent) {
@@ -27,6 +53,7 @@ export default function Category({ categories }) {
       categoryItems = data.categoryItems;
     }
   }
+
   let smallColumns = 6;
   let mediumColumns = 6;
   if (childrenCategories && childrenCategories.data.pageContent.length > 0) {
@@ -49,87 +76,62 @@ export default function Category({ categories }) {
         break;
     }
   }
+
   return (
-    <div className="d-flex flex-column main-container">
-      <Header categories={categories} logs={data && data.logs ? data.logs : []} />
-      <Container className="my-4 flex-grow-1">
-        {isLoading ? (
-          <Row className="pb-4">
-            <Col sm={12}>
-              <Skeleton width="33%" />
-            </Col>
-          </Row>
-        ) : (
-          <>
-            <Head>
-              <title>MART | {category.data.title.values[0].value}</title>
-            </Head>
-            <Row className="">
-              <Col sm={12}>
-                <h2 className="text-body" style={{ fontWeight: '600' }}>
-                  {category.data.title.values[0].value}
-                </h2>
-              </Col>
-            </Row>
-          </>
-        )}
-        {isLoading && (
-          <div>
-            <div className="row row-cols-md-3">
-              {[...Array(4).keys()].map((index) => (
-                <div className="col-sm-6 col-md-3 mb-4" key={index}>
-                  <ItemCard />
-                </div>
+    <CategoryLayout data={data} category={category}>
+      <Row>
+        <Col sm={12}>
+          <h2 className="text-body font-weight-bolder">{category && category.data.title.values[0].value}</h2>
+        </Col>
+      </Row>
+      {data.category && (
+        <div>
+          {childrenCategories.data.pageContent.length > 0 && (
+            <Row>
+              {childrenCategories.data.pageContent.map((child) => (
+                <Col sm={smallColumns} md={mediumColumns} key={child.nodeCode}>
+                  <Card className="shadow-sm p-2 bg-white rounded border-0 mb-4 category-card">
+                    <Link href={`/category/${child.nodeCode}`} passHref>
+                      <a>
+                        <CardBody>
+                          <p className="h5 card-title text-center">{child.title.value}</p>
+                        </CardBody>
+                      </a>
+                    </Link>
+                  </Card>
+                </Col>
               ))}
-            </div>
-          </div>
-        )}
-        {isError && <p>Error</p>}
-        {!isLoading && !isError && data && data.category && (
-          <div>
-            {childrenCategories.data.pageContent.length > 0 && (
-              <Row>
-                {childrenCategories.data.pageContent.map((child) => (
-                  <Col sm={smallColumns} md={mediumColumns} key={child.nodeCode}>
-                    <Card className="shadow-sm p-2 bg-white rounded border-0 mb-4 category-card">
-                      <Link href={`/category/${child.nodeCode}`} passHref>
-                        <a>
-                          <CardBody>
-                            <p className="h5 card-title text-center">{child.title.value}</p>
-                          </CardBody>
-                        </a>
-                      </Link>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
+            </Row>
+          )}
+          <div className="row row-cols-md-3" id="catalog-items">
+            {categoryItems.length > 0 ? (
+              categoryItems.map((item) => (
+                <Col sm={6} md={4} className="mb-4" key={item.item.itemId.itemCode}>
+                  <ItemCard catalogItem={item} />
+                </Col>
+              ))
+            ) : (
+              <small className="col text-muted">No products yet.</small>
             )}
-            <div className="row row-cols-md-3" id="catalog-items">
-              {categoryItems.length > 0 ? (
-                categoryItems.map((item) => (
-                  <div className="col-sm-6 col-md-3 mb-4" key={item.item.itemId.itemCode}>
-                    <ItemCard catalogItem={item} />
-                  </div>
-                ))
-              ) : (
-                <small className="col text-muted">No products yet.</small>
-              )}
-            </div>
           </div>
-        )}
-      </Container>
-      <Footer />
-    </div>
+        </div>
+      )}
+    </CategoryLayout>
   );
 }
 
-export async function getServerSideProps() {
-  const response = await getCategoryNodesForMenu();
-  const { categories, logs } = JSON.parse(JSON.stringify(response));
+const CategoryLayout = ({ children, data, category }) => {
+  return (
+    <Layout logs={data && data.logs ? data.logs : []} title={category ? category.data.title.values[0].value : ''}>
+      <Container className="my-4 flex-grow-1">{children}</Container>
+    </Layout>
+  );
+};
+
+export async function getServerSideProps(context) {
   return {
     props: {
-      categories,
-      logs
+      id: context.query.id
     }
   };
 }

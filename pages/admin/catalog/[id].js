@@ -11,7 +11,8 @@ const EditCatalogItem = ({ id, categoryNodes }) => {
 };
 
 export async function getServerSideProps(context) {
-  const categoryNodes = await getAllCategoryNodes();
+  const response = await getAllCategoryNodes();
+  const categoryNodes = JSON.parse(JSON.stringify(response));
   return {
     props: {
       id: context.params.id,

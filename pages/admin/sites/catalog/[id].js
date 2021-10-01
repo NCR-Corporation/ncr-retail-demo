@@ -1,5 +1,5 @@
 import { mutate } from 'swr';
-import useSiteCatalog from '~/lib/hooks/useSiteCatalog';
+import useSiteCatalog from '~/lib/swr/useSiteCatalog';
 import SiteCatalogTable from '~/components/admin/sites/SiteCatalogTable';
 import Layout from '~/components/admin/Layout';
 

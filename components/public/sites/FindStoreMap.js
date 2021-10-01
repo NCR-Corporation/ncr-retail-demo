@@ -19,11 +19,10 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
     zoom: 10
   };
 
-  const [showInfoWindow, setShowInfoWindow] = useState(false);
+  const [setShowInfoWindow] = useState(false);
 
   const handleMarkerClick = () => {
     setShowInfoWindow(true);
-    console.log(showInfoWindow);
   };
 
   return (
@@ -31,7 +30,7 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
     <div style={{ height: '100%', width: '100%', minHeight: '400px' }}>
       <GoogleMapReact
         bootstrapURLKeys={{
-          key: 'AIzaSyDOeae3mJn5fjVDyk6lW4cdYHdF0VVkrkE'
+          key: 'AIzaSyAD0jNBZriOaCs0K1q9ckADfEr3WaIA894'
         }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}

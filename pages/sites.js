@@ -1,16 +1,13 @@
 import { useEffect, useState, useContext } from 'react';
-import Head from 'next/head';
-import Header from '~/components/public/Header';
 import { geolocated } from 'react-geolocated';
 import { Col, Container, Row } from 'reactstrap';
-import Footer from '~/components/public/Footer';
 import { UserStoreContext } from '~/context/userStore';
+import Layout from '~/components/public/Layout';
 import FindStoreMap from '~/components/public/sites/FindStoreMap';
 import StoreListItem from '~/components/public/sites/StoreListItem';
-import { getCategoryNodesForMenu } from '~/lib/category';
 
 const Sites = (props) => {
-  const { coords, categories } = props;
+  const { coords } = props;
   const { setUserStore } = useContext(UserStoreContext);
   const [coordinates, setCoordinates] = useState(coords);
   const [sites, setSites] = useState();
@@ -44,47 +41,29 @@ const Sites = (props) => {
   }, [coordinates]);
 
   return (
-    <>
-      <Head>
-        <title>MART | Sites</title>
-      </Head>
-      <div className="d-flex flex-column main-container">
-        <Header categories={categories} logs={logs} />
-        <Container className="my-4 flex-grow-1">
-          <h1>Stores</h1>
-          <Row>
-            <Col md="6">
-              <FindStoreMap sites={sites} coordinates={coords} setUserStore={setUserStore} />
-            </Col>
-            <Col md="6">
-              <ul>
-                {sites &&
-                  sites.length > 0 &&
-                  sites.map((site) => {
-                    if (site.address && site.status == 'ACTIVE') {
-                      return <StoreListItem site={site} setUserStore={setUserStore} key={site.id} />;
-                    }
-                  })}
-              </ul>
-            </Col>
-          </Row>
-        </Container>
-        <Footer />
-      </div>
-    </>
+    <Layout logs={logs} title="Sites">
+      <Container className="my-4 flex-grow-1">
+        <h1>Stores</h1>
+        <Row>
+          <Col md="6">
+            <FindStoreMap sites={sites} coordinates={coords} setUserStore={setUserStore} />
+          </Col>
+          <Col md="6">
+            <ul>
+              {sites &&
+                sites.length > 0 &&
+                sites.map((site) => {
+                  if (site.address && site.status == 'ACTIVE') {
+                    return <StoreListItem site={site} setUserStore={setUserStore} key={site.id} />;
+                  }
+                })}
+            </ul>
+          </Col>
+        </Row>
+      </Container>
+    </Layout>
   );
 };
-
-export async function getServerSideProps() {
-  const response = await getCategoryNodesForMenu();
-  const { categories, logs } = JSON.parse(JSON.stringify(response));
-  return {
-    props: {
-      categories,
-      logs
-    }
-  };
-}
 
 export default geolocated({
   positionOptions: {

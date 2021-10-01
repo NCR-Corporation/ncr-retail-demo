@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Col, Row, CardBody } from 'reactstrap';
 import CartItem from './CartItem';
 import { UserCartContext } from '~/context/userCart';
-export default function CartList({ userAPICart, setCartLogs, logs }) {
+export default function CartList({ userAPICart }) {
   const { userCart } = useContext(UserCartContext);
   const cartItems = userAPICart.cartItems.data.pageContent;
   return (
@@ -24,7 +24,7 @@ export default function CartList({ userAPICart, setCartLogs, logs }) {
           </Row>
         )}
         {cartItems.length > 0 ? (
-          cartItems.map((item) => <CartItem logs={logs} setCartLogs={setCartLogs} location={userCart.location} item={item} itemKey={item.lineId} key={item.lineId} />)
+          cartItems.map((item) => <CartItem location={userCart.location} item={item} itemKey={item.lineId} key={item.lineId} />)
         ) : (
           <small className="text-muted">No items yet.</small>
         )}
