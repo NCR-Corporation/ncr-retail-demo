@@ -1,7 +1,7 @@
 import { Row, Col, Container } from 'reactstrap';
 import LoginForm from '~/components/auth/LoginForm';
 import { useRouter } from 'next/router';
-import Layout from '~/components/public/layout';
+import Layout from '~/components/public/Layout';
 
 const login = () => {
   const router = useRouter();
