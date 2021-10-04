@@ -29,6 +29,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@popperjs/core": "^2.10.2",
+    "ansi-regex": "^6.0.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.5.3",
     "cookie": "^0.4.1",
