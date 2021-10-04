@@ -1,4 +1,4 @@
-const { Card, CardBody, CardText, CardTitle, Row, Col } = require('reactstrap');
+import { Card, CardBody, CardText, CardTitle, Row, Col } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faProjectDiagram, faCode, faKey } from '@fortawesome/free-solid-svg-icons';
 
