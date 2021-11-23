@@ -6,3 +6,4 @@ spec:
   redirectToHttps:
     enabled: true
     responseCodeName: PERMANENT_REDIRECT
+  sslPolicy: bsp-restricted
