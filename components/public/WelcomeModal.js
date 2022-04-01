@@ -14,9 +14,7 @@ const WelcomeModal = () => {
           </p>
         </ModalBody>
         <ModalFooter>
-          <Link href="/admin/sites">
-            <a className="btn btn-outline-primary">Start from Scratch</a>
-          </Link>
+          <a href="/admin/sites" className="btn btn-outline-primary">Start from Scratch</a>
           <Button color="primary">Import Database</Button>
         </ModalFooter>
       </Modal>

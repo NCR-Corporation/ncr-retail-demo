@@ -44,9 +44,9 @@ const HomeCarousel = () => {
         <div className="carousel-caption d-block text-left">
           <div className="container">
             <h3 className="inner-text">{item.caption}</h3>
-            <Link href={item.link}>
-              <a className="btn btn-success">Shop Now</a>
-            </Link>
+            <span>
+              <a href={item.link} className="btn btn-success">Shop Now</a>
+            </span>
           </div>
         </div>
       </CarouselItem>

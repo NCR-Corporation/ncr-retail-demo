@@ -19,9 +19,7 @@ export default function CartCheckout({ userAPICart, isLoading = false }) {
           <dt className="col-sm-6">Total</dt>
           <dd className="col-sm-6 text-right border-top">{isLoading ? <Skeleton /> : Math.round((cartTotals.totals.balanceDue + Number.EPSILON) * 100) / 100}</dd>
         </dl>
-        <Link href="/checkout">
-          <a className="btn btn-primary btn-block">Checkout</a>
-        </Link>
+        <a href="/checkout" className="btn btn-primary btn-block">Checkout</a>
       </div>
     </CardBody>
   );

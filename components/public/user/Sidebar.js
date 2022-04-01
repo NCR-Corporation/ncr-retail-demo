@@ -1,15 +1,10 @@
-import Link from 'next/link';
 import { ListGroup } from 'reactstrap';
 
 export default function Sidebar({ url }) {
   return (
     <ListGroup>
-      <Link href="/user/profile">
-        <a className={`list-group-item ${url === 'profile' && 'active'}`}>Profile</a>
-      </Link>
-      <Link href="/user/orders">
-        <a className={`list-group-item ${url === 'orders' && 'active'}`}>Orders</a>
-      </Link>
+      <a href="/user/profile" className={`list-group-item ${url === 'profile' && 'active'}`}>Profile</a>
+      <a href="/user/orders" className={`list-group-item ${url === 'orders' && 'active'}`}>Orders</a>
       {/* <Link href="/user/payments">
         <a
           className={`list-group-item ${

@@ -12,26 +12,9 @@ const Base64 = require('crypto-js/enc-base64');
  */
 module.exports = function ({ url, date, method, contentType, organization, secretKey }) {
   /**
-   * @param {object} variables
-   */
-  convertVariables = function (variables) {
-    const regexPattern = /({{(.*?)}})/g;
-    let convertedContent = variables;
-    let matchedVar = new RegExp(regexPattern).exec(convertedContent);
-    while (matchedVar !== null) {
-      const variableReplacement = matchedVar[1];
-      const variableName = matchedVar[2];
-      const variableValue = process.env[variableName] || process.env[variableName];
-      convertedContent = convertedContent.replace(variableReplacement, variableValue);
-      matchedVar = new RegExp(regexPattern).exec(convertedContent);
-    }
-    return convertedContent;
-  };
-
-  /**
    * @param {object} request
    */
-  signableContent = function (request) {
+  let signableContent = function (request) {
     const requestPath = convertVariables(request.url.trim()).replace(/^https?:\/\/[^/]+\//, '/');
     const params = [
       request.method,
@@ -43,11 +26,28 @@ module.exports = function ({ url, date, method, contentType, organization, secre
     return params.filter((p) => p && p.length > 0).join('\n');
   };
 
+    /**
+     * @param {object} variables
+     */
+  let convertVariables = function (variables) {
+        const regexPattern = /({{(.*?)}})/g;
+        let convertedContent = variables;
+        let matchedVar = new RegExp(regexPattern).exec(convertedContent);
+        while (matchedVar !== null) {
+            const variableReplacement = matchedVar[1];
+            const variableName = matchedVar[2];
+            const variableValue = process.env[variableName] || process.env[variableName];
+            convertedContent = convertedContent.replace(variableReplacement, variableValue);
+            matchedVar = new RegExp(regexPattern).exec(convertedContent);
+        }
+        return convertedContent;
+    };
+
   /**
    * @param {Date} date
    * @param {string} secretKey
    */
-  uniqueKey = function (date, secretKey) {
+  let uniqueKey = function (date, secretKey) {
     const nonce = date.toISOString().slice(0, 19) + '.000Z';
     return secretKey + nonce;
   };

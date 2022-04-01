@@ -46,9 +46,7 @@ export default function Header({ logs }) {
           <Container>
             <Row className="align-items-center">
               <Col sm="4" md="3">
-                <Link href="/">
-                  <a className="logo-text">MART</a>
-                </Link>
+                <a href="/" className="logo-text">MART</a>
               </Col>
               <Col sm="8" md="5">
                 <SearchBar />
@@ -59,18 +57,16 @@ export default function Header({ logs }) {
                     <ProfileDropdown />
                   </div>
                   <div className="pl-2 d-flex align-items-center justify-content-between text-white border-left border-white border-1">
-                    <Link href="/cart">
-                      <a style={{ border: 'none !important' }}>
-                        <Button color="light" outline className="border-none cart-btn">
-                          <FontAwesomeIcon icon={faShoppingCart} size="1x" className="pr-1" /> Cart
-                          {userCart && userCart.totalQuantity != null && userCart.totalQuantity > 0 && (
-                            <Badge color="warning" className="ml-1">
-                              {userCart.totalQuantity}
-                            </Badge>
-                          )}
-                        </Button>
-                      </a>
-                    </Link>
+                    <a href="/cart" style={{ border: 'none !important' }}>
+                      <Button color="light" outline className="border-none cart-btn">
+                        <FontAwesomeIcon icon={faShoppingCart} size="1x" className="pr-1" /> Cart
+                        {userCart && userCart.totalQuantity != null && userCart.totalQuantity > 0 && (
+                          <Badge color="warning" className="ml-1">
+                            {userCart.totalQuantity}
+                          </Badge>
+                        )}
+                      </Button>
+                    </a>
                   </div>
                 </div>
               </Col>

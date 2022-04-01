@@ -214,7 +214,7 @@
     "price": "3.49",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-    "imageUrl": "https://retaildemo.ncrcloud.com/images/catalog/tostitos-mild-salsa",
+    "imageUrl": "",
     "groups": "28ba8df5",
     "nonMerchandise": false
   },
@@ -580,7 +580,12 @@
         ]
       }
     ],
-    "packageIdentifiers": [{ "type": "0", "value": "f5bbc05c" }],
+    "packageIdentifiers": [
+      {
+        "type": "0",
+        "value": "f5bbc05c"
+      }
+    ],
     "departmentId": "02",
     "itemId": {
       "itemCode": "f5bbc05c"
@@ -606,7 +611,7 @@
     "price": "3.99",
     "currency": "USD",
     "effectiveDate": "2020-12-17T05:00:00Z",
-    "imageUrl": "",
+    "imageUrl": "https://www.google.com/search?q=tortilla+chips&rlz=1C1CHBD_enUS921US922&sxsrf=APq-WBs23N32MXOocwW6NM6_RfR4SaLrIQ:1648829566347&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiDjePkoPP2AhV-SjABHRmnCskQ_AUoAnoECAEQBA&biw=1920&bih=937&dpr=1#imgrc=9KtSyIouK5gG1M",
     "nonMerchandise": false
   }
 ]

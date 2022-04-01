@@ -65,9 +65,7 @@ export default function OrderList({ order }) {
           </Col>
           <Col md="3">
             {order && (
-              <Link href={`/order/${order.id}`}>
-                <a className="btn btn-outline-primary">View Order</a>
-              </Link>
+              <a href={`/order/${order.id}`} className="btn btn-outline-primary">View Order</a>
             )}
           </Col>
         </Row>

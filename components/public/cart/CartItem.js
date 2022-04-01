@@ -62,9 +62,7 @@ export default function CartItem({ location, item, itemKey }) {
       <Col sm="12" md="10">
         <Row className="w-100 no-gutters">
           <Col sm="6" md="8" className="mb-2">
-            <Link href={`/catalog/${item.itemId.value}`}>
-              <a className="h5 card-title mb-2">{item.description}</a>
-            </Link>
+            <a href={`/catalog/${item.itemId.value}`} className="h5 card-title mb-2">{item.description}</a>
             <h6 className="text-muted">
               ${item.price.unitPrice} {item.quantity.unitOfMeasure}
             </h6>
