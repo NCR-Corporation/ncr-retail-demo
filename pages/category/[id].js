@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { Container, Card, Col, Row, CardBody } from 'reactstrap';
 import { useContext } from 'react';
 import ItemCard from '~/components/public/ItemCard';

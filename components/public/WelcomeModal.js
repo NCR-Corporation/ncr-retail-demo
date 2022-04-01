@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Modal, ModalHeader, ModalBody, Button, ModalFooter } from 'reactstrap';
 
 const WelcomeModal = () => {

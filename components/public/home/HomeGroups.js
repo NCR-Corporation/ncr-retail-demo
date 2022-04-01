@@ -1,5 +1,4 @@
 import { Col, Card, CardBody, CardTitle } from 'reactstrap';
-import Link from 'next/link';
 import Image from 'next/image';
 import Skeleton from 'react-loading-skeleton';
 const HomeGroups = ({ isError, isLoading, userStore, data }) => {

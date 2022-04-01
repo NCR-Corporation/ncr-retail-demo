@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Router from 'next/router';
 import React from 'react';
-import Link from 'next/link';
 import { faTachometerAlt, faExternalLinkAlt, faList, faStore, faLayerGroup, faObjectGroup, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faWrench } from '@fortawesome/free-solid-svg-icons';

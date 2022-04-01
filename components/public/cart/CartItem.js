@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { Col, Row, Button, FormGroup, Input } from 'reactstrap';

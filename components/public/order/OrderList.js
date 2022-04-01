@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Card, CardTitle, CardBody, Col, Row } from 'reactstrap';
 import Skeleton from 'react-loading-skeleton';
 

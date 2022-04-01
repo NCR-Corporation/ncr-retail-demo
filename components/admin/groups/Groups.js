@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoadingTable from '~/components/admin/LoadingTable';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
 import { Table } from 'reactstrap';
 
 function Groups({ data, isError, isLoading }) {

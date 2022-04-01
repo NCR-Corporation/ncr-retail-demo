@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { Carousel, CarouselItem, CarouselIndicators } from 'reactstrap';
 
 const items = [

@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faBoxes } from '@fortawesome/free-solid-svg-icons';
 import LoadingTable from '~/components/admin/LoadingTable';
-import Link from 'next/link';
 import { Table } from 'reactstrap';
 
 function Sites({ data, isLoading, isError }) {

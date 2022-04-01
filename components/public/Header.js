@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import Link from 'next/link';
 import Logger from '~/components/api-logger/Logger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
