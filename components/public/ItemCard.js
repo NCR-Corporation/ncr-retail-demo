@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
@@ -43,22 +42,20 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
   return (
     <Card className="border-0 shadow-sm item-card h-100">
       {item ? (
-        <Link href={item ? `/catalog/${item.itemId.itemCode}` : '#'}>
-          <a aria-label={item.shortDescription.values[0].value}>
-            <Image
-              alt={item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}
-              src={
-                itemAttributes && itemAttributes.imageUrls && itemAttributes.imageUrls.length > 0 && itemAttributes.imageUrls[0] !== ''
-                  ? itemAttributes.imageUrls[0]
-                  : 'https://via.placeholder.com/150'
-              }
-              layout="responsive"
-              width={255}
-              height={255}
-              className="p-4"
-            />
-          </a>
-        </Link>
+        <a href={item ? `/catalog/${item.itemId.itemCode}` : '#'} aria-label={item.shortDescription.values[0].value}>
+          <Image
+            alt={item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}
+            src={
+                itemAttributes.imageUrls[0] !== '' && itemAttributes.imageUrls.length > 0 && itemAttributes.imageUrls[0] !== null
+                ? itemAttributes.imageUrls[0]
+                : 'https://via.placeholder.com/150'
+            }
+            layout="responsive"
+            width={255}
+            height={255}
+            className="p-4"
+          />
+        </a>
       ) : (
         <div className="p-4">
           <Skeleton height="255px" />
@@ -67,9 +64,7 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
       {item ? (
         <CardBody className="d-flex pb-1">
           <div className="align-self-end">
-            <Link href={item ? `/catalog/${item.itemId.itemCode}` : '#'}>
-              <a className="h5 card-title mb-0">{item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}</a>
-            </Link>
+            <a href={item ? `/catalog/${item.itemId.itemCode}` : '#'} className="h5 card-title mb-0">{item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}</a>
           </div>
         </CardBody>
       ) : (

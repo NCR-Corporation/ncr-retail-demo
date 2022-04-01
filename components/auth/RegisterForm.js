@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
@@ -116,9 +115,7 @@ export default function Register() {
                   <CardFooter className="bg">
                     <p className="text-muted mb-0">
                       Already have an account?{' '}
-                      <Link href="/auth/login">
-                        <a className="link p-0 m-0">Login</a>
-                      </Link>
+                      <a href="/auth/login" className="link p-0 m-0">Login</a>
                     </p>
                   </CardFooter>
                 </Card>

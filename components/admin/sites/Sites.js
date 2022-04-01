@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faBoxes } from '@fortawesome/free-solid-svg-icons';
 import LoadingTable from '~/components/admin/LoadingTable';
-import Link from 'next/link';
 import { Table } from 'reactstrap';
 
 function Sites({ data, isLoading, isError }) {
@@ -27,18 +26,14 @@ function Sites({ data, isLoading, isError }) {
                   <td>{item.siteName}</td>
                   <td>{item.status}</td>
                   <td>
-                    <Link href={`/admin/sites/${item.id}`}>
-                      <a>
-                        <FontAwesomeIcon icon={faEdit} color="darkslategrey" />
-                      </a>
-                    </Link>
+                    <a href={`/admin/sites/${item.id}`}>
+                      <FontAwesomeIcon icon={faEdit} color="darkslategrey" />
+                    </a>
                   </td>
                   <td>
-                    <Link href={`/admin/sites/catalog/${item.id}`}>
-                      <a>
-                        <FontAwesomeIcon icon={faBoxes} color="darkslategrey" />
-                      </a>
-                    </Link>
+                    <a href={`/admin/sites/catalog/${item.id}`}>
+                      <FontAwesomeIcon icon={faBoxes} color="darkslategrey" />
+                    </a>
                   </td>
                 </tr>
               ))}

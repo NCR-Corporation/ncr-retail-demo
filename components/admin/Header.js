@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Router from 'next/router';
 import React from 'react';
-import Link from 'next/link';
 import { faTachometerAlt, faExternalLinkAlt, faList, faStore, faLayerGroup, faObjectGroup, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faWrench } from '@fortawesome/free-solid-svg-icons';
@@ -37,52 +36,40 @@ const Header = ({ activeTab, tabs = true }) => {
           <Nav className="px-md-3">
             <div className="flex-column d-block d-sm-none">
               <NavItem>
-                <Link href="/admin/dashboard">
-                  <a className={`nav-link ${activeTab === 'dashboard' && 'active'} ${!tabs && 'pl-0'}`}>
-                    <FontAwesomeIcon icon={faTachometerAlt} size="sm" className="feather mr-2 pl-1" />
-                    Dashboard
-                  </a>
-                </Link>
+                <a  href="/admin/dashboard" className={`nav-link ${activeTab === 'dashboard' && 'active'} ${!tabs && 'pl-0'}`}>
+                  <FontAwesomeIcon icon={faTachometerAlt} size="sm" className="feather mr-2 pl-1" />
+                  Dashboard
+                </a>
               </NavItem>
               <NavItem>
-                <Link href="/admin/orders">
-                  <a className={`nav-link ${activeTab === 'orders' ? 'active' : ''}`}>
-                    <FontAwesomeIcon icon={faList} className="feather mr-2 pl-1" size="sm" />
-                    Orders
-                  </a>
-                </Link>
+                <a href="/admin/orders" className={`nav-link ${activeTab === 'orders' ? 'active' : ''}`}>
+                  <FontAwesomeIcon icon={faList} className="feather mr-2 pl-1" size="sm" />
+                  Orders
+                </a>
               </NavItem>
               <NavItem>
-                <Link href="/admin/sites">
-                  <a className={`nav-link ${activeTab === 'sites' && 'active'}`}>
-                    <FontAwesomeIcon icon={faStore} className="feather mr-2 pl-1" size="sm" />
-                    Sites
-                  </a>
-                </Link>
+                <a href="/admin/sites" className={`nav-link ${activeTab === 'sites' && 'active'}`}>
+                  <FontAwesomeIcon icon={faStore} className="feather mr-2 pl-1" size="sm" />
+                  Sites
+                </a>
               </NavItem>
               <NavItem>
-                <Link href="/admin/categories">
-                  <a className={`nav-link ${activeTab === 'categories' && 'active'}`}>
-                    <FontAwesomeIcon icon={faLayerGroup} className="feather mr-2 pl-1" size="sm" />
-                    Categories
-                  </a>
-                </Link>
+                <a href="/admin/categories" className={`nav-link ${activeTab === 'categories' && 'active'}`}>
+                  <FontAwesomeIcon icon={faLayerGroup} className="feather mr-2 pl-1" size="sm" />
+                  Categories
+                </a>
               </NavItem>
               <NavItem>
-                <Link href="/admin/groups">
-                  <a className={`nav-link ${activeTab === 'groups' && 'active'}`}>
-                    <FontAwesomeIcon icon={faObjectGroup} className="feather mr-2 pl-1" size="sm" />
-                    Groups
-                  </a>
-                </Link>
+                <a className={`nav-link ${activeTab === 'groups' && 'active'}`}>
+                  <FontAwesomeIcon icon={faObjectGroup} className="feather mr-2 pl-1" size="sm" />
+                  Groups
+                </a>
               </NavItem>
               <NavItem>
-                <Link href="/admin/catalog">
-                  <a className={`nav-link ${activeTab === 'catalog' && 'active'}`}>
-                    <FontAwesomeIcon icon={faShoppingCart} className="feather mr-2 pl-1" size="sm" />
-                    Global Catalog
-                  </a>
-                </Link>
+                <a href="/admin/catalog" className={`nav-link ${activeTab === 'catalog' && 'active'}`}>
+                  <FontAwesomeIcon icon={faShoppingCart} className="feather mr-2 pl-1" size="sm" />
+                  Global Catalog
+                </a>
               </NavItem>
               <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-white">Resources</h6>
 
