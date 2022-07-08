@@ -7,8 +7,8 @@ metadata:
     version: {{ $.Chart.Version }}
     release: {{ $.Release.Name }}
 spec:
-  {{- if .Values.Scaling.RetailDemo.Enabled }}
-  replicas: {{ .Values.Scaling.RetailDemo.DefaultReplicas }}
+  {{- if .Values.Scaling.Enabled }}
+  replicas: {{ .Values.Scaling.DefaultReplicas }}
   {{- end }}
   selector:
     matchLabels:
@@ -82,10 +82,10 @@ spec:
           {{- if .Values.Scaling.RetailDemo.Enabled }}
           resources:
             requests:
-              cpu: {{ .Values.Resources.RetailDemo.MinCpu | quote }}
-              memory: {{ .Values.Resources.RetailDemo.MinMemory | quote }}
+              cpu: {{ .Values.Resources.MinCpu | quote }}
+              memory: {{ .Values.Resources.MinMemory | quote }}
             limits:
-              cpu: {{ .Values.Resources.RetailDemo.MaxCpu | quote }}
-              memory: {{ .Values.Resources.RetailDemo.MaxMemory | quote }}
+              cpu: {{ .Values.Resources.MaxCpu | quote }}
+              memory: {{ .Values.Resources.MaxMemory | quote }}
           {{- end }}
 status: {}
