@@ -5,8 +5,9 @@ Master:
       ReleaseName:
 Ingress:
   Annotations: {}
-  Host:
-  TlsSecret:
-  IpName:
+  RetailDemo:
+    Host:
+    TlsSecret:
+    IpName:
 CloudArmor:
   RetailDemoSecurityPolicyName:
