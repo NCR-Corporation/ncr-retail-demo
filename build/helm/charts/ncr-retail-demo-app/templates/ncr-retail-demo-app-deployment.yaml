@@ -7,8 +7,8 @@ metadata:
     version: {{ $.Chart.Version }}
     release: {{ $.Release.Name }}
 spec:
-  {{- if .Values.Scaling.Enabled }}
-  replicas: {{ .Values.Scaling.DefaultReplicas }}
+  {{- if .Values.Scaling.RetailDemo.Enabled }}
+  replicas: {{ .Values.Scaling.RetailDemo.DefaultReplicas }}
   {{- end }}
   selector:
     matchLabels:
@@ -53,7 +53,7 @@ spec:
             timeoutSeconds: 1
             successThreshold: 1
             failureThreshold: 3
-          {{- if .Values.Scaling.Enabled }}
+          {{- if .Values.Scaling.RetailDemo.Enabled }}
           resources:
             requests:
               cpu: {{ .Values.Resources.RetailDemo.MinCpu | quote }}
