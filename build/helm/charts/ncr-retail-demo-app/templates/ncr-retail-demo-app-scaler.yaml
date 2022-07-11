@@ -12,15 +12,15 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ $.Release.Name }}
-  minReplicas: {{ .Values.Scaling.RetailDemo.MinReplicas }}
-  maxReplicas: {{ .Values.Scaling.RetailDemo.MaxReplicas }}
+  minReplicas: {{ .Values.Scaling.MinReplicas }}
+  maxReplicas: {{ .Values.Scaling.MaxReplicas }}
   metrics:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: {{ .Values.Scaling.RetailDemo.TargetCpuUtilization }}
+        targetAverageUtilization: {{ .Values.Scaling.TargetCpuUtilization }}
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.Scaling.RetailDemo.TargetMemoryUtilization }}
+        targetAverageUtilization: {{ .Values.Scaling.TargetMemoryUtilization }}
 {{- end }}

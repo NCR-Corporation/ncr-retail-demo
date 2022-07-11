@@ -28,42 +28,16 @@ spec:
         - name: shared-data
           emptyDir: {}
       containers:
-        - name: {{ $.Release.Name }}-django
-          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}-django:{{ $.Chart.Version }}
-          imagePullPolicy: {{ .Values.Master.ImagePullPolicy }}
-          env:
-            - name: URL_BASE
-              value: {{ quote .Values.Ingress.Host }}
-            - name: SECRET_KEY
-              value: {{ quote .Values.RetailDemo.SecretKey }}
-            - name: NEP_ORGANIZATION
-              value: {{ quote .Values.RetailDemo.NepOrganization }}
-            - name: HMAC_SHARED_KEY
-              value: {{ quote .Values.RetailDemo.HmacSharedKey }}
-            - name: HMAC_SECRET_KEY
-              value: {{ quote .Values.RetailDemo.HmacSecretKey }}
-            - name: LOCATIONS
-              value: {{ quote .Values.RetailDemo.Locations }}
-          ports:
-            - name: http
-              containerPort: 8000
-              protocol: TCP
-          volumeMounts:
-            - name: shared-data
-              mountPath: /app/dist
-        - name: {{ $.Release.Name }}-nginx
-          image: {{ .Values.Image.Domain }}/{{ .Values.Image.Project }}/{{ .Values.Master.App.Prefix }}-nginx:{{ $.Chart.Version }}
+        - name: {{ $.Release.Name }}
+          image: {{ $.Values.Image.Domain }}/{{ $.Values.Image.Project }}/{{ $.Values.Master.App.Prefix }}:{{ $.Chart.Version }}
           imagePullPolicy: {{ .Values.Master.ImagePullPolicy }}
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
-          volumeMounts:
-            - name: shared-data
-              mountPath: /app/dist
           livenessProbe:
             httpGet:
-              path: /static/debug_toolbar/css/toolbar.css
+              path: /
               port: http
             initialDelaySeconds: 10
             periodSeconds: 10
@@ -72,20 +46,31 @@ spec:
             failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /static/debug_toolbar/css/toolbar.css
-              port: http
+             path: /
+             port: http
             initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 1
             successThreshold: 1
             failureThreshold: 3
-          {{- if .Values.Scaling.RetailDemo.Enabled }}
+          {{- if .Values.Scaling.Enabled }}
           resources:
             requests:
-              cpu: {{ .Values.Resources.MinCpu | quote }}
-              memory: {{ .Values.Resources.MinMemory | quote }}
+              cpu: {{ .Values.Resources.RetailDemo.MinCpu | quote }}
+              memory: {{ .Values.Resources.RetailDemo.MinMemory | quote }}
             limits:
-              cpu: {{ .Values.Resources.MaxCpu | quote }}
-              memory: {{ .Values.Resources.MaxMemory | quote }}
-          {{- end }}
-status: {}
+              cpu: {{ .Values.Resources.RetailDemo.MaxCpu | quote }}
+              memory: {{ .Values.Resources.RetailDemo.MaxMemory | quote }}
+            {{- end }}
+          env:
+            - name: REACT_APP_BSP_SECRET_KEY
+              value: {{ quote .Values.RetailDemo.BSPSecretKey }}
+            - name: REACT_APP_BSP_ORGANIZATION
+              value: {{ quote .Values.RetailDemo.BSPOrganization }}
+            - name: REACT_APP_BSP_SHARED_KEY
+              value: {{ quote .Values.RetailDemo.BSPSharedKey }}
+            - name: NEXTAUTH_URL
+              value: {{ quote .Values.RetailDemo.NextAuthURL }}
+            - name: REACT_APP_GOOGLE_MAPS_API_KEY
+              value: {{ quote .Values.RetailDemo.GoogleMapsAPIKey }}
+status: { }
