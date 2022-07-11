@@ -9,12 +9,13 @@ Image:
   Project:
   PullPolicy: Always
 Scaling:
-  Enabled:
-  DefaultReplicas:
-  MinReplicas:
-  MaxReplicas:
-  TargetCpuUtilization:
-  TargetMemoryUtilization:
+  RetailDemo:
+    Enabled:
+    DefaultReplicas:
+    MinReplicas:
+    MaxReplicas:
+    TargetCpuUtilization:
+    TargetMemoryUtilization:
 Resources:
   RetailDemo:
     MinCpu:
