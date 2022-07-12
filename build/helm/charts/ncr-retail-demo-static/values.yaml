@@ -2,7 +2,12 @@ Master:
     App:
       Name: ncr-retail-demo-static
       Prefix: ncr-retail-demo
-      ReleaseName:
+      ReleaseName: PLACEHOLDER
 Ingress:
   Annotations: {}
-  RetailDemo: {}
+  RetailDemo:
+    Host: PLACEHOLDER
+    TlsSecret: PLACEHOLDER
+    IpName: PLACEHOLDER
+CloudArmor:
+  RetailDemoSecurityPolicyName: PLACEHOLDER

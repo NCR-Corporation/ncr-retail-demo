@@ -4,9 +4,9 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: {{ $.Release.Name }}
   labels:
-      app: {{ .Values.Master.App.Prefix }}
-      version: {{ $.Chart.Version }}
-      release: {{ $.Release.Name }}
+    app: {{ .Values.Master.App.Prefix }}
+    version: {{ $.Chart.Version }}
+    release: {{ $.Release.Name }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
