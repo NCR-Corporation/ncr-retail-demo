@@ -2,29 +2,29 @@ Master:
   App:
     Name: ncr-retail-demo-app
     Prefix: ncr-retail-demo
-    ReleaseName:
+    ReleaseName: PLACEHOLDER
   ImagePullPolicy: Always
 Image:
   Domain: us.gcr.io
-  Project:
+  Project: PLACEHOLDER
   PullPolicy: Always
 Scaling:
   RetailDemo:
-    Enabled:
-    DefaultReplicas:
-    MinReplicas:
-    MaxReplicas:
-    TargetCpuUtilization:
-    TargetMemoryUtilization:
+    Enabled: PLACEHOLDER
+    DefaultReplicas: PLACEHOLDER
+    MinReplicas: PLACEHOLDER
+    MaxReplicas: PLACEHOLDER
+    TargetCpuUtilization: PLACEHOLDER
+    TargetMemoryUtilization: PLACEHOLDER
 Resources:
   RetailDemo:
-    MinCpu:
-    MaxCpu:
-    MinMemory:
-    MaxMemory:
+    MinCpu: PLACEHOLDER
+    MaxCpu: PLACEHOLDER
+    MinMemory: PLACEHOLDER
+    MaxMemory: PLACEHOLDER
 RetailDemo:
-  BSPSecretKey:
-  BSPOrganization:
-  BSPSharedKey:
-  NextAuthURL:
-  GoogleMapsAPIKey:
+  BSPSecretKey: PLACEHOLDER
+  BSPOrganization: PLACEHOLDER
+  BSPSharedKey: PLACEHOLDER
+  NextAuthURL: PLACEHOLDER
+  GoogleMapsAPIKey: PLACEHOLDER
