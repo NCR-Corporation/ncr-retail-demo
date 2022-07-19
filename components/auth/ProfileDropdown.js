@@ -1,19 +1,20 @@
 import { useState } from 'react';
-import { useSession, signOut } from 'next-auth/client';
+import { useSession, signOut } from 'next-auth/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Button, Spinner, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
 function ProfileDropdown() {
   const router = useRouter();
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggle = () => setDropdownOpen(!dropdownOpen);
   return (
     <div className="d-inline-block">
-      {!loading && (!session || !session.user) ? (
+      {!status && (!session || !session.user) ? (
         <Link href="/auth/login">
           <Button color="link" className="text-light py-0 px-2 text-left d-flex flex-column justify-content-start text-decoration-none">
             <span>
@@ -25,7 +26,7 @@ function ProfileDropdown() {
             </span>
           </Button>
         </Link>
-      ) : loading ? (
+      ) : status ? (
         <Button color="link" className="text-light p-0 text-left d-flex flex-column justify-content-start text-decoration-none">
           <span>
             <Spinner color="light" size="sm" />

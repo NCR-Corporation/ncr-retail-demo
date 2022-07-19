@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+import CredentialsProvider from 'next-auth/react';
 import { createUser, getCurrentUserProfileData } from '~/lib/provisioning';
 import { authenticateUser, exchangeToken } from '~/lib/security';
 
@@ -7,7 +7,7 @@ const options = {
   site: process.env.NEXTAUTH_URL || 'http://localhost:3000',
   // Configure one or more authentication providers
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
       id: 'register',
       name: 'Register',
       credentials: {
@@ -70,7 +70,7 @@ const options = {
         }
       }
     }),
-    Providers.Credentials({
+    CredentialsProvider({
       id: 'login',
       name: 'Login',
       credentials: {
@@ -104,7 +104,7 @@ const options = {
         }
       }
     }),
-    Providers.Credentials({
+    CredentialsProvider({
       id: 'update-session',
       name: 'Update Session',
       credentials: {
