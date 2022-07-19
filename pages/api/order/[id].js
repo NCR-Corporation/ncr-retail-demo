@@ -1,5 +1,5 @@
 import { getOrderById, updateOrderById } from '~/lib/order';
-import { getSession } from 'next-auth/client';
+import { getSession } from 'next-auth/react';
 
 export default async function handler(req, res) {
   if (req.method == 'GET') {

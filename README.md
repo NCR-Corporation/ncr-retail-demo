@@ -63,14 +63,12 @@ Why? When using the Test Drive feature, each application is a **fresh installati
 
    ```bash
    npm install
-   # yarn
    ```
 
 5. Finally, run the development server:
 
    ```bash
-   npm run dev
-   # yarn dev
+   next dev
    ```
 
 6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the sample demo application _generated with your keys._

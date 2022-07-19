@@ -6,7 +6,7 @@ import HeaderCheckout from '~/components/public/HeaderCheckout';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import { useRouter } from 'next/router';
-import { getSession } from 'next-auth/client';
+import { getSession } from 'next-auth/react';
 import useCart from '~/lib/hooks/useCart';
 import CheckoutList from '~/components/public/checkout/CheckoutList';
 import CheckoutTender from '~/components/public/checkout/CheckoutTender';

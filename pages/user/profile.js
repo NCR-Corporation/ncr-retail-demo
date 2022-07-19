@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
-import { getSession } from 'next-auth/client';
+import { getSession } from 'next-auth/react';
 import useUser from '~/lib/hooks/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
 import { Col, Row, Spinner } from 'reactstrap';

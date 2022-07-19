@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { signIn } from 'next-auth/client';
+import { signIn } from 'next-auth/react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Row, Card, CardBody, CardTitle, Col, Button, Spinner, Alert } from 'reactstrap';
