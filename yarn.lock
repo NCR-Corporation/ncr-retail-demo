@@ -3488,7 +3488,7 @@ natural-compare@^1.4.0:
   dependencies:
     crypto-js "^4.0.0"
 
-next-auth@^4.9.2:
+next-auth@^4.10.2:
   version "4.10.2"
   resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.10.2.tgz#6893f1bf4b3e5281bd340a6bcd3c331225c5e2be"
   integrity sha512-9XeP3faA5M3LneNJuzZCrmyR1ONYVH+pNQTozLBlpzXSkVRCgy+PTLAojOGkCo5v5MWcCZNTNHUOQL6gIcYwEQ==
