@@ -7,18 +7,18 @@ import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
-import useCart from '~/lib/hooks/useCart';
+import useCart from '~/lib/swr/useCart';
 import CheckoutList from '~/components/public/checkout/CheckoutList';
 import CheckoutTender from '~/components/public/checkout/CheckoutTender';
 import CheckoutUser from '~/components/public/checkout/CheckoutUser';
-import useUser from '~/lib/hooks/useUser';
+import useUser from '~/lib/swr/useUser';
 import LoginModal from '~/components/auth/LoginModal';
 import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
 
 const Checkout = ({ session }) => {
   const router = useRouter();
   const { userCart, setUserCart } = useContext(UserCartContext);
-  const { userStore } = useContext(UserStoreContext);
+  const { userStore } = useContext(UserStoreContext)git
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
