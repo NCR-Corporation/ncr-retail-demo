@@ -62,7 +62,7 @@ Why? When using the Test Drive feature, each application is a **fresh installati
 4. Next, install all npm packages in the project directory:
 
    ```bash
-   npm install
+   yarn install
    ```
 
 5. Finally, run the development server:
