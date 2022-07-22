@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { getSession, signIn } from 'next-auth/client';
+import { getSession, signIn } from 'next-auth/react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Row, Card, CardBody, CardTitle, Col, Button, Spinner, CardFooter } from 'reactstrap';
 
