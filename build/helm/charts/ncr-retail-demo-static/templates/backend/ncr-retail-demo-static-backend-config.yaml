@@ -1,7 +1,7 @@
-apiVersion: cloud.google.com/v1beta1
+apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
   name: cloud-armor-backend-config-{{ .Release.Namespace }}
 spec:
   securityPolicy:
-    name: {{ .Values.CloudArmor.RetailDemoSecurityPolicyName }}
+    name: {{ .Values.CloudArmor.RetailDemoSecurityPolicyName | quote }}
