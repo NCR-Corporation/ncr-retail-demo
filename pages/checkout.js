@@ -18,7 +18,7 @@ import RegisterConsumerModal from '~/components/auth/RegisterConsumerModal';
 const Checkout = ({ session }) => {
   const router = useRouter();
   const { userCart, setUserCart } = useContext(UserCartContext);
-  const { userStore } = useContext(UserStoreContext)git
+  const { userStore } = useContext(UserStoreContext);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const toggleLoginModal = () => setLoginModalOpen(!isLoginModalOpen);
