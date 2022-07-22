@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Header from '~/components/public/Header';
 import Footer from '~/components/public/Footer';
 import { getSession } from 'next-auth/react';
-import useUser from '~/lib/hooks/useUser';
+import useUser from '~/lib/swr/useUser';
 import Sidebar from '~/components/public/user/Sidebar';
 import { Col, Row, Spinner } from 'reactstrap';
 import ProfileForm from '~/components/public/user/ProfileForm';
