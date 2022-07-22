@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '~/styles/style.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 // Prevent fontawesome from adding its CSS since we did it manually above:
-import { Provider } from 'next-auth/client';
+import { SessionProvider } from 'next-auth/react';
 import { UserStoreProvider } from '~/context/userStore';
 import { UserCartProvider } from '~/context/userCart';
 
@@ -25,8 +25,8 @@ export function reportWebVitals(metric) {
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider
-      options={{
+    <SessionProvider 
+        options={{
         clientMaxAge: 0,
         keepAlive: 0
       }}
@@ -39,8 +39,8 @@ function MyApp({ Component, pageProps }) {
           </Metatags>
         </UserCartProvider>
       </UserStoreProvider>
-    </Provider>
+    </SessionProvider>
   );
 }
 
-export default MyApp;
+export default MyApp

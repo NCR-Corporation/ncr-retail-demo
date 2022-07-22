@@ -1,9 +1,9 @@
 import Router from 'next/router';
-import { useSession } from 'next-auth/client';
+import { useSession } from 'next-auth/react';
 import { Row, Col, Container, Button } from 'reactstrap';
 
 const Footer = () => {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
   const startDemo = () => {
     localStorage.clear();
     Router.reload(window.location.pathname);
@@ -22,7 +22,7 @@ const Footer = () => {
               <li>
                 <a href="/sites" className="text-white">Find a Store</a>
               </li>
-              {!loading && session && (
+              {!status && session && (
                 <li>
                   <a href="/user/profile" className="text-white">Manage Account</a>
                 </li>
