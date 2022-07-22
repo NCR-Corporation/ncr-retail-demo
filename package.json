@@ -45,7 +45,7 @@
     "lodash": "^4.17.21",
     "ncr-hmac": "file:ncr-hmac",
     "next": "^10.2.2",
-    "next-auth": "^4.10.2",
+    "next-auth": "^4.9.0",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-datepicker": "^3.6.0",
