@@ -39,7 +39,7 @@
     "framer-motion": "^3.10.6",
     "google-map-react": "^2.1.9",
     "haversine": "^1.1.1",
-    "jquery": "^1.12.4",
+    "jquery": "^3.5.0",
     "js-base64": "^3.6.0",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
