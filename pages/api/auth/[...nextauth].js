@@ -1,10 +1,11 @@
 import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/react';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { createUser, getCurrentUserProfileData } from '~/lib/provisioning';
 import { authenticateUser, exchangeToken } from '~/lib/security';
 
 const options = {
   site: process.env.NEXTAUTH_URL || 'http://localhost:3000',
+  secret: process.env.NEXTAUTH_SECRET,
   // Configure one or more authentication providers
   providers: [
     CredentialsProvider({
@@ -55,12 +56,12 @@ const options = {
               let userSessionObj = {
                 token: authenticateUserResponse.data.token,
                 username: user.username,
-                givenName: user.givenName,
+                name: user.givenName,
                 expires: expiresAt
               };
-              return Promise.resolve(userSessionObj);
+              return userSessionObj;
             }
-            return Promise.reject(userProfile);
+            return null;
           } else {
             return Promise.reject(authenticateUserResponse);
           }
@@ -93,12 +94,12 @@ const options = {
             let userSessionObj = {
               token: data.token,
               username: user.username,
-              givenName: user.givenName,
+              name: user.givenName,
               expires: expiresAt
             };
-            return Promise.resolve(userSessionObj);
+            return userSessionObj;
           }
-          return Promise.reject();
+          return null;
         } else {
           return Promise.reject();
         }
@@ -133,31 +134,30 @@ const options = {
     })
   ],
   callbacks: {
-    session: async (session, user) => {
-      session.user = user.data;
-      // Renew token if token expires in 5 minutes.
+    async session({ session, token }) {
       let now = new Date().getTime() / 1000;
-      let expires = new Date(session.user.expires).getTime() / 1000;
-      console.log('session time left: ', expires - now);
+      let expires = new Date(session.expires).getTime() / 1000;
       if (expires - now < 500) {
-        console.log('I need to reauthenticate my token ' + session.user.token);
-        let newToken = await exchangeToken(session.user.token);
+        let newToken = await exchangeToken(token.token.token.user.token);
         session.user.token = newToken.data.token;
         let expiresAt = new Date();
         expiresAt.setSeconds(expiresAt.getSeconds() + 900);
         session.user.expires = expiresAt;
       }
-      return Promise.resolve(session);
+      return session;
     },
-    jwt: async (token, user) => {
-      if (user) {
-        token.data = user;
+    async jwt({ token, account, profile }) {
+      if (account) {
+        token.data = account;
       }
-      return Promise.resolve(token);
+      if (profile) {
+        token.profile = profile;
+      }
+      return token;
     }
   },
   session: {
-    jwt: true
+    strategy: 'jwt'
   },
   debug: true
 };
