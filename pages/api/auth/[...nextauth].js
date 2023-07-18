@@ -54,7 +54,7 @@ const options = {
               let expiresAt = new Date();
               expiresAt.setSeconds(expiresAt.getSeconds() + 900);
               let userSessionObj = {
-                token: authenticateUserResponse.data.token,
+                accessToken: authenticateUserResponse.data.token,
                 username: user.username,
                 name: user.givenName,
                 expires: expiresAt
@@ -92,14 +92,14 @@ const options = {
             let expiresAt = new Date();
             expiresAt.setSeconds(expiresAt.getSeconds() + 900);
             let userSessionObj = {
-              token: data.token,
+              accessToken: data.token,
               username: user.username,
               name: user.givenName,
               expires: expiresAt
             };
             return userSessionObj;
           }
-          return null;
+          return Promise.reject();
         } else {
           return Promise.reject();
         }
@@ -122,7 +122,7 @@ const options = {
           let expiresAt = new Date();
           expiresAt.setSeconds(expiresAt.getSeconds() + 900);
           let userSessionObj = {
-            token: credentials.token,
+            accessToken: credentials.token,
             username: user.username,
             givenName: user.givenName,
             expires: expiresAt
@@ -135,6 +135,7 @@ const options = {
   ],
   callbacks: {
     async session({ session, token }) {
+      session.user.token = token.accessToken;
       let now = new Date().getTime() / 1000;
       let expires = new Date(session.expires).getTime() / 1000;
       if (expires - now < 500) {
@@ -148,12 +149,16 @@ const options = {
     },
     async jwt({ token, account, profile }) {
       if (account) {
-        token.data = account;
+        token.accessToken = account.accessToken;
       }
       if (profile) {
         token.profile = profile;
       }
       return token;
+    },
+    async signIn({ user, account }) {
+      account.accessToken = user.accessToken;
+      return true;
     }
   },
   session: {
