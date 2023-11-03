@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+import { UserStoreContext } from '~/context/userStore';
+
 const StoreListItem = ({ toggle, setUserStore, site }) => {
   if (site.address) {
     const [addingUserStore, setAddingUserStore] = useState(false);
@@ -26,8 +28,11 @@ const StoreListItem = ({ toggle, setUserStore, site }) => {
             color={addingUserStore ? 'success' : 'primary'}
             className={`${addingUserStore && 'fade-btn'}`}
             onClick={() => {
+              console.log('button has been clicked');
               setAddingUserStore(true);
               setUserStore(site);
+              console.log(UserStoreContext);
+              console.log(site);
             }}
             onAnimationEnd={() => {
               setAddingUserStore(false);

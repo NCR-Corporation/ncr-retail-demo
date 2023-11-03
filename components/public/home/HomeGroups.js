@@ -43,7 +43,9 @@ const HomeGroups = ({ isError, isLoading, userStore, data }) => {
                 <CardTitle tag="h2" className="text-white">
                   {element.group.data.title.values[0].value}
                 </CardTitle>
-                <a href={`/group/${element.group.data.groupId.groupCode}`} className="btn btn-light">Shop Now</a>
+                <a href={`/group/${element.group.data.groupId.groupCode}`} className="btn btn-light">
+                  Shop Now
+                </a>
               </CardBody>
               <Image
                 src={element && element.group && element.group.data && element.group.data.tag ? element.group.data.tag : ''}

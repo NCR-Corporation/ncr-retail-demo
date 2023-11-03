@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { findNearby } from '~/lib/sites';
 
 export default async function handler(req, res) {
+  console.log('Find sites API is being hit');
   if (req.query.latitude && req.query.longitude) {
     let response = await findNearby(req.query.latitude, req.query.longitude);
     if (response.status == 200) {
@@ -35,7 +36,14 @@ export default async function handler(req, res) {
       res.status(response.status).json({ response, logs: [response.log] });
     }
   } else {
-    let response = await findNearby();
-    res.status(response.status).json({ response, logs: [response.log] });
+    try {
+      console.log('Right before calling handler from controller');
+      let response = await findNearby();
+      console.log('Response from controller: ');
+      console.log(response);
+      return res.status(response.status).json({ response, logs: [response.log] });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
