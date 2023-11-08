@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { createUser, getCurrentUserProfileData } from '~/lib/provisioning';
 import { authenticateUser, exchangeToken } from '~/lib/security';
+import jwt from "jsonwebtoken";
 
 const options = {
   site: process.env.NEXTAUTH_URL || 'http://localhost:3000',
@@ -83,6 +84,7 @@ const options = {
         password: { label: 'Password', type: 'password' }
       },
       authorize: async (credentials) => {
+        console.log("Loc 2");
         let response = await authenticateUser(credentials.username, credentials.password);
         const { status, data } = response;
         if (status === 200) {
@@ -97,6 +99,8 @@ const options = {
               name: user.givenName,
               expires: expiresAt
             };
+            console.log("User session obj (2): ");
+            console.log(userSessionObj);
             return userSessionObj;
           }
           return Promise.reject();
@@ -145,6 +149,9 @@ const options = {
         expiresAt.setSeconds(expiresAt.getSeconds() + 900);
         session.user.expires = expiresAt;
       }
+      let decodedToken = jwt.decode(session.user.token);
+      session.user.username = decodedToken.sub;
+      console.log(session);
       return session;
     },
     async jwt({ token, account, profile }) {

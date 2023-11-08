@@ -45,9 +45,12 @@ const Checkout = ({ session }) => {
     fetch(`/api/order`, { method: 'POST', body: JSON.stringify(userOrder) })
       .then((res) => res.json())
       .then((data) => {
+        console.log("order data");
+        console.log(order);
         // Reset the cart.
         if (data.response.status == 200) {
           setUserCart({ totalQuantity: 0, etag: null, location: null });
+          console.log("Order ID: " + data.response.data.id);
           router.push(`/order/${data.response.data.id}`);
         } else {
           setIsPurchasing(false);

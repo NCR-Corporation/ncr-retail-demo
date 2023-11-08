@@ -30,7 +30,6 @@ const FindStoreModal = (props) => {
         fetch(`/api/findSites`)
           .then((res) => res.json())
           .then((body) => {
-            console.log('fetch find sites (calling backend from frontend)');
             const { response } = body;
             setSites(response.data.pageContent);
           })
