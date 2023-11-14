@@ -47,7 +47,7 @@
     "moment": "2.29.4",
     "ncr-hmac": "file:ncr-hmac",
     "next": "^10.2.2",
-    "next-auth": "4.10.3",
+    "next-auth": "^4.24.5",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-datepicker": "^3.6.0",

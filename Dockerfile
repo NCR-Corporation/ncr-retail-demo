@@ -1,6 +1,6 @@
 # Install dependencies only when needed
 # FROM node:alpine AS deps
-FROM node:16.13.0-alpine3.13 AS deps
+FROM node:16.13.0-alpine3.18.4 AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat git
 WORKDIR /app
@@ -9,14 +9,14 @@ COPY ncr-hmac/ ./ncr-hmac
 RUN yarn install
 
 # Rebuild the source code only when needed
-FROM node:16.13.0-alpine3.13 AS builder
+FROM node:16.13.0-alpine3.18.4 AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build
 
 # Production image, copy all the files and run next
-FROM node:16.13.0-alpine3.13 AS runner
+FROM node:16.13.0-alpine3.18.4 AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
