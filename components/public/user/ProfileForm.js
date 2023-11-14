@@ -127,6 +127,8 @@ export default function ProfileForm({ session, user, logs, setLogs }) {
               <Col>
                 <h4 className="mb-2">My Profile</h4>
               </Col>
+            {
+              /*              
               <Col>
                 <div className="form-group float-right">
                   <Button color="primary" type="submit" className={`${!(dirty && isValid) ? 'disabled' : ''}`} disabled={!(dirty && isValid)}>
@@ -134,6 +136,8 @@ export default function ProfileForm({ session, user, logs, setLogs }) {
                   </Button>
                 </div>
               </Col>
+              */
+            }
             </Row>
 
             <Row>
@@ -153,14 +157,14 @@ export default function ProfileForm({ session, user, logs, setLogs }) {
                       <Col sm="6">
                         <div className="form-group">
                           <label htmlFor="givenName">First Name*</label>
-                          <Field name="givenName" id="givenName" className={`${errors.givenName && touched.givenName ? 'is-invalid' : null} form-control`} />
+                          <Field name="givenName" id="givenName" className={`${errors.givenName && touched.givenName ? 'is-invalid' : null} form-control`} disabled />
                           <ErrorMessage name="givenName" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
                       <Col sm="6">
                         <div className="form-group">
                           <label htmlFor="familyName">Last Name*</label>
-                          <Field name="familyName" id="familyName" className={`${errors.familyName && touched.familyName ? 'is-invalid' : null} form-control`} />
+                          <Field name="familyName" id="familyName" className={`${errors.familyName && touched.familyName ? 'is-invalid' : null} form-control`} disabled />
                           <ErrorMessage name="familyName" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
@@ -181,7 +185,7 @@ export default function ProfileForm({ session, user, logs, setLogs }) {
                       <Col sm="6">
                         <div className="form-group">
                           <label htmlFor="phoneNumber">Phone Number</label>
-                          <Field name="phoneNumber" id="phoneNumber" className={`${errors.phoneNumber && touched.phoneNumber ? 'is-invalid' : null} form-control`} />
+                          <Field name="phoneNumber" id="phoneNumber" className={`${errors.phoneNumber && touched.phoneNumber ? 'is-invalid' : null} form-control`} disabled />
                           <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
@@ -190,7 +194,7 @@ export default function ProfileForm({ session, user, logs, setLogs }) {
                       <Col sm="12">
                         <div className="form-group">
                           <label htmlFor="street">Street</label>
-                          <Field name="street" id="street" className={`${errors.street && touched.street ? 'is-invalid' : null} form-control`} />
+                          <Field name="street" id="street" className={`${errors.street && touched.street ? 'is-invalid' : null} form-control`} disabled />
                           <ErrorMessage name="street" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
@@ -199,28 +203,28 @@ export default function ProfileForm({ session, user, logs, setLogs }) {
                       <Col sm="4">
                         <div className="form-group">
                           <label htmlFor="city">City</label>
-                          <Field name="city" id="city" className={`${errors.city && touched.city ? 'is-invalid' : null} form-control`} />
+                          <Field name="city" id="city" className={`${errors.city && touched.city ? 'is-invalid' : null} form-control`} disabled />
                           <ErrorMessage name="city" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
                       <Col sm="2">
                         <div className="form-group ">
                           <label htmlFor="state">State</label>
-                          <Field name="state" id="state" className={`${errors.state && touched.state ? 'is-invalid' : null} form-control`} />
+                          <Field name="state" id="state" className={`${errors.state && touched.state ? 'is-invalid' : null} form-control`} disabled />
                           <ErrorMessage name="state" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
                       <Col sm="3">
                         <div className="form-group ">
                           <label htmlFor="postalCode">Postal Code</label>
-                          <Field name="postalCode" id="postalCode" className={`${errors.postalCode && touched.postalCode ? 'is-invalid' : null} form-control`} />
+                          <Field name="postalCode" id="postalCode" className={`${errors.postalCode && touched.postalCode ? 'is-invalid' : null} form-control`} disabled />
                           <ErrorMessage name="postalCode" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
                       <Col sm="3">
                         <div className="form-group ">
                           <label htmlFor="country">Country</label>
-                          <Field name="country" id="country" className={`${errors.country && touched.country ? 'is-invalid' : null} form-control`} />
+                          <Field name="country" id="country" className={`${errors.country && touched.country ? 'is-invalid' : null} form-control`} disabled />
                           <ErrorMessage name="country" component="div" className="invalid-feedback" />
                         </div>
                       </Col>
