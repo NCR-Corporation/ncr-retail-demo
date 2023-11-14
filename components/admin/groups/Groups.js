@@ -27,7 +27,7 @@ function Groups({ data, isError, isLoading }) {
                   <td>{item.status}</td>
                   <td>
                     <a href={`/admin/groups/${item.groupId.groupCode}`}>
-                      <FontAwesomeIcon icon={faEdit} color="darkslategrey" />
+                      {/*<FontAwesomeIcon icon={faEdit} color="darkslategrey" />*/}
                     </a>
                   </td>
                 </tr>
