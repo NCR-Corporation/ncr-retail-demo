@@ -35,7 +35,7 @@ const HomeGroups = ({ isError, isLoading, userStore, data }) => {
 
   return (
     <div className="index-list mb-4 row">
-      {userStore.id &&
+      {userStore.id && data.home &&
         data.home.map((element) => (
           <Col md={6} key={element.group.data.groupId.groupCode}>
             <Card className="d-flex align-items-center justify-content-center flex-row p-4 h-100">
