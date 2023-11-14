@@ -3,7 +3,6 @@ import { getAllCategoryNodes } from '~/lib/category';
 import Layout from '~/components/admin/Layout';
 
 const EditCatalogItem = ({ id, categoryNodes }) => {
-  
   return (
     <Layout activeTab="catalog">
       <CatalogForm id={id} categories={categoryNodes.categories} />
