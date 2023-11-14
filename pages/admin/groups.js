@@ -8,7 +8,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useDashboard from '~/lib/swr/useDashboard';
 
 const GroupsTab = () => {
-  let { data, isLoading, isError } = useDashboard('groups');
+  let { data, isLoading, isError } = useDashboard({ param: 'groups' });
 
   return (
     <Layout activeTab="groups">
