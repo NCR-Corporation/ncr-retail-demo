@@ -61,9 +61,11 @@ export default function Cart() {
           <Card className="mb-2 cart-card">
             <CardBody>
               <p>{`Uhoh, we've hit an error. Please try again.`}</p>
+{/*
               <Button onClick={() => emptyCart()} color="link" className="mt-1 text-muted p-0" size="sm">
                 Clear Cart
-              </Button>
+              </Button>   
+*/}
             </CardBody>
           </Card>
         </Col>
@@ -80,9 +82,11 @@ export default function Cart() {
         {data && data.cartItems.data.pageContent.length > 0 && (
           <Row>
             <Col>
+{/*
               <Button onClick={() => emptyCart()} color="link" className="mt-1 text-muted p-0" size="sm">
                 Clear Cart
               </Button>
+*/}
             </Col>
           </Row>
         )}
