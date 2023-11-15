@@ -5,6 +5,7 @@ import { Table } from 'reactstrap';
 
 function Groups({ data, isError, isLoading }) {
   const groups = data.data && data.data.pageContent.length > 0 ? data.data.pageContent : [];
+  const activeGroups = groups.filter((group) => group.status === "ACTIVE");
 
   return (
     <div>
@@ -20,7 +21,7 @@ function Groups({ data, isError, isLoading }) {
           </thead>
           {!isError && !isLoading ? (
             <tbody>
-              {groups.map((item) => (
+              {activeGroups.map((item) => (
                 <tr key={item.groupId.groupCode}>
                   <th scope="row">{item.groupId.groupCode}</th>
                   <td>{item.title.value}</td>
@@ -37,7 +38,7 @@ function Groups({ data, isError, isLoading }) {
             !isError && <LoadingTable />
           )}
         </Table>
-        {groups.length == 0 && !isLoading && !isError && <p className="text-center">No groups found.</p>}
+        {activeGroups.length === 0 && !isLoading && !isError && <p className="text-center">No active groups found.</p>}
       </div>
     </div>
   );
