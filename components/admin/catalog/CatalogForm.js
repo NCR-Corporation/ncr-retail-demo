@@ -156,8 +156,6 @@ const CatalogForm = ({ id, categories }) => {
         .then((data) => {
           let error = false;
           for (let key in data) {
-            console.log(data[key]);
-            console.log(data[key].status);
             if (data[key].status !== 204) {
               if (data[key].status !== undefined) {
                 setShowAlert({

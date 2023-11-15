@@ -84,7 +84,6 @@ const options = {
         password: { label: 'Password', type: 'password' }
       },
       authorize: async (credentials) => {
-        console.log("Loc 2");
         let response = await authenticateUser(credentials.username, credentials.password);
         const { status, data } = response;
         if (status === 200) {
@@ -99,8 +98,6 @@ const options = {
               name: user.givenName,
               expires: expiresAt
             };
-            console.log("User session obj (2): ");
-            console.log(userSessionObj);
             return userSessionObj;
           }
           return Promise.reject();
@@ -121,7 +118,7 @@ const options = {
       },
       authorize: async (credentials) => {
         let userProfile = await getCurrentUserProfileData(credentials.token);
-        if (userProfile.status == 200) {
+        if (userProfile.status === 200) {
           let user = userProfile.data;
           let expiresAt = new Date();
           expiresAt.setSeconds(expiresAt.getSeconds() + 900);
@@ -151,7 +148,6 @@ const options = {
       }
       let decodedToken = jwt.decode(session.user.token);
       session.user.username = decodedToken.sub;
-      console.log(session);
       return session;
     },
     async jwt({ token, account, profile }) {

@@ -95,7 +95,6 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
         body: JSON.stringify(nodes)
       })
         .then((response) => {
-          console.log(response);
           if (!(response.status === 204 || response.status === 200)) {
             setShowAlert({
               status: response.status,
@@ -115,7 +114,6 @@ const CategoryForm = ({ categoryId, categoryNodes }) => {
         body: JSON.stringify(nodes) 
       })
           .then((response) => {
-            console.log(response);
             if (response.status !== 204) {
               setShowAlert({
                 status: response.status, 

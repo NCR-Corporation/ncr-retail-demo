@@ -4,17 +4,11 @@ import { getSession } from 'next-auth/react';
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     const session = await getSession({ req });
-    console.log("session in handler: ");
-    console.log(session);
     let order = await getOrderById(req.query.id);
-    console.log("ORDER: ");
-    console.log(order);
     if (order.status !== 200) {
       res.status(order.status).json(order);
     }
     if (order.data.customer.id !== session.user.username) {
-      console.log("customerID: " + order.data.customer.id);
-      console.log("session username: " + session.user.username);
       console.log("THROW HELPFUL ERROR HERE");
       res.status(403).json({ logs: [order.log] });
     } else {

@@ -24,8 +24,8 @@ const GroupsTab = () => {
           </div>
         </div>
       </div>
-      {isError && <small className="text-muted">{`Uhoh, we've hit an error.`}</small>}
-      <Groups isLoading={isLoading} isError={isError} data={data && data.result && data.result.status == 200 ? data.result : []} />
+      {isError && <small className="text-muted">{`Uh oh, we've hit an error.`}</small>}
+      <Groups isLoading={isLoading} isError={isError} data={data && data.result && data.result.status === 200 ? data.result : []} />
     </Layout>
   );
 };

@@ -65,7 +65,6 @@ const GroupForm = ({ id }) => {
     };
     fetch(`/api/groups`, { method: 'POST', body: JSON.stringify(data) })
         .then((response) => {
-          console.log(response.status);
           if (response.status !== 204) {
             setShowAlert({
               status: response.status,
