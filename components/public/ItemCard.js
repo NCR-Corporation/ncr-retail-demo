@@ -45,7 +45,7 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
         <a href={item ? `/catalog/${item.itemId.itemCode}` : '#'} aria-label={item.shortDescription.values[0].value}>
           <Image
             alt={item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}
-            src={itemAttributes.imageUrls[0] !== '' && itemAttributes.imageUrls.length > 0 && itemAttributes.imageUrls[0] !== null ? itemAttributes.imageUrls[0] : 'https://via.placeholder.com/150'}
+            src={itemAttributes.imageUrls[0] !== '' && itemAttributes.imageUrls.length > 0 && itemAttributes.imageUrls[0] !== null ? itemAttributes.imageUrls[0] : 'https://retaildemo.ncrcloud.com/images/placeholder.jpg'}
             layout="responsive"
             width={255}
             height={255}
