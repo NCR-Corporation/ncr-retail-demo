@@ -6,13 +6,13 @@ const items = [
     src: '/images/fresh-food.png',
     altText: 'Fresh Food, Every Day',
     caption: 'Fresh Food, Every Day',
-    link: '/category/1f33d252'
+    link: '/category/abaaeea3'
   },
   {
     src: '/images/kitchen-home.png',
     altText: 'Kitchen Essentials for Your Home',
     caption: 'Kitchen Essentials for Your Home',
-    link: '/category/af452ca5'
+    link: '/category/d78b0d8b'
   }
 ];
 
