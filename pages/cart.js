@@ -60,7 +60,7 @@ export default function Cart() {
         <Col md="8">
           <Card className="mb-2 cart-card">
             <CardBody>
-              <p>{`Uhoh, we've hit an error. Please try again.`}</p>
+              <p>{`Uh oh, we've hit an error. Please try again.`}</p>
 {/*
               <Button onClick={() => emptyCart()} color="link" className="mt-1 text-muted p-0" size="sm">
                 Clear Cart
