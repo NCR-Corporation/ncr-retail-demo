@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { Card, CardBody, Col, Container, Row, Button } from 'reactstrap';
+import { Card, CardBody, Col, Container, Row } from 'reactstrap';
 import { UserCartContext } from '~/context/userCart';
 import { UserStoreContext } from '~/context/userStore';
 import CartCheckout from '~/components/public/cart/CartCheckout';
@@ -22,6 +22,8 @@ export default function Cart() {
     mutate(`/api/cart/${userStore.id}/${userCart.location}`);
   };
 
+/*
+  TODO: Needs to be fixed
   const emptyCart = () => {
     fetch(`/api/cart/${userStore.id}/${userCart.location}`, {
       method: 'DELETE'
@@ -31,6 +33,7 @@ export default function Cart() {
         setUserCart({ totalQuantity: 0, etag: null, location: null });
       });
   };
+*/
 
   if (isLoading) {
     return (
@@ -61,7 +64,8 @@ export default function Cart() {
           <Card className="mb-2 cart-card">
             <CardBody>
               <p>{`Uh oh, we've hit an error. Please try again.`}</p>
-{/*
+{/*           
+              TODO: Fix Clear Cart functionality
               <Button onClick={() => emptyCart()} color="link" className="mt-1 text-muted p-0" size="sm">
                 Clear Cart
               </Button>   
@@ -82,7 +86,7 @@ export default function Cart() {
         {data && data.cartItems.data.pageContent.length > 0 && (
           <Row>
             <Col>
-{/*
+{/*           TODO: Fix Clear Cart functionality
               <Button onClick={() => emptyCart()} color="link" className="mt-1 text-muted p-0" size="sm">
                 Clear Cart
               </Button>

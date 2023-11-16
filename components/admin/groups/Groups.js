@@ -1,6 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoadingTable from '~/components/admin/LoadingTable';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Table } from 'reactstrap';
 
 function Groups({ data, isError, isLoading }) {
@@ -28,7 +26,9 @@ function Groups({ data, isError, isLoading }) {
                   <td>{item.status}</td>
                   <td>
                     <a href={`/admin/groups/${item.groupId.groupCode}`}>
-                      {/*<FontAwesomeIcon icon={faEdit} color="darkslategrey" />*/}
+                      {/* TODO: Fix Edit Groups functionality
+                        <FontAwesomeIcon icon={faEdit} color="darkslategrey" />
+                      */}
                     </a>
                   </td>
                 </tr>
