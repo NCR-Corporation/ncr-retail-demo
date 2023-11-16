@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import useDashboard from '~/lib/swr/useDashboard';
 import Orders from '~/components/admin/orders/Orders';
 import Layout from '~/components/admin/Layout';
-import {UserStoreContext} from "~/context/userStore";
+import { UserStoreContext } from "~/context/userStore";
 
 const OrdersTab = () => {
     const { userStore } = useContext(UserStoreContext);
