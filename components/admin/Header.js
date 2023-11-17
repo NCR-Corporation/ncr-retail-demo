@@ -36,7 +36,7 @@ const Header = ({ activeTab, tabs = true }) => {
           <Nav className="px-md-3">
             <div className="flex-column d-block d-sm-none">
               <NavItem>
-                <a  href="/admin/dashboard" className={`nav-link ${activeTab === 'dashboard' && 'active'} ${!tabs && 'pl-0'}`}>
+                <a href="/admin/dashboard" className={`nav-link ${activeTab === 'dashboard' && 'active'} ${!tabs && 'pl-0'}`}>
                   <FontAwesomeIcon icon={faTachometerAlt} size="sm" className="feather mr-2 pl-1" />
                   Dashboard
                 </a>

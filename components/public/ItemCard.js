@@ -45,11 +45,7 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
         <a href={item ? `/catalog/${item.itemId.itemCode}` : '#'} aria-label={item.shortDescription.values[0].value}>
           <Image
             alt={item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}
-            src={
-                itemAttributes.imageUrls[0] !== '' && itemAttributes.imageUrls.length > 0 && itemAttributes.imageUrls[0] !== null
-                ? itemAttributes.imageUrls[0]
-                : 'https://via.placeholder.com/150'
-            }
+            src={itemAttributes.imageUrls[0] !== '' && itemAttributes.imageUrls.length > 0 && itemAttributes.imageUrls[0] !== null ? itemAttributes.imageUrls[0] : 'https://retaildemo.ncrcloud.com/images/placeholder.jpg'}
             layout="responsive"
             width={255}
             height={255}
@@ -64,7 +60,9 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
       {item ? (
         <CardBody className="d-flex pb-1">
           <div className="align-self-end">
-            <a href={item ? `/catalog/${item.itemId.itemCode}` : '#'} className="h5 card-title mb-0">{item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}</a>
+            <a href={item ? `/catalog/${item.itemId.itemCode}` : '#'} className="h5 card-title mb-0">
+              {item.shortDescription.values ? item.shortDescription.values[0].value : item.shortDescription.value}
+            </a>
           </div>
         </CardBody>
       ) : (
