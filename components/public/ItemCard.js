@@ -20,6 +20,7 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
     setAddingToCart(true);
     setAddedToCart(false);
     fetch(`/api/cart`, {
+      cache: 'no-store',
       method: 'POST',
       body: JSON.stringify({
         siteId: userStore.id,
@@ -37,6 +38,9 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
         setUserCart(userCart);
         setAddingToCart(false);
         setAddedToCart(true);
+      })
+      .catch((e) => {
+          console.log('error from frontend when adding to cart: ' + e);
       });
   };
 
