@@ -15,6 +15,7 @@ const ItemCard = ({ catalogItem = {}, showCartButton = true }) => {
   const { userStore } = useContext(UserStoreContext);
 
   const handleAddToCart = async (itemObj) => {
+    console.log("itemObj2", itemObj)
     itemObj['quantity'] = 1;
     setAddingToCart(true);
     setAddedToCart(false);
