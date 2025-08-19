@@ -74,7 +74,7 @@ const Header = ({ activeTab, tabs = true }) => {
               <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-white">Resources</h6>
 
               <NavItem>
-                <NavLink href="https://developer.ncr.com/" target="_blank">
+                <NavLink href="https://developer.ncrvoyix.com/" target="_blank">
                   <FontAwesomeIcon icon={faExternalLinkAlt} className="feather mr-2" size="sm" />
                   NCR Documentation & API Specs
                 </NavLink>

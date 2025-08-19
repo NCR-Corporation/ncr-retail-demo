@@ -1,13 +1,13 @@
 <h1 align="center">
 <br>
-<a href="https://retaildemo.ncrcloud.com" target="_blank"><img src="./public/mart-banner.png" alt="MART" height="auto" width="100%" /></a>
+<a href="https://retaildemo.ncrvoyixcloud.com" target="_blank"><img src="./public/mart-banner.png" alt="MART" height="auto" width="100%" /></a>
 <br>
 </h1>
 
-<h4 align="center">A sample retail demo application built on top of <a href="https://developer.ncr.com" target="_blank">NCR's APIs.</a></h4>
+<h4 align="center">A sample retail demo application built on top of <a href="https://developer.ncrvoyix.com" target="_blank">NCR's APIs.</a></h4>
 
 <p align="center">
-<a href="https://retaildemo.ncrcloud.com/"><img src="https://img.shields.io/badge/-Visit%20Demo-blue" alt="Demo" /></a>
+<a href="https://retaildemo.ncrvoyixcloud.com/"><img src="https://img.shields.io/badge/-Visit%20Demo-blue" alt="Demo" /></a>
 <img src="https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg" alt="Dependencies" />
 <a href="https://github.com/NCR-Corporation/ncr-retail-demo/issues"><img src="https://img.shields.io/github/issues/NCR-Corporation/ncr-retail-demo" alt="Github Issues" /></a>
 <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions Welcome" />
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-<a href="https://retaildemo.ncrcloud.com/" target="_blank">Demo</a> //
+<a href="https://retaildemo.ncrvoyixcloud.com/" target="_blank">Demo</a> //
 <a href="#features">Features</a> //
 <a href="#overview">Overview</a> //
 <a href="#how-to-use">How to Use</a> //
@@ -35,7 +35,7 @@
 
 ## Overview
 
-MART integrates with multiple NCR APIs including [Order](https://developer.ncr.com/portals/dev-portal/api-explorer/details/374), [Catalog](https://developer.ncr.com/portals/dev-portal/api-explorer/details/453), [Sites](https://developer.ncr.com/portals/dev-portal/api-explorer/details/645), Security, & Provisioning. The demo application showcases one possible way to utilize one or many of the available APIs.
+MART integrates with multiple NCR APIs including [Order](https://developer.ncrvoyix.com/portals/dev-portal/api-explorer/details/374), [Catalog](https://developer.ncrvoyix.com/portals/dev-portal/api-explorer/details/453), [Sites](https://developer.ncrvoyix.com/portals/dev-portal/api-explorer/details/645), Security, & Provisioning. The demo application showcases one possible way to utilize one or many of the available APIs.
 
 This repository showcases an imaginary retail company with multiple stores in different location. The company can be managed globally as well as at the individual store level.
 
@@ -57,7 +57,7 @@ Why? When using the Test Drive feature, each application is a **fresh installati
 
 2. Secondly, open the repository in an editor and rename `.env copy.local` to `.env.local`.
 
-3. After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncr.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncr.com) and visit the [Test Drive Documentation](https://developer.ncr.com/portals/dev-portal/getting-started). Use `openssl rand -base64 32` to generate a random value to be used for the field `NEXTAUTH_SECRET`.
+3. After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncrvoyix.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncrvoyix.com) and visit the [Test Drive Documentation](https://developer.ncrvoyix.com/portals/dev-portal/getting-started). Use `openssl rand -base64 32` to generate a random value to be used for the field `NEXTAUTH_SECRET`.
 
 4. Next, install all npm packages in the project directory:
 

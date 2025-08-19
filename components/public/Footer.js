@@ -39,7 +39,7 @@ const Footer = () => {
             <h2 className="h6 text-uppercase font-weight-bolder text-light">Help</h2>
             <ul className="list-unstyled text-small">
               <li>
-                <a href="https://developer.ncr.com/" className="text-white">
+                <a href="https://developer.ncrvoyix.com/" className="text-white">
                   Documentation
                 </a>
               </li>
