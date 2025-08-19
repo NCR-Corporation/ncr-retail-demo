@@ -76,7 +76,7 @@ const Header = ({ activeTab, tabs = true }) => {
               <NavItem>
                 <NavLink href="https://developer.ncrvoyix.com/" target="_blank">
                   <FontAwesomeIcon icon={faExternalLinkAlt} className="feather mr-2" size="sm" />
-                  NCR Documentation & API Specs
+                  NCR Voyix Documentation & API Specs
                 </NavLink>
               </NavItem>
               <NavItem>

@@ -35,7 +35,7 @@
 
 ## Overview
 
-MART integrates with multiple NCR APIs including [Order](https://developer.ncrvoyix.com/portals/dev-portal/api-explorer/details/374), [Catalog](https://developer.ncrvoyix.com/portals/dev-portal/api-explorer/details/453), [Sites](https://developer.ncrvoyix.com/portals/dev-portal/api-explorer/details/645), Security, & Provisioning. The demo application showcases one possible way to utilize one or many of the available APIs.
+MART integrates with multiple NCR Voyix APIs including [Order](https://developer.ncrvoyix.com/portals/dev-portal/api-explorer/details/374), [Catalog](https://developer.ncrvoyix.com/portals/dev-portal/api-explorer/details/453), [Sites](https://developer.ncrvoyix.com/portals/dev-portal/api-explorer/details/645), Security, & Provisioning. The demo application showcases one possible way to utilize one or many of the available APIs.
 
 This repository showcases an imaginary retail company with multiple stores in different location. The company can be managed globally as well as at the individual store level.
 
@@ -57,7 +57,7 @@ Why? When using the Test Drive feature, each application is a **fresh installati
 
 2. Secondly, open the repository in an editor and rename `.env copy.local` to `.env.local`.
 
-3. After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Developer Portal](https://developer.ncrvoyix.com). To learn more about receiving access, create an account on the [NCR Developer Portal](https://developer.ncrvoyix.com) and visit the [Test Drive Documentation](https://developer.ncrvoyix.com/portals/dev-portal/getting-started). Use `openssl rand -base64 32` to generate a random value to be used for the field `NEXTAUTH_SECRET`.
+3. After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Voyix Developer Portal](https://developer.ncrvoyix.com). To learn more about receiving access, create an account on the [NCR Voyix Developer Portal](https://developer.ncrvoyix.com) and visit the [Test Drive Documentation](https://developer.ncrvoyix.com/portals/dev-portal/getting-started). Use `openssl rand -base64 32` to generate a random value to be used for the field `NEXTAUTH_SECRET`.
 
 4. Next, install all npm packages in the project directory:
 
@@ -78,7 +78,7 @@ Why? When using the Test Drive feature, each application is a **fresh installati
 
 ### Seeding the Database (Experimental)
 
-Every new application built with NCR is a blank installation with no data. If you are looking to become familiar with the APIs and see the application in action locally, you will need to either:
+Every new application built with NCR Voyix is a blank installation with no data. If you are looking to become familiar with the APIs and see the application in action locally, you will need to either:
 
 1. Create your own Sites, Categories, Groups, and Catalog
 2. Seed the database.
