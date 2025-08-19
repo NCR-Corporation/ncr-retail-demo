@@ -4,6 +4,8 @@
 <br>
 </h1>
 
+asdfadsf
+
 <h4 align="center">A sample retail demo application built on top of <a href="https://developer.ncr.com" target="_blank">NCR's APIs.</a></h4>
 
 <p align="center">
