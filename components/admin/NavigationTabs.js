@@ -48,7 +48,7 @@ const NavigationTabs = ({ activeTab, tabs = true }) => {
         <NavItem>
           <NavLink href="https://developer.ncrvoyix.com/" target="_blank">
             <FontAwesomeIcon icon={faExternalLinkAlt} className="feather" size="sm" />
-            NCR Documentation & API Specs
+            NCR Voyix Documentation & API Specs
           </NavLink>
         </NavItem>
         <NavItem>
