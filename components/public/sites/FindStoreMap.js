@@ -30,7 +30,7 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
     <div style={{ height: '100%', width: '100%', minHeight: '400px' }}>
       <GoogleMapReact
         bootstrapURLKeys={{
-          key: 'AIzaSyAD0jNBZriOaCs0K1q9ckADfEr3WaIA894'
+          key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
         }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}

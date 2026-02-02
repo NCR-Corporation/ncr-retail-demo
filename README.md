@@ -55,7 +55,7 @@ Why? When using the Test Drive feature, each application is a **fresh installati
    git clone https://github.com/NCR-Corporation/ncr-retail-demo.git
    ```
 
-2. Secondly, open the repository in an editor and rename `.env copy.local` to `.env.local`.
+2. Secondly, open the repository in an editor and rename `.env.template` to `.env.local`.
 
 3. After renaming, open `.env.local` and update the variables `REACT_APP_BSP_SECRET_KEY`, `REACT_APP_BSP_ORGANIZATION`, `REACT_APP_BSP_SHARED_KEY` with data found in the [NCR Voyix Developer Portal](https://developer.ncrvoyix.com). To learn more about receiving access, create an account on the [NCR Voyix Developer Portal](https://developer.ncrvoyix.com) and visit the [Test Drive Documentation](https://developer.ncrvoyix.com/portals/dev-portal/getting-started). Use `openssl rand -base64 32` to generate a random value to be used for the field `NEXTAUTH_SECRET`.
 
