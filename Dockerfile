@@ -32,7 +32,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/ncr-hmac ./ncr-hmac
-COPY --from=builder /app/.env.local ./
 
 USER nextjs
 
@@ -43,6 +42,5 @@ EXPOSE 8080
 # Uncomment the following line in case you want to disable telemetry.
 # ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_OPTIONS=--max-old-space-size=3000
-
 
 CMD ["yarn", "start"]
