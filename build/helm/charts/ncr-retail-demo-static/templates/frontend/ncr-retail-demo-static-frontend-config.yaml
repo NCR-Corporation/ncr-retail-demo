@@ -1,9 +1,0 @@
-﻿apiVersion: networking.gke.io/v1beta1
-kind: FrontendConfig
-metadata:
-  name: frontend-config-http-to-https-redirect-{{ .Release.Namespace }}
-spec:
-  redirectToHttps:
-    enabled: true
-    responseCodeName: PERMANENT_REDIRECT
-  sslPolicy: bsp-restricted
