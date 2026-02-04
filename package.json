@@ -6,6 +6,7 @@
   "homepage": "https://github.com/NCR-Corporation/ncr-retail-demo",
   "scripts": {
     "dev": "next dev",
+    "dev:legacy": "set NODE_OPTIONS=--openssl-legacy-provider && next dev",
     "build": "next build",
     "start": "next start -p ${PORT:=8080}",
     "prettify": "npx prettier --write .",
