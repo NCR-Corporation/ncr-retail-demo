@@ -6,7 +6,7 @@ module.exports = {
     ignoreDuringBuilds: true
   },
   publicRuntimeConfig: {
-    GOOGLE_MAPS_API_KEY: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '',
-    APP_URI: process.env.REACT_APP_URI || ''
+    APP_URI: process.env.REACT_APP_URI,
+    GOOGLE_MAPS_API_KEY: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   }
 };
