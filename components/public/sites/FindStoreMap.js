@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { env } from 'next-runtime-env';
 import GoogleMapReact from 'google-map-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import getConfig from 'next/config';
 
 const SiteMarker = ({ onMarkerClick, showInfoWindow, site }) => (
   <div onClick={onMarkerClick} aria-hidden="true">
@@ -12,8 +12,6 @@ const SiteMarker = ({ onMarkerClick, showInfoWindow, site }) => (
 );
 
 const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
-  const { publicRuntimeConfig = {} } = getConfig() || {};
-  const googleMapsApiKey = publicRuntimeConfig.GOOGLE_MAPS_API_KEY || '';
   
   const defaultProps = {
     center: {
@@ -34,7 +32,7 @@ const FindStoreMap = ({ coordinates, sites, setUserStore }) => {
     <div style={{ height: '100%', width: '100%', minHeight: '400px' }}>
       <GoogleMapReact
         bootstrapURLKeys={{
-          key: googleMapsApiKey
+          key: env('NEXT_PUBLIC_GOOGLE_MAPS_API_KEY')
         }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
