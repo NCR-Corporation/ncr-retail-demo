@@ -1,12 +1,12 @@
 import Head from 'next/head';
-import getConfig from "next/config";
+import { env } from 'next-runtime-env';
 
 export default function Metatags({ children }) {
   const title = 'MART | Sample App Retail Demo';
   const description = "A sample retail demo application built on top of NCR's APIs.";
   const socialImage = `mart.png`;
-  const { publicRuntimeConfig = {} } = getConfig() || {};
-  const appUri = publicRuntimeConfig.APP_URI || '';
+  const appUri = env('NEXT_PUBLIC_APP_URI');
+  
   return (
     <div>
       <Head>
